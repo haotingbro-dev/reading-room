@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
+  <title>The AISS Reading Room</title>
+  <meta name="description" content="Editorial reading studio and spoken fluency journal for AI Sales Specialists." />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Reading Room" />
+  <style>
+    :root {
+      --paper: #FBF9F5;
+      --paper-elevated: #F3EFE6;
+      --ink: #161514;
+      --ink-secondary: #57534E;
+      --ink-muted: #78716C;
+      --rule: #DED8CE;
+      --accent: #8C2D19;
+      --accent-soft: #EFE5DC;
+      --highlight: #E7DEC8;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --paper: #141413;
+        --paper-elevated: #1E1D1B;
+        --ink: #EDEAE4;
+        --ink-secondary: #A8A29E;
+        --ink-muted: #78716C;
+        --rule: #2E2C29;
+        --accent: #D97757;
+        --accent-soft: #2D211C;
+        --highlight: #2C2820;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      margin: 0;
+      background-color: var(--paper);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.55;
+      padding: max(1.25rem, env(safe-area-inset-top)) max(1rem, env(safe-area-inset-right)) max(5rem, env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-left));
+    }
+
+    @media (min-width: 768px) {
+      body { padding: 2.5rem 3rem 4.5rem; }
+    }
+
+    .container { max-width: 1140px; margin: 0 auto; }
+    .font-serif { font-family: "Iowan Old Style", "Charter", "Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif; }
+    .font-mono { font-family: "SF Mono", "SFMono-Regular", ui-monospace, Consolas, Menlo, monospace; }
+
+    .rule-double { border-top: 3px double var(--ink); }
+    .border-b { border-bottom: 1px solid var(--rule); }
+    .border-t { border-top: 1px solid var(--rule); }
+    .border-t-bold { border-top: 2px solid var(--ink); }
+    .border-box { border: 1px solid var(--rule); background-color: var(--paper-elevated); }
+
+    .kicker {
+      font-family: "SF Mono", ui-monospace, monospace;
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--ink-muted);
+    }
+
+    .drop-cap::first-letter {
+      float: left;
+      font-size: 3.1rem;
+      line-height: 0.82;
+      padding-right: 0.6rem;
+      padding-top: 0.16rem;
+      font-weight: 700;
+      color: var(--ink);
+      font-family: "Iowan Old Style", Georgia, serif;
+    }
+
+    /* ==================== PURE CSS STATE ENGINE (Works even when JS is blocked in Drive/QuickLook!) ==================== */
+    .state-radio, .state-check {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* Section visibility via Pure CSS */
+    .sec-panel { display: none; padding-top: 1.5rem; }
+    #sec-rad-reading:checked ~ .container #panel-reading { display: block; }
+    #sec-rad-lexicon:checked ~ .container #panel-lexicon { display: block; }
+    #sec-rad-register:checked ~ .container #panel-register { display: block; }
+    #sec-rad-mobile:checked ~ .container #panel-mobile { display: block; }
+
+    /* Nav Tab Active Highlight via Pure CSS */
+    .nav-label {
+      cursor: pointer;
+      padding-bottom: 0.65rem;
+      color: var(--ink-muted);
+      border-bottom: 2px solid transparent;
+      font-size: 0.9rem;
+      display: inline-block;
+    }
+    #sec-rad-reading:checked ~ .container label[for="sec-rad-reading"],
+    #sec-rad-lexicon:checked ~ .container label[for="sec-rad-lexicon"],
+    #sec-rad-register:checked ~ .container label[for="sec-rad-register"],
+    #sec-rad-mobile:checked ~ .container label[for="sec-rad-mobile"] {
+      color: var(--ink);
+      border-bottom: 2px solid var(--ink);
+      font-weight: 600;
+    }
+
+    /* 7-Day Selection via Pure CSS */
+    .day-panel { display: none; }
+    #day-rad-0:checked ~ .container #day-panel-0,
+    #day-rad-1:checked ~ .container #day-panel-1,
+    #day-rad-2:checked ~ .container #day-panel-2,
+    #day-rad-3:checked ~ .container #day-panel-3,
+    #day-rad-4:checked ~ .container #day-panel-4,
+    #day-rad-5:checked ~ .container #day-panel-5,
+    #day-rad-6:checked ~ .container #day-panel-6 {
+      display: block;
+    }
+
+    .day-card-label {
+      display: block;
+      cursor: pointer;
+      border: 1px solid var(--rule);
+      padding: 0.55rem 0.7rem;
+      transition: background-color 0.15s;
+    }
+    .day-card-label:hover { background-color: var(--paper-elevated); }
+
+    #day-rad-0:checked ~ .container label[for="day-rad-0"],
+    #day-rad-1:checked ~ .container label[for="day-rad-1"],
+    #day-rad-2:checked ~ .container label[for="day-rad-2"],
+    #day-rad-3:checked ~ .container label[for="day-rad-3"],
+    #day-rad-4:checked ~ .container label[for="day-rad-4"],
+    #day-rad-5:checked ~ .container label[for="day-rad-5"],
+    #day-rad-6:checked ~ .container label[for="day-rad-6"] {
+      background-color: var(--ink);
+      color: var(--paper);
+      border-color: var(--ink);
+    }
+
+    /* Dual-Length Toggle (90-Sec Brief vs. Deep Feature) via Pure CSS */
+    .mode-brief-content { display: none; }
+    .mode-deep-content { display: block; }
+    #len-rad-brief:checked ~ .container .mode-brief-content { display: block; }
+    #len-rad-brief:checked ~ .container .mode-deep-content { display: none; }
+
+    .mode-label {
+      cursor: pointer;
+      padding: 0.4rem 0.8rem;
+      font-family: "SF Mono", monospace;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      display: inline-block;
+    }
+    #len-rad-brief:checked ~ .container label[for="len-rad-brief"],
+    #len-rad-deep:checked ~ .container label[for="len-rad-deep"] {
+      background-color: var(--ink);
+      color: var(--paper);
+    }
+
+    /* Bilingual Translation Toggle via Pure CSS */
+    .cn-translation-block {
+      display: none;
+      font-size: 0.85rem;
+      color: var(--ink-secondary);
+      border-left: 2px solid var(--accent);
+      padding-left: 0.85rem;
+      margin: 0.65rem 0 0;
+    }
+    #chk-bilingual:checked ~ .container .cn-translation-block {
+      display: block;
+    }
+    #chk-bilingual:checked ~ .container label[for="chk-bilingual"] {
+      background-color: var(--ink);
+      color: var(--paper);
+      border-color: var(--ink);
+    }
+
+    /* Prosody Marks Toggle via Pure CSS */
+    .prosody-stress {
+      font-weight: 600;
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 4px;
+    }
+    .prosody-caesura {
+      color: var(--accent);
+      opacity: 0.7;
+      font-family: "SF Mono", monospace;
+      font-size: 0.85em;
+      padding: 0 4px;
+    }
+    #chk-prosody:not(:checked) ~ .container .prosody-stress {
+      font-weight: 400;
+      text-decoration: none;
+    }
+    #chk-prosody:not(:checked) ~ .container .prosody-caesura {
+      display: none;
+    }
+    #chk-prosody:checked ~ .container label[for="chk-prosody"] {
+      background-color: var(--ink);
+      color: var(--paper);
+      border-color: var(--ink);
+    }
+
+    /* Layout Grids */
+    .day-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.45rem;
+    }
+    @media (min-width: 640px) { .day-grid { grid-template-columns: repeat(4, 1fr); } }
+    @media (min-width: 960px) { .day-grid { grid-template-columns: repeat(7, 1fr); } }
+
+    .editorial-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+    @media (min-width: 960px) {
+      .editorial-grid {
+        grid-template-columns: 8fr 4fr;
+        gap: 3rem;
+      }
+      .marginalia-col {
+        border-left: 1px solid var(--rule);
+        padding-left: 2rem;
+      }
+    }
+
+    .btn-outline {
+      border: 1px solid var(--rule);
+      padding: 0.4rem 0.85rem;
+      font-family: "SF Mono", monospace;
+      font-size: 0.73rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      background: transparent;
+      color: var(--ink);
+      display: inline-block;
+    }
+    .btn-ink {
+      background-color: var(--ink);
+      color: var(--paper);
+      border: 1px solid var(--ink);
+      padding: 0.4rem 0.9rem;
+      font-family: "SF Mono", monospace;
+      font-size: 0.73rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      display: inline-block;
+    }
+
+    .word-token {
+      cursor: pointer;
+      border-radius: 2px;
+      transition: background-color 0.12s;
+    }
+    .word-token:hover { background-color: var(--highlight); }
+    .word-queried {
+      border-bottom: 1.5px solid var(--accent);
+      background-color: var(--accent-soft);
+      padding: 0 2px;
+    }
+
+    details.vocab-drawer {
+      border-bottom: 1px solid var(--rule);
+      padding: 0.65rem 0;
+    }
+    details.vocab-drawer summary {
+      cursor: pointer;
+      font-family: "Iowan Old Style", Georgia, serif;
+      font-weight: 700;
+      font-size: 0.98rem;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    @media (max-width: 959px) {
+      #mobile-word-toast {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 50;
+        background-color: var(--paper-elevated);
+        border-top: 2px solid var(--ink);
+        padding: 1rem 1.25rem max(1rem, env(safe-area-inset-bottom));
+        box-shadow: 0 -8px 24px rgba(0,0,0,0.15);
+      }
+    }
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== PURE CSS STATE RADIOS (Guarantees 100% clickability even without JS) ==================== -->
+  <!-- Primary Sections -->
+  <input type="radio" name="sec-nav" id="sec-rad-reading" class="state-radio" checked />
+  <input type="radio" name="sec-nav" id="sec-rad-lexicon" class="state-radio" />
+  <input type="radio" name="sec-nav" id="sec-rad-register" class="state-radio" />
+  <input type="radio" name="sec-nav" id="sec-rad-mobile" class="state-radio" />
+
+  <!-- 7 Days (Mon-Sun) -->
+  <input type="radio" name="day-nav" id="day-rad-0" class="state-radio" checked />
+  <input type="radio" name="day-nav" id="day-rad-1" class="state-radio" />
+  <input type="radio" name="day-nav" id="day-rad-2" class="state-radio" />
+  <input type="radio" name="day-nav" id="day-rad-3" class="state-radio" />
+  <input type="radio" name="day-nav" id="day-rad-4" class="state-radio" />
+  <input type="radio" name="day-nav" id="day-rad-5" class="state-radio" />
+  <input type="radio" name="day-nav" id="day-rad-6" class="state-radio" />
+
+  <!-- Length Mode (Brief vs Deep) -->
+  <input type="radio" name="len-nav" id="len-rad-brief" class="state-radio" />
+  <input type="radio" name="len-nav" id="len-rad-deep" class="state-radio" checked />
+
+  <!-- Cadence & Bilingual Checkboxes -->
+  <input type="checkbox" id="chk-prosody" class="state-check" checked />
+  <input type="checkbox" id="chk-bilingual" class="state-check" />
+
+  <div class="container">
+
+    <!-- ==================== MASTHEAD ==================== -->
+    <header class="border-b" style="padding-bottom:1.1rem;">
+      <div class="border-b" style="display:flex; flex-wrap:wrap; justify-content:space-between; gap:0.5rem; padding-bottom:0.6rem;">
+        <span class="kicker">Vol. IV · Issue 44 — Field Edition for Haoting Ma</span>
+        <span class="kicker">Synced: AI Weekly Briefing (Oct 25 – Oct 29)</span>
+        <span class="kicker">Universal CSS + JS Hybrid Engine</span>
+      </div>
+
+      <div style="display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:1.5rem; padding:1.4rem 0;">
+        <div>
+          <div class="kicker" style="color:var(--accent); margin-bottom:0.3rem;">Executive Discourse &amp; Everyday Idiom</div>
+          <h1 class="font-serif" style="font-size:clamp(1.9rem, 4vw, 3rem); font-weight:400; margin:0; letter-spacing:-0.02em; line-height:1.1;">
+            The AISS Reading Room
+          </h1>
+        </div>
+
+        <div style="display:flex; align-items:center; gap:1.5rem; border-left:1px solid var(--rule); padding-left:1.25rem;">
+          <div>
+            <div class="kicker">Personal Lexicon</div>
+            <label for="sec-rad-lexicon" class="font-serif" style="font-size:1.45rem; text-decoration:underline; text-underline-offset:4px; cursor:pointer;">
+              <span id="stat-lexicon">12</span> <span style="font-size:0.75rem; color:var(--ink-muted); font-family:sans-serif;">entries</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Bar (Labels trigger CSS radios directly!) -->
+      <nav class="rule-double" style="padding-top:0.75rem; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:1rem;">
+        <div style="display:flex; flex-wrap:wrap; gap:1.4rem;">
+          <label for="sec-rad-reading" class="nav-label">I. The Daily Folio (七日长文)</label>
+          <label for="sec-rad-lexicon" class="nav-label">II. Lexicon &amp; Weaver (生词与未来场景)</label>
+          <label for="sec-rad-register" class="nav-label">III. Register Matrix (三档语域)</label>
+          <label for="sec-rad-mobile" class="nav-label" style="color:var(--accent);">IV. 手机 Safari 打开指南</label>
+        </div>
+
+        <div style="display:flex; flex-wrap:wrap; align-items:center; gap:0.45rem;">
+          <label for="chk-prosody" class="btn-outline">Cadence Marks</label>
+          <label for="chk-bilingual" class="btn-outline">中英对照</label>
+        </div>
+      </nav>
+    </header>
+
+    <!-- ==================== PANEL I: THE DAILY FOLIO ==================== -->
+    <main id="panel-reading" class="sec-panel">
+
+      <!-- 7-Day Selector Bar (Pure CSS Labels — Works in Google Drive Preview & iOS QuickLook!) -->
+      <div class="border-b" style="padding-bottom:1.2rem; margin-bottom:1.8rem; display:flex; flex-direction:column; gap:1rem;">
+        <div class="day-grid">
+          <label for="day-rad-0" class="day-card-label">
+            <div class="font-mono" style="font-size:0.7rem;">Mon 周一</div>
+            <div class="font-serif" style="font-size:0.82rem; margin-top:2px;">Executive Vision</div>
+          </label>
+          <label for="day-rad-1" class="day-card-label">
+            <div class="font-mono" style="font-size:0.7rem;">Tue 周二</div>
+            <div class="font-serif" style="font-size:0.82rem; margin-top:2px;">Strategic Framing</div>
+          </label>
+          <label for="day-rad-2" class="day-card-label">
+            <div class="font-mono" style="font-size:0.7rem;">Wed 周三</div>
+            <div class="font-serif" style="font-size:0.82rem; margin-top:2px;">Trusted Advisor</div>
+          </label>
+          <label for="day-rad-3" class="day-card-label">
+            <div class="font-mono" style="font-size:0.7rem;">Thu 周四</div>
+            <div class="font-serif" style="font-size:0.82rem; margin-top:2px;">Commercial Deal</div>
+          </label>
+          <label for="day-rad-4" class="day-card-label">
+            <div class="font-mono" style="font-size:0.7rem;">Fri 周五</div>
+            <div class="font-serif" style="font-size:0.82rem; margin-top:2px;">Workplace Warmth</div>
+          </label>
+          <label for="day-rad-5" class="day-card-label">
+            <div class="font-mono" style="font-size:0.7rem;">Sat 周六</div>
+            <div class="font-serif" style="font-size:0.82rem; margin-top:2px;">Offsite Social</div>
+          </label>
+          <label for="day-rad-6" class="day-card-label">
+            <div class="font-mono" style="font-size:0.7rem;">Sun 周日</div>
+            <div class="font-serif" style="font-size:0.82rem; margin-top:2px;">Weekly Synthesis</div>
+          </label>
+        </div>
+
+        <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:0.75rem;">
+          <span class="font-serif" style="font-size:0.86rem; font-style:italic; color:var(--ink-secondary);">
+            点击上方星期即可自由切换每日主题；右侧可切换「90秒精炼版」与「500词深度长文版」。
+          </span>
+          <div style="display:inline-flex; border:1px solid var(--rule); padding:2px;">
+            <label for="len-rad-brief" class="mode-label">90-Sec Brief (~200w)</label>
+            <label for="len-rad-deep" class="mode-label">Deep Feature (~500w)</label>
+          </div>
+        </div>
+      </div>
+
+      <!--Two-Column Asymmetric Reading Layout -->
+      <div class="editorial-grid">
+
+        <!-- Left 8 Cols: Pre-Rendered 7-Day Manuscripts -->
+        <div>
+
+          <!-- ==================== DAY 0: MONDAY ==================== -->
+          <div id="day-panel-0" class="day-panel">
+            <div class="border-b" style="padding-bottom:1.1rem; margin-bottom:1.5rem;">
+              <div style="display:flex; justify-content:space-between; margin-bottom:0.4rem;">
+                <span class="kicker" style="color:var(--accent);">Monday · Executive Vision (周报新发布破冰)</span>
+                <button onclick="speakDay(0)" class="kicker" style="text-decoration:underline; color:var(--ink);">🔊 Listen Aloud</button>
+              </div>
+              <h2 class="font-serif" style="font-size:clamp(1.45rem, 2.5vw, 2.05rem); font-weight:400; margin:0.2rem 0 0.5rem;">
+                Navigating the Gemini 4 Carbon Preview Without Stalling Q4 Argon Commitments
+              </h2>
+              <p style="font-size:0.92rem; color:var(--ink-secondary); margin:0;">
+                Addressing C-suite excitement around frontier benchmarks while protecting near-term commercial velocity ahead of the November 30 pricing cliff.
+              </p>
+            </div>
+
+            <!-- Deep Mode (500w) -->
+            <div class="mode-deep-content" style="display:flex; flex-direction:column; gap:1.6rem;">
+              <article>
+                <div class="kicker" style="margin-bottom:0.4rem;">I. Warm Rapport &amp; Recognizing the Engineering Pace</div>
+                <p class="font-serif drop-cap" style="font-size:1.18rem; line-height:1.82; margin:0;">
+                  Hey David, good to see you, and thanks for carving out time on a Friday afternoon. <span class="prosody-caesura">/</span> I know your platform and security teams have been <span class="prosody-stress">running at full tilt</span> over the past three weeks gearing up for your Q4 international rollout. <span class="prosody-caesura">/</span> Before we <span class="prosody-stress">dive</span> into the commercial redlines on our order form, <span class="prosody-caesura">/</span> I saw the note you sent over after reading our <span class="prosody-stress">Gemini 4 Carbon</span> blog post this morning. <span class="prosody-caesura">/</span> Whenever a new <span class="prosody-stress">frontier</span> model lands at the top of the leaderboard, it naturally generates a lot of <span class="prosody-stress">buzz</span> in the executive suite—so I wanted to address your question head-on and <span class="prosody-stress">unpack</span> how Carbon fits into your architecture.
+                </p>
+                <p class="cn-translation-block">嗨 David，很高兴见到你，感谢周五下午抽空。我知道你们平台和安全团队过去三周为了 Q4 全球上线一直在全速运转（running at full tilt）。在我们看订单商务条款前，我看到了你今早读完 Gemini 4 Carbon 博客后发来的消息。每当有新前沿模型登顶榜单，自然会在高管层引发热议（buzz）——所以我想正面回应你的问题，拆解（unpack）一下 Carbon 对你们架构的意义。</p>
+              </article>
+
+              <article>
+                <div class="kicker" style="margin-bottom:0.4rem;">II. Deconstructing Capabilities vs. Access Realities</div>
+                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">
+                  To give you the <span class="prosody-stress">straight story</span>: <span class="prosody-caesura">/</span> Gemini 4 Carbon represents a major leap in sustained, multi-day agentic coding and autonomous cyber-defense, <span class="prosody-caesura">/</span> scoring fifty-nine on the newly <span class="prosody-stress">revamped</span> Artificial Analysis v5.0 index and over sixty-five percent on Terminal-Bench. <span class="prosody-caesura">/</span> If your security researchers are pairing models with CodeMender for vulnerability patching next year, Carbon will be transformative. <span class="prosody-caesura">/</span> However, in the spirit of full <span class="prosody-stress">candor</span>, Carbon is not generally available today. <span class="prosody-caesura">/</span> Access is limited to a <span class="prosody-stress">tightly gated</span> cohort of pre-approved cyber-defense organizations under Project Fairwind, <span class="prosody-caesura">/</span> and we are not accepting new nominations or committing to a public GA date yet.
+                </p>
+                <p class="cn-translation-block">直接给你交个底（straight story）：Gemini 4 Carbon 在多日连续长程编码和自主网络防御上实现了重大跃升，在全新改版（revamped）的 AA v5.0 拿到 59 分。本着完全坦诚的原则（in the spirit of full candor），Carbon 目前并未公开可用，仅限 Fairwind 计划预批防御机构准入（tightly gated），暂不接受新提名，也没有公开 GA 时间表。</p>
+              </article>
+
+              <article>
+                <div class="kicker" style="margin-bottom:0.4rem;">III. The Commercial Math Behind the November 30 Cliff</div>
+                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">
+                  That brings us to the practical question your procurement team raised: <span class="prosody-caesura">/</span> should you hit pause on your Q4 <span class="prosody-stress">Gemini 4 Argon</span> deployment and wait? <span class="prosody-caesura">/</span> If we look closely at the numbers, <span class="prosody-stress">deferring</span> Argon right now would actually penalize your P&amp;L. <span class="prosody-caesura">/</span> Today, Argon is offered at an introductory rate of <span class="prosody-stress">two dollars</span> per million input tokens and <span class="prosody-stress">ten dollars</span> output, paired with a ninety-five percent context caching discount—bringing your <span class="prosody-stress">blended</span> unit cost down to roughly $2.65. <span class="prosody-caesura">/</span> That promotional window hits a hard <span class="prosody-stress">cliff</span> on <span class="prosody-stress">November thirtieth</span>, when list pricing doubles to four dollars and twenty dollars.
+                </p>
+                <p class="cn-translation-block">这就引出了你们采购团队关心的实际问题：是否应该暂停 Q4 的 Argon 部署去等待？如果我们仔细算账，现在推迟（deferring）Argon 反而会让损益表受损。目前 Argon 享受 $2/$10 介绍价与 95% 缓存折扣，混合单价（blended unit cost）仅约 $2.65。这个促销窗口将在 11 月 30 日迎来硬性截止（promotional cliff），届时目录价将翻倍至 $4 和 $20。</p>
+              </article>
+
+              <article>
+                <div class="kicker" style="margin-bottom:0.4rem;">IV. Lifecycle Stability &amp; Zero-Rework Migration</div>
+                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">
+                  Equally important is lifecycle governance. <span class="prosody-caesura">/</span> Argon is designated as our Long-GA <span class="prosody-stress">workhorse</span>, meaning we guarantee at least twelve months of production stability, whereas Carbon will launch initially as a Short-GA release. <span class="prosody-caesura">/</span> Because the entire Gemini 4 family shares a unified API contract, every evaluation pipeline your engineers build on Argon this quarter is one hundred percent <span class="prosody-stress">drop-in compatible</span> with Carbon down the road—giving you immediate promotional economics today without a single line of <span class="prosody-stress">rework</span> tomorrow.
+                </p>
+                <p class="cn-translation-block">同样重要的是生命周期治理。Argon 是我们承诺至少 12 个月稳定期的 Long-GA 主力机型（workhorse），而 Carbon 初期上线时为 Short-GA。由于整个 Gemini 4 系列共享统一 API，你们本季度在 Argon 上构建的所有流水线未来都 100% 即插即用兼容（drop-in compatible）Carbon——今天锁定促销单价，未来零返工（rework）平滑升级。</p>
+              </article>
+            </div>
+
+            <!-- Brief Mode (200w) -->
+            <div class="mode-brief-content" style="display:flex; flex-direction:column; gap:1.5rem;">
+              <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">
+                Hey David, good to see you. I know your platform team has been <span class="prosody-stress">running at full tilt</span> gearing up for Q4. <span class="prosody-caesura">/</span> I saw your note about the <span class="prosody-stress">Gemini 4 Carbon</span> announcement—it generated a lot of <span class="prosody-stress">buzz</span>, so let's <span class="prosody-stress">unpack</span> what it means for your roadmap. <span class="prosody-caesura">/</span> To give you the <span class="prosody-stress">straight story</span>: Carbon hits fifty-nine on the <span class="prosody-stress">revamped</span> AA v5.0 benchmark, but it remains in a <span class="prosody-stress">tightly gated</span> preview under Project Fairwind with no public GA date.
+              </p>
+              <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">
+                More importantly, <span class="prosody-stress">deferring</span> Argon right now would hurt your unit economics. <span class="prosody-caesura">/</span> Argon's introductory rate of two dollars and ten dollars with a ninety-five percent cache discount expires at the <span class="prosody-stress">November thirtieth cliff</span>. <span class="prosody-caesura">/</span> Because Argon is our Long-GA <span class="prosody-stress">workhorse</span> and <span class="prosody-stress">drop-in compatible</span> with Carbon later, signing off this month locks in your baseline without any <span class="prosody-stress">rework</span>.
+              </p>
+            </div>
+          </div>
+
+          <!-- ==================== DAY 1: TUESDAY ==================== -->
+          <div id="day-panel-1" class="day-panel">
+            <div class="border-b" style="padding-bottom:1.1rem; margin-bottom:1.5rem;">
+              <div style="display:flex; justify-content:space-between; margin-bottom:0.4rem;">
+                <span class="kicker" style="color:var(--accent);">Tuesday · Strategic Framing (同母题视角深化)</span>
+                <button onclick="speakDay(1)" class="kicker" style="text-decoration:underline; color:var(--ink);">🔊 Listen Aloud</button>
+              </div>
+              <h2 class="font-serif" style="font-size:clamp(1.45rem, 2.5vw, 2.05rem); font-weight:400; margin:0.2rem 0 0.5rem;">
+                Reframing Leaderboard Volatility Into Blended Unit-Economic Advantage
+              </h2>
+              <p style="font-size:0.92rem; color:var(--ink-secondary); margin:0;">
+                Guiding a customer steering committee past raw benchmark rankings toward caching economics and total cost of ownership.
+              </p>
+            </div>
+
+            <div class="mode-deep-content" style="display:flex; flex-direction:column; gap:1.6rem;">
+              <article>
+                <div class="kicker" style="margin-bottom:0.4rem;">I. Contextualizing the October 27 Methodology Overhaul</div>
+                <p class="font-serif drop-cap" style="font-size:1.18rem; line-height:1.82; margin:0;">
+                  Thank you all for having me join the steering committee today. <span class="prosody-caesura">/</span> I want to be <span class="prosody-stress">mindful</span> of the committee's time, so let's address the question regarding the new Artificial Analysis numbers <span class="prosody-stress">head-on</span>. <span class="prosody-caesura">/</span> As many of you noticed on October twenty-seventh, AA published a thoroughly <span class="prosody-stress">revamped</span> v5.0 Intelligence Index—expanding to nine evaluations while keeping sixty percent of the prompts private. Because the weighting shifted dramatically, comparing v5.0 numbers against last quarter's v4 baseline is apples to oranges.
+                </p>
+                <p class="cn-translation-block">感谢各位邀请我参加指导委员会。为了珍惜大家的时间（mindful of time），我们直接正面回应（address head-on）关于新版 AA 跑分的问题。10 月 27 日 AA 发布了全面改版（revamped）的 v5.0 指数并保留 60% 非公开题库，因此与旧版 v4 已不再可比。</p>
+              </article>
+              <article>
+                <div class="kicker" style="margin-bottom:0.4rem;">II. Why Synthetic Scores Are Only Half the Equation</div>
+                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">
+                  More fundamentally, when you are running millions of customer turns a day, synthetic leaderboard rankings are only <span class="prosody-stress">half the equation</span>. <span class="prosody-caesura">/</span> A two-point delta on an academic benchmark rarely <span class="prosody-stress">moves the needle</span> on customer retention; latency determinism and <span class="prosody-stress">blended</span> token economics do. <span class="prosody-caesura">/</span> Under a realistic enterprise mix, our ninety-five percent cache discount brings Gemini 4 Argon's blended rate to $2.65 per million tokens—roughly half the estimated $5.30 cost of Claude Opus 5.5.
+                </p>
+                <p class="cn-translation-block">更本质的是，合成基准排名只是问题的一半（half the equation）。真正能拉动留存指标（moves the needle）的是确定性延迟与混合单价。计入 95% 缓存折扣后，Argon 混合单价仅 $2.65，约为 Claude Opus 5.5（$5.30）的一半。</p>
+              </article>
+            </div>
+
+            <div class="mode-brief-content">
+              <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">
+                Thank you for inviting me today. Let's address the <span class="prosody-stress">revamped</span> AA v5.0 benchmark <span class="prosody-stress">head-on</span>. <span class="prosody-caesura">/</span> In production, raw leaderboard rank is only <span class="prosody-stress">half the equation</span>; what truly <span class="prosody-stress">moves the needle</span> on margin is <span class="prosody-stress">blended</span> unit cost—where Argon's ninety-five percent cache discount delivers $2.65 per million tokens, roughly half the cost of Opus 5.5.
+              </p>
+            </div>
+          </div>
+
+          <!-- ==================== DAY 2: WEDNESDAY ==================== -->
+          <div id="day-panel-2" class="day-panel">
+            <div class="border-b" style="padding-bottom:1.1rem; margin-bottom:1.5rem;">
+              <div style="display:flex; justify-content:space-between; margin-bottom:0.4rem;">
+                <span class="kicker" style="color:var(--accent);">Wednesday · Trusted Advisor (架构顾问与诚实边界)</span>
+                <button onclick="speakDay(2)" class="kicker" style="text-decoration:underline; color:var(--ink);">🔊 Listen Aloud</button>
+              </div>
+              <h2 class="font-serif" style="font-size:clamp(1.45rem, 2.5vw, 2.05rem); font-weight:400; margin:0.2rem 0 0.5rem;">
+                Self-Serve Provisioned Throughput &amp; Root-Cause Observability with AQuA
+              </h2>
+              <p style="font-size:0.92rem; color:var(--ink-secondary); margin:0;">
+                Building deep technical credibility by pairing new console agility and open-source agent diagnostics with candid disclosure of platform boundaries.
+              </p>
+            </div>
+
+            <div class="mode-deep-content" style="display:flex; flex-direction:column; gap:1.6rem;">
+              <article>
+                <div class="kicker" style="margin-bottom:0.4rem;">I. Eliminating the Ticketing Bottleneck for Regional DRZ Workloads</div>
+                <p class="font-serif drop-cap" style="font-size:1.18rem; line-height:1.82; margin:0;">
+                  Maya, with Black Friday <span class="prosody-stress">just around the corner</span>, I know regional capacity <span class="prosody-stress">agility</span> in Singapore is top of mind for your infrastructure team. <span class="prosody-caesura">/</span> As of this week, for <span class="prosody-stress">allowlisted</span> enterprise accounts, you can modify single-zone Provisioned Throughput orders directly inside the Cloud Console on a <span class="prosody-stress">self-serve</span> basis—removing the manual ticketing <span class="prosody-stress">bottleneck</span> ahead of flash sales.
+                </p>
+                <p class="cn-translation-block">Maya，眼看黑五近在咫尺（just around the corner），我知道新加坡区域算力弹性（agility）是你们的头等大事。从本周起，白名单（allowlisted）客户可在控制台自助（on a self-serve basis）修改单区 PT 订单，消除人工提单瓶颈（bottleneck）。</p>
+              </article>
+              <article>
+                <div class="kicker" style="margin-bottom:0.4rem;">II. Candid Architectural Comparisons &amp; AQuA Root-Cause Diagnostics</div>
+                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">
+                  In the <span class="prosody-stress">spirit of full candor</span>, while self-serve modification beats AWS Bedrock's locked term commitments, Azure OpenAI decouples PTU quota from individual models, and our consolidated PT billing does not split cost line-items by model yet. <span class="prosody-caesura">/</span> Meanwhile, to stabilize your ADK shopping agent, our new open-source <span class="prosody-stress">AQuA</span> tool plugs into the Evaluation Service to <span class="prosody-stress">cluster</span> recurring failure modes and <span class="prosody-stress">pinpoint</span> the exact root cause whenever a multi-turn <span class="prosody-stress">trajectory</span> goes <span class="prosody-stress">sideways</span>.
+                </p>
+                <p class="cn-translation-block">本着完全坦诚的原则（in the spirit of full candor），虽然这比 AWS 锁死配额更灵活，但 Azure 的 PTU 与模型解耦（decoupled），且我们的 PT 账单暂不按模型拆分。同时，新开源的 AQuA 能自动聚类（cluster）失败模式，在多轮轨迹（trajectory）跑偏（goes sideways）时精准定位根因（pinpoint the root cause）。</p>
+              </article>
+            </div>
+
+            <div class="mode-brief-content">
+              <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">
+                With Black Friday <span class="prosody-stress">just around the corner</span>, <span class="prosody-stress">allowlisted</span> accounts can now modify single-zone PT orders in the console on a <span class="prosody-stress">self-serve</span> basis. <span class="prosody-caesura">/</span> In the <span class="prosody-stress">spirit of full candor</span>, Azure still decouples PTUs across models, but for your ADK agent, our new open-source <span class="prosody-stress">AQuA</span> tool helps <span class="prosody-stress">cluster</span> failures and <span class="prosody-stress">pinpoint</span> the root cause when a <span class="prosody-stress">trajectory</span> goes <span class="prosody-stress">sideways</span>.
+              </p>
+            </div>
+          </div>
+
+          <!-- ==================== DAY 3: THURSDAY ==================== -->
+          <div id="day-panel-3" class="day-panel">
+            <div class="border-b" style="padding-bottom:1.1rem; margin-bottom:1.5rem;">
+              <div style="display:flex; justify-content:space-between; margin-bottom:0.4rem;">
+                <span class="kicker" style="color:var(--accent);">Thursday · Commercial Deal-Desk (商务谈判与价格对标)</span>
+                <button onclick="speakDay(3)" class="kicker" style="text-decoration:underline; color:var(--ink);">🔊 Listen Aloud</button>
+              </div>
+              <h2 class="font-serif" style="font-size:clamp(1.45rem, 2.5vw, 2.05rem); font-weight:400; margin:0.2rem 0 0.5rem;">
+                Structuring Hybrid Capacity &amp; Mid-Tier Economics Against GPT-6.1 Terra
+              </h2>
+              <p style="font-size:0.92rem; color:var(--ink-secondary); margin:0;">
+                Equipping procurement and finance stakeholders with transparent blended-rate math and December 31 TCO guardrails.
+              </p>
+            </div>
+
+            <div class="mode-deep-content" style="display:flex; flex-direction:column; gap:1.6rem;">
+              <article>
+                <div class="kicker" style="margin-bottom:0.4rem;">I. Dissecting Mid-Tier Token Economics</div>
+                <p class="font-serif drop-cap" style="font-size:1.18rem; line-height:1.82; margin:0;">
+                  I appreciate you walking me through how your procurement board is <span class="prosody-stress">scrutinizing</span> every line item of AI spend right now. <span class="prosody-caesura">/</span> While OpenAI's new GPT-6.1 Terra lists at one dollar input and five dollars output—yielding a <span class="prosody-stress">blended</span> rate around $1.33—Gemini 3.8 Flash sits at $0.75 and $3.75 during its promotional window through <span class="prosody-stress">December thirty-first</span>, delivering a blended rate near $1.01.
+                </p>
+                <p class="cn-translation-block">很感谢你带我了解采购委员会正在如何严格审查（scrutinizing）每一笔 AI 支出。虽然 GPT-6.1 Terra 混合单价约 $1.33，但 Gemini 3.8 Flash 在 12 月 31 日前促销混合单价仅约 $1.01。</p>
+              </article>
+              <article>
+                <div class="kicker" style="margin-bottom:0.4rem;">II. Hybrid Capacity &amp; Multi-Model Drawdown Guardrails</div>
+                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">
+                  Before 3.8 Flash steps up to standard pricing on January first, we recommend sizing a committed Provisioned Throughput baseline while letting Pay-As-You-Go absorb unpredictable burst <span class="prosody-stress">spillover</span>. <span class="prosody-caesura">/</span> Also, regarding Claude 5.5 inside Gemini Enterprise: it is off by default, draws down your FSP at list price without discount, and does not retire any standalone Anthropic marketplace commit.
+                </p>
+                <p class="cn-translation-block">在 1 月 1 日 3.8 Flash 恢复标准价前，建议用 PT 锁定稳态基线，用 PayGo 吸收突发溢出流量（spillover）。另外 Gemini Enterprise 内的 Claude 5.5 默认关闭，按原价无折扣抵扣 FSP，不抵扣独立 Anthropic 承诺。</p>
+              </article>
+            </div>
+
+            <div class="mode-brief-content">
+              <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">
+                With your finance committee <span class="prosody-stress">scrutinizing</span> unit costs, note that Gemini 3.8 Flash blends near $1.01 versus GPT-6.1 Terra at $1.33 through <span class="prosody-stress">December thirty-first</span>. <span class="prosody-caesura">/</span> Let's cover your baseline with PT and let PayGo handle burst <span class="prosody-stress">spillover</span>.
+              </p>
+            </div>
+          </div>
+
+          <!-- ==================== DAY 4: FRIDAY ==================== -->
+          <div id="day-panel-4" class="day-panel">
+            <div class="border-b" style="padding-bottom:1.1rem; margin-bottom:1.5rem;">
+              <div style="display:flex; justify-content:space-between; margin-bottom:0.4rem;">
+                <span class="kicker" style="color:var(--accent);">Friday · Warm Workplace Rapport (跨国团队破冰与转场)</span>
+                <button onclick="speakDay(4)" class="kicker" style="text-decoration:underline; color:var(--ink);">🔊 Listen Aloud</button>
+              </div>
+              <h2 class="font-serif" style="font-size:clamp(1.45rem, 2.5vw, 2.05rem); font-weight:400; margin:0.2rem 0 0.5rem;">
+                Coffee-Line Small Talk, Peer Recognition &amp; The Gracious Meeting Pivot
+              </h2>
+              <p style="font-size:0.92rem; color:var(--ink-secondary); margin:0;">
+                Moving effortlessly from warm personal rapport into crisp agenda control on cross-functional calls.
+              </p>
+            </div>
+
+            <div class="mode-deep-content" style="display:flex; flex-direction:column; gap:1.6rem;">
+              <article>
+                <div class="kicker" style="margin-bottom:0.4rem;">I. Adding Texture to Friday Small Talk</div>
+                <p class="font-serif drop-cap" style="font-size:1.18rem; line-height:1.82; margin:0;">
+                  Happy Friday, Rachel! Good to see you—how has your week been treating you so far? <span class="prosody-caesura">/</span> Over on our side of the Pacific, between helping customers navigate Q4 deadlines and digesting rapid-fire product notes, it has honestly felt like <span class="prosody-stress">drinking from a firehose</span>—though definitely in a good way! <span class="prosody-caesura">/</span> Do you have any fun plans lined up to <span class="prosody-stress">unwind</span> a bit this weekend, or are you just keeping it <span class="prosody-stress">low-key</span> at home with family?
+                </p>
+                <p class="cn-translation-block">周五快乐 Rachel！我们这边一边忙 Q4 死线一边消化密集更新，感觉像对着消防水枪喝水（drinking from a firehose）一样充实！周末有什么计划放松一下（unwind），还是打算在家低调休息（low-key）？</p>
+              </article>
+              <article>
+                <div class="kicker" style="margin-bottom:0.4rem;">II. Peer Kudos &amp; The Gracious Pivot</div>
+                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">
+                  While we wait for Marcus to join, huge <span class="prosody-stress">kudos</span> on that Antigravity Enterprise Gateway diagram you shared on Wednesday—it resonated immediately with our lead architect. <span class="prosody-caesura">/</span> Alright, Marcus just popped in, so we officially have a <span class="prosody-stress">quorum</span>. I want to be <span class="prosody-stress">mindful</span> of everyone's time today, so let's dive right in and lock down our session abstract before the November sixth Export Summit cutoff.
+                </p>
+                <p class="cn-translation-block">趁等人的工夫，必须为你周三分享的 Antigravity 企业网关架构图点个大大的赞（kudos）。好了，人齐了（quorum），为了珍惜大家的时间（mindful of time），我们直接切入正题敲定 11 月 6 日截止的峰会摘要。</p>
+              </article>
+            </div>
+
+            <div class="mode-brief-content">
+              <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">
+                Happy Friday, Rachel! It has felt like <span class="prosody-stress">drinking from a firehose</span> this week—any plans to <span class="prosody-stress">unwind</span> or just keeping it <span class="prosody-stress">low-key</span>? <span class="prosody-caesura">/</span> Huge <span class="prosody-stress">kudos</span> on your architecture deck! Alright, we have a <span class="prosody-stress">quorum</span>, and to be <span class="prosody-stress">mindful</span> of everyone's time, let's dive right in.
+              </p>
+            </div>
+          </div>
+
+          <!-- ==================== DAY 5: SATURDAY ==================== -->
+          <div id="day-panel-5" class="day-panel">
+            <div class="border-b" style="padding-bottom:1.1rem; margin-bottom:1.5rem;">
+              <div style="display:flex; justify-content:space-between; margin-bottom:0.4rem;">
+                <span class="kicker" style="color:var(--accent);">Saturday · Everyday Narrative &amp; Offsite Social (地道生活与海外社交)</span>
+                <button onclick="speakDay(5)" class="kicker" style="text-decoration:underline; color:var(--ink);">🔊 Listen Aloud</button>
+              </div>
+              <h2 class="font-serif" style="font-size:clamp(1.45rem, 2.5vw, 2.05rem); font-weight:400; margin:0.2rem 0 0.5rem;">
+                Offsite Dinner Conversation: Jet Lag, Trail Hikes &amp; Everyday Idiom
+              </h2>
+              <p style="font-size:0.92rem; color:var(--ink-secondary); margin:0;">
+                Practicing relaxed, vivid storytelling for team dinners, coffee chats, and life outside work.
+              </p>
+            </div>
+
+            <div class="mode-deep-content" style="display:flex; flex-direction:column; gap:1.6rem;">
+              <article>
+                <div class="kicker" style="margin-bottom:0.4rem;">I. Breaking the Ice at an Offsite Dinner</div>
+                <p class="font-serif drop-cap" style="font-size:1.18rem; line-height:1.82; margin:0;">
+                  Honestly, it is such a treat to finally meet all of you in the <span class="prosody-stress">flesh</span> after collaborating across time zones on tiny video tiles for the past year! <span class="prosody-caesura">/</span> I touched down at SFO yesterday afternoon, and I thought I had beaten the time change—until the jet lag hit me like a brick wall at three in the morning. At this point, I am running purely on double espressos!
+                </p>
+                <p class="cn-translation-block">老实说，隔着小视频方格协作一年后，终于能见到各位真人（in the flesh）太棒了！我昨天下午落地旧金山，结果凌晨三点时差像墙一样砸过来，现在全靠双份浓缩咖啡撑着！</p>
+              </article>
+              <article>
+                <div class="kicker" style="margin-bottom:0.4rem;">II. Talking About Life Balance &amp; Recharging</div>
+                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">
+                  Whenever work gets <span class="prosody-stress">hectic</span> back home, I make a deliberate rule to <span class="prosody-stress">carve out</span> time on Saturday mornings before anyone else wakes up—whether for a quiet ten-kilometer run or taking the family out for a trail hike. Unplugging from screens for half a day completely resets my mental bandwidth.
+                </p>
+                <p class="cn-translation-block">在国内每当工作忙得不可开交（hectic）时，我都会在周六早上专门挤出时间（carve out time）去长跑或带家人徒步，彻底重置精力带宽。</p>
+              </article>
+            </div>
+
+            <div class="mode-brief-content">
+              <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">
+                It is so great to finally meet everyone in the <span class="prosody-stress">flesh</span>! <span class="prosody-caesura">/</span> Whenever work gets <span class="prosody-stress">hectic</span>, I try to <span class="prosody-stress">carve out</span> time on Saturday mornings for a trail hike to recharge and keep perspective.
+              </p>
+            </div>
+          </div>
+
+          <!-- ==================== DAY 6: SUNDAY ==================== -->
+          <div id="day-panel-6" class="day-panel">
+            <div class="border-b" style="padding-bottom:1.1rem; margin-bottom:1.5rem;">
+              <div style="display:flex; justify-content:space-between; margin-bottom:0.4rem;">
+                <span class="kicker" style="color:var(--accent);">Sunday · Lexical Synthesis (全周查词大融合)</span>
+                <button onclick="speakDay(6)" class="kicker" style="text-decoration:underline; color:var(--ink);">🔊 Listen Aloud</button>
+              </div>
+              <h2 class="font-serif" style="font-size:clamp(1.45rem, 2.5vw, 2.05rem); font-weight:400; margin:0.2rem 0 0.5rem;">
+                The Weekly Synthesis Monologue — Weaving Technical &amp; Social Fluency
+              </h2>
+              <p style="font-size:0.92rem; color:var(--ink-secondary); margin:0;">
+                Consolidating all six days of vocabulary into one cohesive narrative.
+              </p>
+            </div>
+
+            <div class="mode-deep-content" style="display:flex; flex-direction:column; gap:1.6rem;">
+              <article>
+                <div class="kicker" style="margin-bottom:0.4rem;">I. Full-Week Panorama</div>
+                <p class="font-serif drop-cap" style="font-size:1.18rem; line-height:1.82; margin:0;">
+                  Looking back at a <span class="prosody-stress">hectic</span> week where our team was <span class="prosody-stress">running at full tilt</span>, it felt like <span class="prosody-stress">drinking from a firehose</span>—yet we made remarkable strides. <span class="prosody-caesura">/</span> While the Gemini 4 Carbon preview generated immediate <span class="prosody-stress">buzz</span>, we gave executives the straight story on its <span class="prosody-stress">tightly gated</span> access and showed finance teams <span class="prosody-stress">scrutinizing</span> budgets why <span class="prosody-stress">deferring</span> Q4 Argon commitments before the November thirtieth <span class="prosody-stress">cliff</span> would backfire. Because Argon is our Long-GA <span class="prosody-stress">workhorse</span> and <span class="prosody-stress">drop-in compatible</span> with Carbon, clients lock in <span class="prosody-stress">blended</span> savings today with zero <span class="prosody-stress">rework</span>.
+                </p>
+              </article>
+              <article>
+                <div class="kicker" style="margin-bottom:0.4rem;">II. Candid Advisory &amp; Renewal</div>
+                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">
+                  In the <span class="prosody-stress">spirit of full candor</span>, we also walked architects through single-zone PT modifications on a <span class="prosody-stress">self-serve</span> basis and used AQuA to <span class="prosody-stress">pinpoint</span> root causes when agent <span class="prosody-stress">trajectories</span> went <span class="prosody-stress">sideways</span>. Having <span class="prosody-stress">carved out</span> quiet time this weekend to <span class="prosody-stress">unwind</span>, I am ready to dive right in on Monday.
+                </p>
+              </article>
+            </div>
+
+            <div class="mode-brief-content">
+              <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">
+                After a <span class="prosody-stress">hectic</span> week <span class="prosody-stress">running at full tilt</span>, we gave clients the straight story on Carbon's <span class="prosody-stress">tightly gated</span> preview, locked in Argon as their Long-GA <span class="prosody-stress">workhorse</span> without <span class="prosody-stress">rework</span>, and <span class="prosody-stress">carved out</span> time this weekend to <span class="prosody-stress">unwind</span>.
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right 4 Cols: Marginalia (Works both with JS click and native HTML <details> drawers!) -->
+        <aside class="marginalia-col" style="display:flex; flex-direction:column; gap:1.75rem;">
+
+          <!-- Interactive Word Inspector -->
+          <div class="border-box" style="padding:1.2rem;">
+            <div class="border-b" style="display:flex; justify-content:space-between; padding-bottom:0.45rem; margin-bottom:0.65rem;">
+              <span class="kicker">Marginalia · Word Inspector</span>
+              <span id="marginalia-saved" class="hidden kicker" style="color:var(--accent);">Archived</span>
+            </div>
+
+            <div id="marginalia-empty" class="font-serif" style="font-size:0.86rem; font-style:italic; color:var(--ink-secondary);">
+              在浏览器（Safari / Chrome）中点击左侧正文任意单词，即可发音并自动归档；如果你正在使用网盘预览器，可直接点击下方词条展开详解：
+            </div>
+
+            <div id="marginalia-detail" class="hidden" style="display:flex; flex-direction:column; gap:0.5rem;">
+              <div style="display:flex; justify-content:space-between; align-items:baseline;">
+                <span id="marg-word" class="font-serif" style="font-size:1.45rem; font-weight:700;"></span>
+                <button onclick="speakInspectedWord()" class="kicker" style="text-decoration:underline; color:var(--accent);">🔊 Pronounce</button>
+              </div>
+              <div id="marg-cn" style="font-size:0.9rem; font-weight:600; color:var(--accent);"></div>
+              <div id="marg-nuance" style="font-size:0.8rem; color:var(--ink-secondary);"></div>
+            </div>
+          </div>
+
+          <!-- Native <details> Glossary (Works 100% even in no-JS Drive preview!) -->
+          <div>
+            <div class="kicker border-b" style="padding-bottom:0.45rem; margin-bottom:0.35rem;">Core Vocabulary Glossary (点击展开释义)</div>
+
+            <details class="vocab-drawer" open>
+              <summary><span>running at full tilt</span><span class="kicker">Idiom</span></summary>
+              <div style="font-size:0.82rem; color:var(--accent); font-weight:600; margin-top:0.3rem;">全速运转；开足马力冲刺</div>
+              <div style="font-size:0.78rem; color:var(--ink-secondary); margin-top:0.15rem;">形容工程或业务团队在大促或上线前全力运转，比 very busy 地道十倍。</div>
+            </details>
+
+            <details class="vocab-drawer">
+              <summary><span>tightly gated preview</span><span class="kicker">GTM</span></summary>
+              <div style="font-size:0.82rem; color:var(--accent); font-weight:600; margin-top:0.3rem;">严格受限准入的预览版</div>
+              <div style="font-size:0.78rem; color:var(--ink-secondary); margin-top:0.15rem;">向客户解释为何 Gemini 4 Carbon 目前仅限 Fairwind 白名单伙伴、不能直接开通。</div>
+            </details>
+
+            <details class="vocab-drawer">
+              <summary><span>promotional cliff / deferring</span><span class="kicker">Deal</span></summary>
+              <div style="font-size:0.82rem; color:var(--accent); font-weight:600; margin-top:0.3rem;">促销到期陡增线 / 推迟决策</div>
+              <div style="font-size:0.78rem; color:var(--ink-secondary); margin-top:0.15rem;">Argon $2/$10 促销价在 11 月 30 日截止（promotional cliff），推迟（deferring）签约会导致成本翻倍。</div>
+            </details>
+
+            <details class="vocab-drawer">
+              <summary><span>workhorse &amp; drop-in compatible</span><span class="kicker">Arch</span></summary>
+              <div style="font-size:0.82rem; color:var(--accent); font-weight:600; margin-top:0.3rem;">主力生产机型 &amp; 即插即用无缝平移</div>
+              <div style="font-size:0.78rem; color:var(--ink-secondary); margin-top:0.15rem;">强调 Argon 是稳定保障 12 个月的 Long-GA 主力，且代码未来无需返工（zero rework）即可平移至 Carbon。</div>
+            </details>
+
+            <details class="vocab-drawer">
+              <summary><span>in the spirit of full candor</span><span class="kicker">Advisory</span></summary>
+              <div style="font-size:0.82rem; color:var(--accent); font-weight:600; margin-top:0.3rem;">本着完全坦诚的原则</div>
+              <div style="font-size:0.78rem; color:var(--ink-secondary); margin-top:0.15rem;">在客观对比 Azure 解耦 PTU 或说明我方账单颗粒度边界前使用，瞬间建立顾问信任感。</div>
+            </details>
+
+            <details class="vocab-drawer">
+              <summary><span>pinpoint the root cause</span><span class="kicker">AQuA</span></summary>
+              <div style="font-size:0.82rem; color:var(--accent); font-weight:600; margin-top:0.3rem;">精准定位根本原因</div>
+              <div style="font-size:0.78rem; color:var(--ink-secondary); margin-top:0.15rem;">搭配 cluster failure modes（聚类失败模式）与 trajectory goes sideways（多轮轨迹跑偏）。</div>
+            </details>
+
+            <details class="vocab-drawer">
+              <summary><span>drinking from a firehose / unwind</span><span class="kicker">Social</span></summary>
+              <div style="font-size:0.82rem; color:var(--accent); font-weight:600; margin-top:0.3rem;">信息量极度密集 / 周末卸下疲惫放松</div>
+              <div style="font-size:0.78rem; color:var(--ink-secondary); margin-top:0.15rem;">北美职场周五寒暄最高频、最自然的母语级表达。</div>
+            </details>
+          </div>
+
+        </aside>
+
+      </div>
+    </main>
+
+    <!-- ==================== PANEL II: LEXICON & FUTURE SCENE WEAVER ==================== -->
+    <section id="panel-lexicon" class="sec-panel">
+      <div class="border-b" style="padding-bottom:1rem; margin-bottom:1.75rem;">
+        <div class="kicker" style="color:var(--accent);">Spaced Contextual Re-Encounter</div>
+        <h2 class="font-serif" style="font-size:1.9rem; font-weight:400; margin:0.2rem 0 0;">Personal Lexicon &amp; Future-Scene Weaver</h2>
+      </div>
+
+      <div class="editorial-grid">
+        <div>
+          <div class="kicker" style="margin-bottom:0.5rem;">Synthesized Reading Passages (把生词编入全新场景反复偶遇)</div>
+
+          <div class="border-box font-serif" style="padding:1.5rem; font-size:1.15rem; line-height:1.82; margin-bottom:1.25rem;">
+            <div class="kicker" style="color:var(--accent); margin-bottom:0.4rem;">Scenario A · Retail CIO Quarterly Readout</div>
+            "Thank you all for <span class="word-queried">carving out</span> time after a <span class="word-queried">hectic</span> week—I hope everyone gets a chance to <span class="word-queried">unwind</span> this weekend. Before we review next quarter's expansion, let's <span class="word-queried">unpack</span> our production metrics in the spirit of full <span class="word-queried">candor</span>. By deploying AQuA to <span class="word-queried">pinpoint</span> latency bottlenecks early, Gemini 4 Argon has proven to be a dependable production <span class="word-queried">workhorse</span> across your channels, and scaling into Q1 will require zero architectural <span class="word-queried">rework</span>."
+          </div>
+
+          <div class="border-box font-serif" style="padding:1.5rem; font-size:1.15rem; line-height:1.82;">
+            <div class="kicker" style="color:var(--accent); margin-bottom:0.4rem;">Scenario B · FinTech CISO Governance Briefing</div>
+            "We welcome your security committee <span class="word-queried">scrutinizing</span> every layer of the stack. While frontier previews generate <span class="word-queried">buzz</span>, our priority is giving your operations team the observability to <span class="word-queried">cluster</span> anomalies before trajectories go <span class="word-queried">sideways</span>, while anchoring baseline traffic on a Long-GA <span class="word-queried">workhorse</span>."
+          </div>
+        </div>
+
+        <aside class="marginalia-col">
+          <div class="kicker border-b" style="padding-bottom:0.4rem; margin-bottom:0.5rem;">Archived Lexicon Entries</div>
+          <div id="lexicon-list">
+            <div class="border-b" style="padding:0.65rem 0;"><strong>candor</strong> (n.) — 坦诚；直言不讳 (in the spirit of full candor)</div>
+            <div class="border-b" style="padding:0.65rem 0;"><strong>workhorse</strong> (n.) — 主力生产机型 (Long-GA workhorse)</div>
+            <div class="border-b" style="padding:0.65rem 0;"><strong>pinpoint</strong> (v.) — 精准定位 (pinpoint the root cause)</div>
+            <div class="border-b" style="padding:0.65rem 0;"><strong>scrutinizing</strong> (v.) — 严格审视/核查 (scrutinizing unit costs)</div>
+            <div class="border-b" style="padding:0.65rem 0;"><strong>unwind</strong> (v.) — 卸下疲惫放松 (unwind this weekend)</div>
+            <div class="border-b" style="padding:0.65rem 0;"><strong>rework</strong> (n.) — 代码返工 (without any rework)</div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ==================== PANEL III: REGISTER MATRIX ==================== -->
+    <section id="panel-register" class="sec-panel">
+      <div class="border-b" style="padding-bottom:1rem; margin-bottom:1.5rem;">
+        <div class="kicker" style="color:var(--accent);">Register Calibration Matrix</div>
+        <h2 class="font-serif" style="font-size:1.9rem; font-weight:400; margin:0.2rem 0 0;">From Plain Intent to Executive Precision</h2>
+      </div>
+
+      <div class="border-b" style="padding:1.25rem 0;">
+        <div class="kicker" style="color:var(--accent);">01 · Commercial Urgency (Carbon vs. Argon)</div>
+        <div class="font-serif" style="font-size:1.1rem; margin:0.3rem 0 0.85rem;">不要因为听说了 Gemini 4 Carbon 就暂停 Q4 的 Argon 签约，11 月 30 日优惠就截止了，且代码以后可直接平移。</div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:1rem;">
+          <div style="border:1px solid var(--rule); padding:0.9rem;">
+            <div class="kicker">I. Literal / Plain</div>
+            <p class="font-serif" style="font-size:0.9rem; color:var(--ink-muted); text-decoration:line-through; margin:0.3rem 0 0;">Don't stop signing Argon in Q4 because of Carbon. Argon's discount ends on Nov 30, and your code can move easily later.</p>
+          </div>
+          <div class="border-box" style="padding:0.9rem;">
+            <div class="kicker">II. Natural Colleague Sync</div>
+            <p class="font-serif" style="font-size:0.92rem; margin:0.3rem 0 0;">I wouldn't hit pause on your Q4 Argon rollout to wait for Carbon. Argon's $2/$10 intro rate expires on November 30th, and everything you build carries over seamlessly.</p>
+          </div>
+          <div class="border-box" style="padding:0.9rem; border-color:var(--ink);">
+            <div class="kicker" style="color:var(--accent);">III. C-Suite / Executive Pitch</div>
+            <p class="font-serif" style="font-size:0.92rem; font-weight:600; margin:0.3rem 0 0;">We strongly advise against deferring your Q4 Argon commitment. Locking in Argon prior to the November 30th promotional cliff secures a 50% unit-cost advantage, while remaining 100% drop-in compatible with Carbon.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="border-b" style="padding:1.25rem 0;">
+        <div class="kicker" style="color:var(--accent);">02 · Technical Candor (Single-Zone PT Self-Serve)</div>
+        <div class="font-serif" style="font-size:1.1rem; margin:0.3rem 0 0.85rem;">白名单客户现在可以在控制台自助改单区 PT 订单了；不过坦白讲，Azure 的配额和模型解耦，而且我们的 PT 账单还不能按模型拆分。</div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:1rem;">
+          <div style="border:1px solid var(--rule); padding:0.9rem;">
+            <div class="kicker">I. Literal / Plain</div>
+            <p class="font-serif" style="font-size:0.9rem; color:var(--ink-muted); text-decoration:line-through; margin:0.3rem 0 0;">Allowlisted customers can change single-zone PT in the console now. Honestly, Azure's quota is separate from models, and our bill cannot split by model.</p>
+          </div>
+          <div class="border-box" style="padding:0.9rem;">
+            <div class="kicker">II. Natural Colleague Sync</div>
+            <p class="font-serif" style="font-size:0.92rem; margin:0.3rem 0 0;">Allowlisted accounts can now tweak single-zone PT capacity right in the console on a self-serve basis. Full transparency though: Azure still decouples PTUs from models, and our invoices don't split by model yet.</p>
+          </div>
+          <div class="border-box" style="padding:0.9rem; border-color:var(--ink);">
+            <div class="kicker" style="color:var(--accent);">III. C-Suite / Executive Pitch</div>
+            <p class="font-serif" style="font-size:0.92rem; font-weight:600; margin:0.3rem 0 0;">Allowlisted enterprises can now modify single-zone PT commitments on a self-serve basis in the console. In the spirit of full candor, while Azure decouples PTU quota across model families and our billing does not yet itemize by model, this removes the primary bottleneck for regional DRZ scaling.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== PANEL IV: iOS & SAFARI FULL INTERACTIVITY GUIDE ==================== -->
+    <section id="panel-mobile" class="sec-panel">
+      <div class="border-box" style="padding:1.5rem;">
+        <div class="kicker" style="color:var(--accent); margin-bottom:0.4rem;">Why Google Drive Preview Blocked Buttons Before — And How It Is Fixed Now</div>
+        <h2 class="font-serif" style="font-size:1.6rem; font-weight:400; margin:0 0 0.75rem;">
+          如何在手机上获得 100% 完整体验（含美式发音朗读 + 任意词点查）
+        </h2>
+        <ol style="font-size:0.92rem; line-height:1.75; padding-left:1.25rem;">
+          <li><strong>现在的版本已内置纯 CSS 引擎</strong>：即便你在 Google Drive 预览器或 iPhone「文件 (Files)」App 内直接点开，<strong>周一到周日切换、长短文切换、中英对照开关、顶部四大模块切换</strong>都已经可以正常点击！</li>
+          <li><strong>如何开启手机「语音朗读」与「任意单词点查」</strong>：由于苹果系统的「文件预览框」出于安全原因禁止网页发声，请在 iPhone「文件 (Files)」App 中长按下载好的 <code>aiss_english_copilot.html</code> → 点击 <strong>「共享 (Share)」→ 选择用「Safari 浏览器」或「Chrome」打开</strong>，即可激活完整美式发音与点词记忆功能！</li>
+        </ol>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Mobile Bottom Word Lookup Sheet -->
+  <div id="mobile-word-toast" class="hidden">
+    <div style="display:flex; justify-content:space-between; align-items:baseline;">
+      <span id="mob-word" class="font-serif" style="font-size:1.3rem; font-weight:700;"></span>
+      <div style="display:flex; gap:0.75rem;">
+        <button onclick="speakInspectedWord()" class="kicker" style="text-decoration:underline; color:var(--accent);">🔊 Pronounce</button>
+        <button onclick="document.getElementById('mobile-word-toast').classList.add('hidden')" class="kicker">Close ×</button>
+      </div>
+    </div>
+    <div id="mob-cn" style="font-size:0.9rem; font-weight:600; color:var(--accent); margin-top:0.2rem;"></div>
+    <div id="mob-nuance" style="font-size:0.8rem; color:var(--ink-secondary); margin-top:0.2rem;"></div>
+  </div>
+
+  <!-- Progressive Enhancement Script (Activates Audio TTS & Click-Any-Word when opened in Safari/Chrome) -->
+  <script>
+    const LEXICON_DB = {
+      "tilt": { cn: "全速运转；全力冲刺 (running at full tilt)", nuance: "形容工程或业务团队在大促或发布前开足马力运转。" },
+      "buzz": { cn: "行业热议；高度关注 (generate buzz)", nuance: "新前沿模型登顶榜单时引发的高管层讨论。" },
+      "unpack": { cn: "拆解分析；抽丝剥茧地剖析", nuance: "高管对话中替代 explain 的地道动词。" },
+      "frontier": { cn: "前沿的；第一梯队的（旗舰模型）", nuance: "指代 Gemini 4 Carbon / Argon 等顶级推理模型。" },
+      "revamped": { cn: "全面改版的；重构升级的", nuance: "形容全新改版的 AA v5.0 评测体系。" },
+      "gated": { cn: "严格受限准入的 (tightly gated preview)", nuance: "向客户解释为何早期预览仅限白名单伙伴。" },
+      "workhorse": { cn: "主力生产机型；中流砥柱", nuance: "将 Argon 定位为保障 12 个月稳定期的 Long-GA 主力。" },
+      "rework": { cn: "代码返工；重写", nuance: "without any rework 打消客户对未来迁移到 Carbon 的顾虑。" },
+      "deferring": { cn: "推迟；暂缓决策", nuance: "比 delaying 更正式的商务用词。" },
+      "candor": { cn: "坦诚；直言不讳 (in the spirit of full candor)", nuance: "客观承认产品边界或对比友商时建立信任感的黄金短语。" },
+      "agility": { cn: "敏捷性；算力容量弹性", nuance: "capacity agility（容量弹性调配能力）。" },
+      "allowlisted": { cn: "已纳入白名单准入的", nuance: "单区 PT 自助修改目前面向白名单客户开放。" },
+      "decoupled": { cn: "解耦的；相互独立的", nuance: "Azure PTU 配额与单一模型解耦。" },
+      "bottleneck": { cn: "瓶颈；流程卡点", nuance: "remove the manual ticketing bottleneck（消除人工提单瓶颈）。" },
+      "cluster": { cn: "聚类；自动归类", nuance: "AQuA 自动对重复出现的失败模式进行聚类。" },
+      "pinpoint": { cn: "精准定位 (pinpoint the root cause)", nuance: "在复杂多轮 Agent 轨迹跑偏时一针见血找出根因。" },
+      "trajectory": { cn: "执行轨迹；（Agent 多步推理）路径", nuance: "Agent 领域核心词：multi-turn trajectory。" },
+      "sideways": { cn: "出岔子；跑偏 (go sideways)", nuance: "地道习语：when an agent trajectory goes sideways。" },
+      "scrutinizing": { cn: "严密审视；挑剔核查", nuance: "财务委员会严查每一分云预算（scrutinizing unit costs）。" },
+      "spillover": { cn: "突发峰值溢出流量", nuance: "用 PT 承载稳态基线，用 PayGo 吸收 burst spillover。" },
+      "flesh": { cn: "本人；真人 (meet in the flesh)", nuance: "线下第一次见到平时只开视频会的同事时的绝佳破冰词。" },
+      "unwind": { cn: "卸下疲惫；彻底放松", nuance: "周五问候同事周末安排时替代 relax。" },
+      "firehose": { cn: "消防水枪 (drinking from a firehose)", nuance: "形容信息量或工作节奏极度密集但很充实。" },
+      "kudos": { cn: "由衷赞誉；点赞致敬 (huge kudos on)", nuance: "北美职场夸赞同事贡献的标准表达。" },
+      "quorum": { cn: "法定开会人数（核心参会人已到齐）", nuance: "Looks like we have a quorum（人齐了，我们开始吧）。" },
+      "mindful": { cn: "体谅的；留心尊重的", nuance: "I want to be mindful of everyone's time（控场转场黄金句）。" },
+      "hectic": { cn: "忙碌紧凑的；连轴转的", nuance: "whenever work gets hectic（每当工作忙得不可开交时）。" },
+      "blended": { cn: "加权混合的 (blended unit cost)", nuance: "30% 未缓存 + 50% 缓存 + 20% 输出折算后的混合单价。" },
+      "cliff": { cn: "促销到期价格陡增点 (promotional cliff)", nuance: "11 月 30 日 Argon 促销到期前的紧迫时间窗。" }
+    };
+
+    let currentWord = "";
+
+    function speakText(text) {
+      if (!('speechSynthesis' in window)) return;
+      window.speechSynthesis.cancel();
+      const utter = new SpeechSynthesisUtterance(text);
+      utter.lang = 'en-US';
+      window.speechSynthesis.speak(utter);
+    }
+
+    function speakDay(dayIdx) {
+      const panel = document.getElementById(`day-panel-${dayIdx}`);
+      if (!panel) return;
+      const isBrief = document.getElementById('len-rad-brief').checked;
+      const container = panel.querySelector(isBrief ? '.mode-brief-content' : '.mode-deep-content');
+      if (container) {
+        speakText(container.innerText.replace(/\//g, ' '));
+      }
+    }
+
+    function speakInspectedWord() {
+      if (currentWord) speakText(currentWord);
+    }
+
+    // Progressive enhancement: make every word in articles clickable when JS is active
+    window.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.day-panel p.font-serif').forEach(p => {
+        p.addEventListener('click', (e) => {
+          const selection = window.getSelection();
+          let word = "";
+          if (e.target && e.target.classList.contains('prosody-stress')) {
+            word = e.target.innerText.trim().split(/\s+/).pop();
+          } else if (selection && selection.toString().trim()) {
+            word = selection.toString().trim();
+          } else {
+            // Find clicked word using caret range
+            let range;
+            if (document.caretRangeFromPoint) {
+              range = document.caretRangeFromPoint(e.clientX, e.clientY);
+            }
+            if (range && range.startContainer.nodeType === Node.TEXT_NODE) {
+              const text = range.startContainer.textContent;
+              const offset = range.startOffset;
+              const left = text.slice(0, offset).search(/\S+$/);
+              const right = text.slice(offset).search(/\s/);
+              word = right < 0 ? text.slice(left) : text.slice(left, offset + right);
+            }
+          }
+          const clean = (word || "").replace(/[^a-zA-Z-]/g, '').toLowerCase();
+          if (clean.length > 2) {
+            currentWord = clean;
+            const entry = LEXICON_DB[clean] || {
+              cn: `已加入生词本：${clean}`,
+              nuance: `建议结合当前段落大声连读两遍，掌握 "${clean}" 的上下文搭配。`
+            };
+            document.getElementById('marginalia-empty').classList.add('hidden');
+            document.getElementById('marginalia-detail').classList.remove('hidden');
+            document.getElementById('marginalia-saved').classList.remove('hidden');
+            document.getElementById('marg-word').textContent = clean;
+            document.getElementById('marg-cn').textContent = entry.cn;
+            document.getElementById('marg-nuance').textContent = entry.nuance;
+
+            if (window.innerWidth < 960) {
+              const toast = document.getElementById('mobile-word-toast');
+              toast.classList.remove('hidden');
+              document.getElementById('mob-word').textContent = clean;
+              document.getElementById('mob-cn').textContent = entry.cn;
+              document.getElementById('mob-nuance').textContent = entry.nuance;
+            }
+            speakText(clean);
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
