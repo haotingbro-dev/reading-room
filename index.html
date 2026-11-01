@@ -151,10 +151,10 @@
     }
 
     /* Dual-Length Toggle (90-Sec Brief vs. Deep Feature) via Pure CSS */
-    .mode-brief-content { display: none; }
-    .mode-deep-content { display: block; }
-    #len-rad-brief:checked ~ .container .mode-brief-content { display: block; }
-    #len-rad-brief:checked ~ .container .mode-deep-content { display: none; }
+    .mode-brief-content { display: none !important; }
+    .mode-deep-content { display: block !important; }
+    #len-rad-brief:checked ~ .container .mode-brief-content { display: block !important; }
+    #len-rad-brief:checked ~ .container .mode-deep-content { display: none !important; }
 
     .mode-label {
       cursor: pointer;
@@ -340,8 +340,8 @@
     <!-- ==================== MASTHEAD ==================== -->
     <header class="border-b" style="padding-bottom:1.1rem;">
       <div class="border-b" style="display:flex; flex-wrap:wrap; justify-content:space-between; gap:0.5rem; padding-bottom:0.6rem;">
-        <span class="kicker">Vol. IV · Issue 44 — Field Edition for Haoting Ma</span>
-        <span class="kicker">Synced: AI Weekly Briefing (Oct 25 – Oct 29)</span>
+        <span class="kicker">Vol. IV · Issue 45 — Field Edition for Haoting Ma</span>
+        <span class="kicker">Synced: AI Weekly Briefing (Oct 25 – Nov 01)</span>
         <span class="kicker">Universal CSS + JS Hybrid Engine</span>
       </div>
 
@@ -432,296 +432,334 @@
         <!-- Left 8 Cols: Pre-Rendered 7-Day Manuscripts -->
         <div>
 
-          <!-- ==================== DAY 0: MONDAY ==================== -->
+          <!-- ==================== DAY 0 ==================== -->
           <div id="day-panel-0" class="day-panel">
             <div class="border-b" style="padding-bottom:1.1rem; margin-bottom:1.5rem;">
               <div style="display:flex; justify-content:space-between; margin-bottom:0.4rem;">
-                <span class="kicker" style="color:var(--accent);">Monday · Executive Vision (周报新发布破冰)</span>
+                <span class="kicker" style="color:var(--accent);">Monday · Executive Vision (本周头号发布：Gemini 4 Carbon)</span>
                 <button onclick="speakDay(0)" class="kicker" style="text-decoration:underline; color:var(--ink);">🔊 Listen Aloud</button>
               </div>
-              <h2 class="font-serif" style="font-size:clamp(1.45rem, 2.5vw, 2.05rem); font-weight:400; margin:0.2rem 0 0.5rem;">
-                Navigating the Gemini 4 Carbon Preview Without Stalling Q4 Argon Commitments
-              </h2>
-              <p style="font-size:0.92rem; color:var(--ink-secondary); margin:0;">
-                Addressing C-suite excitement around frontier benchmarks while protecting near-term commercial velocity ahead of the November 30 pricing cliff.
-              </p>
+              <h2 class="font-serif" style="font-size:clamp(1.45rem, 2.5vw, 2.05rem); font-weight:400; margin:0.2rem 0 0.5rem;">Gemini 4 Carbon: Reading a Frontier Pre-Announcement Without Losing Q4 Momentum</h2>
+              <p style="font-size:0.92rem; color:var(--ink-secondary); margin:0;">Briefing a customer CTO on what Carbon changes, what it does not change yet, and why Argon remains the production baseline.</p>
             </div>
-
-            <!-- Deep Mode (500w) -->
-            <div class="mode-deep-content" style="display:flex; flex-direction:column; gap:1.6rem;">
-              <article>
-                <div class="kicker" style="margin-bottom:0.4rem;">I. Warm Rapport &amp; Recognizing the Engineering Pace</div>
-                <p class="font-serif drop-cap" style="font-size:1.18rem; line-height:1.82; margin:0;">
-                  Hey David, good to see you, and thanks for carving out time on a Friday afternoon. <span class="prosody-caesura">/</span> I know your platform and security teams have been <span class="prosody-stress">running at full tilt</span> over the past three weeks gearing up for your Q4 international rollout. <span class="prosody-caesura">/</span> Before we <span class="prosody-stress">dive</span> into the commercial redlines on our order form, <span class="prosody-caesura">/</span> I saw the note you sent over after reading our <span class="prosody-stress">Gemini 4 Carbon</span> blog post this morning. <span class="prosody-caesura">/</span> Whenever a new <span class="prosody-stress">frontier</span> model lands at the top of the leaderboard, it naturally generates a lot of <span class="prosody-stress">buzz</span> in the executive suite—so I wanted to address your question head-on and <span class="prosody-stress">unpack</span> how Carbon fits into your architecture.
-                </p>
-                <p class="cn-translation-block">嗨 David，很高兴见到你，感谢周五下午抽空。我知道你们平台和安全团队过去三周为了 Q4 全球上线一直在全速运转（running at full tilt）。在我们看订单商务条款前，我看到了你今早读完 Gemini 4 Carbon 博客后发来的消息。每当有新前沿模型登顶榜单，自然会在高管层引发热议（buzz）——所以我想正面回应你的问题，拆解（unpack）一下 Carbon 对你们架构的意义。</p>
+            <div class="mode-deep-content">
+              <article style="margin-bottom:1.6rem;">
+                <div class="kicker" style="margin-bottom:0.4rem;">I. Opening the Conversation</div>
+                <p class="font-serif drop-cap" style="font-size:1.18rem; line-height:1.82; margin:0;">Thanks for making time this morning, Wei. <span class="prosody-caesura">/</span> I know your platform team has had a <span class="prosody-stress">packed</span> week, <span class="prosody-caesura">/</span> so I'll keep this tight and practical. <span class="prosody-caesura">/</span> You asked what this week's announcement means for your roadmap. <span class="prosody-caesura">/</span> On October thirtieth, our product team formally <span class="prosody-stress">pre-announced</span> Gemini 4 Carbon, <span class="prosody-caesura">/</span> the next frontier model in the Gemini 4 family. <span class="prosody-caesura">/</span> It builds directly on Argon, <span class="prosody-caesura">/</span> and it is tuned for two things your engineers care about: <span class="prosody-caesura">/</span> <span class="prosody-stress">long-horizon</span> software engineering, <span class="prosody-caesura">/</span> and end-to-end cyber defense. <span class="prosody-caesura">/</span> Let me walk you through the substance first, <span class="prosody-caesura">/</span> and then the practical implications for your Q4 plan.</p>
+                <p class="cn-translation-block">Wei，感谢你今早抽时间。我知道你们平台团队这周很忙（packed），我尽量简明务实。你问本周的发布对你们路线图意味着什么。10 月 30 日，我们产品团队正式预告（pre-announced）了 Gemini 4 Carbon，Gemini 4 系列的下一款 frontier model。它直接建立在 Argon 之上，重点强化两件你们工程师关心的事：long-horizon 软件工程，以及端到端 cyber defense。我先讲实质内容，再讲对你们 Q4 计划的实际影响。</p>
               </article>
-
-              <article>
-                <div class="kicker" style="margin-bottom:0.4rem;">II. Deconstructing Capabilities vs. Access Realities</div>
-                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">
-                  To give you the <span class="prosody-stress">straight story</span>: <span class="prosody-caesura">/</span> Gemini 4 Carbon represents a major leap in sustained, multi-day agentic coding and autonomous cyber-defense, <span class="prosody-caesura">/</span> scoring fifty-nine on the newly <span class="prosody-stress">revamped</span> Artificial Analysis v5.0 index and over sixty-five percent on Terminal-Bench. <span class="prosody-caesura">/</span> If your security researchers are pairing models with CodeMender for vulnerability patching next year, Carbon will be transformative. <span class="prosody-caesura">/</span> However, in the spirit of full <span class="prosody-stress">candor</span>, Carbon is not generally available today. <span class="prosody-caesura">/</span> Access is limited to a <span class="prosody-stress">tightly gated</span> cohort of pre-approved cyber-defense organizations under Project Fairwind, <span class="prosody-caesura">/</span> and we are not accepting new nominations or committing to a public GA date yet.
-                </p>
-                <p class="cn-translation-block">直接给你交个底（straight story）：Gemini 4 Carbon 在多日连续长程编码和自主网络防御上实现了重大跃升，在全新改版（revamped）的 AA v5.0 拿到 59 分。本着完全坦诚的原则（in the spirit of full candor），Carbon 目前并未公开可用，仅限 Fairwind 计划预批防御机构准入（tightly gated），暂不接受新提名，也没有公开 GA 时间表。</p>
+              <article style="margin-bottom:1.6rem;">
+                <div class="kicker" style="margin-bottom:0.4rem;">II. What the Numbers Say</div>
+                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">Here is the <span class="prosody-stress">headline</span>. <span class="prosody-caesura">/</span> As of October twenty-eighth, Carbon ranks first on the Artificial Analysis Intelligence Index, version five point zero, with a score of fifty-nine. <span class="prosody-caesura">/</span> On Terminal-Bench four point zero it reaches sixty-five point two percent, <span class="prosody-caesura">/</span> with zero percent successful cheating. <span class="prosody-caesura">/</span> On security evaluations, which were run <span class="prosody-stress">without guardrails</span>, <span class="prosody-caesura">/</span> it scores eighty-eight point two percent on SEC-bench Pro for discovery <span class="prosody-caesura">/</span> and seventy-one percent on CWE-bench for patching. <span class="prosody-caesura">/</span> It also cuts unsupported claims by half compared with Argon, <span class="prosody-caesura">/</span> and records a zero percent attack success rate on Gray Swan's indirect prompt-injection benchmark. <span class="prosody-caesura">/</span> Still, I always <span class="prosody-stress">anchor</span> a benchmark to its version and its date, <span class="prosody-caesura">/</span> because leaderboards move quickly.</p>
+                <p class="cn-translation-block">先说重点（headline）。截至 10 月 28 日，Carbon 在 Artificial Analysis Intelligence Index v5.0 上以 59 分排名第一；Terminal-Bench 4.0 达到 65.2%，作弊成功率为 0。安全 benchmark（无护栏条件下测得）中，SEC-bench Pro（漏洞发现）88.2%，CWE-bench（修补）71.0%。无依据陈述比 Argon 减少一半，在 Gray Swan 间接 prompt 注入测试中攻击成功率为 0。但我引用跑分时总会注明版本和日期（anchor），因为榜单变化很快。</p>
               </article>
-
-              <article>
-                <div class="kicker" style="margin-bottom:0.4rem;">III. The Commercial Math Behind the November 30 Cliff</div>
-                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">
-                  That brings us to the practical question your procurement team raised: <span class="prosody-caesura">/</span> should you hit pause on your Q4 <span class="prosody-stress">Gemini 4 Argon</span> deployment and wait? <span class="prosody-caesura">/</span> If we look closely at the numbers, <span class="prosody-stress">deferring</span> Argon right now would actually penalize your P&amp;L. <span class="prosody-caesura">/</span> Today, Argon is offered at an introductory rate of <span class="prosody-stress">two dollars</span> per million input tokens and <span class="prosody-stress">ten dollars</span> output, paired with a ninety-five percent context caching discount—bringing your <span class="prosody-stress">blended</span> unit cost down to roughly $2.65. <span class="prosody-caesura">/</span> That promotional window hits a hard <span class="prosody-stress">cliff</span> on <span class="prosody-stress">November thirtieth</span>, when list pricing doubles to four dollars and twenty dollars.
-                </p>
-                <p class="cn-translation-block">这就引出了你们采购团队关心的实际问题：是否应该暂停 Q4 的 Argon 部署去等待？如果我们仔细算账，现在推迟（deferring）Argon 反而会让损益表受损。目前 Argon 享受 $2/$10 介绍价与 95% 缓存折扣，混合单价（blended unit cost）仅约 $2.65。这个促销窗口将在 11 月 30 日迎来硬性截止（promotional cliff），届时目录价将翻倍至 $4 和 $20。</p>
+              <article style="margin-bottom:1.6rem;">
+                <div class="kicker" style="margin-bottom:0.4rem;">III. Access Boundaries &amp; Lifecycle Governance</div>
+                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">Now, in the spirit of full <span class="prosody-stress">candor</span>: <span class="prosody-caesura">/</span> Carbon is not generally available today. <span class="prosody-caesura">/</span> It is in voluntary U.S. government pre-release testing, <span class="prosody-caesura">/</span> and early access is limited to pre-approved cyber defenders and trusted partners on the <span class="prosody-stress">allowlist</span>. <span class="prosody-caesura">/</span> New nominations are closed, <span class="prosody-caesura">/</span> and we have not announced a GA date. <span class="prosody-caesura">/</span> When it does launch, Carbon will be a <span class="prosody-stress">Short GA</span> release, <span class="prosody-caesura">/</span> whereas Argon is our <span class="prosody-stress">Long GA</span> standard with a lifecycle commitment of at least twelve months. <span class="prosody-caesura">/</span> For a regulated workload like your claims platform, <span class="prosody-caesura">/</span> that lifecycle commitment matters more than a few points on a leaderboard.</p>
+                <p class="cn-translation-block">本着完全坦诚（candor）的原则：Carbon 目前并未正式可用。它正在接受美国政府自愿的发布前测试，早期访问仅限预先批准在 allowlist 上的网络防御方和可信伙伴。新提名已关闭，也没有公布 GA 日期。上线时 Carbon 是 Short GA，相比之下 Argon 是我们的 Long GA 标准模型，生命周期承诺至少 12 个月。对你们理赔平台这类受监管的负载，生命周期承诺比榜单上几分的差距更重要。</p>
               </article>
-
-              <article>
-                <div class="kicker" style="margin-bottom:0.4rem;">IV. Lifecycle Stability &amp; Zero-Rework Migration</div>
-                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">
-                  Equally important is lifecycle governance. <span class="prosody-caesura">/</span> Argon is designated as our Long-GA <span class="prosody-stress">workhorse</span>, meaning we guarantee at least twelve months of production stability, whereas Carbon will launch initially as a Short-GA release. <span class="prosody-caesura">/</span> Because the entire Gemini 4 family shares a unified API contract, every evaluation pipeline your engineers build on Argon this quarter is one hundred percent <span class="prosody-stress">drop-in compatible</span> with Carbon down the road—giving you immediate promotional economics today without a single line of <span class="prosody-stress">rework</span> tomorrow.
-                </p>
-                <p class="cn-translation-block">同样重要的是生命周期治理。Argon 是我们承诺至少 12 个月稳定期的 Long-GA 主力机型（workhorse），而 Carbon 初期上线时为 Short-GA。由于整个 Gemini 4 系列共享统一 API，你们本季度在 Argon 上构建的所有流水线未来都 100% 即插即用兼容（drop-in compatible）Carbon——今天锁定促销单价，未来零返工（rework）平滑升级。</p>
+              <article style="margin-bottom:1.6rem;">
+                <div class="kicker" style="margin-bottom:0.4rem;">IV. Commercial Continuity &amp; Zero-Rework Path</div>
+                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">So my recommendation is straightforward: <span class="prosody-caesura">/</span> keep your Argon evaluation and your Q4 timeline on track. <span class="prosody-caesura">/</span> Carbon launches at the same token pricing as Argon—two dollars input and ten dollars output at the promo price, <span class="prosody-caesura">/</span> four and twenty at list price, <span class="prosody-caesura">/</span> with ninety-five percent off cached input—though Carbon's promo duration will be shared at launch. <span class="prosody-caesura">/</span> Everything you build on Argon <span class="prosody-stress">carries over</span> to Carbon at GA without rework. <span class="prosody-caesura">/</span> If your board asks whether Argon is being replaced, the answer is no: <span class="prosody-caesura">/</span> we can <span class="prosody-stress">pilot</span> Carbon side by side once it opens, while Argon remains your <span class="prosody-stress">production-grade</span> baseline.</p>
+                <p class="cn-translation-block">所以我的建议很直接：Argon 评估和 Q4 时间表照原计划推进。Carbon 上线定价与 Argon 相同——promo price 每百万 token 输入 2 美元、输出 10 美元，list price 4/20 美元，cached input 95% 折扣——不过 Carbon 的促销时长会在上线时公布。你们在 Argon 上做的集成在 Carbon GA 后可直接沿用（carries over），无需返工。如果董事会问 Argon 是否会被取代，答案是不会：等 Carbon 开放后我们可以并行试点（pilot），而 Argon 仍是你们的 production-grade 基线。</p>
               </article>
             </div>
-
-            <!-- Brief Mode (200w) -->
-            <div class="mode-brief-content" style="display:flex; flex-direction:column; gap:1.5rem;">
-              <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">
-                Hey David, good to see you. I know your platform team has been <span class="prosody-stress">running at full tilt</span> gearing up for Q4. <span class="prosody-caesura">/</span> I saw your note about the <span class="prosody-stress">Gemini 4 Carbon</span> announcement—it generated a lot of <span class="prosody-stress">buzz</span>, so let's <span class="prosody-stress">unpack</span> what it means for your roadmap. <span class="prosody-caesura">/</span> To give you the <span class="prosody-stress">straight story</span>: Carbon hits fifty-nine on the <span class="prosody-stress">revamped</span> AA v5.0 benchmark, but it remains in a <span class="prosody-stress">tightly gated</span> preview under Project Fairwind with no public GA date.
-              </p>
-              <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">
-                More importantly, <span class="prosody-stress">deferring</span> Argon right now would hurt your unit economics. <span class="prosody-caesura">/</span> Argon's introductory rate of two dollars and ten dollars with a ninety-five percent cache discount expires at the <span class="prosody-stress">November thirtieth cliff</span>. <span class="prosody-caesura">/</span> Because Argon is our Long-GA <span class="prosody-stress">workhorse</span> and <span class="prosody-stress">drop-in compatible</span> with Carbon later, signing off this month locks in your baseline without any <span class="prosody-stress">rework</span>.
-              </p>
+            <div class="mode-brief-content">
+              <div class="border-box" style="padding:1.35rem 1.5rem; border-left:3px solid var(--accent);">
+                <article style="margin-bottom:1.35rem;">
+                  <div class="kicker" style="color:var(--accent); margin-bottom:0.4rem;">⚡ 90-Second Elevator Pitch (电梯间/微信语音 90 秒速讲版)</div>
+                  <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">Wei, quick update on the Gemini 4 Carbon news so your team doesn't lose momentum. <span class="prosody-caesura">/</span> On October thirtieth we <span class="prosody-stress">pre-announced</span> Carbon—it ranks number one on AA Index v5.0 at fifty-nine points and leads on <span class="prosody-stress">long-horizon</span> coding and cyber defense. <span class="prosody-caesura">/</span> However, in full <span class="prosody-stress">candor</span>, Carbon is still in <span class="prosody-stress">allowlist</span>-only testing with no public GA date, and it will ship initially as a <span class="prosody-stress">Short GA</span> release.</p>
+                  <p class="cn-translation-block">Wei，跟你用 90 秒快速同步一下 Gemini 4 Carbon 的消息，免得团队节奏受影响。10 月 30 日我们预告（pre-announced）了 Carbon——它在 AA Index v5.0 以 59 分排第一，主打 long-horizon coding 和 cyber defense。但坦诚说（in full candor），Carbon 目前仅限 allowlist 内部测试，没有公开 GA 日期，且首发为 Short GA。</p>
+                </article>
+                <article style="margin-bottom:0;">
+                  <div class="kicker" style="color:var(--accent); margin-bottom:0.4rem;">🎯 The Bottom-Line Takeaway (一句话定心丸)</div>
+                  <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">That's why we recommend keeping your Q4 Argon rollout on schedule: <span class="prosody-caesura">/</span> Argon is our twelve-month <span class="prosody-stress">Long GA</span> standard, its two-dollar promo price expires November thirtieth, <span class="prosody-caesura">/</span> and one hundred percent of your Argon code <span class="prosody-stress">carries over</span> to Carbon later with zero rework.</p>
+                  <p class="cn-translation-block">因此我们建议 Q4 的 Argon 上线按原计划推进：Argon 是保障 12 个月的 Long GA 主力，它的 $2 promo price 在 11 月 30 日截止，而且你们在 Argon 上写的所有代码未来都能零返工直接沿用（carries over）到 Carbon。</p>
+                </article>
+              </div>
             </div>
           </div>
 
-          <!-- ==================== DAY 1: TUESDAY ==================== -->
+          <!-- ==================== DAY 1 ==================== -->
           <div id="day-panel-1" class="day-panel">
             <div class="border-b" style="padding-bottom:1.1rem; margin-bottom:1.5rem;">
               <div style="display:flex; justify-content:space-between; margin-bottom:0.4rem;">
-                <span class="kicker" style="color:var(--accent);">Tuesday · Strategic Framing (同母题视角深化)</span>
+                <span class="kicker" style="color:var(--accent);">Tuesday · Strategic Framing (测评改版、混合单价与 Harness 选择)</span>
                 <button onclick="speakDay(1)" class="kicker" style="text-decoration:underline; color:var(--ink);">🔊 Listen Aloud</button>
               </div>
-              <h2 class="font-serif" style="font-size:clamp(1.45rem, 2.5vw, 2.05rem); font-weight:400; margin:0.2rem 0 0.5rem;">
-                Reframing Leaderboard Volatility Into Blended Unit-Economic Advantage
-              </h2>
-              <p style="font-size:0.92rem; color:var(--ink-secondary); margin:0;">
-                Guiding a customer steering committee past raw benchmark rankings toward caching economics and total cost of ownership.
-              </p>
+              <h2 class="font-serif" style="font-size:clamp(1.45rem, 2.5vw, 2.05rem); font-weight:400; margin:0.2rem 0 0.5rem;">Beyond the Leaderboard: Version Numbers, Blended Cost, and Harness Choice</h2>
+              <p style="font-size:0.92rem; color:var(--ink-secondary); margin:0;">Helping a steering committee read Index v5.0 correctly, and showing why total cost depends on caching and tooling.</p>
             </div>
-
-            <div class="mode-deep-content" style="display:flex; flex-direction:column; gap:1.6rem;">
-              <article>
-                <div class="kicker" style="margin-bottom:0.4rem;">I. Contextualizing the October 27 Methodology Overhaul</div>
-                <p class="font-serif drop-cap" style="font-size:1.18rem; line-height:1.82; margin:0;">
-                  Thank you all for having me join the steering committee today. <span class="prosody-caesura">/</span> I want to be <span class="prosody-stress">mindful</span> of the committee's time, so let's address the question regarding the new Artificial Analysis numbers <span class="prosody-stress">head-on</span>. <span class="prosody-caesura">/</span> As many of you noticed on October twenty-seventh, AA published a thoroughly <span class="prosody-stress">revamped</span> v5.0 Intelligence Index—expanding to nine evaluations while keeping sixty percent of the prompts private. Because the weighting shifted dramatically, comparing v5.0 numbers against last quarter's v4 baseline is apples to oranges.
-                </p>
-                <p class="cn-translation-block">感谢各位邀请我参加指导委员会。为了珍惜大家的时间（mindful of time），我们直接正面回应（address head-on）关于新版 AA 跑分的问题。10 月 27 日 AA 发布了全面改版（revamped）的 v5.0 指数并保留 60% 非公开题库，因此与旧版 v4 已不再可比。</p>
+            <div class="mode-deep-content">
+              <article style="margin-bottom:1.6rem;">
+                <div class="kicker" style="margin-bottom:0.4rem;">I. Why the Index Changed</div>
+                <p class="font-serif drop-cap" style="font-size:1.18rem; line-height:1.82; margin:0;">Thank you for having me at the steering committee. <span class="prosody-caesura">/</span> I'd like to be <span class="prosody-stress">mindful</span> of your time, <span class="prosody-caesura">/</span> so let me start with the question from your last meeting: <span class="prosody-caesura">/</span> why did the rankings move so much? <span class="prosody-caesura">/</span> In late October, Artificial Analysis released version five point zero of its Intelligence Index. <span class="prosody-caesura">/</span> Roughly sixty percent of the weighting now comes from <span class="prosody-stress">held-out</span> test sets that are not public, <span class="prosody-caesura">/</span> such as FrontierCode two point zero and HLE-Diamond. <span class="prosody-caesura">/</span> The goal is to reduce <span class="prosody-stress">contamination</span>, <span class="prosody-caesura">/</span> where a model scores well simply because it has seen the questions before. <span class="prosody-caesura">/</span> Because of that methodology shift, version five scores are not comparable with version four.</p>
+                <p class="cn-translation-block">感谢邀请我参加指导委员会。为了珍惜（mindful）大家的时间，我先回答上次会议的问题：为什么排名变化这么大？10 月下旬，Artificial Analysis 发布了 Intelligence Index v5.0，约 60% 的权重来自不公开的 held-out tests，比如 FrontierCode 2.0 和 HLE-Diamond，目的是减少 contamination（模型因见过题目而得高分）。因此 v5 与 v4 的分数不可直接对比。</p>
               </article>
-              <article>
-                <div class="kicker" style="margin-bottom:0.4rem;">II. Why Synthetic Scores Are Only Half the Equation</div>
-                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">
-                  More fundamentally, when you are running millions of customer turns a day, synthetic leaderboard rankings are only <span class="prosody-stress">half the equation</span>. <span class="prosody-caesura">/</span> A two-point delta on an academic benchmark rarely <span class="prosody-stress">moves the needle</span> on customer retention; latency determinism and <span class="prosody-stress">blended</span> token economics do. <span class="prosody-caesura">/</span> Under a realistic enterprise mix, our ninety-five percent cache discount brings Gemini 4 Argon's blended rate to $2.65 per million tokens—roughly half the estimated $5.30 cost of Claude Opus 5.5.
-                </p>
-                <p class="cn-translation-block">更本质的是，合成基准排名只是问题的一半（half the equation）。真正能拉动留存指标（moves the needle）的是确定性延迟与混合单价。计入 95% 缓存折扣后，Argon 混合单价仅 $2.65，约为 Claude Opus 5.5（$5.30）的一半。</p>
+              <article style="margin-bottom:1.6rem;">
+                <div class="kicker" style="margin-bottom:0.4rem;">II. From Raw Scores to Blended Cost</div>
+                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">Benchmarks tell you capability; <span class="prosody-caesura">/</span> they don't tell you what you will pay in production. <span class="prosody-caesura">/</span> For financial modeling, we use a <span class="prosody-stress">blended</span> price: <span class="prosody-caesura">/</span> thirty percent uncached input, fifty percent cached input, and twenty percent output. <span class="prosody-caesura">/</span> Under that mix, Gemini 4 Argon at its promo price comes to about two dollars sixty-five per million tokens, <span class="prosody-caesura">/</span> and five dollars thirty at standard list price—whereas GPT-6 Astra sits near thirteen fifty. <span class="prosody-caesura">/</span> The biggest <span class="prosody-stress">lever</span> is context caching: <span class="prosody-caesura">/</span> Gemini gives ninety-five percent off cached input, <span class="prosody-caesura">/</span> so multi-turn coding agents benefit the most.</p>
+                <p class="cn-translation-block">Benchmark 说明能力，但不代表生产环境的实际账单。做财务测算时，我们采用 blended price（30% 未缓存输入 + 50% cached input + 20% 输出）。按此口径，Gemini 4 Argon 在 promo price 下约 $2.65/百万 token，标准 list price 约 $5.30，而 GPT-6 Astra 约 $13.50。最大的成本杠杆（lever）是缓存：Gemini 对 cached input 提供 95% 折扣，多轮 coding agent 受益最大。</p>
+              </article>
+              <article style="margin-bottom:1.6rem;">
+                <div class="kicker" style="margin-bottom:0.4rem;">III. Zero Harness Tax in Google Antigravity</div>
+                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">Your engineering leads also asked whether they lose quality by running Claude or GPT models inside Google Antigravity instead of each vendor's own tool. <span class="prosody-caesura">/</span> Our team ran a head-to-head study on DeepSWE v1.1 and Terminal-Bench 4.0, <span class="prosody-caesura">/</span> comparing Antigravity against Claude Code and Codex. <span class="prosody-caesura">/</span> Across six comparisons, Antigravity matched or beat each model's <span class="prosody-stress">native harness</span>, <span class="prosody-caesura">/</span> with statistical parity in five and a 3.9 percentage-point lead on GPT-6 Astra in Terminal-Bench. <span class="prosody-caesura">/</span> Internally we call this <span class="prosody-stress">Zero Harness Tax</span>, <span class="prosody-caesura">/</span> and we encourage your team to reproduce a slice of the eval on your own repositories.</p>
+                <p class="cn-translation-block">你们工程负责人还问：在 Google Antigravity 里跑 Claude 或 GPT，而不是用各家原生工具，质量会受损吗？我们在 DeepSWE v1.1 和 Terminal-Bench 4.0 上将 Antigravity 与 Claude Code、Codex 做了正面对比。六组测试中，Antigravity 均与各模型的 native harness 持平或更优（5 组统计持平，1 组在 GPT-6 Astra 上领先 3.9 个百分点）。内部称之为 Zero Harness Tax，建议你们在自有代码库上抽样复现。</p>
+              </article>
+              <article style="margin-bottom:1.6rem;">
+                <div class="kicker" style="margin-bottom:0.4rem;">IV. Governance Rules for Analyst Slides</div>
+                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">To save your analysts hours of debate next month, <span class="prosody-caesura">/</span> I suggest three simple rules for every internal readout. <span class="prosody-caesura">/</span> First, every benchmark citation must state the index version, date, and evaluator. <span class="prosody-caesura">/</span> Second, every price comparison must show input, cached input, and output alongside the promo expiration date. <span class="prosody-caesura">/</span> It may sound slightly <span class="prosody-stress">pedantic</span>, <span class="prosody-caesura">/</span> but standardizing your metrics and standardizing on a single governed harness keeps your architecture flexible.</p>
+                <p class="cn-translation-block">为了帮分析师省去下个月无谓的争论，我建议内部汇报遵循三条准则：第一，所有 benchmark 引用必须标明版本号、日期与评测方；第二，所有价格对比必须列出输入、cached input、输出及促销截止日。听起来可能有点较真（pedantic），但统一指标口径并收敛到一套受治理的 harness，能让你们的架构保持长期主动。</p>
               </article>
             </div>
-
             <div class="mode-brief-content">
-              <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">
-                Thank you for inviting me today. Let's address the <span class="prosody-stress">revamped</span> AA v5.0 benchmark <span class="prosody-stress">head-on</span>. <span class="prosody-caesura">/</span> In production, raw leaderboard rank is only <span class="prosody-stress">half the equation</span>; what truly <span class="prosody-stress">moves the needle</span> on margin is <span class="prosody-stress">blended</span> unit cost—where Argon's ninety-five percent cache discount delivers $2.65 per million tokens, roughly half the cost of Opus 5.5.
-              </p>
+              <div class="border-box" style="padding:1.35rem 1.5rem; border-left:3px solid var(--accent);">
+                <article style="margin-bottom:1.35rem;">
+                  <div class="kicker" style="color:var(--accent); margin-bottom:0.4rem;">⚡ 90-Second Steering Committee Brief (委员会 90 秒核心观点)</div>
+                  <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">Two quick points for the committee today. <span class="prosody-caesura">/</span> First, Artificial Analysis just shifted to Index v5.0, putting sixty percent of the weight on private <span class="prosody-stress">held-out</span> tests to stop <span class="prosody-stress">contamination</span>—so please don't compare v5 scores against last quarter's v4 slides. <span class="prosody-caesura">/</span> Second, raw rank doesn't pay the cloud bill: <span class="prosody-caesura">/</span> with our ninety-five percent cached-input discount, Argon's <span class="prosody-stress">blended</span> price is $2.65 during promo versus $13.50 for GPT-6 Astra.</p>
+                  <p class="cn-translation-block">今天向委员会快速同步两点：第一，Artificial Analysis 刚刚切换到 Index v5.0，将 60% 权重放在非公开 held-out tests 以防止 contamination，因此切勿拿 v5 分数与上季度的 v4 表格直接对比。第二，榜单名次不等于云账单：凭借 95% 的 cached input 折扣，Argon 促销期 blended price 仅 $2.65，而 GPT-6 Astra 高达 $13.50。</p>
+                </article>
+                <article style="margin-bottom:0;">
+                  <div class="kicker" style="color:var(--accent); margin-bottom:0.4rem;">🎯 The Tooling Verdict (工具链选型结论)</div>
+                  <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">Finally, you don't need separate vendor tools: <span class="prosody-caesura">/</span> our six-benchmark study confirms <span class="prosody-stress">Zero Harness Tax</span> inside Google Antigravity, matching or beating Claude Code and Codex while keeping governance under one roof.</p>
+                  <p class="cn-translation-block">最后，你们无需维护多套厂商工具：我们的六项对比研究证实了 Google Antigravity 具备 Zero Harness Tax，表现持平或优于 Claude Code 与 Codex，同时把安全治理收归一体。</p>
+                </article>
+              </div>
             </div>
           </div>
 
-          <!-- ==================== DAY 2: WEDNESDAY ==================== -->
+          <!-- ==================== DAY 2 ==================== -->
           <div id="day-panel-2" class="day-panel">
             <div class="border-b" style="padding-bottom:1.1rem; margin-bottom:1.5rem;">
               <div style="display:flex; justify-content:space-between; margin-bottom:0.4rem;">
-                <span class="kicker" style="color:var(--accent);">Wednesday · Trusted Advisor (架构顾问与诚实边界)</span>
+                <span class="kicker" style="color:var(--accent);">Wednesday · Trusted Advisor (生产环境 Agent：可观测、容量与配额)</span>
                 <button onclick="speakDay(2)" class="kicker" style="text-decoration:underline; color:var(--ink);">🔊 Listen Aloud</button>
               </div>
-              <h2 class="font-serif" style="font-size:clamp(1.45rem, 2.5vw, 2.05rem); font-weight:400; margin:0.2rem 0 0.5rem;">
-                Self-Serve Provisioned Throughput &amp; Root-Cause Observability with AQuA
-              </h2>
-              <p style="font-size:0.92rem; color:var(--ink-secondary); margin:0;">
-                Building deep technical credibility by pairing new console agility and open-source agent diagnostics with candid disclosure of platform boundaries.
-              </p>
+              <h2 class="font-serif" style="font-size:clamp(1.45rem, 2.5vw, 2.05rem); font-weight:400; margin:0.2rem 0 0.5rem;">Running Agents in Production: Observability, Capacity, and Spend Guardrails</h2>
+              <p style="font-size:0.92rem; color:var(--ink-secondary); margin:0;">An architecture conversation on AQuA, Provisioned Throughput management, and single-user quota limits—gaps included.</p>
             </div>
-
-            <div class="mode-deep-content" style="display:flex; flex-direction:column; gap:1.6rem;">
-              <article>
-                <div class="kicker" style="margin-bottom:0.4rem;">I. Eliminating the Ticketing Bottleneck for Regional DRZ Workloads</div>
-                <p class="font-serif drop-cap" style="font-size:1.18rem; line-height:1.82; margin:0;">
-                  Maya, with Black Friday <span class="prosody-stress">just around the corner</span>, I know regional capacity <span class="prosody-stress">agility</span> in Singapore is top of mind for your infrastructure team. <span class="prosody-caesura">/</span> As of this week, for <span class="prosody-stress">allowlisted</span> enterprise accounts, you can modify single-zone Provisioned Throughput orders directly inside the Cloud Console on a <span class="prosody-stress">self-serve</span> basis—removing the manual ticketing <span class="prosody-stress">bottleneck</span> ahead of flash sales.
-                </p>
-                <p class="cn-translation-block">Maya，眼看黑五近在咫尺（just around the corner），我知道新加坡区域算力弹性（agility）是你们的头等大事。从本周起，白名单（allowlisted）客户可在控制台自助（on a self-serve basis）修改单区 PT 订单，消除人工提单瓶颈（bottleneck）。</p>
+            <div class="mode-deep-content">
+              <article style="margin-bottom:1.6rem;">
+                <div class="kicker" style="margin-bottom:0.4rem;">I. Why Agent Quality Plateaus After Launch</div>
+                <p class="font-serif drop-cap" style="font-size:1.18rem; line-height:1.82; margin:0;">Thanks for walking me through your architecture, Priya. <span class="prosody-caesura">/</span> What you described is very common: <span class="prosody-caesura">/</span> teams reach eighty percent quality quickly in prototyping, <span class="prosody-caesura">/</span> and then quality <span class="prosody-stress">plateaus</span> or drifts as live traffic, prompts, and downstream tools evolve—even while every HTTP health check stays green. <span class="prosody-caesura">/</span> That is the exact gap the Ambient Quality Agent, or AQuA, was built to solve. <span class="prosody-caesura">/</span> It is an open-source ADK agent in the google/adk-recipes repository that runs inside your own project, completely outside the user request path.</p>
+                <p class="cn-translation-block">Priya，谢谢你带我看架构。你描述的现象非常普遍：团队在原型期很快能做到 80% 的质量，但上线后随着真实流量、prompt 和下游工具变化，质量就会停滞（plateaus）甚至退化——哪怕所有 HTTP 健康检查都是绿灯。Ambient Quality Agent（AQuA）正是为此而生。它是 google/adk-recipes 里的开源 ADK agent，运行在你们自己的项目内，完全不在用户请求链路上。</p>
               </article>
-              <article>
-                <div class="kicker" style="margin-bottom:0.4rem;">II. Candid Architectural Comparisons &amp; AQuA Root-Cause Diagnostics</div>
-                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">
-                  In the <span class="prosody-stress">spirit of full candor</span>, while self-serve modification beats AWS Bedrock's locked term commitments, Azure OpenAI decouples PTU quota from individual models, and our consolidated PT billing does not split cost line-items by model yet. <span class="prosody-caesura">/</span> Meanwhile, to stabilize your ADK shopping agent, our new open-source <span class="prosody-stress">AQuA</span> tool plugs into the Evaluation Service to <span class="prosody-stress">cluster</span> recurring failure modes and <span class="prosody-stress">pinpoint</span> the exact root cause whenever a multi-turn <span class="prosody-stress">trajectory</span> goes <span class="prosody-stress">sideways</span>.
-                </p>
-                <p class="cn-translation-block">本着完全坦诚的原则（in the spirit of full candor），虽然这比 AWS 锁死配额更灵活，但 Azure 的 PTU 与模型解耦（decoupled），且我们的 PT 账单暂不按模型拆分。同时，新开源的 AQuA 能自动聚类（cluster）失败模式，在多轮轨迹（trajectory）跑偏（goes sideways）时精准定位根因（pinpoint the root cause）。</p>
+              <article style="margin-bottom:1.6rem;">
+                <div class="kicker" style="margin-bottom:0.4rem;">II. Automated Trace Grading &amp; Honest Boundaries</div>
+                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">After each deploy or on a schedule, <span class="prosody-caesura">/</span> AQuA samples production sessions from Cloud Trace, Cloud Logging, or BigQuery, <span class="prosody-caesura">/</span> grades them against a failure taxonomy, <span class="prosody-caesura">/</span> and groups <span class="prosody-stress">recurring</span> defects—tracing issues right back to the offending file and line of code. <span class="prosody-caesura">/</span> In our sample benchmark, sweeping thirty-two sessions cost about twelve cents per session. <span class="prosody-caesura">/</span> To be <span class="prosody-stress">upfront</span>, though, AQuA is an open-source preview today, <span class="prosody-caesura">/</span> which means there is no managed service and no SLA yet.</p>
+                <p class="cn-translation-block">每次部署后或按定时计划，AQuA 会从 Cloud Trace、Cloud Logging 或 BigQuery 抽样生产会话，对照故障分类打分，并将反复出现（recurring）的缺陷归类——甚至直接定位到出问题的代码文件与行号。在公开示例中，巡检 32 个会话的成本约为每会话 0.12 美元。不过要事先坦诚说明（upfront）：AQuA 目前是开源预览版，还没有 managed service，也没有 SLA。</p>
+              </article>
+              <article style="margin-bottom:1.6rem;">
+                <div class="kicker" style="margin-bottom:0.4rem;">III. Provisioned Throughput &amp; Single-User Quota Limits</div>
+                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">On capacity management, two practical updates shipped this week for Provisioned Throughput. <span class="prosody-caesura">/</span> You can now rename existing PT orders so finance can match them to current models, <span class="prosody-caesura">/</span> and you can edit single-zone PT orders directly in the console. <span class="prosody-caesura">/</span> One <span class="prosody-stress">caveat</span>: existing PT on retired models continues running, <span class="prosody-caesura">/</span> but new PT orders for retired models are blocked. <span class="prosody-caesura">/</span> Meanwhile, single-user quota limits are now GA for Gemini for business seats to prevent any single power user from draining your shared <span class="prosody-stress">quota pool</span>—while the equivalent control for Antigravity is still in the pipeline.</p>
+                <p class="cn-translation-block">在容量管理上，本周 Provisioned Throughput 上线了两项实用更新：现在可以重命名现有 PT 订单以便财务核对，也可以在控制台直接修改单区 PT 订单。有一点需要注意（caveat）：已退役模型上的既有 PT 会继续运行，但不再接受为退役模型新下 PT 订单。同时，Gemini for business 的 single-user quota limits 已正式 GA，可防止个别高频用户耗尽共享 quota pool；Antigravity 的同类配额控制还在排期中。</p>
+              </article>
+              <article style="margin-bottom:1.6rem;">
+                <div class="kicker" style="margin-bottom:0.4rem;">IV. A Two-Week Verification Plan</div>
+                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">Instead of a big-bang rollout, let's validate this in two weeks. <span class="prosody-caesura">/</span> In week one, we deploy AQuA against a single non-critical agent and run a sweep after your Friday release. <span class="prosody-caesura">/</span> In week two, we review the top three recurring failure clusters with your developers and convert them into automated regression tests, <span class="prosody-caesura">/</span> while your admins turn on single-user quota limits for the pilot group.</p>
+                <p class="cn-translation-block">与其搞大水漫灌式的上线，不如用两周时间做个小步验证：第一周，我们在一个非核心 agent 上部署 AQuA，在周五发版后跑一次抽样巡检；第二周，和研发一起复盘排名前三的 recurring 故障簇并转化为回归测试，同时由管理员为试点组开启 single-user quota limits。</p>
               </article>
             </div>
-
             <div class="mode-brief-content">
-              <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">
-                With Black Friday <span class="prosody-stress">just around the corner</span>, <span class="prosody-stress">allowlisted</span> accounts can now modify single-zone PT orders in the console on a <span class="prosody-stress">self-serve</span> basis. <span class="prosody-caesura">/</span> In the <span class="prosody-stress">spirit of full candor</span>, Azure still decouples PTUs across models, but for your ADK agent, our new open-source <span class="prosody-stress">AQuA</span> tool helps <span class="prosody-stress">cluster</span> failures and <span class="prosody-stress">pinpoint</span> the root cause when a <span class="prosody-stress">trajectory</span> goes <span class="prosody-stress">sideways</span>.
-              </p>
+              <div class="border-box" style="padding:1.35rem 1.5rem; border-left:3px solid var(--accent);">
+                <article style="margin-bottom:1.35rem;">
+                  <div class="kicker" style="color:var(--accent); margin-bottom:0.4rem;">⚡ 90-Second Architecture Standup (架构师站会 90 秒速览)</div>
+                  <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">Priya, three operational updates for your production agents. <span class="prosody-caesura">/</span> First, when agent quality <span class="prosody-stress">plateaus</span> after launch, you can now use AQuA—our open-source ADK diagnostic agent—to sample traces out-of-band and trace <span class="prosody-stress">recurring</span> failures down to the exact line of code, though I want to be <span class="prosody-stress">upfront</span> that it's a preview with no SLA.</p>
+                  <p class="cn-translation-block">Priya，跟你快速同步三项生产环境 agent 的运维更新。第一，针对上线后质量停滞（plateaus）的问题，你们现在可以用开源 ADK 诊断工具 AQuA 进行旁路抽样，把 recurring 故障直接定位到代码行——不过事先说明（upfront），它目前是无 SLA 的预览版。</p>
+                </article>
+                <article style="margin-bottom:0;">
+                  <div class="kicker" style="color:var(--accent); margin-bottom:0.4rem;">🎯 Capacity &amp; Quota Guardrails (容量与配额防线)</div>
+                  <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">Second, you can now rename PT orders and edit single-zone PT directly in the console—just note the <span class="prosody-stress">caveat</span> that retired models can't take new PT orders. <span class="prosody-caesura">/</span> Third, single-user quota limits are now GA for Gemini for business to protect your shared <span class="prosody-stress">quota pool</span>, while Antigravity's cap is coming soon.</p>
+                  <p class="cn-translation-block">第二，现在可以在控制台直接重命名 PT 订单并编辑单区 PT——但要注意一个 caveat：已退役模型不能新下 PT 订单。第三，Gemini for business 的 single-user quota limits 已 GA，可保护共享 quota pool，Antigravity 的同类限制也即将推出。</p>
+                </article>
+              </div>
             </div>
           </div>
 
-          <!-- ==================== DAY 3: THURSDAY ==================== -->
+          <!-- ==================== DAY 3 ==================== -->
           <div id="day-panel-3" class="day-panel">
             <div class="border-b" style="padding-bottom:1.1rem; margin-bottom:1.5rem;">
               <div style="display:flex; justify-content:space-between; margin-bottom:0.4rem;">
-                <span class="kicker" style="color:var(--accent);">Thursday · Commercial Deal-Desk (商务谈判与价格对标)</span>
+                <span class="kicker" style="color:var(--accent);">Thursday · Commercial Deal-Desk (促销截止、FSP 与竞品比价)</span>
                 <button onclick="speakDay(3)" class="kicker" style="text-decoration:underline; color:var(--ink);">🔊 Listen Aloud</button>
               </div>
-              <h2 class="font-serif" style="font-size:clamp(1.45rem, 2.5vw, 2.05rem); font-weight:400; margin:0.2rem 0 0.5rem;">
-                Structuring Hybrid Capacity &amp; Mid-Tier Economics Against GPT-6.1 Terra
-              </h2>
-              <p style="font-size:0.92rem; color:var(--ink-secondary); margin:0;">
-                Equipping procurement and finance stakeholders with transparent blended-rate math and December 31 TCO guardrails.
-              </p>
+              <h2 class="font-serif" style="font-size:clamp(1.45rem, 2.5vw, 2.05rem); font-weight:400; margin:0.2rem 0 0.5rem;">Pricing Cliffs, FSP, and Model Choice: Structuring a Q4 Commitment</h2>
+              <p style="font-size:0.92rem; color:var(--ink-secondary); margin:0;">A procurement conversation on promotional end dates, Flexible Savings Plan coverage, and fair competitor price comparisons.</p>
             </div>
-
-            <div class="mode-deep-content" style="display:flex; flex-direction:column; gap:1.6rem;">
-              <article>
-                <div class="kicker" style="margin-bottom:0.4rem;">I. Dissecting Mid-Tier Token Economics</div>
-                <p class="font-serif drop-cap" style="font-size:1.18rem; line-height:1.82; margin:0;">
-                  I appreciate you walking me through how your procurement board is <span class="prosody-stress">scrutinizing</span> every line item of AI spend right now. <span class="prosody-caesura">/</span> While OpenAI's new GPT-6.1 Terra lists at one dollar input and five dollars output—yielding a <span class="prosody-stress">blended</span> rate around $1.33—Gemini 3.8 Flash sits at $0.75 and $3.75 during its promotional window through <span class="prosody-stress">December thirty-first</span>, delivering a blended rate near $1.01.
-                </p>
-                <p class="cn-translation-block">很感谢你带我了解采购委员会正在如何严格审查（scrutinizing）每一笔 AI 支出。虽然 GPT-6.1 Terra 混合单价约 $1.33，但 Gemini 3.8 Flash 在 12 月 31 日前促销混合单价仅约 $1.01。</p>
+            <div class="mode-deep-content">
+              <article style="margin-bottom:1.6rem;">
+                <div class="kicker" style="margin-bottom:0.4rem;">I. Three Deadlines That Shape Unit Economics</div>
+                <p class="font-serif drop-cap" style="font-size:1.18rem; line-height:1.82; margin:0;">Thanks for joining, Mark. <span class="prosody-caesura">/</span> Since your procurement cycle closes in December, <span class="prosody-caesura">/</span> let me lay out the three calendar dates that directly affect your <span class="prosody-stress">unit economics</span>. <span class="prosody-caesura">/</span> First, Gemini 3.6 Flash reaches final deprecation inside Gemini for business on November sixth. <span class="prosody-caesura">/</span> Second, Gemini 4 Argon's promo price of two dollars input and ten dollars output runs through November thirtieth before stepping up to four and twenty. <span class="prosody-caesura">/</span> Third, Gemini 3.8 Flash's intro pricing of seventy-five cents and three seventy-five holds through December thirty-first.</p>
+                <p class="cn-translation-block">Mark，感谢参会。鉴于你们的采购周期在 12 月收官，我先列出直接影响你们 unit economics 的三个关键日历节点：第一，Gemini 3.6 Flash 将于 11 月 6 日在 Gemini for business 中正式下线；第二，Gemini 4 Argon 的 $2/$10 promo price 持续至 11 月 30 日，之后恢复 $4/$20；第三，Gemini 3.8 Flash 的 $0.75/$3.75 intro pricing 持续至 12 月 31 日。</p>
               </article>
-              <article>
-                <div class="kicker" style="margin-bottom:0.4rem;">II. Hybrid Capacity &amp; Multi-Model Drawdown Guardrails</div>
-                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">
-                  Before 3.8 Flash steps up to standard pricing on January first, we recommend sizing a committed Provisioned Throughput baseline while letting Pay-As-You-Go absorb unpredictable burst <span class="prosody-stress">spillover</span>. <span class="prosody-caesura">/</span> Also, regarding Claude 5.5 inside Gemini Enterprise: it is off by default, draws down your FSP at list price without discount, and does not retire any standalone Anthropic marketplace commit.
-                </p>
-                <p class="cn-translation-block">在 1 月 1 日 3.8 Flash 恢复标准价前，建议用 PT 锁定稳态基线，用 PayGo 吸收突发溢出流量（spillover）。另外 Gemini Enterprise 内的 Claude 5.5 默认关闭，按原价无折扣抵扣 FSP，不抵扣独立 Anthropic 承诺。</p>
+              <article style="margin-bottom:1.6rem;">
+                <div class="kicker" style="margin-bottom:0.4rem;">II. Unifying Multi-Model Spend Under One FSP</div>
+                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">Your finance lead asked whether signing a commitment locks you into a single model family. <span class="prosody-caesura">/</span> It does not. <span class="prosody-caesura">/</span> The Flexible Savings Plan, or FSP, applies across Google's first-party models and approved partner models like Claude and DeepSeek on Model Garden—all consolidated on one invoice. <span class="prosody-caesura">/</span> For instance, DeepSeek V4.1 Flash lists at thirty cents input and one dollar twenty output, with a ten percent FSP discount for one year or twenty percent for three years, <span class="prosody-caesura">/</span> giving finance a single <span class="prosody-stress">line of sight</span> over scattered <span class="prosody-stress">shadow AI</span> spend.</p>
+                <p class="cn-translation-block">你们财务负责人问：签承诺消费会不会把团队锁死在单一模型家族？完全不会。Flexible Savings Plan（FSP）可同时覆盖 Google 自研模型及 Model Garden 上经批准的第三方模型（如 Claude 和 DeepSeek），并合开在一张发票上。例如 DeepSeek V4.1 Flash 标价为输入 $0.30、输出 $1.20，签 1 年期 FSP 享 9 折、3 年期享 8 折，让财务对原本分散的 shadow AI 支出拥有统一的 line of sight。</p>
+              </article>
+              <article style="margin-bottom:1.6rem;">
+                <div class="kicker" style="margin-bottom:0.4rem;">III. Apples-to-Apples Competitor Pricing</div>
+                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">When your procurement analyst compares vendors, <span class="prosody-caesura">/</span> it pays to look at <span class="prosody-stress">blended</span> rates rather than headline numbers. <span class="prosody-caesura">/</span> At list price, GPT-6 Astra is ten dollars and fifty dollars, or roughly thirteen fifty blended. <span class="prosody-caesura">/</span> Claude Opus 5.5 lists at four and twenty, or five thirty blended—putting it at exact <span class="prosody-stress">parity</span> with Argon's standard list price, while Argon is half that cost during the current promotion.</p>
+                <p class="cn-translation-block">当采购分析师做跨厂商比价时，看 blended price 比单看表面标价更准确。按 list price 计算，GPT-6 Astra 为 $10/$50（混合单价约 $13.50）；Claude Opus 5.5 为 $4/$20（混合单价约 $5.30）——与 Argon 的标准 list price 完全持平（parity），而在当前促销期内 Argon 仅为其一半。</p>
+              </article>
+              <article style="margin-bottom:1.6rem;">
+                <div class="kicker" style="margin-bottom:0.4rem;">IV. Disciplined Deal Structuring Without Overpromising</div>
+                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">If your CFO pushes for deeper non-standard discounts, <span class="prosody-caesura">/</span> I'd rather be transparent than <span class="prosody-stress">overpromise</span>: <span class="prosody-caesura">/</span> any terms beyond published FSP brackets require formal deal-desk review. <span class="prosody-caesura">/</span> What I can do by Monday is model three commitment tiers side by side so you retain full <span class="prosody-stress">flexibility</span>, <span class="prosody-caesura">/</span> and we can <span class="prosody-stress">circle back</span> on Wednesday to lock in the baseline before the November thirtieth cutoff.</p>
+                <p class="cn-translation-block">如果你们 CFO 要求额外的非标折扣，我宁可坦诚相告也绝不 overpromise：任何超出公开 FSP 档位的条款都需要走正式审批。我可以在周一前把三档承诺方案并排测算出来，确保你们保留充分的 flexibility，周三我们再 circle back，在 11 月 30 日截止前敲定基线。</p>
               </article>
             </div>
-
             <div class="mode-brief-content">
-              <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">
-                With your finance committee <span class="prosody-stress">scrutinizing</span> unit costs, note that Gemini 3.8 Flash blends near $1.01 versus GPT-6.1 Terra at $1.33 through <span class="prosody-stress">December thirty-first</span>. <span class="prosody-caesura">/</span> Let's cover your baseline with PT and let PayGo handle burst <span class="prosody-stress">spillover</span>.
-              </p>
+              <div class="border-box" style="padding:1.35rem 1.5rem; border-left:3px solid var(--accent);">
+                <article style="margin-bottom:1.35rem;">
+                  <div class="kicker" style="color:var(--accent); margin-bottom:0.4rem;">⚡ 90-Second Deal-Desk Summary (采购谈判 90 秒核心账本)</div>
+                  <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">Mark, here is the 90-second commercial snapshot for your CFO. <span class="prosody-caesura">/</span> Three dates drive your Q4 <span class="prosody-stress">unit economics</span>: migrate off Gemini 3.6 Flash by November sixth, lock in Argon's $2/$10 promo rate before November thirtieth, and leverage 3.8 Flash's intro rate through December thirty-first.</p>
+                  <p class="cn-translation-block">Mark，这是给你们 CFO 的 90 秒商务核心账本。三个日期决定了你们 Q4 的 unit economics：11 月 6 日前完成 Gemini 3.6 Flash 迁移，11 月 30 日前锁定 Argon 的 $2/$10 promo price，以及利用好持续到 12 月 31 日的 3.8 Flash 介绍价。</p>
+                </article>
+                <article style="margin-bottom:0;">
+                  <div class="kicker" style="color:var(--accent); margin-bottom:0.4rem;">🎯 FSP Flexibility &amp; Price Parity (FSP 统签与比价结论)</div>
+                  <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">Instead of siloed contracts, structure this as a multi-model FSP: <span class="prosody-caesura">/</span> it covers Gemini, Claude, and DeepSeek on one invoice—giving finance one <span class="prosody-stress">line of sight</span> over <span class="prosody-stress">shadow AI</span>—while keeping Argon at half the <span class="prosody-stress">blended</span> cost of Opus 5.5 during promo and at <span class="prosody-stress">parity</span> thereafter. <span class="prosody-caesura">/</span> Let's <span class="prosody-stress">circle back</span> Wednesday to finalize tiers.</p>
+                  <p class="cn-translation-block">建议采用多模型 FSP 替代烟囱式采购：一张发票即可覆盖 Gemini、Claude 与 DeepSeek，给财务提供管控 shadow AI 的统一 line of sight；同时 Argon 在促销期混合成本仅为 Opus 5.5 的一半，促销后与之 parity。我们周三 circle back 敲定档位。</p>
+                </article>
+              </div>
             </div>
           </div>
 
-          <!-- ==================== DAY 4: FRIDAY ==================== -->
+          <!-- ==================== DAY 4 ==================== -->
           <div id="day-panel-4" class="day-panel">
             <div class="border-b" style="padding-bottom:1.1rem; margin-bottom:1.5rem;">
               <div style="display:flex; justify-content:space-between; margin-bottom:0.4rem;">
-                <span class="kicker" style="color:var(--accent);">Friday · Warm Workplace Rapport (跨国团队破冰与转场)</span>
+                <span class="kicker" style="color:var(--accent);">Friday · Warm Workplace Rapport (周五团队寒暄与控场)</span>
                 <button onclick="speakDay(4)" class="kicker" style="text-decoration:underline; color:var(--ink);">🔊 Listen Aloud</button>
               </div>
-              <h2 class="font-serif" style="font-size:clamp(1.45rem, 2.5vw, 2.05rem); font-weight:400; margin:0.2rem 0 0.5rem;">
-                Coffee-Line Small Talk, Peer Recognition &amp; The Gracious Meeting Pivot
-              </h2>
-              <p style="font-size:0.92rem; color:var(--ink-secondary); margin:0;">
-                Moving effortlessly from warm personal rapport into crisp agenda control on cross-functional calls.
-              </p>
+              <h2 class="font-serif" style="font-size:clamp(1.45rem, 2.5vw, 2.05rem); font-weight:400; margin:0.2rem 0 0.5rem;">Friday Sync: Kudos, a Quorum, and Two Dates to Remember</h2>
+              <p style="font-size:0.92rem; color:var(--ink-secondary); margin:0;">A cross-border team call that opens warmly, recognizes a colleague, and moves cleanly to this week&#x27;s customer deadlines.</p>
             </div>
-
-            <div class="mode-deep-content" style="display:flex; flex-direction:column; gap:1.6rem;">
-              <article>
-                <div class="kicker" style="margin-bottom:0.4rem;">I. Adding Texture to Friday Small Talk</div>
-                <p class="font-serif drop-cap" style="font-size:1.18rem; line-height:1.82; margin:0;">
-                  Happy Friday, Rachel! Good to see you—how has your week been treating you so far? <span class="prosody-caesura">/</span> Over on our side of the Pacific, between helping customers navigate Q4 deadlines and digesting rapid-fire product notes, it has honestly felt like <span class="prosody-stress">drinking from a firehose</span>—though definitely in a good way! <span class="prosody-caesura">/</span> Do you have any fun plans lined up to <span class="prosody-stress">unwind</span> a bit this weekend, or are you just keeping it <span class="prosody-stress">low-key</span> at home with family?
-                </p>
-                <p class="cn-translation-block">周五快乐 Rachel！我们这边一边忙 Q4 死线一边消化密集更新，感觉像对着消防水枪喝水（drinking from a firehose）一样充实！周末有什么计划放松一下（unwind），还是打算在家低调休息（low-key）？</p>
+            <div class="mode-deep-content">
+              <article style="margin-bottom:1.6rem;">
+                <div class="kicker" style="margin-bottom:0.4rem;">I. Warming Up the Room</div>
+                <p class="font-serif drop-cap" style="font-size:1.18rem; line-height:1.82; margin:0;">Happy Friday, everyone! <span class="prosody-caesura">/</span> Sarah, welcome back—how was the overnight flight home from Singapore? <span class="prosody-caesura">/</span> I hope the <span class="prosody-stress">jet lag</span> isn't hitting you too hard today. <span class="prosody-caesura">/</span> Tom, I saw your photos from the coastal trail last weekend; <span class="prosody-caesura">/</span> that cliff view was <span class="prosody-stress">stunning</span>. <span class="prosody-caesura">/</span> Did you make it all the way to the lighthouse before sunset? <span class="prosody-caesura">/</span> We're still waiting on a couple of folks from Sydney, so let's give it sixty seconds.</p>
+                <p class="cn-translation-block">大家周五快乐！Sarah，欢迎回来——从新加坡飞回来的红眼航班还顺利吗？希望今天时差（jet lag）没太折腾你。Tom，我看到你上周末海岸徒步的照片了，悬崖海景太惊艳了（stunning），你们赶在日落前走到灯塔了吗？悉尼还有两位同事没进会，我们再等 60 秒。</p>
               </article>
-              <article>
-                <div class="kicker" style="margin-bottom:0.4rem;">II. Peer Kudos &amp; The Gracious Pivot</div>
-                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">
-                  While we wait for Marcus to join, huge <span class="prosody-stress">kudos</span> on that Antigravity Enterprise Gateway diagram you shared on Wednesday—it resonated immediately with our lead architect. <span class="prosody-caesura">/</span> Alright, Marcus just popped in, so we officially have a <span class="prosody-stress">quorum</span>. I want to be <span class="prosody-stress">mindful</span> of everyone's time today, so let's dive right in and lock down our session abstract before the November sixth Export Summit cutoff.
-                </p>
-                <p class="cn-translation-block">趁等人的工夫，必须为你周三分享的 Antigravity 企业网关架构图点个大大的赞（kudos）。好了，人齐了（quorum），为了珍惜大家的时间（mindful of time），我们直接切入正题敲定 11 月 6 日截止的峰会摘要。</p>
+              <article style="margin-bottom:1.6rem;">
+                <div class="kicker" style="margin-bottom:0.4rem;">II. Giving Specific Peer Kudos</div>
+                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">While we wait, I want to give <span class="prosody-stress">huge kudos</span> to Lin. <span class="prosody-caesura">/</span> When the Carbon pre-announcement went live on Thursday, customers immediately started asking how it affects their Argon rollouts. <span class="prosody-caesura">/</span> Lin put together a clean, one-page comparison table with every benchmark version, promo price, and lifecycle rule sourced and dated. <span class="prosody-caesura">/</span> Lin, that was <span class="prosody-stress">above and beyond</span>—it saved three account teams hours of back-and-forth.</p>
+                <p class="cn-translation-block">趁等人的工夫，我要特别表扬（huge kudos）Lin。周四 Carbon 预告一出，客户立刻开始追问对 Argon 上线计划的影响。Lin 第一时间整理了一页清晰的对比表，把每个跑分版本、promo price 和生命周期规则都标明了出处与日期。Lin，这绝对是超出预期的贡献（above and beyond），帮三个客户团队省下了好几个小时的反复沟通。</p>
+              </article>
+              <article style="margin-bottom:1.6rem;">
+                <div class="kicker" style="margin-bottom:0.4rem;">III. Calling Quorum &amp; Driving the Agenda</div>
+                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">Alright, it looks like we have a <span class="prosody-stress">quorum</span>, so let's dive in. <span class="prosody-caesura">/</span> I want to be <span class="prosody-stress">mindful</span> of everyone's time on a Friday, so I'll highlight just two customer actions. <span class="prosody-caesura">/</span> First, Gemini 3.6 Flash is deprecated inside Gemini for business on November sixth—please proactively help any remaining accounts switch their agents to 3.8 Flash. <span class="prosody-caesura">/</span> Second, Argon's promo pricing ends November thirtieth, making next week the ideal window to <span class="prosody-stress">circle back</span> with procurement.</p>
+                <p class="cn-translation-block">好，看来我们已经达到开会人数（quorum），直接进入正题。为了体谅（mindful）大家周五的时间，我只强调两项对客动作：第一，Gemini 3.6 Flash 将于 11 月 6 日在 Gemini for business 中正式下线，请主动协助剩余客户将 agent 切到 3.8 Flash；第二，Argon 促销价 11 月 30 日截止，下周是向采购 circle back 的最佳时间窗。</p>
+              </article>
+              <article style="margin-bottom:1.6rem;">
+                <div class="kicker" style="margin-bottom:0.4rem;">IV. Taking Edge Cases Offline &amp; Holiday Scheduling</div>
+                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">Let's do a quick two-minute round of updates. <span class="prosody-caesura">/</span> Tom, for that custom security questionnaire you mentioned, let's <span class="prosody-stress">take that offline</span> right after this call so we don't hold up the broader group. <span class="prosody-caesura">/</span> Also, next Friday is a public holiday for our Singapore teammates, so I'll move next week's sync to Thursday—if that clashes with a customer call, ping me and we'll find a <span class="prosody-stress">workaround</span>. <span class="prosody-caesura">/</span> Have a great weekend and <span class="prosody-stress">recharge</span>!</p>
+                <p class="cn-translation-block">我们快速过一轮每人两分钟的同步。Tom，你刚提到的定制安全问卷，年会后我们单独小范围沟通（take that offline），不占用大家时间。另外下周五新加坡团队公休，我把下周例会挪到周四——如果和客户会议冲突请随时找我，我们一起找个 workaround。祝大家周末愉快，好好充电（recharge）！</p>
               </article>
             </div>
-
             <div class="mode-brief-content">
-              <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">
-                Happy Friday, Rachel! It has felt like <span class="prosody-stress">drinking from a firehose</span> this week—any plans to <span class="prosody-stress">unwind</span> or just keeping it <span class="prosody-stress">low-key</span>? <span class="prosody-caesura">/</span> Huge <span class="prosody-stress">kudos</span> on your architecture deck! Alright, we have a <span class="prosody-stress">quorum</span>, and to be <span class="prosody-stress">mindful</span> of everyone's time, let's dive right in.
-              </p>
+              <div class="border-box" style="padding:1.35rem 1.5rem; border-left:3px solid var(--accent);">
+                <article style="margin-bottom:1.35rem;">
+                  <div class="kicker" style="color:var(--accent); margin-bottom:0.4rem;">⚡ 90-Second Friday Huddle (周五例会 90 秒极速控场)</div>
+                  <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">Happy Friday, team! Sarah, hope the <span class="prosody-stress">jet lag</span> from Singapore is fading; Tom, <span class="prosody-stress">stunning</span> trail photos! <span class="prosody-caesura">/</span> Before we start, <span class="prosody-stress">huge kudos</span> to Lin for going <span class="prosody-stress">above and beyond</span> with the sourced Carbon-versus-Argon one-pager.</p>
+                  <p class="cn-translation-block">大家周五快乐！Sarah，希望新加坡回程的时差（jet lag）好些了；Tom，徒步照片太惊艳了（stunning）！开会前，先把 huge kudos 送给 Lin，他整理的带出处 Carbon vs. Argon 一页纸真正做到了 above and beyond。</p>
+                </article>
+                <article style="margin-bottom:0;">
+                  <div class="kicker" style="color:var(--accent); margin-bottom:0.4rem;">🎯 Quorum, Action Items &amp; Offline Pivot (转场与收尾)</div>
+                  <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">We have a <span class="prosody-stress">quorum</span>, and to be <span class="prosody-stress">mindful</span> of your Friday, just two priorities: <span class="prosody-caesura">/</span> migrate remaining Gemini 3.6 Flash seats before the November sixth deprecation, and <span class="prosody-stress">circle back</span> on Argon deals ahead of the November thirtieth promo cutoff. <span class="prosody-caesura">/</span> Any account-specific blockers, let's <span class="prosody-stress">take them offline</span>—have a restful weekend and <span class="prosody-stress">recharge</span>!</p>
+                  <p class="cn-translation-block">现在人齐了（quorum），体谅（mindful）大家周五的时间，只抓两件事：11 月 6 日下线前迁完剩余的 Gemini 3.6 Flash 席位，以及在 11 月 30 日促销截止前跟进 Argon 订单（circle back）。具体账户卡点我们会后单独聊（take them offline）——祝周末愉快，好好充电（recharge）！</p>
+                </article>
+              </div>
             </div>
           </div>
 
-          <!-- ==================== DAY 5: SATURDAY ==================== -->
+          <!-- ==================== DAY 5 ==================== -->
           <div id="day-panel-5" class="day-panel">
             <div class="border-b" style="padding-bottom:1.1rem; margin-bottom:1.5rem;">
               <div style="display:flex; justify-content:space-between; margin-bottom:0.4rem;">
-                <span class="kicker" style="color:var(--accent);">Saturday · Everyday Narrative &amp; Offsite Social (地道生活与海外社交)</span>
+                <span class="kicker" style="color:var(--accent);">Saturday · Offsite Social &amp; Everyday Idiom (团建晚餐与生活表达)</span>
                 <button onclick="speakDay(5)" class="kicker" style="text-decoration:underline; color:var(--ink);">🔊 Listen Aloud</button>
               </div>
-              <h2 class="font-serif" style="font-size:clamp(1.45rem, 2.5vw, 2.05rem); font-weight:400; margin:0.2rem 0 0.5rem;">
-                Offsite Dinner Conversation: Jet Lag, Trail Hikes &amp; Everyday Idiom
-              </h2>
-              <p style="font-size:0.92rem; color:var(--ink-secondary); margin:0;">
-                Practicing relaxed, vivid storytelling for team dinners, coffee chats, and life outside work.
-              </p>
+              <h2 class="font-serif" style="font-size:clamp(1.45rem, 2.5vw, 2.05rem); font-weight:400; margin:0.2rem 0 0.5rem;">Dinner After the Offsite: Jet Lag, Hiking Trails, and Weekend Plans</h2>
+              <p style="font-size:0.92rem; color:var(--ink-secondary); margin:0;">Relaxed small talk at a team dinner, with natural idioms for travel, family, and rest.</p>
             </div>
-
-            <div class="mode-deep-content" style="display:flex; flex-direction:column; gap:1.6rem;">
-              <article>
-                <div class="kicker" style="margin-bottom:0.4rem;">I. Breaking the Ice at an Offsite Dinner</div>
-                <p class="font-serif drop-cap" style="font-size:1.18rem; line-height:1.82; margin:0;">
-                  Honestly, it is such a treat to finally meet all of you in the <span class="prosody-stress">flesh</span> after collaborating across time zones on tiny video tiles for the past year! <span class="prosody-caesura">/</span> I touched down at SFO yesterday afternoon, and I thought I had beaten the time change—until the jet lag hit me like a brick wall at three in the morning. At this point, I am running purely on double espressos!
-                </p>
-                <p class="cn-translation-block">老实说，隔着小视频方格协作一年后，终于能见到各位真人（in the flesh）太棒了！我昨天下午落地旧金山，结果凌晨三点时差像墙一样砸过来，现在全靠双份浓缩咖啡撑着！</p>
+            <div class="mode-deep-content">
+              <article style="margin-bottom:1.6rem;">
+                <div class="kicker" style="margin-bottom:0.4rem;">I. Arriving at the Restaurant</div>
+                <p class="font-serif drop-cap" style="font-size:1.18rem; line-height:1.82; margin:0;">Sorry I'm five minutes late—traffic coming across the Bay Bridge was <span class="prosody-stress">bumper to bumper</span> the whole way. <span class="prosody-caesura">/</span> This restaurant has a great vibe, though. <span class="prosody-caesura">/</span> Have you been here before? <span class="prosody-caesura">/</span> The waiter just <span class="prosody-stress">talked me into</span> trying the grilled sea bass. <span class="prosody-caesura">/</span> Honestly, after two full days of strategy workshops, it feels refreshing to sit down and talk about something other than slide decks.</p>
+                <p class="cn-translation-block">抱歉晚到了五分钟——过海湾大桥的车流一路堵得水泄不通（bumper to bumper）。不过这家餐厅氛围真棒，你们之前来过吗？服务员刚刚说服了我（talked me into）点招牌烤鲈鱼。说实话，连开了两天高强度策略研讨会，能坐下来聊点幻灯片以外的事太舒坦了。</p>
               </article>
-              <article>
-                <div class="kicker" style="margin-bottom:0.4rem;">II. Talking About Life Balance &amp; Recharging</div>
-                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">
-                  Whenever work gets <span class="prosody-stress">hectic</span> back home, I make a deliberate rule to <span class="prosody-stress">carve out</span> time on Saturday mornings before anyone else wakes up—whether for a quiet ten-kilometer run or taking the family out for a trail hike. Unplugging from screens for half a day completely resets my mental bandwidth.
-                </p>
-                <p class="cn-translation-block">在国内每当工作忙得不可开交（hectic）时，我都会在周六早上专门挤出时间（carve out time）去长跑或带家人徒步，彻底重置精力带宽。</p>
+              <article style="margin-bottom:1.6rem;">
+                <div class="kicker" style="margin-bottom:0.4rem;">II. Surviving Jet Lag on Business Trips</div>
+                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">I flew in on Wednesday night, <span class="prosody-caesura">/</span> and to be honest I'm still <span class="prosody-stress">running on fumes</span> because my body clock insists it is three in the morning. <span class="prosody-caesura">/</span> The only routine that saves me on long haul trips is going for an easy jog by the river at seven a.m. to catch the morning sunlight <span class="prosody-caesura">/</span> and resisting afternoon naps no matter how tempting they are.</p>
+                <p class="cn-translation-block">我是周三晚上飞过来的，老实说现在全凭一口气硬撑着（running on fumes），因为生物钟还觉得现在是凌晨三点。长途出差唯一能救我的习惯，就是早上七点去河边慢跑晒晒晨光，并且无论下午多困都绝不午睡。</p>
+              </article>
+              <article style="margin-bottom:1.6rem;">
+                <div class="kicker" style="margin-bottom:0.4rem;">III. Weekend Cooking &amp; Family Trails</div>
+                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">Back home, whenever work gets hectic, I love spending weekends outdoors or in the kitchen with the kids. <span class="prosody-caesura">/</span> Last Sunday I attempted handmade dumplings from scratch; they didn't look pretty, but the family <span class="prosody-stress">cleaned their plates</span>, so I'm counting that as a win! <span class="prosody-caesura">/</span> Tomorrow morning we're heading to a redwood trail an hour north that's a bit <span class="prosody-stress">off the beaten path</span>, so we can pack a picnic and <span class="prosody-stress">take it easy</span> without laptops.</p>
+                <p class="cn-translation-block">在国内每当工作忙起来，我最喜欢周末带孩子去户外或者一起下厨。上周日我第一次尝试从头手工包饺子，卖相虽然一般，但全家人都吃得精光（cleaned their plates），绝对算大获成功！明早我们准备去城北一小时车程的一条红木林步道，那里比较冷门小众（off the beaten path），不带电脑去野餐放松一下（take it easy）。</p>
+              </article>
+              <article style="margin-bottom:1.6rem;">
+                <div class="kicker" style="margin-bottom:0.4rem;">IV. Books &amp; Calling It a Night</div>
+                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">On the flight over, I also finished a novel a friend recommended—about three generations running a neighborhood bakery—and I genuinely <span class="prosody-stress">couldn't put it down</span>. <span class="prosody-caesura">/</span> Anyway, I think I'll <span class="prosody-stress">call it a night</span> soon since I have an early flight tomorrow; <span class="prosody-caesura">/</span> hope you all get a chance to <span class="prosody-stress">recharge your batteries</span> this weekend!</p>
+                <p class="cn-translation-block">在飞过来的航班上，我还读完了一本朋友推荐的小说——讲三代人经营一家社区面包房的故事——真是精彩到让人放不下（couldn't put it down）。不管怎样，我明早还要赶早班机，差不多得先回去休息了（call it a night）；祝大家周末都能好好充电（recharge your batteries）！</p>
               </article>
             </div>
-
             <div class="mode-brief-content">
-              <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">
-                It is so great to finally meet everyone in the <span class="prosody-stress">flesh</span>! <span class="prosody-caesura">/</span> Whenever work gets <span class="prosody-stress">hectic</span>, I try to <span class="prosody-stress">carve out</span> time on Saturday mornings for a trail hike to recharge and keep perspective.
-              </p>
+              <div class="border-box" style="padding:1.35rem 1.5rem; border-left:3px solid var(--accent);">
+                <article style="margin-bottom:1.35rem;">
+                  <div class="kicker" style="color:var(--accent); margin-bottom:0.4rem;">⚡ 90-Second Dinner Table Story (晚餐聚会 90 秒地道闲聊)</div>
+                  <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">Sorry I'm late—bridge traffic was <span class="prosody-stress">bumper to bumper</span>, and after flying in Wednesday I'm still <span class="prosody-stress">running on fumes</span>! <span class="prosody-caesura">/</span> Glad the waiter <span class="prosody-stress">talked me into</span> the sea bass, though. <span class="prosody-caesura">/</span> Last weekend I made dumplings with the kids—they weren't pretty, but everyone <span class="prosody-stress">cleaned their plates</span>.</p>
+                  <p class="cn-translation-block">抱歉来晚了——桥上堵得水泄不通（bumper to bumper），而且周三飞过来之后我到现在还在硬撑（running on fumes）！不过还好服务员说服了我（talked me into）点这道鲈鱼。上周末我在家带娃包饺子，虽然包得不好看，但全家都吃得精光（cleaned their plates）。</p>
+                </article>
+                <article style="margin-bottom:0;">
+                  <div class="kicker" style="color:var(--accent); margin-bottom:0.4rem;">🎯 Weekend Plans &amp; Warm Sign-Off (周末安排与自然道别)</div>
+                  <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">Tomorrow we're hiking a quiet trail <span class="prosody-stress">off the beaten path</span> and reading a novel I <span class="prosody-stress">couldn't put down</span> on the flight. <span class="prosody-caesura">/</span> I'll <span class="prosody-stress">call it a night</span> soon for my early flight—hope you <span class="prosody-stress">take it easy</span> and <span class="prosody-stress">recharge your batteries</span>!</p>
+                  <p class="cn-translation-block">明天我们打算去走一条冷门安静的步道（off the beaten path），顺便接着看我在飞机上爱不释手（couldn't put down）的小说。因为明早赶早班机，我今晚就先撤了（call it a night）——祝你们好好放松（take it easy），给身体充满电（recharge your batteries）！</p>
+                </article>
+              </div>
             </div>
           </div>
 
-          <!-- ==================== DAY 6: SUNDAY ==================== -->
+          <!-- ==================== DAY 6 ==================== -->
           <div id="day-panel-6" class="day-panel">
             <div class="border-b" style="padding-bottom:1.1rem; margin-bottom:1.5rem;">
               <div style="display:flex; justify-content:space-between; margin-bottom:0.4rem;">
-                <span class="kicker" style="color:var(--accent);">Sunday · Lexical Synthesis (全周查词大融合)</span>
+                <span class="kicker" style="color:var(--accent);">Sunday · Weekly Synthesis (本周全景复盘独白)</span>
                 <button onclick="speakDay(6)" class="kicker" style="text-decoration:underline; color:var(--ink);">🔊 Listen Aloud</button>
               </div>
-              <h2 class="font-serif" style="font-size:clamp(1.45rem, 2.5vw, 2.05rem); font-weight:400; margin:0.2rem 0 0.5rem;">
-                The Weekly Synthesis Monologue — Weaving Technical &amp; Social Fluency
-              </h2>
-              <p style="font-size:0.92rem; color:var(--ink-secondary); margin:0;">
-                Consolidating all six days of vocabulary into one cohesive narrative.
-              </p>
+              <h2 class="font-serif" style="font-size:clamp(1.45rem, 2.5vw, 2.05rem); font-weight:400; margin:0.2rem 0 0.5rem;">Weekly Synthesis: Facts First, Then the Story</h2>
+              <p style="font-size:0.92rem; color:var(--ink-secondary); margin:0;">A reflective monologue that weaves together this week&#x27;s key phrases from Monday to Saturday.</p>
             </div>
-
-            <div class="mode-deep-content" style="display:flex; flex-direction:column; gap:1.6rem;">
-              <article>
-                <div class="kicker" style="margin-bottom:0.4rem;">I. Full-Week Panorama</div>
-                <p class="font-serif drop-cap" style="font-size:1.18rem; line-height:1.82; margin:0;">
-                  Looking back at a <span class="prosody-stress">hectic</span> week where our team was <span class="prosody-stress">running at full tilt</span>, it felt like <span class="prosody-stress">drinking from a firehose</span>—yet we made remarkable strides. <span class="prosody-caesura">/</span> While the Gemini 4 Carbon preview generated immediate <span class="prosody-stress">buzz</span>, we gave executives the straight story on its <span class="prosody-stress">tightly gated</span> access and showed finance teams <span class="prosody-stress">scrutinizing</span> budgets why <span class="prosody-stress">deferring</span> Q4 Argon commitments before the November thirtieth <span class="prosody-stress">cliff</span> would backfire. Because Argon is our Long-GA <span class="prosody-stress">workhorse</span> and <span class="prosody-stress">drop-in compatible</span> with Carbon, clients lock in <span class="prosody-stress">blended</span> savings today with zero <span class="prosody-stress">rework</span>.
-                </p>
+            <div class="mode-deep-content">
+              <article style="margin-bottom:1.6rem;">
+                <div class="kicker" style="margin-bottom:0.4rem;">I. Separating Announcement from Availability</div>
+                <p class="font-serif drop-cap" style="font-size:1.18rem; line-height:1.82; margin:0;">Looking back on a <span class="prosody-stress">packed</span> week, <span class="prosody-caesura">/</span> the <span class="prosody-stress">headline</span> was unmistakable: <span class="prosody-caesura">/</span> on October thirtieth Google formally <span class="prosody-stress">pre-announced</span> Gemini 4 Carbon, <span class="prosody-caesura">/</span> a frontier model built for <span class="prosody-stress">long-horizon</span> engineering and cyber defense that ranks first on AA Index v5.0 as of October twenty-eighth. <span class="prosody-caesura">/</span> Yet the highest-value move with customers was to <span class="prosody-stress">anchor</span> every score to its version and date, <span class="prosody-caesura">/</span> explain in full <span class="prosody-stress">candor</span> that Carbon is still <span class="prosody-stress">allowlist</span>-only, <span class="prosody-caesura">/</span> and keep Q4 Argon rollouts moving since all integration work <span class="prosody-stress">carries over</span> at GA.</p>
+                <p class="cn-translation-block">回顾这排得满满当当（packed）的一周，重点（headline）非常明确：10 月 30 日 Google 正式预告（pre-announced）了专为 long-horizon 工程与网络防御打造的 Gemini 4 Carbon，截至 10 月 28 日在 AA Index v5.0 排名第一。但对客户最有价值的动作，是把每个跑分锚定（anchor）在具体版本与日期上，坦诚（candor）说明 Carbon 仍仅限 allowlist，并继续推进 Q4 的 Argon 上线——因为所有集成工作在 GA 时都能直接沿用（carries over）。</p>
               </article>
-              <article>
-                <div class="kicker" style="margin-bottom:0.4rem;">II. Candid Advisory &amp; Renewal</div>
-                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">
-                  In the <span class="prosody-stress">spirit of full candor</span>, we also walked architects through single-zone PT modifications on a <span class="prosody-stress">self-serve</span> basis and used AQuA to <span class="prosody-stress">pinpoint</span> root causes when agent <span class="prosody-stress">trajectories</span> went <span class="prosody-stress">sideways</span>. Having <span class="prosody-stress">carved out</span> quiet time this weekend to <span class="prosody-stress">unwind</span>, I am ready to dive right in on Monday.
-                </p>
+              <article style="margin-bottom:1.6rem;">
+                <div class="kicker" style="margin-bottom:0.4rem;">II. Grounding Cost &amp; Tooling in Production Reality</div>
+                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">Our second pillar was economic and architectural realism. <span class="prosody-caesura">/</span> While <span class="prosody-stress">held-out</span> tests in Index v5.0 reduce <span class="prosody-stress">contamination</span>, <span class="prosody-caesura">/</span> CFOs care about <span class="prosody-stress">blended</span> unit cost, where our ninety-five percent caching discount is the decisive <span class="prosody-stress">lever</span>. <span class="prosody-caesura">/</span> On the tooling side, our six-benchmark study demonstrated <span class="prosody-stress">Zero Harness Tax</span> inside Google Antigravity compared with each model's <span class="prosody-stress">native harness</span>, <span class="prosody-caesura">/</span> while AQuA gave engineering teams a way to diagnose why agent quality <span class="prosody-stress">plateaus</span> and trace <span class="prosody-stress">recurring</span> failures—with the <span class="prosody-stress">upfront</span> <span class="prosody-stress">caveat</span> that it is an open-source preview without an SLA.</p>
+                <p class="cn-translation-block">第二个支柱是成本与架构的务实主义。尽管 Index v5.0 的 held-out tests 减少了 contamination，但 CFO 真正关心的是 blended 单价——其中 95% 缓存折扣是最核心的杠杆（lever）。在工具链侧，六项对比研究证实了 Google Antigravity 相比各模型 native harness 具备 Zero Harness Tax；而 AQuA 则帮工程团队查明 agent 质量为何在上线后停滞（plateaus）并定位 recurring 故障——同时我们也事先坦诚提醒（upfront caveat）它是无 SLA 的开源预览。</p>
+              </article>
+              <article style="margin-bottom:1.6rem;">
+                <div class="kicker" style="margin-bottom:0.4rem;">III. Commercial Discipline &amp; Human Connection</div>
+                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">Commercially, we guided procurement through the November sixth 3.6 Flash deprecation and the November thirtieth Argon promo cutoff, <span class="prosody-caesura">/</span> using FSP to give finance a single <span class="prosody-stress">line of sight</span> across <span class="prosody-stress">shadow AI</span> while showing Argon at <span class="prosody-stress">parity</span> with Opus 5.5 at list price. <span class="prosody-caesura">/</span> And on the human side—after calling a <span class="prosody-stress">quorum</span>, giving <span class="prosody-stress">huge kudos</span> to teammates who went <span class="prosody-stress">above and beyond</span>, and surviving a week of <span class="prosody-stress">running on fumes</span>—it is time to head <span class="prosody-stress">off the beaten path</span>, <span class="prosody-stress">take it easy</span>, and <span class="prosody-stress">recharge my batteries</span> before we <span class="prosody-stress">circle back</span> on Monday.</p>
+                <p class="cn-translation-block">商务层面上，我们协助采购梳理了 11 月 6 日 3.6 Flash 下线与 11 月 30 日 Argon 促销截止，用 FSP 为财务提供管控 shadow AI 的统一 line of sight，并阐明 Argon 标价与 Opus 5.5 持平（parity）。而在人文联结上——在周五召集齐人手（quorum）、向表现 above and beyond 的队友送上 huge kudos、走过硬撑（running on fumes）的一周后——是时候去冷门步道（off the beaten path）放松一下（take it easy）、充满电（recharge my batteries），下周一再精神抖擞地 circle back。</p>
               </article>
             </div>
-
             <div class="mode-brief-content">
-              <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">
-                After a <span class="prosody-stress">hectic</span> week <span class="prosody-stress">running at full tilt</span>, we gave clients the straight story on Carbon's <span class="prosody-stress">tightly gated</span> preview, locked in Argon as their Long-GA <span class="prosody-stress">workhorse</span> without <span class="prosody-stress">rework</span>, and <span class="prosody-stress">carved out</span> time this weekend to <span class="prosody-stress">unwind</span>.
-              </p>
+              <div class="border-box" style="padding:1.35rem 1.5rem; border-left:3px solid var(--accent);">
+                <article style="margin-bottom:1.35rem;">
+                  <div class="kicker" style="color:var(--accent); margin-bottom:0.4rem;">⚡ 90-Second Weekly Executive Synthesis (全周 90 秒全景复盘)</div>
+                  <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">If I distill this <span class="prosody-stress">packed</span> week into ninety seconds: <span class="prosody-caesura">/</span> lead with facts, not hype. <span class="prosody-caesura">/</span> Gemini 4 Carbon's <span class="prosody-stress">pre-announcement</span> topped AA Index v5.0 on <span class="prosody-stress">held-out</span> tests, but in full <span class="prosody-stress">candor</span> it is <span class="prosody-stress">allowlist</span>-only, so keeping customers on Argon—our <span class="prosody-stress">Long GA</span> standard where all work <span class="prosody-stress">carries over</span>—protects their <span class="prosody-stress">blended</span> <span class="prosody-stress">unit economics</span> before the November thirtieth promo cutoff.</p>
+                  <p class="cn-translation-block">如果要把这紧凑（packed）的一周浓缩成 90 秒：用事实说话，不靠噱头。Gemini 4 Carbon 的预告（pre-announcement）虽在 AA Index v5.0 的 held-out 测试中夺魁，但坦诚说（in full candor）目前仅限 allowlist；因此让客户稳步推进所有代码均可平移（carries over）的 Long GA 主力 Argon，才能在 11 月 30 日促销截止前真正守住他们的 blended unit economics。</p>
+                </article>
+                <article style="margin-bottom:0;">
+                  <div class="kicker" style="color:var(--accent); margin-bottom:0.4rem;">🎯 Architecture, FSP &amp; Weekend Reset (架构、商务与周末重启)</div>
+                  <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">Pair that commercial discipline with <span class="prosody-stress">Zero Harness Tax</span> in Antigravity, <span class="prosody-stress">upfront</span> guidance on AQuA and PT <span class="prosody-stress">caveats</span>, and a multi-model FSP for one <span class="prosody-stress">line of sight</span>. <span class="prosody-caesura">/</span> Now, after <span class="prosody-stress">running on fumes</span>, I'm heading <span class="prosody-stress">off the beaten path</span> to <span class="prosody-stress">recharge my batteries</span> before we <span class="prosody-stress">circle back</span> Monday!</p>
+                  <p class="cn-translation-block">将这份商务严谨性与 Antigravity 的 Zero Harness Tax、对 AQuA 与 PT 边界（caveats）的坦诚（upfront）沟通、以及提供统一视图（line of sight）的多模型 FSP 结合起来，信任自然水到渠成。现在，结束了一周的连轴硬撑（running on fumes），我要去户外小众步道（off the beaten path）充个电（recharge my batteries），周一再战（circle back）！</p>
+                </article>
+              </div>
             </div>
           </div>
 
@@ -756,46 +794,77 @@
             <div class="kicker border-b" style="padding-bottom:0.45rem; margin-bottom:0.35rem;">Core Vocabulary Glossary (点击展开释义)</div>
 
             <details class="vocab-drawer" open>
-              <summary><span>running at full tilt</span><span class="kicker">Idiom</span></summary>
-              <div style="font-size:0.82rem; color:var(--accent); font-weight:600; margin-top:0.3rem;">全速运转；开足马力冲刺</div>
-              <div style="font-size:0.78rem; color:var(--ink-secondary); margin-top:0.15rem;">形容工程或业务团队在大促或上线前全力运转，比 very busy 地道十倍。</div>
+              <summary><span>pre-announce</span><span class="kicker">GTM</span></summary>
+              <div style="font-size:0.82rem; color:var(--accent); font-weight:600; margin-top:0.3rem;">预告（正式发布前公布）</div>
+              <div style="font-size:0.78rem; color:var(--ink-secondary); margin-top:0.15rem;">Carbon 处于预告阶段：已公布能力与定价，但未 GA，不承诺日期。</div>
             </details>
 
             <details class="vocab-drawer">
-              <summary><span>tightly gated preview</span><span class="kicker">GTM</span></summary>
-              <div style="font-size:0.82rem; color:var(--accent); font-weight:600; margin-top:0.3rem;">严格受限准入的预览版</div>
-              <div style="font-size:0.78rem; color:var(--ink-secondary); margin-top:0.15rem;">向客户解释为何 Gemini 4 Carbon 目前仅限 Fairwind 白名单伙伴、不能直接开通。</div>
-            </details>
-
-            <details class="vocab-drawer">
-              <summary><span>promotional cliff / deferring</span><span class="kicker">Deal</span></summary>
-              <div style="font-size:0.82rem; color:var(--accent); font-weight:600; margin-top:0.3rem;">促销到期陡增线 / 推迟决策</div>
-              <div style="font-size:0.78rem; color:var(--ink-secondary); margin-top:0.15rem;">Argon $2/$10 促销价在 11 月 30 日截止（promotional cliff），推迟（deferring）签约会导致成本翻倍。</div>
-            </details>
-
-            <details class="vocab-drawer">
-              <summary><span>workhorse &amp; drop-in compatible</span><span class="kicker">Arch</span></summary>
-              <div style="font-size:0.82rem; color:var(--accent); font-weight:600; margin-top:0.3rem;">主力生产机型 &amp; 即插即用无缝平移</div>
-              <div style="font-size:0.78rem; color:var(--ink-secondary); margin-top:0.15rem;">强调 Argon 是稳定保障 12 个月的 Long-GA 主力，且代码未来无需返工（zero rework）即可平移至 Carbon。</div>
+              <summary><span>long-horizon</span><span class="kicker">Model</span></summary>
+              <div style="font-size:0.82rem; color:var(--accent); font-weight:600; margin-top:0.3rem;">长程的（持续数小时到数天的任务）</div>
+              <div style="font-size:0.78rem; color:var(--ink-secondary); margin-top:0.15rem;">long-horizon software engineering：长时间自主执行的工程任务。</div>
             </details>
 
             <details class="vocab-drawer">
               <summary><span>in the spirit of full candor</span><span class="kicker">Advisory</span></summary>
               <div style="font-size:0.82rem; color:var(--accent); font-weight:600; margin-top:0.3rem;">本着完全坦诚的原则</div>
-              <div style="font-size:0.78rem; color:var(--ink-secondary); margin-top:0.15rem;">在客观对比 Azure 解耦 PTU 或说明我方账单颗粒度边界前使用，瞬间建立顾问信任感。</div>
+              <div style="font-size:0.78rem; color:var(--ink-secondary); margin-top:0.15rem;">说明产品边界（未 GA、无 SLA、功能未上线）前使用，建立信任。</div>
             </details>
 
             <details class="vocab-drawer">
-              <summary><span>pinpoint the root cause</span><span class="kicker">AQuA</span></summary>
-              <div style="font-size:0.82rem; color:var(--accent); font-weight:600; margin-top:0.3rem;">精准定位根本原因</div>
-              <div style="font-size:0.78rem; color:var(--ink-secondary); margin-top:0.15rem;">搭配 cluster failure modes（聚类失败模式）与 trajectory goes sideways（多轮轨迹跑偏）。</div>
+              <summary><span>Short GA / Long GA</span><span class="kicker">Lifecycle</span></summary>
+              <div style="font-size:0.82rem; color:var(--accent); font-weight:600; margin-top:0.3rem;">短周期 GA / 长周期 GA（至少 12 个月）</div>
+              <div style="font-size:0.78rem; color:var(--ink-secondary); margin-top:0.15rem;">Carbon 上线为 Short GA；Argon 为 Long GA 标准模型。</div>
             </details>
 
             <details class="vocab-drawer">
-              <summary><span>drinking from a firehose / unwind</span><span class="kicker">Social</span></summary>
-              <div style="font-size:0.82rem; color:var(--accent); font-weight:600; margin-top:0.3rem;">信息量极度密集 / 周末卸下疲惫放松</div>
-              <div style="font-size:0.78rem; color:var(--ink-secondary); margin-top:0.15rem;">北美职场周五寒暄最高频、最自然的母语级表达。</div>
+              <summary><span>carry over</span><span class="kicker">Arch</span></summary>
+              <div style="font-size:0.82rem; color:var(--accent); font-weight:600; margin-top:0.3rem;">沿用；平移（无需返工）</div>
+              <div style="font-size:0.78rem; color:var(--ink-secondary); margin-top:0.15rem;">Everything you build on Argon carries over to Carbon at GA.</div>
             </details>
+
+            <details class="vocab-drawer">
+              <summary><span>held-out / contamination</span><span class="kicker">Benchmark</span></summary>
+              <div style="font-size:0.82rem; color:var(--accent); font-weight:600; margin-top:0.3rem;">保留（不公开）测试集 / 题目污染</div>
+              <div style="font-size:0.78rem; color:var(--ink-secondary); margin-top:0.15rem;">AA v5.0 约 60% 权重来自 held-out 测试，以减少 contamination。</div>
+            </details>
+
+            <details class="vocab-drawer">
+              <summary><span>blended unit cost</span><span class="kicker">Deal</span></summary>
+              <div style="font-size:0.82rem; color:var(--accent); font-weight:600; margin-top:0.3rem;">混合单价</div>
+              <div style="font-size:0.78rem; color:var(--ink-secondary); margin-top:0.15rem;">30% 未缓存输入 + 50% 缓存输入 + 20% 输出。</div>
+            </details>
+
+            <details class="vocab-drawer">
+              <summary><span>native harness</span><span class="kicker">Arch</span></summary>
+              <div style="font-size:0.82rem; color:var(--accent); font-weight:600; margin-top:0.3rem;">厂商原生的 agent 执行框架</div>
+              <div style="font-size:0.78rem; color:var(--ink-secondary); margin-top:0.15rem;">如 Claude Code、Codex；Antigravity 在 Google 研究中与之持平。</div>
+            </details>
+
+            <details class="vocab-drawer">
+              <summary><span>plateau</span><span class="kicker">Ops</span></summary>
+              <div style="font-size:0.82rem; color:var(--accent); font-weight:600; margin-top:0.3rem;">停滞；进入平台期</div>
+              <div style="font-size:0.78rem; color:var(--ink-secondary); margin-top:0.15rem;">quality plateaus after launch：上线后质量不再提升。</div>
+            </details>
+
+            <details class="vocab-drawer">
+              <summary><span>caveat</span><span class="kicker">Advisory</span></summary>
+              <div style="font-size:0.82rem; color:var(--accent); font-weight:600; margin-top:0.3rem;">需要注意的限制条件</div>
+              <div style="font-size:0.78rem; color:var(--ink-secondary); margin-top:0.15rem;">One caveat: new PT orders for retired models aren&#x27;t accepted.</div>
+            </details>
+
+            <details class="vocab-drawer">
+              <summary><span>line of sight</span><span class="kicker">Finance</span></summary>
+              <div style="font-size:0.82rem; color:var(--accent); font-weight:600; margin-top:0.3rem;">统一可见的视图</div>
+              <div style="font-size:0.78rem; color:var(--ink-secondary); margin-top:0.15rem;">FSP 让财务对分散的 shadow AI 支出有统一视图。</div>
+            </details>
+
+            <details class="vocab-drawer">
+              <summary><span>circle back / running on fumes</span><span class="kicker">Social</span></summary>
+              <div style="font-size:0.82rem; color:var(--accent); font-weight:600; margin-top:0.3rem;">回头跟进 / 精力耗尽仍在硬撑</div>
+              <div style="font-size:0.78rem; color:var(--ink-secondary); margin-top:0.15rem;">北美职场高频表达。</div>
+            </details>
+
           </div>
 
         </aside>
@@ -812,28 +881,29 @@
 
       <div class="editorial-grid">
         <div>
-          <div class="kicker" style="margin-bottom:0.5rem;">Synthesized Reading Passages (把生词编入全新场景反复偶遇)</div>
+          <div class="kicker" style="margin-bottom:0.5rem;">Synthesized Reading Passages (把本周生词编入新场景反复偶遇)</div>
 
           <div class="border-box font-serif" style="padding:1.5rem; font-size:1.15rem; line-height:1.82; margin-bottom:1.25rem;">
-            <div class="kicker" style="color:var(--accent); margin-bottom:0.4rem;">Scenario A · Retail CIO Quarterly Readout</div>
-            "Thank you all for <span class="word-queried">carving out</span> time after a <span class="word-queried">hectic</span> week—I hope everyone gets a chance to <span class="word-queried">unwind</span> this weekend. Before we review next quarter's expansion, let's <span class="word-queried">unpack</span> our production metrics in the spirit of full <span class="word-queried">candor</span>. By deploying AQuA to <span class="word-queried">pinpoint</span> latency bottlenecks early, Gemini 4 Argon has proven to be a dependable production <span class="word-queried">workhorse</span> across your channels, and scaling into Q1 will require zero architectural <span class="word-queried">rework</span>."
+            <div class="kicker" style="color:var(--accent); margin-bottom:0.4rem;">Scenario A · Gaming Studio CTO Architecture Review</div>
+            "Thanks for the <span class="word-queried">packed</span> agenda. Before we talk about new models, let's <span class="word-queried">anchor</span> on facts: your support agent's quality <span class="word-queried">plateaus</span> after each release, and the same three failures keep <span class="word-queried">recurring</span>. AQuA can show us why, inside your own project. To be <span class="word-queried">upfront</span>, it's an open-source preview with no SLA, so we'll <span class="word-queried">pilot</span> it on one game title first, and everything we learn <span class="word-queried">carries</span> over to the next."
           </div>
 
           <div class="border-box font-serif" style="padding:1.5rem; font-size:1.15rem; line-height:1.82;">
-            <div class="kicker" style="color:var(--accent); margin-bottom:0.4rem;">Scenario B · FinTech CISO Governance Briefing</div>
-            "We welcome your security committee <span class="word-queried">scrutinizing</span> every layer of the stack. While frontier previews generate <span class="word-queried">buzz</span>, our priority is giving your operations team the observability to <span class="word-queried">cluster</span> anomalies before trajectories go <span class="word-queried">sideways</span>, while anchoring baseline traffic on a Long-GA <span class="word-queried">workhorse</span>."
+            <div class="kicker" style="color:var(--accent); margin-bottom:0.4rem;">Scenario B · Retail CFO Budget Review</div>
+            "I'll be <span class="word-queried">mindful</span> of your time. The biggest <span class="word-queried">lever</span> in your AI budget isn't the list price; it's caching. On a <span class="word-queried">blended</span> basis, our standard rate is at <span class="word-queried">parity</span> with the closest competitor tier, and an FSP gives your finance team one line of <span class="word-queried">sight</span> across every model. One <span class="word-queried">caveat</span>: promotional prices have end dates, so let's <span class="word-queried">circle</span> back before November thirtieth."
           </div>
         </div>
 
         <aside class="marginalia-col">
           <div class="kicker border-b" style="padding-bottom:0.4rem; margin-bottom:0.5rem;">Archived Lexicon Entries</div>
           <div id="lexicon-list">
-            <div class="border-b" style="padding:0.65rem 0;"><strong>candor</strong> (n.) — 坦诚；直言不讳 (in the spirit of full candor)</div>
-            <div class="border-b" style="padding:0.65rem 0;"><strong>workhorse</strong> (n.) — 主力生产机型 (Long-GA workhorse)</div>
-            <div class="border-b" style="padding:0.65rem 0;"><strong>pinpoint</strong> (v.) — 精准定位 (pinpoint the root cause)</div>
-            <div class="border-b" style="padding:0.65rem 0;"><strong>scrutinizing</strong> (v.) — 严格审视/核查 (scrutinizing unit costs)</div>
-            <div class="border-b" style="padding:0.65rem 0;"><strong>unwind</strong> (v.) — 卸下疲惫放松 (unwind this weekend)</div>
-            <div class="border-b" style="padding:0.65rem 0;"><strong>rework</strong> (n.) — 代码返工 (without any rework)</div>
+            <div class="border-b" style="padding:0.65rem 0;"><strong>pre-announce</strong> (v.) — 预告 (formally pre-announced)</div>
+            <div class="border-b" style="padding:0.65rem 0;"><strong>held-out</strong> (adj.) — 保留不公开的 (held-out test sets)</div>
+            <div class="border-b" style="padding:0.65rem 0;"><strong>plateau</strong> (v.) — 停滞 (quality plateaus)</div>
+            <div class="border-b" style="padding:0.65rem 0;"><strong>caveat</strong> (n.) — 限制条件 (one caveat)</div>
+            <div class="border-b" style="padding:0.65rem 0;"><strong>parity</strong> (n.) — 持平 (at parity)</div>
+            <div class="border-b" style="padding:0.65rem 0;"><strong>line of sight</strong> (n.) — 统一视图 (one line of sight)</div>
+            <div class="border-b" style="padding:0.65rem 0;"><strong>running on fumes</strong> (idiom) — 精力耗尽仍在硬撑</div>
           </div>
         </aside>
       </div>
@@ -845,41 +915,57 @@
         <div class="kicker" style="color:var(--accent);">Register Calibration Matrix</div>
         <h2 class="font-serif" style="font-size:1.9rem; font-weight:400; margin:0.2rem 0 0;">From Plain Intent to Executive Precision</h2>
       </div>
-
       <div class="border-b" style="padding:1.25rem 0;">
-        <div class="kicker" style="color:var(--accent);">01 · Commercial Urgency (Carbon vs. Argon)</div>
-        <div class="font-serif" style="font-size:1.1rem; margin:0.3rem 0 0.85rem;">不要因为听说了 Gemini 4 Carbon 就暂停 Q4 的 Argon 签约，11 月 30 日优惠就截止了，且代码以后可直接平移。</div>
+        <div class="kicker" style="color:var(--accent);">01 · Carbon Is Pre-Announced, Argon Is the Baseline</div>
+        <div class="font-serif" style="font-size:1.1rem; margin:0.3rem 0 0.85rem;">Carbon 只是预告、还没 GA；Q4 继续推进 Argon，以后集成可以直接沿用。</div>
         <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:1rem;">
           <div style="border:1px solid var(--rule); padding:0.9rem;">
             <div class="kicker">I. Literal / Plain</div>
-            <p class="font-serif" style="font-size:0.9rem; color:var(--ink-muted); text-decoration:line-through; margin:0.3rem 0 0;">Don't stop signing Argon in Q4 because of Carbon. Argon's discount ends on Nov 30, and your code can move easily later.</p>
+            <p class="font-serif" style="font-size:0.9rem; color:var(--ink-muted); text-decoration:line-through; margin:0.3rem 0 0;">Carbon is not out yet. Keep using Argon now. You can move later.</p>
           </div>
           <div class="border-box" style="padding:0.9rem;">
             <div class="kicker">II. Natural Colleague Sync</div>
-            <p class="font-serif" style="font-size:0.92rem; margin:0.3rem 0 0;">I wouldn't hit pause on your Q4 Argon rollout to wait for Carbon. Argon's $2/$10 intro rate expires on November 30th, and everything you build carries over seamlessly.</p>
+            <p class="font-serif" style="font-size:0.92rem; margin:0.3rem 0 0;">Carbon&#x27;s only been pre-announced, so I&#x27;d keep your Argon rollout on track—everything you build carries over at GA.</p>
           </div>
           <div class="border-box" style="padding:0.9rem; border-color:var(--ink);">
             <div class="kicker" style="color:var(--accent);">III. C-Suite / Executive Pitch</div>
-            <p class="font-serif" style="font-size:0.92rem; font-weight:600; margin:0.3rem 0 0;">We strongly advise against deferring your Q4 Argon commitment. Locking in Argon prior to the November 30th promotional cliff secures a 50% unit-cost advantage, while remaining 100% drop-in compatible with Carbon.</p>
+            <p class="font-serif" style="font-size:0.92rem; font-weight:600; margin:0.3rem 0 0;">Carbon has been pre-announced but is not yet generally available. We recommend proceeding with Argon, our Long GA standard; all integration work carries over to Carbon at launch.</p>
           </div>
         </div>
       </div>
-
       <div class="border-b" style="padding:1.25rem 0;">
-        <div class="kicker" style="color:var(--accent);">02 · Technical Candor (Single-Zone PT Self-Serve)</div>
-        <div class="font-serif" style="font-size:1.1rem; margin:0.3rem 0 0.85rem;">白名单客户现在可以在控制台自助改单区 PT 订单了；不过坦白讲，Azure 的配额和模型解耦，而且我们的 PT 账单还不能按模型拆分。</div>
+        <div class="kicker" style="color:var(--accent);">02 · Technical Candor (Antigravity Quota Control &amp; AQuA)</div>
+        <div class="font-serif" style="font-size:1.1rem; margin:0.3rem 0 0.85rem;">单用户配额上限已 GA；Antigravity 的同类控制还没上线。AQuA 是开源预览，没有 SLA。</div>
         <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:1rem;">
           <div style="border:1px solid var(--rule); padding:0.9rem;">
             <div class="kicker">I. Literal / Plain</div>
-            <p class="font-serif" style="font-size:0.9rem; color:var(--ink-muted); text-decoration:line-through; margin:0.3rem 0 0;">Allowlisted customers can change single-zone PT in the console now. Honestly, Azure's quota is separate from models, and our bill cannot split by model.</p>
+            <p class="font-serif" style="font-size:0.9rem; color:var(--ink-muted); text-decoration:line-through; margin:0.3rem 0 0;">Quota limit is ready. Antigravity one is not ready. AQuA has no SLA.</p>
           </div>
           <div class="border-box" style="padding:0.9rem;">
             <div class="kicker">II. Natural Colleague Sync</div>
-            <p class="font-serif" style="font-size:0.92rem; margin:0.3rem 0 0;">Allowlisted accounts can now tweak single-zone PT capacity right in the console on a self-serve basis. Full transparency though: Azure still decouples PTUs from models, and our invoices don't split by model yet.</p>
+            <p class="font-serif" style="font-size:0.92rem; margin:0.3rem 0 0;">Single-user quota limits are GA now; the Antigravity version is coming but not live yet. And just so you know, AQuA is an open-source preview without an SLA.</p>
           </div>
           <div class="border-box" style="padding:0.9rem; border-color:var(--ink);">
             <div class="kicker" style="color:var(--accent);">III. C-Suite / Executive Pitch</div>
-            <p class="font-serif" style="font-size:0.92rem; font-weight:600; margin:0.3rem 0 0;">Allowlisted enterprises can now modify single-zone PT commitments on a self-serve basis in the console. In the spirit of full candor, while Azure decouples PTU quota across model families and our billing does not yet itemize by model, this removes the primary bottleneck for regional DRZ scaling.</p>
+            <p class="font-serif" style="font-size:0.92rem; font-weight:600; margin:0.3rem 0 0;">In the spirit of full candor: single-user quota limits are generally available today, the Antigravity equivalent has not yet shipped, and AQuA is an open-source preview without a managed SLA.</p>
+          </div>
+        </div>
+      </div>
+      <div class="border-b" style="padding:1.25rem 0;">
+        <div class="kicker" style="color:var(--accent);">03 · Benchmark Framing (AA Index v5.0)</div>
+        <div class="font-serif" style="font-size:1.1rem; margin:0.3rem 0 0.85rem;">引用跑分要写清版本和日期；v5 和 v4 不可比。</div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:1rem;">
+          <div style="border:1px solid var(--rule); padding:0.9rem;">
+            <div class="kicker">I. Literal / Plain</div>
+            <p class="font-serif" style="font-size:0.9rem; color:var(--ink-muted); text-decoration:line-through; margin:0.3rem 0 0;">Carbon is number one. The old scores are different.</p>
+          </div>
+          <div class="border-box" style="padding:0.9rem;">
+            <div class="kicker">II. Natural Colleague Sync</div>
+            <p class="font-serif" style="font-size:0.92rem; margin:0.3rem 0 0;">Carbon&#x27;s first on AA Index v5.0 as of October 28—just note that v5 isn&#x27;t comparable with v4.</p>
+          </div>
+          <div class="border-box" style="padding:0.9rem; border-color:var(--ink);">
+            <div class="kicker" style="color:var(--accent);">III. C-Suite / Executive Pitch</div>
+            <p class="font-serif" style="font-size:0.92rem; font-weight:600; margin:0.3rem 0 0;">As of October 28, Gemini 4 Carbon ranks first on the Artificial Analysis Intelligence Index v5.0. Because v5.0 relies heavily on held-out tests, scores should not be compared with v4.</p>
           </div>
         </div>
       </div>
@@ -954,35 +1040,49 @@
   <!-- Progressive Enhancement Script (Activates Audio TTS & Click-Any-Word when opened in Safari/Chrome) -->
   <script>
     const LEXICON_DB = {
-      "tilt": { cn: "全速运转；全力冲刺 (running at full tilt)", nuance: "形容工程或业务团队在大促或发布前开足马力运转。" },
-      "buzz": { cn: "行业热议；高度关注 (generate buzz)", nuance: "新前沿模型登顶榜单时引发的高管层讨论。" },
-      "unpack": { cn: "拆解分析；抽丝剥茧地剖析", nuance: "高管对话中替代 explain 的地道动词。" },
-      "frontier": { cn: "前沿的；第一梯队的（旗舰模型）", nuance: "指代 Gemini 4 Carbon / Argon 等顶级推理模型。" },
-      "revamped": { cn: "全面改版的；重构升级的", nuance: "形容全新改版的 AA v5.0 评测体系。" },
-      "gated": { cn: "严格受限准入的 (tightly gated preview)", nuance: "向客户解释为何早期预览仅限白名单伙伴。" },
-      "workhorse": { cn: "主力生产机型；中流砥柱", nuance: "将 Argon 定位为保障 12 个月稳定期的 Long-GA 主力。" },
-      "rework": { cn: "代码返工；重写", nuance: "without any rework 打消客户对未来迁移到 Carbon 的顾虑。" },
-      "deferring": { cn: "推迟；暂缓决策", nuance: "比 delaying 更正式的商务用词。" },
-      "candor": { cn: "坦诚；直言不讳 (in the spirit of full candor)", nuance: "客观承认产品边界或对比友商时建立信任感的黄金短语。" },
-      "agility": { cn: "敏捷性；算力容量弹性", nuance: "capacity agility（容量弹性调配能力）。" },
-      "allowlisted": { cn: "已纳入白名单准入的", nuance: "单区 PT 自助修改目前面向白名单客户开放。" },
-      "decoupled": { cn: "解耦的；相互独立的", nuance: "Azure PTU 配额与单一模型解耦。" },
-      "bottleneck": { cn: "瓶颈；流程卡点", nuance: "remove the manual ticketing bottleneck（消除人工提单瓶颈）。" },
-      "cluster": { cn: "聚类；自动归类", nuance: "AQuA 自动对重复出现的失败模式进行聚类。" },
-      "pinpoint": { cn: "精准定位 (pinpoint the root cause)", nuance: "在复杂多轮 Agent 轨迹跑偏时一针见血找出根因。" },
-      "trajectory": { cn: "执行轨迹；（Agent 多步推理）路径", nuance: "Agent 领域核心词：multi-turn trajectory。" },
-      "sideways": { cn: "出岔子；跑偏 (go sideways)", nuance: "地道习语：when an agent trajectory goes sideways。" },
-      "scrutinizing": { cn: "严密审视；挑剔核查", nuance: "财务委员会严查每一分云预算（scrutinizing unit costs）。" },
-      "spillover": { cn: "突发峰值溢出流量", nuance: "用 PT 承载稳态基线，用 PayGo 吸收 burst spillover。" },
-      "flesh": { cn: "本人；真人 (meet in the flesh)", nuance: "线下第一次见到平时只开视频会的同事时的绝佳破冰词。" },
-      "unwind": { cn: "卸下疲惫；彻底放松", nuance: "周五问候同事周末安排时替代 relax。" },
-      "firehose": { cn: "消防水枪 (drinking from a firehose)", nuance: "形容信息量或工作节奏极度密集但很充实。" },
-      "kudos": { cn: "由衷赞誉；点赞致敬 (huge kudos on)", nuance: "北美职场夸赞同事贡献的标准表达。" },
-      "quorum": { cn: "法定开会人数（核心参会人已到齐）", nuance: "Looks like we have a quorum（人齐了，我们开始吧）。" },
-      "mindful": { cn: "体谅的；留心尊重的", nuance: "I want to be mindful of everyone's time（控场转场黄金句）。" },
-      "hectic": { cn: "忙碌紧凑的；连轴转的", nuance: "whenever work gets hectic（每当工作忙得不可开交时）。" },
-      "blended": { cn: "加权混合的 (blended unit cost)", nuance: "30% 未缓存 + 50% 缓存 + 20% 输出折算后的混合单价。" },
-      "cliff": { cn: "促销到期价格陡增点 (promotional cliff)", nuance: "11 月 30 日 Argon 促销到期前的紧迫时间窗。" }
+      "pre-announced": { cn: "预告（正式发布前公布）", nuance: "Carbon 已预告，未 GA。" },
+      "pre-announcement": { cn: "预告发布", nuance: "Gemini 4 Carbon pre-announcement。" },
+      "headline": { cn: "头条；最重要的一点", nuance: "Here is the headline：先讲重点。" },
+      "anchor": { cn: "锚定；以…为依据", nuance: "anchor a benchmark to its version and date。" },
+      "anchored": { cn: "锚定；以…为依据", nuance: "anchor a benchmark to its version and date。" },
+      "long-horizon": { cn: "长程的", nuance: "长时间自主执行的工程任务。" },
+      "candor": { cn: "坦诚", nuance: "in the spirit of full candor。" },
+      "allowlist": { cn: "白名单准入", nuance: "early access on the allowlist。" },
+      "carries": { cn: "沿用；平移", nuance: "carries over to Carbon at GA。" },
+      "pilot": { cn: "试点", nuance: "pilot it side by side：并行试点。" },
+      "production-grade": { cn: "生产级的", nuance: "适合正式生产环境。" },
+      "packed": { cn: "排得满满的", nuance: "a packed week：很忙的一周。" },
+      "mindful": { cn: "体谅的；留意的", nuance: "be mindful of your time。" },
+      "held-out": { cn: "保留的（不公开的测试集）", nuance: "held-out test sets。" },
+      "contamination": { cn: "（评测）题目污染", nuance: "模型因见过题目而高分。" },
+      "blended": { cn: "混合加权的", nuance: "blended unit cost：混合单价。" },
+      "lever": { cn: "杠杆；关键手段", nuance: "caching is the biggest lever。" },
+      "native": { cn: "原生的", nuance: "native harness：厂商原生框架。" },
+      "harness": { cn: "（agent）执行框架", nuance: "Zero Harness Tax。" },
+      "plateaus": { cn: "停滞", nuance: "quality plateaus after launch。" },
+      "recurring": { cn: "反复出现的", nuance: "recurring issues。" },
+      "upfront": { cn: "事先坦白的", nuance: "To be upfront: no SLA。" },
+      "caveat": { cn: "限制条件；提醒", nuance: "One caveat: ..." },
+      "caveats": { cn: "限制条件；注意事项", nuance: "upfront guidance on caveats。" },
+      "economics": { cn: "经济性", nuance: "unit economics：单位经济性。" },
+      "sight": { cn: "视线", nuance: "line of sight：统一可见的视图。" },
+      "parity": { cn: "持平", nuance: "at parity：价格相同。" },
+      "flexibility": { cn: "灵活性", nuance: "keep the flexibility to shift spend。" },
+      "circle": { cn: "绕回", nuance: "circle back：回头跟进。" },
+      "kudos": { cn: "赞誉", nuance: "huge kudos to ...：特别感谢。" },
+      "quorum": { cn: "法定人数；人齐了", nuance: "it looks like we have a quorum。" },
+      "recharge": { cn: "充电；恢复精力", nuance: "recharge your batteries。" },
+      "fumes": { cn: "余气", nuance: "running on fumes：精力耗尽仍在硬撑。" },
+      "bumper": { cn: "保险杠", nuance: "bumper to bumper：堵车严重。" },
+      "beaten": { cn: "被踩出的", nuance: "off the beaten path：冷门的。" },
+      "stunning": { cn: "令人惊艳的", nuance: "that view was stunning。" },
+      "jet": { cn: "喷气式飞机", nuance: "jet lag：时差反应。" },
+      "pedantic": { cn: "较真的；过分讲究细节的", nuance: "It sounds pedantic, but ..." },
+      "overpromise": { cn: "过度承诺", nuance: "I'd rather not overpromise." },
+      "offline": { cn: "会后单独地", nuance: "take it offline：会后小范围讨论。" },
+      "workaround": { cn: "变通办法", nuance: "find a workaround。" },
+      "talked": { cn: "说服", nuance: "talked me into it：说服我。" },
+      "cleaned": { cn: "清空", nuance: "cleaned their plates：吃得精光。" }
     };
 
     let currentWord = "";
@@ -1153,3 +1253,4 @@
   </script>
 </body>
 </html>
+
