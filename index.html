@@ -306,6 +306,119 @@
         box-shadow: 0 -8px 24px rgba(0,0,0,0.15);
       }
     }
+
+    /* ==================== EDITORIAL AUDIO PLAYER & VOICE CONTROLS ==================== */
+    .editorial-audio-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.65rem 0.9rem;
+      padding: 0.55rem 0.85rem;
+      background-color: var(--paper-elevated);
+      border: 1px solid var(--rule);
+      border-left: 3px solid var(--accent);
+      margin-top: 0.8rem;
+    }
+
+    .editorial-play-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      background-color: var(--ink);
+      color: var(--paper);
+      border: 1px solid var(--ink);
+      padding: 0.36rem 0.82rem;
+      font-family: "SF Mono", ui-monospace, monospace;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      cursor: pointer;
+      transition: background-color 0.15s, border-color 0.15s, transform 0.1s;
+    }
+    .editorial-play-btn:hover {
+      background-color: var(--accent);
+      border-color: var(--accent);
+    }
+    .editorial-play-btn.is-playing {
+      background-color: var(--accent);
+      border-color: var(--accent);
+      color: #FBF9F5;
+    }
+    .play-icon-svg {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .audio-bar-divider {
+      width: 1px;
+      height: 18px;
+      background-color: var(--rule);
+    }
+
+    .audio-meta-group {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .pace-chip {
+      border: 1px solid var(--rule);
+      background: transparent;
+      color: var(--ink-secondary);
+      font-family: "SF Mono", ui-monospace, monospace;
+      font-size: 0.68rem;
+      padding: 0.18rem 0.45rem;
+      cursor: pointer;
+      transition: all 0.12s;
+    }
+    .pace-chip.active-pace,
+    .pace-chip:hover {
+      background-color: var(--ink);
+      color: var(--paper);
+      border-color: var(--ink);
+    }
+
+    .editorial-voice-select {
+      font-family: "SF Mono", ui-monospace, monospace;
+      font-size: 0.7rem;
+      color: var(--ink);
+      background-color: var(--paper);
+      border: 1px solid var(--rule);
+      padding: 0.22rem 0.5rem;
+      max-width: 240px;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .editorial-pronounce-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.32rem;
+      border: 1px solid var(--rule);
+      background-color: var(--paper);
+      color: var(--accent);
+      padding: 0.24rem 0.62rem;
+      font-family: "SF Mono", ui-monospace, monospace;
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .editorial-pronounce-pill:hover {
+      background-color: var(--accent);
+      color: #FBF9F5;
+      border-color: var(--accent);
+    }
+
+    p.speaking-active-para {
+      background-color: var(--accent-soft);
+      border-radius: 3px;
+      box-shadow: -6px 0 0 var(--accent);
+      transition: background-color 0.25s;
+    }
+
     .hidden { display: none !important; }
   </style>
 </head>
@@ -435,12 +548,31 @@
           <!-- ==================== DAY 0 ==================== -->
           <div id="day-panel-0" class="day-panel">
             <div class="border-b" style="padding-bottom:1.1rem; margin-bottom:1.5rem;">
-              <div style="display:flex; justify-content:space-between; margin-bottom:0.4rem;">
+              <div style="margin-bottom:0.35rem;">
                 <span class="kicker" style="color:var(--accent);">Monday · Executive Vision (本周头号发布：Gemini 4 Carbon)</span>
-                <button onclick="speakDay(0)" class="kicker" style="text-decoration:underline; color:var(--ink);">🔊 Listen Aloud</button>
               </div>
               <h2 class="font-serif" style="font-size:clamp(1.45rem, 2.5vw, 2.05rem); font-weight:400; margin:0.2rem 0 0.5rem;">Gemini 4 Carbon: Reading a Frontier Pre-Announcement Without Losing Q4 Momentum</h2>
-              <p style="font-size:0.92rem; color:var(--ink-secondary); margin:0;">Briefing a customer CTO on what Carbon changes, what it does not change yet, and why Argon remains the production baseline.</p>
+              <p style="font-size:0.92rem; color:var(--ink-secondary); margin:0 0 0.95rem;">Briefing a customer CTO on what Carbon changes, what it does not change yet, and why Argon remains the production baseline.</p>
+              <div class="editorial-audio-bar">
+                <button type="button" id="audio-btn-0" class="editorial-play-btn" onclick="toggleSpeakDay(0)">
+                  <span class="play-icon-svg"><svg width="11" height="12" viewBox="0 0 11 12" fill="currentColor"><path d="M1.5 1.2v9.6L9.8 6 1.5 1.2z"/></svg></span>
+                  <span class="play-btn-label">Narrate Edition</span>
+                </button>
+                <div class="audio-bar-divider"></div>
+                <div class="audio-meta-group">
+                  <span class="kicker" style="font-size:0.65rem;">Pace</span>
+                  <button type="button" class="pace-chip" data-rate="0.88" onclick="setSpeechRate(0.88)">0.88×</button>
+                  <button type="button" class="pace-chip active-pace" data-rate="0.95" onclick="setSpeechRate(0.95)">0.95×</button>
+                  <button type="button" class="pace-chip" data-rate="1.05" onclick="setSpeechRate(1.05)">1.05×</button>
+                </div>
+                <div class="audio-bar-divider"></div>
+                <div class="audio-meta-group" style="flex:1; min-width:170px;">
+                  <span class="kicker" style="font-size:0.65rem;">Voice</span>
+                  <select class="editorial-voice-select" onchange="selectPreferredVoice(this.value)" aria-label="Select Narrator Voice">
+                    <option value="auto">Auto · Best Natural Neural Voice</option>
+                  </select>
+                </div>
+              </div>
             </div>
             <div class="mode-deep-content">
               <article style="margin-bottom:1.6rem;">
@@ -483,12 +615,31 @@
           <!-- ==================== DAY 1 ==================== -->
           <div id="day-panel-1" class="day-panel">
             <div class="border-b" style="padding-bottom:1.1rem; margin-bottom:1.5rem;">
-              <div style="display:flex; justify-content:space-between; margin-bottom:0.4rem;">
+              <div style="margin-bottom:0.35rem;">
                 <span class="kicker" style="color:var(--accent);">Tuesday · Strategic Framing (测评改版、混合单价与 Harness 选择)</span>
-                <button onclick="speakDay(1)" class="kicker" style="text-decoration:underline; color:var(--ink);">🔊 Listen Aloud</button>
               </div>
               <h2 class="font-serif" style="font-size:clamp(1.45rem, 2.5vw, 2.05rem); font-weight:400; margin:0.2rem 0 0.5rem;">Beyond the Leaderboard: Version Numbers, Blended Cost, and Harness Choice</h2>
-              <p style="font-size:0.92rem; color:var(--ink-secondary); margin:0;">Helping a steering committee read Index v5.0 correctly, and showing why total cost depends on caching and tooling.</p>
+              <p style="font-size:0.92rem; color:var(--ink-secondary); margin:0 0 0.95rem;">Helping a steering committee read Index v5.0 correctly, and showing why total cost depends on caching and tooling.</p>
+              <div class="editorial-audio-bar">
+                <button type="button" id="audio-btn-1" class="editorial-play-btn" onclick="toggleSpeakDay(1)">
+                  <span class="play-icon-svg"><svg width="11" height="12" viewBox="0 0 11 12" fill="currentColor"><path d="M1.5 1.2v9.6L9.8 6 1.5 1.2z"/></svg></span>
+                  <span class="play-btn-label">Narrate Edition</span>
+                </button>
+                <div class="audio-bar-divider"></div>
+                <div class="audio-meta-group">
+                  <span class="kicker" style="font-size:0.65rem;">Pace</span>
+                  <button type="button" class="pace-chip" data-rate="0.88" onclick="setSpeechRate(0.88)">0.88×</button>
+                  <button type="button" class="pace-chip active-pace" data-rate="0.95" onclick="setSpeechRate(0.95)">0.95×</button>
+                  <button type="button" class="pace-chip" data-rate="1.05" onclick="setSpeechRate(1.05)">1.05×</button>
+                </div>
+                <div class="audio-bar-divider"></div>
+                <div class="audio-meta-group" style="flex:1; min-width:170px;">
+                  <span class="kicker" style="font-size:0.65rem;">Voice</span>
+                  <select class="editorial-voice-select" onchange="selectPreferredVoice(this.value)" aria-label="Select Narrator Voice">
+                    <option value="auto">Auto · Best Natural Neural Voice</option>
+                  </select>
+                </div>
+              </div>
             </div>
             <div class="mode-deep-content">
               <article style="margin-bottom:1.6rem;">
@@ -531,12 +682,31 @@
           <!-- ==================== DAY 2 ==================== -->
           <div id="day-panel-2" class="day-panel">
             <div class="border-b" style="padding-bottom:1.1rem; margin-bottom:1.5rem;">
-              <div style="display:flex; justify-content:space-between; margin-bottom:0.4rem;">
+              <div style="margin-bottom:0.35rem;">
                 <span class="kicker" style="color:var(--accent);">Wednesday · Trusted Advisor (生产环境 Agent：可观测、容量与配额)</span>
-                <button onclick="speakDay(2)" class="kicker" style="text-decoration:underline; color:var(--ink);">🔊 Listen Aloud</button>
               </div>
               <h2 class="font-serif" style="font-size:clamp(1.45rem, 2.5vw, 2.05rem); font-weight:400; margin:0.2rem 0 0.5rem;">Running Agents in Production: Observability, Capacity, and Spend Guardrails</h2>
-              <p style="font-size:0.92rem; color:var(--ink-secondary); margin:0;">An architecture conversation on AQuA, Provisioned Throughput management, and single-user quota limits—gaps included.</p>
+              <p style="font-size:0.92rem; color:var(--ink-secondary); margin:0 0 0.95rem;">An architecture conversation on AQuA, Provisioned Throughput management, and single-user quota limits—gaps included.</p>
+              <div class="editorial-audio-bar">
+                <button type="button" id="audio-btn-2" class="editorial-play-btn" onclick="toggleSpeakDay(2)">
+                  <span class="play-icon-svg"><svg width="11" height="12" viewBox="0 0 11 12" fill="currentColor"><path d="M1.5 1.2v9.6L9.8 6 1.5 1.2z"/></svg></span>
+                  <span class="play-btn-label">Narrate Edition</span>
+                </button>
+                <div class="audio-bar-divider"></div>
+                <div class="audio-meta-group">
+                  <span class="kicker" style="font-size:0.65rem;">Pace</span>
+                  <button type="button" class="pace-chip" data-rate="0.88" onclick="setSpeechRate(0.88)">0.88×</button>
+                  <button type="button" class="pace-chip active-pace" data-rate="0.95" onclick="setSpeechRate(0.95)">0.95×</button>
+                  <button type="button" class="pace-chip" data-rate="1.05" onclick="setSpeechRate(1.05)">1.05×</button>
+                </div>
+                <div class="audio-bar-divider"></div>
+                <div class="audio-meta-group" style="flex:1; min-width:170px;">
+                  <span class="kicker" style="font-size:0.65rem;">Voice</span>
+                  <select class="editorial-voice-select" onchange="selectPreferredVoice(this.value)" aria-label="Select Narrator Voice">
+                    <option value="auto">Auto · Best Natural Neural Voice</option>
+                  </select>
+                </div>
+              </div>
             </div>
             <div class="mode-deep-content">
               <article style="margin-bottom:1.6rem;">
@@ -579,12 +749,31 @@
           <!-- ==================== DAY 3 ==================== -->
           <div id="day-panel-3" class="day-panel">
             <div class="border-b" style="padding-bottom:1.1rem; margin-bottom:1.5rem;">
-              <div style="display:flex; justify-content:space-between; margin-bottom:0.4rem;">
+              <div style="margin-bottom:0.35rem;">
                 <span class="kicker" style="color:var(--accent);">Thursday · Commercial Deal-Desk (促销截止、FSP 与竞品比价)</span>
-                <button onclick="speakDay(3)" class="kicker" style="text-decoration:underline; color:var(--ink);">🔊 Listen Aloud</button>
               </div>
               <h2 class="font-serif" style="font-size:clamp(1.45rem, 2.5vw, 2.05rem); font-weight:400; margin:0.2rem 0 0.5rem;">Pricing Cliffs, FSP, and Model Choice: Structuring a Q4 Commitment</h2>
-              <p style="font-size:0.92rem; color:var(--ink-secondary); margin:0;">A procurement conversation on promotional end dates, Flexible Savings Plan coverage, and fair competitor price comparisons.</p>
+              <p style="font-size:0.92rem; color:var(--ink-secondary); margin:0 0 0.95rem;">A procurement conversation on promotional end dates, Flexible Savings Plan coverage, and fair competitor price comparisons.</p>
+              <div class="editorial-audio-bar">
+                <button type="button" id="audio-btn-3" class="editorial-play-btn" onclick="toggleSpeakDay(3)">
+                  <span class="play-icon-svg"><svg width="11" height="12" viewBox="0 0 11 12" fill="currentColor"><path d="M1.5 1.2v9.6L9.8 6 1.5 1.2z"/></svg></span>
+                  <span class="play-btn-label">Narrate Edition</span>
+                </button>
+                <div class="audio-bar-divider"></div>
+                <div class="audio-meta-group">
+                  <span class="kicker" style="font-size:0.65rem;">Pace</span>
+                  <button type="button" class="pace-chip" data-rate="0.88" onclick="setSpeechRate(0.88)">0.88×</button>
+                  <button type="button" class="pace-chip active-pace" data-rate="0.95" onclick="setSpeechRate(0.95)">0.95×</button>
+                  <button type="button" class="pace-chip" data-rate="1.05" onclick="setSpeechRate(1.05)">1.05×</button>
+                </div>
+                <div class="audio-bar-divider"></div>
+                <div class="audio-meta-group" style="flex:1; min-width:170px;">
+                  <span class="kicker" style="font-size:0.65rem;">Voice</span>
+                  <select class="editorial-voice-select" onchange="selectPreferredVoice(this.value)" aria-label="Select Narrator Voice">
+                    <option value="auto">Auto · Best Natural Neural Voice</option>
+                  </select>
+                </div>
+              </div>
             </div>
             <div class="mode-deep-content">
               <article style="margin-bottom:1.6rem;">
@@ -627,12 +816,31 @@
           <!-- ==================== DAY 4 ==================== -->
           <div id="day-panel-4" class="day-panel">
             <div class="border-b" style="padding-bottom:1.1rem; margin-bottom:1.5rem;">
-              <div style="display:flex; justify-content:space-between; margin-bottom:0.4rem;">
+              <div style="margin-bottom:0.35rem;">
                 <span class="kicker" style="color:var(--accent);">Friday · Warm Workplace Rapport (周五团队寒暄与控场)</span>
-                <button onclick="speakDay(4)" class="kicker" style="text-decoration:underline; color:var(--ink);">🔊 Listen Aloud</button>
               </div>
               <h2 class="font-serif" style="font-size:clamp(1.45rem, 2.5vw, 2.05rem); font-weight:400; margin:0.2rem 0 0.5rem;">Friday Sync: Kudos, a Quorum, and Two Dates to Remember</h2>
-              <p style="font-size:0.92rem; color:var(--ink-secondary); margin:0;">A cross-border team call that opens warmly, recognizes a colleague, and moves cleanly to this week&#x27;s customer deadlines.</p>
+              <p style="font-size:0.92rem; color:var(--ink-secondary); margin:0 0 0.95rem;">A cross-border team call that opens warmly, recognizes a colleague, and moves cleanly to this week&#x27;s customer deadlines.</p>
+              <div class="editorial-audio-bar">
+                <button type="button" id="audio-btn-4" class="editorial-play-btn" onclick="toggleSpeakDay(4)">
+                  <span class="play-icon-svg"><svg width="11" height="12" viewBox="0 0 11 12" fill="currentColor"><path d="M1.5 1.2v9.6L9.8 6 1.5 1.2z"/></svg></span>
+                  <span class="play-btn-label">Narrate Edition</span>
+                </button>
+                <div class="audio-bar-divider"></div>
+                <div class="audio-meta-group">
+                  <span class="kicker" style="font-size:0.65rem;">Pace</span>
+                  <button type="button" class="pace-chip" data-rate="0.88" onclick="setSpeechRate(0.88)">0.88×</button>
+                  <button type="button" class="pace-chip active-pace" data-rate="0.95" onclick="setSpeechRate(0.95)">0.95×</button>
+                  <button type="button" class="pace-chip" data-rate="1.05" onclick="setSpeechRate(1.05)">1.05×</button>
+                </div>
+                <div class="audio-bar-divider"></div>
+                <div class="audio-meta-group" style="flex:1; min-width:170px;">
+                  <span class="kicker" style="font-size:0.65rem;">Voice</span>
+                  <select class="editorial-voice-select" onchange="selectPreferredVoice(this.value)" aria-label="Select Narrator Voice">
+                    <option value="auto">Auto · Best Natural Neural Voice</option>
+                  </select>
+                </div>
+              </div>
             </div>
             <div class="mode-deep-content">
               <article style="margin-bottom:1.6rem;">
@@ -675,12 +883,31 @@
           <!-- ==================== DAY 5 ==================== -->
           <div id="day-panel-5" class="day-panel">
             <div class="border-b" style="padding-bottom:1.1rem; margin-bottom:1.5rem;">
-              <div style="display:flex; justify-content:space-between; margin-bottom:0.4rem;">
+              <div style="margin-bottom:0.35rem;">
                 <span class="kicker" style="color:var(--accent);">Saturday · Offsite Social &amp; Everyday Idiom (团建晚餐与生活表达)</span>
-                <button onclick="speakDay(5)" class="kicker" style="text-decoration:underline; color:var(--ink);">🔊 Listen Aloud</button>
               </div>
               <h2 class="font-serif" style="font-size:clamp(1.45rem, 2.5vw, 2.05rem); font-weight:400; margin:0.2rem 0 0.5rem;">Dinner After the Offsite: Jet Lag, Hiking Trails, and Weekend Plans</h2>
-              <p style="font-size:0.92rem; color:var(--ink-secondary); margin:0;">Relaxed small talk at a team dinner, with natural idioms for travel, family, and rest.</p>
+              <p style="font-size:0.92rem; color:var(--ink-secondary); margin:0 0 0.95rem;">Relaxed small talk at a team dinner, with natural idioms for travel, family, and rest.</p>
+              <div class="editorial-audio-bar">
+                <button type="button" id="audio-btn-5" class="editorial-play-btn" onclick="toggleSpeakDay(5)">
+                  <span class="play-icon-svg"><svg width="11" height="12" viewBox="0 0 11 12" fill="currentColor"><path d="M1.5 1.2v9.6L9.8 6 1.5 1.2z"/></svg></span>
+                  <span class="play-btn-label">Narrate Edition</span>
+                </button>
+                <div class="audio-bar-divider"></div>
+                <div class="audio-meta-group">
+                  <span class="kicker" style="font-size:0.65rem;">Pace</span>
+                  <button type="button" class="pace-chip" data-rate="0.88" onclick="setSpeechRate(0.88)">0.88×</button>
+                  <button type="button" class="pace-chip active-pace" data-rate="0.95" onclick="setSpeechRate(0.95)">0.95×</button>
+                  <button type="button" class="pace-chip" data-rate="1.05" onclick="setSpeechRate(1.05)">1.05×</button>
+                </div>
+                <div class="audio-bar-divider"></div>
+                <div class="audio-meta-group" style="flex:1; min-width:170px;">
+                  <span class="kicker" style="font-size:0.65rem;">Voice</span>
+                  <select class="editorial-voice-select" onchange="selectPreferredVoice(this.value)" aria-label="Select Narrator Voice">
+                    <option value="auto">Auto · Best Natural Neural Voice</option>
+                  </select>
+                </div>
+              </div>
             </div>
             <div class="mode-deep-content">
               <article style="margin-bottom:1.6rem;">
@@ -723,12 +950,31 @@
           <!-- ==================== DAY 6 ==================== -->
           <div id="day-panel-6" class="day-panel">
             <div class="border-b" style="padding-bottom:1.1rem; margin-bottom:1.5rem;">
-              <div style="display:flex; justify-content:space-between; margin-bottom:0.4rem;">
+              <div style="margin-bottom:0.35rem;">
                 <span class="kicker" style="color:var(--accent);">Sunday · Weekly Synthesis (本周全景复盘独白)</span>
-                <button onclick="speakDay(6)" class="kicker" style="text-decoration:underline; color:var(--ink);">🔊 Listen Aloud</button>
               </div>
               <h2 class="font-serif" style="font-size:clamp(1.45rem, 2.5vw, 2.05rem); font-weight:400; margin:0.2rem 0 0.5rem;">Weekly Synthesis: Facts First, Then the Story</h2>
-              <p style="font-size:0.92rem; color:var(--ink-secondary); margin:0;">A reflective monologue that weaves together this week&#x27;s key phrases from Monday to Saturday.</p>
+              <p style="font-size:0.92rem; color:var(--ink-secondary); margin:0 0 0.95rem;">A reflective monologue that weaves together this week&#x27;s key phrases from Monday to Saturday.</p>
+              <div class="editorial-audio-bar">
+                <button type="button" id="audio-btn-6" class="editorial-play-btn" onclick="toggleSpeakDay(6)">
+                  <span class="play-icon-svg"><svg width="11" height="12" viewBox="0 0 11 12" fill="currentColor"><path d="M1.5 1.2v9.6L9.8 6 1.5 1.2z"/></svg></span>
+                  <span class="play-btn-label">Narrate Edition</span>
+                </button>
+                <div class="audio-bar-divider"></div>
+                <div class="audio-meta-group">
+                  <span class="kicker" style="font-size:0.65rem;">Pace</span>
+                  <button type="button" class="pace-chip" data-rate="0.88" onclick="setSpeechRate(0.88)">0.88×</button>
+                  <button type="button" class="pace-chip active-pace" data-rate="0.95" onclick="setSpeechRate(0.95)">0.95×</button>
+                  <button type="button" class="pace-chip" data-rate="1.05" onclick="setSpeechRate(1.05)">1.05×</button>
+                </div>
+                <div class="audio-bar-divider"></div>
+                <div class="audio-meta-group" style="flex:1; min-width:170px;">
+                  <span class="kicker" style="font-size:0.65rem;">Voice</span>
+                  <select class="editorial-voice-select" onchange="selectPreferredVoice(this.value)" aria-label="Select Narrator Voice">
+                    <option value="auto">Auto · Best Natural Neural Voice</option>
+                  </select>
+                </div>
+              </div>
             </div>
             <div class="mode-deep-content">
               <article style="margin-bottom:1.6rem;">
@@ -782,7 +1028,7 @@
             <div id="marginalia-detail" class="hidden" style="display:flex; flex-direction:column; gap:0.5rem;">
               <div style="display:flex; justify-content:space-between; align-items:baseline;">
                 <span id="marg-word" class="font-serif" style="font-size:1.45rem; font-weight:700;"></span>
-                <button onclick="speakInspectedWord()" class="kicker" style="text-decoration:underline; color:var(--accent);">🔊 Pronounce</button>
+                <button type="button" onclick="speakInspectedWord()" class="editorial-pronounce-pill"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg><span>Pronounce</span></button>
               </div>
               <div id="marg-cn" style="font-size:0.9rem; font-weight:600; color:var(--accent);"></div>
               <div id="marg-nuance" style="font-size:0.8rem; color:var(--ink-secondary);"></div>
@@ -1010,6 +1256,21 @@
         </div>
       </div>
 
+      <div class="border-box" style="padding:1.5rem; margin-bottom:1.5rem;">
+        <div class="kicker" style="color:var(--accent); margin-bottom:0.4rem;">Studio-Grade Neural Voice Guide (告别机械音：解锁真人级播客音色)</div>
+        <h2 class="font-serif" style="font-size:1.6rem; font-weight:400; margin:0 0 0.75rem;">
+          如何让朗读声音像《经济学人》真人主播一样自然？
+        </h2>
+        <p style="font-size:0.9rem; color:var(--ink-secondary); margin:0 0 0.9rem; line-height:1.65;">
+          阅读器现已升级为<strong>「智能高阶神经网络音色引擎 + 分句呼吸韵律控制器」</strong>，会自动优先调用设备上的 <strong>Premium / Enhanced / Natural / Siri</strong> 音色，并在斜杠 <code>/</code> 意群处自动加入真人换气停顿。如果你在 iPhone 上觉得默认声音偏机械，那是因为 iOS 出厂为了省空间只预装了几十 MB 的基础压缩音色（Compact Samantha），只需 20 秒免费开启苹果官方高阶神经网络语音包：
+        </p>
+        <ol style="font-size:0.9rem; line-height:1.75; padding-left:1.25rem; margin:0;">
+          <li>打开 iPhone <strong>「设置 (Settings)」→「辅助功能 (Accessibility)」→「朗读内容 (Spoken Content)」→「声音 (Voices)」→「英语 (English)」</strong>。</li>
+          <li>点开 <strong>Ava</strong>、<strong>Allison</strong>、<strong>Evan</strong> 或 <strong>Samantha</strong>，点击下载 <strong>「增强质量 (Enhanced)」或「高级 (Premium)」</strong>（或者在 <strong>Siri</strong> 栏下载 <strong>Siri 声音 2 / 4</strong>）。</li>
+          <li>回到本阅读器，在文章标题下方的 <strong>Voice</strong> 下拉菜单中即可直接选中刚下载的 <strong>Premium / Enhanced</strong> 主播音色！如果用电脑 <strong>Chrome / Edge</strong> 打开，下拉菜单会自动选中 <strong>Google US English</strong> 或 <strong>Microsoft Andrew / Ava Natural</strong> 真人级大模型音色。</li>
+        </ol>
+      </div>
+
       <div class="border-box" style="padding:1.5rem;">
         <div class="kicker" style="color:var(--accent); margin-bottom:0.4rem;">Why Google Drive Preview Blocked Buttons Before — And How It Is Fixed Now</div>
         <h2 class="font-serif" style="font-size:1.6rem; font-weight:400; margin:0 0 0.75rem;">
@@ -1029,7 +1290,7 @@
     <div style="display:flex; justify-content:space-between; align-items:baseline;">
       <span id="mob-word" class="font-serif" style="font-size:1.3rem; font-weight:700;"></span>
       <div style="display:flex; gap:0.75rem;">
-        <button onclick="speakInspectedWord()" class="kicker" style="text-decoration:underline; color:var(--accent);">🔊 Pronounce</button>
+        <button type="button" onclick="speakInspectedWord()" class="editorial-pronounce-pill"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg><span>Pronounce</span></button>
         <button onclick="document.getElementById('mobile-word-toast').classList.add('hidden')" class="kicker">Close ×</button>
       </div>
     </div>
@@ -1086,23 +1347,260 @@
     };
 
     let currentWord = "";
+    let speechRate = 0.95;
+    let preferredVoiceURI = "auto";
+    let activeSpeakingDay = null;
+    let sentenceQueue = [];
+    let isQueuePlaying = false;
+
+    const PLAY_SVG = '<svg width="11" height="12" viewBox="0 0 11 12" fill="currentColor"><path d="M1.5 1.2v9.6L9.8 6 1.5 1.2z"/></svg>';
+    const STOP_SVG = '<svg width="11" height="12" viewBox="0 0 11 12" fill="currentColor"><rect x="1.5" y="1.8" width="8.2" height="8.4" rx="1"/></svg>';
+
+    function scoreEnglishVoice(v) {
+      if (!v || !v.lang) return -999;
+      const lang = v.lang.replace('_', '-').toLowerCase();
+      if (!lang.startsWith('en')) return -999;
+      const name = (v.name || '').toLowerCase();
+      let score = 0;
+
+      if (lang === 'en-us') score += 35;
+      else if (lang === 'en-gb' || lang === 'en-au' || lang === 'en-ca') score += 20;
+
+      // Strongly boost Neural / Premium / Enhanced / Natural voices
+      if (name.includes('natural')) score += 120;
+      if (name.includes('online')) score += 90;
+      if (name.includes('premium')) score += 110;
+      if (name.includes('enhanced')) score += 95;
+      if (name.includes('siri')) score += 100;
+      if (name.includes('google us english')) score += 88;
+      if (name.includes('google uk english')) score += 78;
+
+      // High-craft macOS / iOS / Edge / Chrome narrator names
+      const studioNames = ['ava', 'andrew', 'emma', 'brian', 'jenny', 'aria', 'guy', 'allison', 'evan', 'nathan', 'zoe', 'samantha', 'alex', 'daniel', 'serena', 'oliver'];
+      for (const sn of studioNames) {
+        if (name.includes(sn)) { score += 45; break; }
+      }
+
+      // Penalize novelty / robotic voices
+      const robotic = ['albert', 'bad news', 'bahh', 'bells', 'boing', 'bubbles', 'cellos', 'deranged', 'good news', 'hysterical', 'junior', 'kathy', 'organ', 'superstar', 'trinoids', 'whisper', 'zarvox', 'fred', 'ralph', 'espeak'];
+      for (const rb of robotic) {
+        if (name.includes(rb)) score -= 200;
+      }
+      return score;
+    }
+
+    function getRankedEnglishVoices() {
+      if (!('speechSynthesis' in window)) return [];
+      const all = window.speechSynthesis.getVoices() || [];
+      return all
+        .filter(v => scoreEnglishVoice(v) > -100)
+        .sort((a, b) => scoreEnglishVoice(b) - scoreEnglishVoice(a));
+    }
+
+    function populateVoiceSelectors() {
+      const ranked = getRankedEnglishVoices();
+      if (!ranked.length) return;
+      const savedURI = localStorage.getItem('aiss_preferred_voice') || 'auto';
+      preferredVoiceURI = savedURI;
+
+      document.querySelectorAll('.editorial-voice-select').forEach(sel => {
+        const currentVal = sel.value || savedURI;
+        sel.innerHTML = '';
+        const topVoice = ranked[0];
+        const autoOpt = document.createElement('option');
+        autoOpt.value = 'auto';
+        autoOpt.textContent = `Auto · ${topVoice.name.replace(/Microsoft |Google /g, '')}`;
+        sel.appendChild(autoOpt);
+
+        ranked.slice(0, 14).forEach(v => {
+          const opt = document.createElement('option');
+          opt.value = v.voiceURI;
+          const badge = /natural|premium|enhanced|siri|google/i.test(v.name) ? '★ ' : '';
+          opt.textContent = `${badge}${v.name} (${v.lang})`;
+          sel.appendChild(opt);
+        });
+        if ([...sel.options].some(o => o.value === preferredVoiceURI)) {
+          sel.value = preferredVoiceURI;
+        } else {
+          sel.value = 'auto';
+        }
+      });
+    }
+
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.onvoiceschanged = populateVoiceSelectors;
+      setTimeout(populateVoiceSelectors, 150);
+      setTimeout(populateVoiceSelectors, 800);
+    }
+
+    function getSelectedVoiceObject() {
+      const ranked = getRankedEnglishVoices();
+      if (!ranked.length) return null;
+      if (preferredVoiceURI && preferredVoiceURI !== 'auto') {
+        const match = ranked.find(v => v.voiceURI === preferredVoiceURI);
+        if (match) return match;
+      }
+      return ranked[0];
+    }
+
+    function selectPreferredVoice(uri) {
+      preferredVoiceURI = uri || 'auto';
+      try { localStorage.setItem('aiss_preferred_voice', preferredVoiceURI); } catch (e) {}
+      document.querySelectorAll('.editorial-voice-select').forEach(sel => {
+        sel.value = preferredVoiceURI;
+      });
+      if (isQueuePlaying && activeSpeakingDay !== null) {
+        const d = activeSpeakingDay;
+        stopNarration();
+        toggleSpeakDay(d);
+      }
+    }
+
+    function setSpeechRate(rate) {
+      speechRate = rate;
+      document.querySelectorAll('.pace-chip').forEach(btn => {
+        if (Math.abs(parseFloat(btn.getAttribute('data-rate')) - rate) < 0.01) {
+          btn.classList.add('active-pace');
+        } else {
+          btn.classList.remove('active-pace');
+        }
+      });
+      if (isQueuePlaying && activeSpeakingDay !== null) {
+        const d = activeSpeakingDay;
+        stopNarration();
+        toggleSpeakDay(d);
+      }
+    }
+
+    function clearSpeakingHighlights() {
+      document.querySelectorAll('p.speaking-active-para').forEach(el => {
+        el.classList.remove('speaking-active-para');
+      });
+      document.querySelectorAll('.editorial-play-btn').forEach(btn => {
+        btn.classList.remove('is-playing');
+        const icon = btn.querySelector('.play-icon-svg');
+        const label = btn.querySelector('.play-btn-label');
+        if (icon) icon.innerHTML = PLAY_SVG;
+        if (label) label.textContent = 'Narrate Edition';
+      });
+    }
+
+    function stopNarration() {
+      isQueuePlaying = false;
+      activeSpeakingDay = null;
+      sentenceQueue = [];
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+      clearSpeakingHighlights();
+    }
+
+    function normalizeTextForNaturalSpeech(rawText) {
+      // Turn editorial '/' caesura markers into natural micro-breath commas and expand abbreviations
+      return rawText
+        .replace(/\s*\/\s*/g, ', ')
+        .replace(/\bv(\d+\.\d+)\b/gi, 'version $1')
+        .replace(/\bQ([1-4])\b/g, 'quarter $1')
+        .replace(/\s+/g, ' ')
+        .trim();
+    }
 
     function speakText(text) {
       if (!('speechSynthesis' in window)) return;
-      window.speechSynthesis.cancel();
-      const utter = new SpeechSynthesisUtterance(text);
-      utter.lang = 'en-US';
+      stopNarration();
+      const utter = new SpeechSynthesisUtterance(normalizeTextForNaturalSpeech(text));
+      const voice = getSelectedVoiceObject();
+      if (voice) {
+        utter.voice = voice;
+        utter.lang = voice.lang;
+      } else {
+        utter.lang = 'en-US';
+      }
+      utter.rate = speechRate;
+      utter.pitch = 1.0;
       window.speechSynthesis.speak(utter);
     }
 
-    function speakDay(dayIdx) {
+    function playNextInQueue() {
+      if (!isQueuePlaying || !sentenceQueue.length) {
+        stopNarration();
+        return;
+      }
+      const item = sentenceQueue.shift();
+      clearSpeakingHighlights();
+
+      if (activeSpeakingDay !== null) {
+        const btn = document.getElementById(`audio-btn-${activeSpeakingDay}`);
+        if (btn) {
+          btn.classList.add('is-playing');
+          const icon = btn.querySelector('.play-icon-svg');
+          const label = btn.querySelector('.play-btn-label');
+          if (icon) icon.innerHTML = STOP_SVG;
+          if (label) label.textContent = 'Stop Narration';
+        }
+      }
+      if (item.el) {
+        item.el.classList.add('speaking-active-para');
+      }
+
+      const utter = new SpeechSynthesisUtterance(item.text);
+      const voice = getSelectedVoiceObject();
+      if (voice) {
+        utter.voice = voice;
+        utter.lang = voice.lang;
+      } else {
+        utter.lang = 'en-US';
+      }
+      utter.rate = speechRate;
+      utter.pitch = 1.0;
+
+      utter.onend = () => {
+        if (isQueuePlaying) {
+          setTimeout(playNextInQueue, 140);
+        }
+      };
+      utter.onerror = () => {
+        if (isQueuePlaying) {
+          playNextInQueue();
+        }
+      };
+      window.speechSynthesis.speak(utter);
+    }
+
+    function toggleSpeakDay(dayIdx) {
+      if (!('speechSynthesis' in window)) return;
+      if (isQueuePlaying && activeSpeakingDay === dayIdx) {
+        stopNarration();
+        return;
+      }
+      stopNarration();
+
       const panel = document.getElementById(`day-panel-${dayIdx}`);
       if (!panel) return;
       const isBrief = document.getElementById('len-rad-brief').checked;
       const container = panel.querySelector(isBrief ? '.mode-brief-content' : '.mode-deep-content');
-      if (container) {
-        speakText(container.innerText.replace(/\//g, ' '));
-      }
+      if (!container) return;
+
+      // Only read the English serif paragraphs (never read the Chinese translation blocks!)
+      const paras = container.querySelectorAll('p.font-serif');
+      const queue = [];
+      paras.forEach(p => {
+        const cleanPara = normalizeTextForNaturalSpeech(p.innerText || '');
+        // Split into natural sentence chunks so TTS prosody stays expressive and never times out
+        const sentences = cleanPara.match(/[^.!?]+[.!?]+|[^.!?]+$/g) || [cleanPara];
+        sentences.forEach(s => {
+          const trimmed = s.trim();
+          if (trimmed.length > 1) {
+            queue.push({ text: trimmed, el: p });
+          }
+        });
+      });
+
+      if (!queue.length) return;
+      activeSpeakingDay = dayIdx;
+      sentenceQueue = queue;
+      isQueuePlaying = true;
+      playNextInQueue();
     }
 
     function speakInspectedWord() {
@@ -1202,6 +1700,10 @@
       } catch (e) {
         applyPresetIcon('burgundy');
       }
+      populateVoiceSelectors();
+      document.querySelectorAll('input[name="day-nav"], input[name="len-nav"], input[name="sec-nav"]').forEach(inp => {
+        inp.addEventListener('change', () => stopNarration());
+      });
       document.querySelectorAll('.day-panel p.font-serif').forEach(p => {
         p.addEventListener('click', (e) => {
           const selection = window.getSelection();
@@ -1253,4 +1755,5 @@
   </script>
 </body>
 </html>
+
 
