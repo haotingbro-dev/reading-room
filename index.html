@@ -453,8 +453,8 @@
     <!-- ==================== MASTHEAD ==================== -->
     <header class="border-b" style="padding-bottom:1.1rem;">
       <div class="border-b" style="display:flex; flex-wrap:wrap; justify-content:space-between; gap:0.5rem; padding-bottom:0.6rem;">
-        <span class="kicker">Vol. IV · Issue 47 — Field Edition for Haoting Ma</span>
-        <span class="kicker">Synced: AI Weekly Briefing (Nov 01 – Nov 08)</span>
+        <span class="kicker">Vol. IV · Issue 48 — Field Edition for Haoting Ma</span>
+        <span class="kicker">Synced: AI Weekly Briefing (Nov 08 – Nov 15)</span>
         <span class="kicker">Universal CSS + JS Hybrid Engine</span>
       </div>
 
@@ -960,13 +960,24 @@
               在浏览器（Safari / Chrome）中点击左侧正文任意单词，即可发音并自动归档；如果你正在使用网盘预览器，可直接点击下方词条展开详解：
             </div>
 
-            <div id="marginalia-detail" class="hidden" style="display:flex; flex-direction:column; gap:0.5rem;">
+            <div id="marginalia-detail" class="hidden" style="display:flex; flex-direction:column; gap:0.55rem;">
               <div style="display:flex; justify-content:space-between; align-items:baseline;">
-                <span id="marg-word" class="font-serif" style="font-size:1.45rem; font-weight:700;"></span>
-                <button type="button" onclick="speakInspectedWord()" class="editorial-pronounce-pill"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg><span>Pronounce</span></button>
+                <div>
+                  <span id="marg-word" class="font-serif" style="font-size:1.45rem; font-weight:700;"></span>
+                  <span id="marg-pos" class="kicker" style="margin-left:0.35rem; color:var(--ink-muted);"></span>
+                </div>
+                <button type="button" onclick="speakInspectedWord()" class="editorial-pronounce-pill"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg><span>读单词</span></button>
               </div>
-              <div id="marg-cn" style="font-size:0.9rem; font-weight:600; color:var(--accent);"></div>
-              <div id="marg-nuance" style="font-size:0.8rem; color:var(--ink-secondary);"></div>
+              <div id="marg-cn" style="font-size:0.95rem; font-weight:600; color:var(--accent);"></div>
+              <div id="marg-nuance" style="font-size:0.82rem; color:var(--ink-secondary); line-height:1.5;"></div>
+              <div id="marg-ex-box" style="margin-top:0.25rem; padding:0.65rem 0.75rem; background-color:var(--paper); border:1px solid var(--rule); border-left:2.5px solid var(--accent);">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.25rem;">
+                  <span class="kicker" style="font-size:0.64rem; color:var(--accent);">Contextual Example · 双语例句</span>
+                  <button type="button" onclick="speakInspectedExample()" class="editorial-pronounce-pill" style="padding:0.12rem 0.45rem; font-size:0.62rem;">▶ 读例句</button>
+                </div>
+                <div id="marg-ex-en" class="font-serif" style="font-size:0.86rem; line-height:1.55; color:var(--ink);"></div>
+                <div id="marg-ex-cn" style="font-size:0.78rem; color:var(--ink-secondary); margin-top:0.25rem; line-height:1.45;"></div>
+              </div>
             </div>
           </div>
 
@@ -1212,14 +1223,22 @@
   <!-- Mobile Bottom Word Lookup Sheet -->
   <div id="mobile-word-toast" class="hidden">
     <div style="display:flex; justify-content:space-between; align-items:baseline;">
-      <span id="mob-word" class="font-serif" style="font-size:1.3rem; font-weight:700;"></span>
-      <div style="display:flex; gap:0.75rem;">
-        <button type="button" onclick="speakInspectedWord()" class="editorial-pronounce-pill"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg><span>Pronounce</span></button>
-        <button onclick="document.getElementById('mobile-word-toast').classList.add('hidden')" class="kicker">Close ×</button>
+      <div>
+        <span id="mob-word" class="font-serif" style="font-size:1.3rem; font-weight:700;"></span>
+        <span id="mob-pos" class="kicker" style="margin-left:0.35rem;"></span>
+      </div>
+      <div style="display:flex; gap:0.45rem; align-items:center;">
+        <button type="button" onclick="speakInspectedWord()" class="editorial-pronounce-pill"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg><span>读单词</span></button>
+        <button type="button" onclick="speakInspectedExample()" class="editorial-pronounce-pill"><span>▶ 读例句</span></button>
+        <button onclick="document.getElementById('mobile-word-toast').classList.add('hidden')" class="kicker" style="padding:0.2rem 0.4rem;">Close ×</button>
       </div>
     </div>
-    <div id="mob-cn" style="font-size:0.9rem; font-weight:600; color:var(--accent); margin-top:0.2rem;"></div>
-    <div id="mob-nuance" style="font-size:0.8rem; color:var(--ink-secondary); margin-top:0.2rem;"></div>
+    <div id="mob-cn" style="font-size:0.92rem; font-weight:600; color:var(--accent); margin-top:0.25rem;"></div>
+    <div id="mob-nuance" style="font-size:0.8rem; color:var(--ink-secondary); margin-top:0.15rem;"></div>
+    <div style="margin-top:0.45rem; padding:0.5rem 0.65rem; background-color:var(--paper); border:1px solid var(--rule); border-left:2.5px solid var(--accent);">
+      <div id="mob-ex-en" class="font-serif" style="font-size:0.84rem; line-height:1.48; color:var(--ink);"></div>
+      <div id="mob-ex-cn" style="font-size:0.76rem; color:var(--ink-secondary); margin-top:0.2rem; line-height:1.4;"></div>
+    </div>
   </div>
 
   <!-- Progressive Enhancement Script (Activates Audio TTS & Click-Any-Word when opened in Safari/Chrome) -->
@@ -1499,8 +1518,14 @@
       playNextInQueue();
     }
 
+    let currentExampleEn = "";
+
     function speakInspectedWord() {
       if (currentWord) speakText(currentWord);
+    }
+
+    function speakInspectedExample() {
+      if (currentExampleEn) speakText(currentExampleEn);
     }
 
     function setAppleTouchIconDataUrl(dataUrl, labelText) {
@@ -1600,6 +1625,192 @@
       document.querySelectorAll('input[name="day-nav"], input[name="len-nav"], input[name="sec-nav"]').forEach(inp => {
         inp.addEventListener('change', () => stopNarration());
       });
+      function extractContextualExample(wordClean, pElem) {
+        if (!pElem) return null;
+        const rawEn = (pElem.innerText || '').replace(/\s*\/\s*/g, ' ').replace(/\s+/g, ' ').trim();
+        const enSentences = rawEn.match(/[^.!?]+[.!?]+|[^.!?]+$/g) || [rawEn];
+        const regex = new RegExp('\\b' + wordClean.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&'), 'i');
+        let idx = enSentences.findIndex(s => regex.test(s));
+        if (idx < 0) idx = 0;
+        const exEn = enSentences[idx].trim();
+
+        let exCn = "";
+        const article = pElem.closest('article');
+        const cnBlock = article ? article.querySelector('.cn-translation-block') : null;
+        if (cnBlock) {
+          const rawCn = (cnBlock.innerText || '').trim();
+          const cnSentences = rawCn.match(/[^。！？；]+[。！？；]+|[^。！？；]+$/g) || [rawCn];
+          if (cnSentences.length === enSentences.length) {
+            exCn = cnSentences[idx].trim();
+          } else {
+            const ratioIdx = Math.min(cnSentences.length - 1, Math.floor((idx / Math.max(1, enSentences.length)) * cnSentences.length));
+            exCn = cnSentences[ratioIdx].trim();
+          }
+        }
+        return { exEn, exCn };
+      }
+
+      function highlightWordInSentence(sentence, wordClean) {
+        if (!sentence || !wordClean) return sentence || '';
+        const safe = wordClean.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
+        const rx = new RegExp('(\\b' + safe + '[a-z]*\\b)', 'gi');
+        return sentence.replace(rx, '<strong style="color:var(--accent); text-decoration:underline; text-underline-offset:3px;">$1</strong>');
+      }
+
+      function lookupRichEntry(clean) {
+        if (LEXICON_DB[clean]) return LEXICON_DB[clean];
+        // Stemming fallback (e.g. plural -s/-es, -ed, -ing, -ly)
+        const stems = [
+          clean.replace(/ies$/, 'y'),
+          clean.replace(/es$/, ''),
+          clean.replace(/s$/, ''),
+          clean.replace(/ing$/, ''),
+          clean.replace(/ing$/, 'e'),
+          clean.replace(/ed$/, ''),
+          clean.replace(/ed$/, 'e'),
+          clean.replace(/ly$/, '')
+        ];
+        for (const st of stems) {
+          if (st.length > 2 && LEXICON_DB[st]) return LEXICON_DB[st];
+        }
+        return null;
+      }
+
+      function saveWordToUserLexicon(wordObj) {
+        try {
+          const raw = localStorage.getItem('aiss_saved_lexicon_v2');
+          let list = raw ? JSON.parse(raw) : [];
+          list = list.filter(item => item.word !== wordObj.word);
+          list.unshift(wordObj);
+          if (list.length > 50) list = list.slice(0, 50);
+          localStorage.setItem('aiss_saved_lexicon_v2', JSON.stringify(list));
+          renderUserLexiconList();
+        } catch (e) {}
+      }
+
+      function renderUserLexiconList() {
+        const container = document.getElementById('lexicon-list');
+        if (!container) return;
+        let saved = [];
+        try {
+          const raw = localStorage.getItem('aiss_saved_lexicon_v2');
+          if (raw) saved = JSON.parse(raw);
+        } catch (e) {}
+
+        // Merge saved clicked words at the top + default curated entries below
+        const defaultKeys = Object.keys(LEXICON_DB).slice(0, 12);
+        const seen = new Set();
+        const combined = [];
+
+        saved.forEach(item => {
+          if (item && item.word && !seen.has(item.word)) {
+            seen.add(item.word);
+            combined.push({ ...item, isUserQueried: true });
+          }
+        });
+
+        defaultKeys.forEach(k => {
+          if (!seen.has(k)) {
+            seen.add(k);
+            const d = LEXICON_DB[k];
+            combined.push({
+              word: k,
+              pos: d.pos || '',
+              cn: d.cn,
+              nuance: d.nuance,
+              exEn: d.exEn || '',
+              exCn: d.exCn || '',
+              isUserQueried: false
+            });
+          }
+        });
+
+        const statEl = document.getElementById('stat-lexicon');
+        if (statEl) statEl.textContent = String(combined.length);
+
+        container.innerHTML = combined.map(item => {
+          const badge = item.isUserQueried
+            ? '<span class="kicker" style="background:var(--accent); color:#FBF9F5; padding:1px 5px; font-size:0.6rem; margin-left:0.4rem;">已点查归档</span>'
+            : '';
+          const posHtml = item.pos ? `<span class="kicker" style="margin-left:0.3rem;">${item.pos}</span>` : '';
+          const exBlock = item.exEn
+            ? `<div style="margin-top:0.38rem; padding:0.45rem 0.6rem; background:var(--paper); border-left:2px solid var(--accent); font-size:0.78rem;">
+                 <div class="font-serif" style="color:var(--ink); line-height:1.45;">${highlightWordInSentence(item.exEn, item.word)}</div>
+                 ${item.exCn ? `<div style="color:var(--ink-secondary); margin-top:0.18rem; font-size:0.74rem;">${item.exCn}</div>` : ''}
+               </div>`
+            : '';
+          return `<div class="border-b" style="padding:0.75rem 0;">
+            <div style="display:flex; justify-content:space-between; align-items:baseline;">
+              <div>
+                <strong class="font-serif" style="font-size:1.05rem;">${item.word}</strong>${posHtml}${badge}
+              </div>
+              <button type="button" onclick="speakText('${item.word.replace(/'/g, "\\'")}')" class="editorial-pronounce-pill" style="padding:0.1rem 0.45rem; font-size:0.62rem;">🔊 读词</button>
+            </div>
+            <div style="font-size:0.86rem; color:var(--accent); font-weight:600; margin-top:0.2rem;">${item.cn}</div>
+            <div style="font-size:0.78rem; color:var(--ink-secondary); margin-top:0.12rem; line-height:1.45;">${item.nuance || ''}</div>
+            ${exBlock}
+          </div>`;
+        }).join('');
+      }
+
+      window.lookupWord = function(rawWord, contextParagraphElem) {
+        const clean = (rawWord || "").replace(/[^a-zA-Z-]/g, '').toLowerCase();
+        if (clean.length <= 1) return;
+        currentWord = clean;
+
+        const dbEntry = lookupRichEntry(clean);
+        const ctxEx = extractContextualExample(clean, contextParagraphElem);
+
+        const pos = (dbEntry && dbEntry.pos) ? dbEntry.pos : '';
+        const cn = (dbEntry && dbEntry.cn)
+          ? dbEntry.cn
+          : '核心语境词汇（结合下方原句与中文对照掌握地道用法）';
+        const nuance = (dbEntry && dbEntry.nuance)
+          ? dbEntry.nuance
+          : `在北美高管汇报与日常沟通中，建议通过下方完整原句模仿 "${clean}" 的语调重音与前后词块搭配。`;
+
+        const exEn = (ctxEx && ctxEx.exEn)
+          ? ctxEx.exEn
+          : ((dbEntry && dbEntry.exEn) ? dbEntry.exEn : `Let's make sure we align on ${clean} before finalizing our Q4 execution plan.`);
+        const exCn = (ctxEx && ctxEx.exCn)
+          ? ctxEx.exCn
+          : ((dbEntry && dbEntry.exCn) ? dbEntry.exCn : `在敲定 Q4 执行方案前，请确保我们在该关键点上达成一致。`);
+
+        currentExampleEn = exEn;
+
+        document.getElementById('marginalia-empty').classList.add('hidden');
+        document.getElementById('marginalia-detail').classList.remove('hidden');
+        document.getElementById('marginalia-saved').classList.remove('hidden');
+        document.getElementById('marg-word').textContent = clean;
+        const margPos = document.getElementById('marg-pos');
+        if (margPos) margPos.textContent = pos;
+        document.getElementById('marg-cn').textContent = cn;
+        document.getElementById('marg-nuance').textContent = nuance;
+        const margExEn = document.getElementById('marg-ex-en');
+        const margExCn = document.getElementById('marg-ex-cn');
+        if (margExEn) margExEn.innerHTML = highlightWordInSentence(exEn, clean);
+        if (margExCn) margExCn.textContent = exCn;
+
+        if (window.innerWidth < 960) {
+          const toast = document.getElementById('mobile-word-toast');
+          toast.classList.remove('hidden');
+          document.getElementById('mob-word').textContent = clean;
+          const mobPos = document.getElementById('mob-pos');
+          if (mobPos) mobPos.textContent = pos;
+          document.getElementById('mob-cn').textContent = cn;
+          document.getElementById('mob-nuance').textContent = nuance;
+          const mobExEn = document.getElementById('mob-ex-en');
+          const mobExCn = document.getElementById('mob-ex-cn');
+          if (mobExEn) mobExEn.innerHTML = highlightWordInSentence(exEn, clean);
+          if (mobExCn) mobExCn.textContent = exCn;
+        }
+
+        saveWordToUserLexicon({ word: clean, pos, cn, nuance, exEn, exCn });
+        speakText(clean);
+      };
+
+      renderUserLexiconList();
+
       document.querySelectorAll('.day-panel p.font-serif').forEach(p => {
         p.addEventListener('click', (e) => {
           const selection = window.getSelection();
@@ -1609,7 +1820,6 @@
           } else if (selection && selection.toString().trim()) {
             word = selection.toString().trim();
           } else {
-            // Find clicked word using caret range
             let range;
             if (document.caretRangeFromPoint) {
               range = document.caretRangeFromPoint(e.clientX, e.clientY);
@@ -1624,26 +1834,7 @@
           }
           const clean = (word || "").replace(/[^a-zA-Z-]/g, '').toLowerCase();
           if (clean.length > 2) {
-            currentWord = clean;
-            const entry = LEXICON_DB[clean] || {
-              cn: `已加入生词本：${clean}`,
-              nuance: `建议结合当前段落大声连读两遍，掌握 "${clean}" 的上下文搭配。`
-            };
-            document.getElementById('marginalia-empty').classList.add('hidden');
-            document.getElementById('marginalia-detail').classList.remove('hidden');
-            document.getElementById('marginalia-saved').classList.remove('hidden');
-            document.getElementById('marg-word').textContent = clean;
-            document.getElementById('marg-cn').textContent = entry.cn;
-            document.getElementById('marg-nuance').textContent = entry.nuance;
-
-            if (window.innerWidth < 960) {
-              const toast = document.getElementById('mobile-word-toast');
-              toast.classList.remove('hidden');
-              document.getElementById('mob-word').textContent = clean;
-              document.getElementById('mob-cn').textContent = entry.cn;
-              document.getElementById('mob-nuance').textContent = entry.nuance;
-            }
-            speakText(clean);
+            window.lookupWord(clean, p);
           }
         });
       });
@@ -1651,6 +1842,7 @@
   </script>
 </body>
 </html>
+
 
 
 
