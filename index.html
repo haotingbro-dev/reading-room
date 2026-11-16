@@ -419,6 +419,18 @@
       transition: background-color 0.25s;
     }
 
+
+    .blur-meanings-active .lex-meaning-blur {
+      filter: blur(5px);
+      user-select: none;
+      cursor: pointer;
+      transition: filter 0.18s;
+    }
+    .blur-meanings-active .lex-meaning-blur:hover,
+    .blur-meanings-active .lex-meaning-blur.revealed {
+      filter: none;
+    }
+
     .hidden { display: none !important; }
   </style>
 </head>
@@ -470,7 +482,7 @@
           <div>
             <div class="kicker">Personal Lexicon</div>
             <label for="sec-rad-lexicon" class="font-serif" style="font-size:1.45rem; text-decoration:underline; text-underline-offset:4px; cursor:pointer;">
-              <span id="stat-lexicon">10</span> <span style="font-size:0.75rem; color:var(--ink-muted); font-family:sans-serif;">entries</span>
+              <span id="stat-lexicon">97</span> <span style="font-size:0.75rem; color:var(--ink-muted); font-family:sans-serif;">entries</span>
             </label>
           </div>
         </div>
@@ -549,10 +561,10 @@
           <div id="day-panel-0" class="day-panel">
             <div class="border-b" style="padding-bottom:1.1rem; margin-bottom:1.5rem;">
               <div style="margin-bottom:0.35rem;">
-                <span class="kicker" style="color:var(--accent);">Monday · Executive Vision (Gemini Omni 1.2 Flash GA &amp; Carbon Cyber Positioning)</span>
+                <span class="kicker" style="color:var(--accent);">Monday · Executive Vision (Gemini 4 Carbon GA、Carbon for Cyber 与 11-30 促销倒计时)</span>
               </div>
-              <h2 class="font-serif" style="font-size:clamp(1.45rem, 2.5vw, 2.05rem); font-weight:400; margin:0.2rem 0 0.5rem;">Gemini Omni 1.2 Flash Reaches GA: Multimodal Video Economics and Cyber Leadership</h2>
-              <p style="font-size:0.92rem; color:var(--ink-secondary); margin:0 0 0.95rem;">Briefing a gaming and cross-border retail CTO on production-grade video SLAs, decoupled upsampling, and why Carbon leads GPT-6 Cyber.</p>
+              <h2 class="font-serif" style="font-size:clamp(1.45rem, 2.5vw, 2.05rem); font-weight:400; margin:0.2rem 0 0.5rem;">Gemini 4 Carbon Reaches GA: Frontier Reasoning, Fairwind Cyber, and APAC Guardrails</h2>
+              <p style="font-size:0.92rem; color:var(--ink-secondary); margin:0 0 0.95rem;">Briefing a regional CTO on Carbon&#x27;s Nov 10 GA milestone, the Nov 30 promo cliff, and why Argon remains the governed APAC fallback.</p>
               <div class="editorial-audio-bar">
                 <button type="button" id="audio-btn-0" class="editorial-play-btn" onclick="toggleSpeakDay(0)">
                   <span class="play-icon-svg"><svg width="11" height="12" viewBox="0 0 11 12" fill="currentColor"><path d="M1.5 1.2v9.6L9.8 6 1.5 1.2z"/></svg></span>
@@ -576,27 +588,27 @@
             </div>
             <div class="mode-deep-content">
               <article style="margin-bottom:1.6rem;">
-                <div class="kicker" style="margin-bottom:0.4rem;">I. Opening: The Transition from Experimental Video to Production SLAs</div>
-                <p class="font-serif drop-cap" style="font-size:1.18rem; line-height:1.82; margin:0;">Good morning, Alex. <span class="prosody-caesura">/</span> I know your media engineering and marketing teams have spent the past quarter <span class="prosody-stress">prototyping</span> with frontier video models, <span class="prosody-caesura">/</span> but you have hesitated to bake them into your core production pipeline because of two blockers: <span class="prosody-caesura">/</span> volatile unit <span class="prosody-stress">economics</span> and the lack of an enterprise SLA. <span class="prosody-caesura">/</span> On November fifth, Google Cloud officially released Gemini Omni 1.2 Flash to <span class="prosody-stress">General Availability</span>. <span class="prosody-caesura">/</span> This is our first Omni video model backed by full production SLAs, enterprise IP <span class="prosody-stress">indemnification</span>, and Provisioned Throughput support. <span class="prosody-caesura">/</span> It directly transforms video generation from an unpredictable science fair into an accountable enterprise utility.</p>
-                <p class="cn-translation-block">Alex，早上好。我知道你们媒体工程和营销团队上季度一直在用前沿视频模型做原型测试，但迟迟不敢嵌入核心生产流水线，主要卡在两个环节：不确定的单位经济性（unit economics）以及缺乏企业级 SLA。11 月 5 日，Google Cloud 正式将 Gemini Omni 1.2 Flash 推向 GA。这是我们首款具备生产级 SLA、知识产权侵权赔偿保障（IP indemnification）和 Provisioned Throughput 支持的 Omni 视频模型，直接将视频生成从不可预测的实验转变为可审计的企业级基础设施。</p>
+                <div class="kicker" style="margin-bottom:0.4rem;">I. The Nov 10 Milestone: Carbon Moves from Pre-Announcement to Short GA</div>
+                <p class="font-serif drop-cap" style="font-size:1.18rem; line-height:1.82; margin:0;">Good morning, Alex. <span class="prosody-caesura">/</span> Last week we discussed Gemini 4 Carbon as a preview, <span class="prosody-caesura">/</span> and on November tenth it officially reached <span class="prosody-stress">General Availability</span> as a <span class="prosody-stress">Short GA</span> release. <span class="prosody-caesura">/</span> Carbon is now our strongest <span class="prosody-stress">frontier</span> model, engineered specifically for deep <span class="prosody-stress">long-horizon</span> coding, complex debugging, and open-ended research. <span class="prosody-caesura">/</span> On both CursorBench four point zero and Perplexity WANDR, it holds the number-one spot. <span class="prosody-caesura">/</span> Even though its per-token list rate is higher than entry models, <span class="prosody-caesura">/</span> deep self-<span class="prosody-stress">verification</span> eliminates wasted <span class="prosody-stress">retries</span>—cutting total end-to-end cost per solved task roughly in half compared with competing frontier models.</p>
+                <p class="cn-translation-block">Alex，早上好。上周我们聊到 Gemini 4 Carbon 还是预览状态，而就在 11 月 10 日它已经以 Short GA 形式正式商用。Carbon 是我们目前最强的 frontier model，专为深度 long-horizon 编程、复杂代码调试和开放式研究打造，在 CursorBench 4.0 和 Perplexity WANDR 均排名第一。虽然它的单 token 价格高于入门模型，但深度自验证（self-verification）大幅减少了无效重试（retries），使单任务综合完成成本较竞品前沿模型降低约 2 倍。</p>
               </article>
               <article style="margin-bottom:1.6rem;">
-                <div class="kicker" style="margin-bottom:0.4rem;">II. Decoupled 360p-to-4K Upsampling &amp; Stateful Interactions API</div>
-                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">Let's look at the financial math. <span class="prosody-caesura">/</span> We reduced the 720p generation price by thirty percent down to <span class="prosody-stress">seven cents</span> per second, <span class="prosody-caesura">/</span> with 1080p set at <span class="prosody-stress">ten cents</span> per second. <span class="prosody-caesura">/</span> More importantly, we introduced a decoupled <span class="prosody-stress">upscale</span> API task: <span class="prosody-caesura">/</span> your artists can generate fast 360p drafts at <span class="prosody-stress">twice</span> the speed to triage creative takes, <span class="prosody-caesura">/</span> and only pay to upscale approved final assets to 1080p or 4K. <span class="prosody-caesura">/</span> Furthermore, clip duration now stretches from three to <span class="prosody-stress">fifteen</span> seconds, <span class="prosody-caesura">/</span> and via our newly GA <span class="prosody-stress">Interactions API</span>, you can refine an existing shot turn-by-turn across stateful sessions without re-rendering from scratch. <span class="prosody-caesura">/</span> You can also lock up to two characters with three image references each, <span class="prosody-caesura">/</span> maintaining strict brand and character <span class="prosody-stress">fidelity</span> across every cut.</p>
-                <p class="cn-translation-block">我们来看具体财务测算。我们将 720p 生成单价下调了 30% 至每秒 0.07 美元，1080p 为每秒 0.10 美元。更关键的是，我们引入了解耦的独立放大（upscale）API 任务：美术师可以先用快 2 倍的速度生成 360p 低清小样来筛选创意，只对最终确认采纳的成片付费放大到 1080p 或 4K。此外，单次生成时长扩展至 3 到 15 秒，并且依托同步 GA 的 Interactions API，团队可以在有状态会话中多轮对话式微调同一段视频，无需从头重算。你们还可以绑定最多 2 个角色（各配 3 张参考图），确保品牌资产与角色在多镜头切换中保持极高的保真度（fidelity）。</p>
+                <div class="kicker" style="margin-bottom:0.4rem;">II. Carbon for Cyber &amp; Fairwind Program Governance</div>
+                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">For your application security team, we also launched <span class="prosody-stress">Carbon for Cyber</span> under the Google DeepMind Fairwind Program. <span class="prosody-caesura">/</span> On SEC-bench Pro and CWE-bench, it sets a new industry high-water mark for automated vulnerability discovery and patching. <span class="prosody-caesura">/</span> Because these capabilities are dual-use, access remains strictly <span class="prosody-stress">governed</span>: <span class="prosody-caesura">/</span> roughly five hundred <span class="prosody-stress">vetted</span> defenders received CodeMender access on November eleventh, <span class="prosody-caesura">/</span> and about three hundred received direct API access, with additional waves opening later this month.</p>
+                <p class="cn-translation-block">针对你们的应用安全团队，我们同步在 Google DeepMind Fairwind 计划下推出了 Carbon for Cyber，在 SEC-bench Pro 与 CWE-bench 均达到行业领先水准。由于具备高度安全敏感性，它的准入保持严格受控（governed）：11 月 11 日首批约 500 家经过审核（vetted）的防御机构获得了 CodeMender 权限，约 300 家获得直接 API 访问权限，11 月下旬还将陆续开放后续批次。</p>
               </article>
               <article style="margin-bottom:1.6rem;">
-                <div class="kicker" style="margin-bottom:0.4rem;">III. Frontier Cyber Candor: Gemini 4 Carbon vs. GPT-6 Cyber</div>
-                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">You also asked about OpenAI's November fifth release of GPT-6 Cyber. <span class="prosody-caesura">/</span> Let's <span class="prosody-stress">anchor</span> on verified third-party evaluation benchmarks. <span class="prosody-caesura">/</span> On ExploitGym, GPT-6 Cyber reported a <span class="prosody-stress">forty-eight point five</span> percent vulnerability exploitation score, <span class="prosody-caesura">/</span> whereas Gemini 4 Carbon—which moves into GA this Tuesday, November tenth—achieved <span class="prosody-stress">fifty-four point eight</span> percent without guardrails, <span class="prosody-caesura">/</span> maintaining a <span class="prosody-stress">six point three</span> percentage point lead at roughly one-half to one-fifth the blended token cost. <span class="prosody-caesura">/</span> In the spirit of full <span class="prosody-stress">candor</span>, Carbon launches as a Short GA tier while Argon remains your Long GA bedrock for twelve months, <span class="prosody-caesura">/</span> and Omni 1.2 Flash is ready for production workloads on the global endpoint today.</p>
-                <p class="cn-translation-block">你还问到了 OpenAI 在 11 月 5 日公布的 GPT-6 Cyber。我们用经第三方核实的基准测试说话。在 ExploitGym 漏洞利用测试中，GPT-6 Cyber 公布的得分为 48.5%，而即将在本周二（11 月 10 日）正式 GA 的 Gemini 4 Carbon 在无护栏测试中达到了 54.8%，保持了 6.3 个百分点的领先优势，且混合单价（blended price）仅为对方的几分之一。本着完全坦诚的原则（in the spirit of full candor），Carbon 初期以 Short GA 周期上线，而 Argon 依然是保持至少 12 个月稳定支持的 Long GA 基线；Omni 1.2 Flash 今天已经在 global 端点全面商用。</p>
+                <div class="kicker" style="margin-bottom:0.4rem;">III. Candid APAC Guardrails &amp; The November 30 Pricing Cliff</div>
+                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">Now, in the spirit of full <span class="prosody-stress">candor</span>, there are two practical constraints to plan around today. <span class="prosody-caesura">/</span> First, billing accounts in Hong Kong, Singapore, Malaysia, and India are <span class="prosody-stress">blocked</span> by default for Carbon unless they are on the pre-approved list or secure a VP-approved access <span class="prosody-stress">override</span>. <span class="prosody-caesura">/</span> In those cases, <span class="prosody-stress">Argon</span> remains your twelve-month Long GA <span class="prosody-stress">workhorse</span> and clean <span class="prosody-stress">fallback</span>. <span class="prosody-caesura">/</span> Second, for eligible accounts, Carbon's two-dollar input and ten-dollar output <span class="prosody-stress">promo</span> price—with ninety-five percent off cached input—ends sharply on <span class="prosody-stress">November thirtieth</span>, <span class="prosody-caesura">/</span> doubling to four and twenty on December first. <span class="prosody-caesura">/</span> Let's <span class="prosody-stress">verify</span> your regional billing IDs this week so we don't miss that <span class="prosody-stress">cliff</span>.</p>
+                <p class="cn-translation-block">本着完全坦诚的原则（in the spirit of full candor），今天有两项实际约束需要提前规划。第一，香港、新加坡、马来西亚和印度的计费账号默认阻断（blocked）访问 Carbon，除非在预审批清单内或提交 VP 审批的准入特批（access override）；在此期间 Argon 仍是 12 个月 Long GA 主力（workhorse）和稳妥的兜底方案（fallback）。第二，对符合条件的账号，Carbon 的 $2/$10 促销价（cached input 95% off）将在 11 月 30 日硬性截止，12 月 1 日起翻倍至 $4/$20。这周我们先核实（verify）好你们的区域账号，避免错过截止线（cliff）。</p>
               </article>
             </div>
             <div class="mode-brief-content">
               <div class="border-box" style="padding:1.35rem 1.5rem; border-left:3px solid var(--accent);">
                 <article style="margin-bottom:0;">
-                  <div class="kicker" style="color:var(--accent); margin-bottom:0.4rem;">90-Sec Executive Pitch · Omni 1.2 Flash GA &amp; Carbon Cyber</div>
-                  <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">On November fifth, Gemini Omni 1.2 Flash reached <span class="prosody-stress">General Availability</span> with enterprise SLAs, IP indemnification, and Provisioned Throughput support. <span class="prosody-caesura">/</span> We lowered 720p pricing by thirty percent to <span class="prosody-stress">seven cents</span> per second, extended clips to <span class="prosody-stress">fifteen</span> seconds, and introduced a 360p-to-4K <span class="prosody-stress">upscale</span> workflow alongside stateful editing via the Interactions API. <span class="prosody-caesura">/</span> Meanwhile, Gemini 4 Carbon GA arrives this Tuesday, leading OpenAI's new GPT-6 Cyber by <span class="prosody-stress">6.3 percentage points</span> on ExploitGym (54.8% vs. 48.5%) at a superior blended cost.</p>
-                  <p class="cn-translation-block">11 月 5 日，Gemini Omni 1.2 Flash 正式 GA，提供企业级 SLA、IP 侵权赔偿与 Provisioned Throughput 支持。我们将 720p 价格下调 30% 至 $0.07/秒，时长延至 15 秒，并引入 360p 草稿转 4K 独立放大链路与基于 Interactions API 的多轮编辑。同时，Gemini 4 Carbon 确认于周二 GA，在 ExploitGym 上以 54.8% 领先 OpenAI 新发的 GPT-6 Cyber 6.3 个百分点，且混合成本优势显著。</p>
+                  <div class="kicker" style="color:var(--accent); margin-bottom:0.4rem;">⚡ 90-Second Executive Pitch · Carbon GA &amp; Nov 30 Cutoff</div>
+                  <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">On November tenth, Gemini 4 Carbon officially reached <span class="prosody-stress">Short GA</span>, ranking first on CursorBench 4.0 and cutting complex task cost in half through deep self-<span class="prosody-stress">verification</span>. <span class="prosody-caesura">/</span> Access to <span class="prosody-stress">Carbon for Cyber</span> is rolling out to roughly five hundred <span class="prosody-stress">vetted</span> defenders under Fairwind. <span class="prosody-caesura">/</span> In full <span class="prosody-stress">candor</span>, four APAC billing markets are <span class="prosody-stress">blocked</span> by default without an <span class="prosody-stress">override</span>, where Argon stays the Long GA <span class="prosody-stress">fallback</span>—and eligible teams must lock in Carbon's $2/$10 <span class="prosody-stress">promo</span> price before the <span class="prosody-stress">November thirtieth</span> cliff.</p>
+                  <p class="cn-translation-block">11 月 10 日 Gemini 4 Carbon 正式进入 Short GA，在 CursorBench 4.0 排名第一，凭借深度自验证将复杂任务综合成本砍半。Carbon for Cyber 正通过 Fairwind 向首批约 500 家 vetted 机构开放。坦诚说，四个 APAC 区域账号默认受阻（可用 Argon 兜底或申请特批）；符合条件的团队务必在 11 月 30 日前锁定 $2/$10 promo price。</p>
                 </article>
               </div>
             </div>
@@ -606,10 +618,10 @@
           <div id="day-panel-1" class="day-panel">
             <div class="border-b" style="padding-bottom:1.1rem; margin-bottom:1.5rem;">
               <div style="margin-bottom:0.35rem;">
-                <span class="kicker" style="color:var(--accent);">Tuesday · Full-Stack Market Pulse &amp; Industry Landings (全栈 AI 市场脉搏与米哈游 / 波士顿动力落地)</span>
+                <span class="kicker" style="color:var(--accent);">Tuesday · Full-Stack Market Pulse &amp; Industry Landings (Hydrogen GA、Decisions API 与彭博 ASKB 落地)</span>
               </div>
-              <h2 class="font-serif" style="font-size:clamp(1.45rem, 2.5vw, 2.05rem); font-weight:400; margin:0.2rem 0 0.5rem;">Silicon Constraints, Open-Weight Waves, and Proven Production Landings</h2>
-              <p style="font-size:0.92rem; color:var(--ink-secondary); margin:0 0 0.95rem;">Analyzing the $745B hyperscaler CapEx reality, Moonshot Kimi K3.1 Pro weights, and how miHoYo and Boston Dynamics scale real-world AI.</p>
+              <h2 class="font-serif" style="font-size:clamp(1.45rem, 2.5vw, 2.05rem); font-weight:400; margin:0.2rem 0 0.5rem;">Hydrogen Speed, Zero-Output Decisions API, and Bloomberg&#x27;s Production Search</h2>
+              <p style="font-size:0.92rem; color:var(--ink-secondary); margin:0 0 0.95rem;">Pairing Carbon with Hydrogen ($1.50/$7.50 flat), cutting router overhead with Decisions API, and deploying Vector Search 2.0 at Bloomberg.</p>
               <div class="editorial-audio-bar">
                 <button type="button" id="audio-btn-1" class="editorial-play-btn" onclick="toggleSpeakDay(1)">
                   <span class="play-icon-svg"><svg width="11" height="12" viewBox="0 0 11 12" fill="currentColor"><path d="M1.5 1.2v9.6L9.8 6 1.5 1.2z"/></svg></span>
@@ -633,27 +645,27 @@
             </div>
             <div class="mode-deep-content">
               <article style="margin-bottom:1.6rem;">
-                <div class="kicker" style="margin-bottom:0.4rem;">I. Silicon &amp; Cloud Layer: The $745B CapEx Boom and Neocloud Asset Deprecation</div>
-                <p class="font-serif drop-cap" style="font-size:1.18rem; line-height:1.82; margin:0;">If we scan across the full AI stack this week, the sheer scale of infrastructure capital expenditure is reshaping the landscape. <span class="prosody-caesura">/</span> Hyperscalers are on track to invest between <span class="prosody-stress">seven hundred</span> and <span class="prosody-stress">seven hundred forty-five billion</span> dollars in 2026, <span class="prosody-caesura">/</span> driven primarily by next-generation NVIDIA Blackwell and liquid-cooled data center construction. <span class="prosody-caesura">/</span> However, specialized neoclouds like CoreWeave face growing market scrutiny over high debt loads, lengthening payment collection cycles, and rapid hardware <span class="prosody-stress">deprecation</span>. <span class="prosody-caesura">/</span> Google's sixth-generation custom TPU pods provide a rare island of <span class="prosody-stress">TCO certainty</span> and deterministic interconnect stability, <span class="prosody-caesura">/</span> which is why global enterprises like Tesla locked massive Provisioned Throughput capacity orders this week.</p>
-                <p class="cn-translation-block">纵观本周全栈 AI 市场，底层基建的资本开支规模正在重构竞争格局。主要云服务商 2026 年 CapEx 预计将达到 7,000 亿至 7,450 亿美元，主要由英伟达次世代 Blackwell 采购与液冷机房改造驱动。然而，以 CoreWeave 为代表的 Neoclouds 依托高杠杆债务与超前预付租约的模式，正面临资产快速折旧（deprecation）与回款周期拉长的严酷考验。Google 第六代自研 TPU Pod 在单位 TCO 与网络互联稳定性上提供了难能可贵的确定性，这也是特斯拉等顶级客户本周大额锁定 Provisioned Throughput 容量的核心原因。</p>
+                <div class="kicker" style="margin-bottom:0.4rem;">I. Gemini 4 Hydrogen: The High-Speed Executor in a Multi-Model Pair</div>
+                <p class="font-serif drop-cap" style="font-size:1.18rem; line-height:1.82; margin:0;">Yesterday we covered Carbon as your frontier <span class="prosody-stress">planner</span>; <span class="prosody-caesura">/</span> on November twelfth we launched its <span class="prosody-stress">complementary</span> partner, <span class="prosody-stress">Gemini 4 Hydrogen</span>, into Short GA across the API, Antigravity, and Google Sheets. <span class="prosody-caesura">/</span> Hydrogen is built as a high-speed <span class="prosody-stress">executor</span> for daily coding and high-concurrency workflows—running two and a half times faster while scoring fifty-seven percent on Terminal-Bench four point one, more than triple Gemini 3.8 Flash. <span class="prosody-caesura">/</span> It also cuts <span class="prosody-stress">fabricated</span> claims by over five-fold and keeps tool-calling <span class="prosody-stress">robustness</span> high when external APIs fail. <span class="prosody-caesura">/</span> Best of all, Hydrogen carries a <span class="prosody-stress">flat</span> rate of one dollar fifty input and seven fifty output across the entire one-million-token window—twenty-five percent below Claude Sonnet 5.5.</p>
+                <p class="cn-translation-block">昨天我们把 Carbon 定位为前沿规划器（planner）；11 月 12 日，我们正式将它的互补拍档（complementary）Gemini 4 Hydrogen 推向 Short GA，全面上线 API、Antigravity 与 Google Sheets。Hydrogen 专为日常 coding 与高并发任务充当高速执行器（executor）：速度提升 2.5 倍，Terminal-Bench 4.1 达 57%（超 3.8 Flash 三倍），捏造陈述（fabricated claims）减少超 5 倍，且外部工具报错时鲁棒性（robustness）极高。更关键的是它采用 $1.50/$7.50 全 1M 窗口统一平价（flat rate），比 Claude Sonnet 5.5 便宜 25%。</p>
               </article>
               <article style="margin-bottom:1.6rem;">
-                <div class="kicker" style="margin-bottom:0.4rem;">II. Inference &amp; Router Layer: Speculative Decoding and the Kimi K3.1 Pro Open-Weight Wave</div>
-                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">At the inference layer, independent providers like Fireworks AI, Together, and Baseten have standardized on <span class="prosody-stress">speculative decoding</span> to slash latency on open weights. <span class="prosody-caesura">/</span> On November fourth, Moonshot AI open-sourced the weights for <span class="prosody-stress">Kimi K3.1 Pro</span>, <span class="prosody-caesura">/</span> sparking an immediate race among third-party API hosts. <span class="prosody-caesura">/</span> But here is the commercial friction for enterprise CIOs: fragmented inference providers lack enterprise IP indemnification, data residence guarantees, and single-pane IAM governance. <span class="prosody-caesura">/</span> Through <span class="prosody-stress">Vertex AI Model Garden</span> and our newly boosted <span class="prosody-stress">Flexible Savings Plan</span>, <span class="prosody-caesura">/</span> enterprises can consume open weights under a single consolidated commitment while capturing enterprise-grade security.</p>
-                <p class="cn-translation-block">在推理层，Fireworks AI、Together 和 Baseten 等独立厂商已将投机采样（speculative decoding）作为标配，大幅压低开源权重的解码时延。11 月 4 日，月之暗面开源了 Kimi K3.1 Pro 的权重，引发第三方 API 托管商的争夺。但这给企业 CIO 带来了严重的合规摩擦：零散的推理服务商缺乏企业级 IP 赔偿、数据驻留保障与统一 IAM 审计。依托 Vertex AI Model Garden 和我们刚刚大幅加码的 Flexible Savings Plan（FSP），企业可以用统一合同消费开源权重，同时兼得企业级安全边界。</p>
+                <div class="kicker" style="margin-bottom:0.4rem;">II. Solving Inference &amp; Routing Bottlenecks: Decisions API &amp; Deferred Tier</div>
+                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">Across the inference layer, teams often tell us that using a generative model just to parse JSON routing flags is slow and <span class="prosody-stress">fragile</span>. <span class="prosody-caesura">/</span> On November eleventh, we launched the <span class="prosody-stress">Gemini Decisions API</span> (`gemini-decision-1`) in AI Studio. <span class="prosody-caesura">/</span> Instead of generating text token by token, it evaluates up to one thousand closed-ended questions against a single 256K multimodal input in one <span class="prosody-stress">forward</span> pass—returning <span class="prosody-stress">calibrated</span> probabilities in 150 to 250 milliseconds at ten cents per million input tokens and <span class="prosody-stress">zero</span> output token cost. <span class="prosody-caesura">/</span> Pair that with our new <span class="prosody-stress">Deferred Tier</span> at half the PayGo rate for background jobs, and you eliminate both routing waste and peak-hour 429 <span class="prosody-stress">throttling</span>.</p>
+                <p class="cn-translation-block">在推理路由层，研发常抱怨用生成式大模型去吐 JSON 做条件路由既慢又脆弱（fragile）。11 月 11 日我们在 AI Studio 推出了 Gemini Decisions API：它不逐字生成文本，而是在单次前向传播（forward pass）中针对 256K 多模态输入并发评估多达 1,000 个封闭问题，150-250ms 返回经过校准（calibrated）的概率，仅收 $0.10/1M input 且零输出 token 费用。再搭配半价的 Deferred Tier 处理后台异步任务，就能彻底消除路由浪费和高峰期 429 限流（throttling）。</p>
               </article>
               <article style="margin-bottom:1.6rem;">
-                <div class="kicker" style="margin-bottom:0.4rem;">III. Benchmark Landings: miHoYo 15-Language CRM and Boston Dynamics Spot ER 2.0</div>
-                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">Real enterprise adoption is won on business impact, not synthetic benchmarks. <span class="prosody-caesura">/</span> In gaming, our field engineering team deployed a 4-step closed-loop engine for <span class="prosody-stress">miHoYo</span> in three weeks— <span class="prosody-caesura">/</span> combining structured tagging, de-noised attribution, 7-guardrail constrained generation, and 3-track self-evolution. <span class="prosody-caesura">/</span> The results speak for themselves: 15-language global CRM campaign turnaround dropped from three person-days to <span class="prosody-stress">half a day</span>, <span class="prosody-caesura">/</span> with first-round asset adoption jumping from 58% to <span class="prosody-stress">one hundred percent</span>. <span class="prosody-caesura">/</span> Meanwhile, in robotics, <span class="prosody-stress">Boston Dynamics</span> integrated our newly previewed <span class="prosody-stress">Gemini Robotics ER 2.0</span> onto Spot, <span class="prosody-caesura">/</span> upgrading industrial site inspections from static point-in-time checks into continuous, real-time temporal video reasoning.</p>
-                <p class="cn-translation-block">真实的行业落地拼的是商业成效，而非跑分数字。在游戏出海领域，我们的 FDE 团队在三周内为米哈游落地了一套 4 步工业级闭环引擎——打标、去噪归因、7 护栏约束生成与 3 轨自我进化。量化成效一目了然：15 种语言全球 CRM 素材制作周期从 3 人天压缩至 0.5 天，首轮素材采纳率从 58% 跃升至 100%。与此同时在具身智能领域，波士顿动力将我们刚公开预览的 Gemini Robotics ER 2.0 整合进 Spot 机器狗，将工业巡检由离散拍照升级为连续时序视频推理。</p>
+                <div class="kicker" style="margin-bottom:0.4rem;">III. Industry Landing: Bloomberg Terminal ASKB on Vector Search 2.0</div>
+                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">To see how this lands in production, look at <span class="prosody-stress">Bloomberg</span>. <span class="prosody-caesura">/</span> On November tenth, Agent Retrieval—Vector Search 2.0—added Advanced Text Search in Public Preview, bringing <span class="prosody-stress">boolean</span> queries, boosting, and stemming to close the gap with legacy Solr and Lucene clusters, backed by zero-pipeline managed <span class="prosody-stress">ingestion</span> and 99.99% active/active availability. <span class="prosody-caesura">/</span> Bloomberg already runs this stack inside its Terminal <span class="prosody-stress">ASKB</span> assistant for live transcript and document search— <span class="prosody-caesura">/</span> proving enterprise teams can retire operational <span class="prosody-stress">inertia</span> and unify RAG under one governed platform.</p>
+                <p class="cn-translation-block">看一个重量级的行业落地案例：彭博（Bloomberg）。11 月 10 日 Agent Retrieval（Vector Search 2.0）上线了 Advanced Text Search（Public Preview），补齐了布尔查询（boolean）、权重提升与词干提取能力，拉齐了与传统 Solr/Lucene 的差距，并具备免 ETL 管道的托管入库（ingestion）和 99.99% 高可用。彭博已经在 Terminal 对话助手 ASKB 中正式投产该引擎检索聊天记录与文件——证明企业完全可以摆脱旧架构的运维惯性（inertia），将 RAG 收拢到统一受治理的平台。</p>
               </article>
             </div>
             <div class="mode-brief-content">
               <div class="border-box" style="padding:1.35rem 1.5rem; border-left:3px solid var(--accent);">
                 <article style="margin-bottom:0;">
-                  <div class="kicker" style="color:var(--accent); margin-bottom:0.4rem;">90-Sec Executive Pitch · Silicon CapEx &amp; Real-World Landings</div>
-                  <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">While hyperscalers face $745B CapEx pressures and neoclouds battle rapid hardware deprecation, Google's custom TPU pods and Provisioned Throughput provide unmatched TCO predictability. <span class="prosody-caesura">/</span> With Moonshot open-sourcing Kimi K3.1 Pro weights, enterprise CIOs should consolidate open-weight workloads onto Vertex AI Model Garden to avoid compliance blind spots. <span class="prosody-caesura">/</span> In production, miHoYo cut 15-language CRM asset creation from three days to <span class="prosody-stress">half a day</span> with 100% adoption, <span class="prosody-caesura">/</span> while Boston Dynamics Spot deployed Gemini Robotics ER 2.0 for continuous industrial video reasoning.</p>
-                  <p class="cn-translation-block">在三大云厂商面临 7,450 亿美元 CapEx 压力、Neoclouds 遭遇硬件快速折旧之际，Google 自研 TPU 与 Provisioned Throughput 提供了极具确定性的 TCO 优势。随着月之暗面开源 Kimi K3.1 Pro，企业 CIO 应将其收拢至 Vertex AI Model Garden 统一合规治理。在落地实践中，米哈游通过闭环引擎将 15 语言 CRM 素材制作从 3 天压缩至半天，采纳率达 100%；波士顿动力 Spot 则借助 Gemini Robotics ER 2.0 实现了连续视频时序巡检。</p>
+                  <div class="kicker" style="color:var(--accent); margin-bottom:0.4rem;">⚡ 90-Second Market Pulse · Hydrogen, Decisions API &amp; Bloomberg</div>
+                  <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">On November twelfth, <span class="prosody-stress">Gemini 4 Hydrogen</span> hit Short GA at a <span class="prosody-stress">$1.50/$7.50 flat</span> rate across 1M tokens—2.5x faster with 57% on Terminal-Bench 4.1, forming a planner-and-<span class="prosody-stress">executor</span> pair with Carbon. <span class="prosody-caesura">/</span> To eliminate <span class="prosody-stress">fragile</span> JSON routing and <span class="prosody-stress">throttling</span>, our new <span class="prosody-stress">Decisions API</span> evaluates 1,000 questions in a single <span class="prosody-stress">forward</span> pass for $0.10/1M input and zero output tokens. <span class="prosody-caesura">/</span> Meanwhile, <span class="prosody-stress">Bloomberg</span> is already running Vector Search 2.0 in production inside Terminal ASKB, powered by new <span class="prosody-stress">boolean</span> search and zero-pipeline <span class="prosody-stress">ingestion</span>.</p>
+                  <p class="cn-translation-block">11 月 12 日 Gemini 4 Hydrogen 正式 GA，1M 窗口统一平价 $1.50/$7.50，速度提升 2.5 倍且 Terminal-Bench 4.1 达 57%，与 Carbon 组成规划+执行双子星。同时新推的 Decisions API 单次前向传播可评 1,000 个问题且零输出计费；彭博（Bloomberg）也已在 Terminal ASKB 中正式投产 Vector Search 2.0。</p>
                 </article>
               </div>
             </div>
@@ -663,10 +675,10 @@
           <div id="day-panel-2" class="day-panel">
             <div class="border-b" style="padding-bottom:1.1rem; margin-bottom:1.5rem;">
               <div style="margin-bottom:0.35rem;">
-                <span class="kicker" style="color:var(--accent);">Wednesday · Trusted Advisor (Interactions API、Tool Retrieval 与 Computer Use 安全治理)</span>
+                <span class="kicker" style="color:var(--accent);">Wednesday · Trusted Advisor (Claude Fable 5.2 上线 Vertex AI、PAA 认证与 MimicBench)</span>
               </div>
-              <h2 class="font-serif" style="font-size:clamp(1.45rem, 2.5vw, 2.05rem); font-weight:400; margin:0.2rem 0 0.5rem;">Stateful Agent Execution, Schema Retrieval, and HITL Guardrails</h2>
-              <p style="font-size:0.92rem; color:var(--ink-secondary); margin:0 0 0.95rem;">Walking an enterprise architect through native Interactions API sessions, server-side Tool Retrieval, and Org Policy constraints on Computer Use.</p>
+              <h2 class="font-serif" style="font-size:clamp(1.45rem, 2.5vw, 2.05rem); font-weight:400; margin:0.2rem 0 0.5rem;">Multi-Model Choice on Vertex AI: Claude Fable 5.2, Anti-Distillation, and PAA</h2>
+              <p style="font-size:0.92rem; color:var(--ink-secondary); margin:0 0 0.95rem;">Guiding enterprise CISOs and architects on running Fable 5.2 inside Vertex AI governance, benchmarking fairly with MimicBench, and certifying teams with PAA.</p>
               <div class="editorial-audio-bar">
                 <button type="button" id="audio-btn-2" class="editorial-play-btn" onclick="toggleSpeakDay(2)">
                   <span class="play-icon-svg"><svg width="11" height="12" viewBox="0 0 11 12" fill="currentColor"><path d="M1.5 1.2v9.6L9.8 6 1.5 1.2z"/></svg></span>
@@ -690,27 +702,27 @@
             </div>
             <div class="mode-deep-content">
               <article style="margin-bottom:1.6rem;">
-                <div class="kicker" style="margin-bottom:0.4rem;">I. Stateful Interactions API: Eliminating Context Bloat and Client Shuffling</div>
-                <p class="font-serif drop-cap" style="font-size:1.18rem; line-height:1.82; margin:0;">When your development teams transition from prototype scripts to enterprise agentic workflows, David, <span class="prosody-caesura">/</span> the standard `GenerateContent` REST loop becomes an architectural bottleneck. <span class="prosody-caesura">/</span> Historically, client apps had to persist the entire conversation history, serialize tool outputs, and re-transmit hundreds of thousands of tokens on every single turn. <span class="prosody-caesura">/</span> The newly GA <span class="prosody-stress">Interactions API</span> models stateful sessions natively on Google Cloud—mirroring OpenAI's Responses API spec. <span class="prosody-caesura">/</span> The server automatically manages conversation turns, tracks asynchronous tool executions, and provides unified streaming, <span class="prosody-caesura">/</span> removing massive network payloads and client-side state plumbing.</p>
-                <p class="cn-translation-block">David，当你们研发团队从原型脚本迈向企业级 Agent 工作流时，传统的 GenerateContent REST 循环就变成了架构瓶颈。以往客户端必须在本地持久化全量对话历史、序列化工具返回结果，并在每一轮请求中重复上传数十万 token。本周正式 GA 的 Interactions API 在 Google Cloud 服务端原生支持有状态会话（Stateful Sessions），接口规范对标 OpenAI Responses API。服务端自动管理对话轮次、跟踪异步工具执行并提供统一流式响应，彻底消除了庞大的网络载荷与客户端会话管理负担。</p>
+                <div class="kicker" style="margin-bottom:0.4rem;">I. Claude Fable 5.2 &amp; Mythos 5.2 Arrive on Vertex AI</div>
+                <p class="font-serif drop-cap" style="font-size:1.18rem; line-height:1.82; margin:0;">Thanks for making time, David. <span class="prosody-caesura">/</span> Your security lead asked whether you have to leave Google Cloud to access Anthropic's latest November twelfth releases. <span class="prosody-caesura">/</span> The answer is no: <span class="prosody-stress">Claude Fable 5.2</span> is now Generally Available directly inside <span class="prosody-stress">Vertex AI</span> at eight dollars input and forty dollars output, alongside <span class="prosody-stress">Mythos 5.2</span> for approved security and research organizations. <span class="prosody-caesura">/</span> Fable 5.2 includes an optional Fast Mode up to two and a half times quicker, <span class="prosody-caesura">/</span> plus built-in <span class="prosody-stress">anti-distillation</span> defenses that cut unauthorized scraping risks by ninety to ninety-nine percent while preserving enterprise zero-data-retention guarantees.</p>
+                <p class="cn-translation-block">David，谢谢抽空。你们安全负责人问是否必须离开 Google Cloud 才能用 Anthropic 11 月 12 日刚发的新模型。答案是不需要：Claude Fable 5.2 已在 Vertex AI 正式 GA（$8/$40），Mythos 5.2 也向特批安全科研机构开放。Fable 5.2 支持最高提速 2.5 倍的 Fast Mode，并内置防蒸馏（anti-distillation）机制，降低 90%-99% 抓取风险，同时完整保留企业级 ZDR 保障。</p>
               </article>
               <article style="margin-bottom:1.6rem;">
-                <div class="kicker" style="margin-bottom:0.4rem;">II. Server-Side Tool Retrieval: Cutting Cost for Massive MCP Catalogs</div>
-                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">The second breakthrough in the Interactions API is <span class="prosody-stress">Tool Retrieval</span>, currently rolling out in EAP ahead of Public Preview. <span class="prosody-caesura">/</span> In production, sophisticated enterprise agents often require access to fifty, eighty, or more Model Context Protocol (MCP) servers— <span class="prosody-caesura">/</span> spanning Salesforce, Jira, SAP, and custom database endpoints. <span class="prosody-caesura">/</span> Forcing every tool schema into the initial system prompt instantly consumes twenty to thirty thousand input tokens per invocation. <span class="prosody-caesura">/</span> By configuring `defer_loading=true`, the model dynamically evaluates user intent server-side and <span class="prosody-stress">retrieves</span> only the specific tool schemas required for that turn, <span class="prosody-caesura">/</span> slashing first-token latency, input token spend, and rate-limit friction.</p>
-                <p class="cn-translation-block">Interactions API 的第二项突破是工具检索（Tool Retrieval），目前处于 EAP 阶段并即将转入 Public Preview。在生产环境中，复杂的企业级 Agent 通常需要挂载 50 到 80 个甚至更多的 MCP 工具——涵盖 Salesforce、Jira、SAP 及自建数据库接口。如果把所有工具 schema 硬塞进初始 system prompt，单次调用就会瞬间吃掉两三万 input tokens。通过配置 `defer_loading=true`，模型会在服务端按需动态评估用户意图，只检索当前轮次所需的工具定义，大幅削减首字延迟、input token 成本与并发限流压力。</p>
+                <div class="kicker" style="margin-bottom:0.4rem;">II. Fair Latency Benchmarking with MimicBench &amp; Rapid UI with Stitch</div>
+                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">Because your team evaluates both Gemini 4 and Claude side by side, <span class="prosody-caesura">/</span> I'd recommend testing them on <span class="prosody-stress">MimicBench</span> (`go/mimicbench`). <span class="prosody-caesura">/</span> It runs the exact same prompt across models, regions, and endpoints—comparing Vertex AI against AI Studio on equal footing so you don't rely on anecdotal guesswork. <span class="prosody-caesura">/</span> Meanwhile, for your product engineers building customer-facing interfaces, <span class="prosody-stress">A2UI 1.0</span> reached GA for dynamic agent-driven UIs, <span class="prosody-caesura">/</span> and <span class="prosody-stress">Stitch Superfast</span> lets PMs <span class="prosody-stress">prototype</span> multi-screen React flows from rough sketches in seconds.</p>
+                <p class="cn-translation-block">既然你们团队同时评测 Gemini 4 和 Claude，建议用生产化的 MimicBench 来测速。它能在同口径 prompt 下公平对比不同模型、区域或平台的真实延迟与吞吐。另外对于做前端交互的团队，A2UI 1.0 已 GA 支持动态生成界面，而 Stitch Superfast 能让产品经理在几秒内把草图变成多屏 React 原型（prototype）。</p>
               </article>
               <article style="margin-bottom:1.6rem;">
-                <div class="kicker" style="margin-bottom:0.4rem;">III. Computer Use Tool GA: Enterprise HITL Governance &amp; Org Policy Guardrails</div>
-                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">Finally, on November sixth we brought our <span class="prosody-stress">Computer use tool</span> into General Availability. <span class="prosody-caesura">/</span> The central friction point for IT security officers evaluating agentic desktop control has always been the fear of autonomous hallucination. <span class="prosody-caesura">/</span> Our GA release addresses this directly through comprehensive Human-in-the-Loop (HITL) policy controls. <span class="prosody-caesura">/</span> Developers can configure granular confirmation gates for high-risk operations—such as bank wire transfers or production database updates. <span class="prosody-caesura">/</span> Crucially, central IT administrators can enforce organization-wide safety boundaries using the `configurableComputerUseToolSafetyPolicies` Org Policy constraint, <span class="prosody-caesura">/</span> guaranteeing that unverified actions are intercepted before execution.</p>
-                <p class="cn-translation-block">最后，我们在 11 月 6 日正式将 Computer use tool 推向 GA。企业安全高管评估 Agent 桌面操控能力时，最大的痛点始终是对自主失控与幻觉的担忧。我们的 GA 版本通过完备的 Human-in-the-Loop（HITL）策略控制直接化解了这一顾虑。开发者可以为高风险操作（如资金转账或生产数据库修改）配置细粒度的人工二次确认门禁。更关键的是，中央 IT 管理员可以通过 `configurableComputerUseToolSafetyPolicies` 组织级约束策略强制实施全局安全边界，确保未经验证的高危操作在执行前被彻底拦截。</p>
+                <div class="kicker" style="margin-bottom:0.4rem;">III. Building Internal Bench Strength: Professional Agentic Architect (PAA)</div>
+                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">Finally, as your organization scales from pilot bots to governed production agents, talent <span class="prosody-stress">credential</span>ing matters. <span class="prosody-caesura">/</span> On November eleventh, Google Cloud launched the <span class="prosody-stress">Professional Agentic Architect (PAA)</span> certification— <span class="prosody-caesura">/</span> a two-hour exam paired with a live <span class="prosody-stress">hands-on</span> lab covering agentic security, <span class="prosody-stress">retrieval</span>, and multi-model orchestration. <span class="prosody-caesura">/</span> Certifying two of your lead architects alongside our FTEs gives your steering committee verifiable engineering rigor.</p>
+                <p class="cn-translation-block">最后，随着你们从试点走向规模化生产，团队的架构认证（credential）同样关键。11 月 11 日 Google Cloud 正式推出 Professional Agentic Architect (PAA) 认证，包含 2 小时笔试与真实动手实验（hands-on lab），考核 Agent 安全治理、检索与多模型编排。让你们的核心架构师与我们一起拿证，能为指导委员会提供扎实的工程背书。</p>
               </article>
             </div>
             <div class="mode-brief-content">
               <div class="border-box" style="padding:1.35rem 1.5rem; border-left:3px solid var(--accent);">
                 <article style="margin-bottom:0;">
-                  <div class="kicker" style="color:var(--accent); margin-bottom:0.4rem;">90-Sec Executive Pitch · Interactions API &amp; Computer Use Safety</div>
-                  <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">The newly GA <span class="prosody-stress">Interactions API</span> eliminates client-side context shuffling by managing stateful sessions natively on Google Cloud. <span class="prosody-caesura">/</span> With <span class="prosody-stress">Tool Retrieval</span> in EAP (`defer_loading=true`), agents dynamically load only the MCP schemas required for that turn, slashing token bloat across large catalogs. <span class="prosody-caesura">/</span> Meanwhile, the GA of <span class="prosody-stress">Computer use tool</span> introduces enterprise-grade Human-in-the-Loop governance and the `configurableComputerUseToolSafetyPolicies` Org Policy constraint, <span class="prosody-caesura">/</span> ensuring sensitive actions require explicit confirmation.</p>
-                  <p class="cn-translation-block">新 GA 的 Interactions API 通过在 Google Cloud 服务端原生托管有状态会话，免去了客户端反复拼接上下文的麻烦。配合处于 EAP 的 Tool Retrieval（`defer_loading=true`），Agent 可以在服务端按需加载 MCP 工具定义，大幅压缩大型工具集的 token 消耗。同时，Computer use tool 正式 GA，引入了企业级 HITL 安全治理机制与 `configurableComputerUseToolSafetyPolicies` 组织级约束，确保敏感操作必须经过显式确认。</p>
+                  <div class="kicker" style="color:var(--accent); margin-bottom:0.4rem;">⚡ 90-Second Advisor Brief · Fable 5.2 on Vertex &amp; PAA Certification</div>
+                  <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">Your teams don't need separate contracts for Anthropic's newest models: <span class="prosody-stress">Claude Fable 5.2</span> ($8/$40) is now GA on <span class="prosody-stress">Vertex AI</span> with Fast Mode, <span class="prosody-stress">anti-distillation</span> protection, and full FSP + ZDR coverage. <span class="prosody-caesura">/</span> Use <span class="prosody-stress">MimicBench</span> to benchmark latency fairly across endpoints, <span class="prosody-stress">A2UI 1.0</span> for governed agent UIs, and consider our new two-hour <span class="prosody-stress">hands-on</span> <span class="prosody-stress">Professional Agentic Architect</span> <span class="prosody-stress">credential</span> to certify your lead builders.</p>
+                  <p class="cn-translation-block">你们无需单独签约 Anthropic：Claude Fable 5.2（$8/$40）已在 Vertex AI 正式 GA，支持 Fast Mode、防蒸馏保护及完整 FSP 抵扣与 ZDR。建议用 MimicBench 公平测速，用 A2UI 1.0 构建安全前端，并安排核心架构师考取新上线的 PAA 实战认证。</p>
                 </article>
               </div>
             </div>
@@ -720,10 +732,10 @@
           <div id="day-panel-3" class="day-panel">
             <div class="border-b" style="padding-bottom:1.1rem; margin-bottom:1.5rem;">
               <div style="margin-bottom:0.35rem;">
-                <span class="kicker" style="color:var(--accent);">Thursday · Commercial Deal-Desk (FSP 0.5x 乘数加成、OpenAI Marketplace 与 Q4 SPIFF)</span>
+                <span class="kicker" style="color:var(--accent);">Thursday · Commercial Deal-Desk (计费抵扣顺序、EA Commit 规则与 11-30 促销收官)</span>
               </div>
-              <h2 class="font-serif" style="font-size:clamp(1.45rem, 2.5vw, 2.05rem); font-weight:400; margin:0.2rem 0 0.5rem;">The 0.5x FSP Multiplier Window, OpenAI Marketplace Comp, and SPIFF Governance</h2>
-              <p style="font-size:0.92rem; color:var(--ink-secondary); margin:0 0 0.95rem;">Briefing a sales director on the 5x FSP multiplier surge, OpenAI 0.5x Marketplace economics, Q4 AI Attach SPIFF, and Milestone Credits order of deduction.</p>
+              <h2 class="font-serif" style="font-size:clamp(1.45rem, 2.5vw, 2.05rem); font-weight:400; margin:0.2rem 0 0.5rem;">Order of Deduction, Credit Hygiene, and Closing Before the Nov 30 Cliff</h2>
+              <p style="font-size:0.92rem; color:var(--ink-secondary); margin:0 0 0.95rem;">Clarifying go/billing-order-of-operations for CFOs, explaining why credits do not retire EA commits, and driving Carbon/FSP year-end urgency.</p>
               <div class="editorial-audio-bar">
                 <button type="button" id="audio-btn-3" class="editorial-play-btn" onclick="toggleSpeakDay(3)">
                   <span class="play-icon-svg"><svg width="11" height="12" viewBox="0 0 11 12" fill="currentColor"><path d="M1.5 1.2v9.6L9.8 6 1.5 1.2z"/></svg></span>
@@ -747,27 +759,27 @@
             </div>
             <div class="mode-deep-content">
               <article style="margin-bottom:1.6rem;">
-                <div class="kicker" style="margin-bottom:0.4rem;">I. The Year-End FSP Surge: 5x Multiplier to Accelerate Multi-Year Commitments</div>
-                <p class="font-serif drop-cap" style="font-size:1.18rem; line-height:1.82; margin:0;">Let's focus on the single biggest compensation catalyst of the quarter, team. <span class="prosody-caesura">/</span> Effective November first through December thirty-first, Global Sales Incentive Strategy increased the <span class="prosody-stress">Flexible Savings Plan (FSP) Multiplier from 0.1x to 0.5x</span>— <span class="prosody-caesura">/</span> a massive five-fold boost designed to drive year-end closing velocity. <span class="prosody-caesura">/</span> This change reflects in Rainmaker in mid-November and counts toward all quota buckets containing `GE Net ACV` or `GE iACV`. <span class="prosody-caesura">/</span> The 75% eligible bucket quota cap remains in place. <span class="prosody-caesura">/</span> For an account team working on a multi-million-dollar commitment, closing an FSP deal this month yields five times the commission attainment compared to October.</p>
-                <p class="cn-translation-block">团队聚焦本季度最大的销售激励利好。自 11 月 1 日至 12 月 31 日，Global Sales Incentive Strategy 正式将 Flexible Savings Plan（FSP）乘数从 0.1x 提升至 0.5x——直接翻了 5 倍，旨在加速年底大单结案。该调整将于 11 月中旬在 Rainmaker 系统中呈现，并计入所有包含 GE Net ACV 或 GE iACV 的考核 bucket（维持对应 bucket 级别配额 75% 的封顶上限不变）。对于正在推进数百万美元承诺的大客户团队而言，在 11 月签署 FSP 协议所带来的业绩核算回报是 10 月份的整整 5 倍。</p>
+                <div class="kicker" style="margin-bottom:0.4rem;">I. Exact Order of Deduction: Intro Pricing, FSP, and Unscoped Credits</div>
+                <p class="font-serif drop-cap" style="font-size:1.18rem; line-height:1.82; margin:0;">Thanks for joining the commercial review, Mark. <span class="prosody-caesura">/</span> Your finance team asked a sharp question about how promotional prices, FSP discounts, and contractual credits stack on a monthly invoice. <span class="prosody-caesura">/</span> Under our official billing <span class="prosody-stress">order of operations</span>, the sequence is strict: <span class="prosody-caesura">/</span> first, official <span class="prosody-stress">intro pricing</span> applies—such as Carbon's $2/$10 promotional rate; <span class="prosody-caesura">/</span> second, your <span class="prosody-stress">Flexible Savings Plan</span> discount calculates on that net amount; <span class="prosody-caesura">/</span> and third, <span class="prosody-stress">unscoped</span> contractual credits—such as SMC credits—offset the remaining cash balance. <span class="prosody-caesura">/</span> One <span class="prosody-stress">caveat</span> to note upfront: GFS promotional credits are the exception, deducting at standard list price first.</p>
+                <p class="cn-translation-block">Mark，感谢参加商务对齐。你们财务团队问了一个非常专业的问题：促销价、FSP 折扣和合同 Credits 在月结账单上到底怎么叠加？按照官方计费抵扣顺序（order of operations），顺序非常严格：第一步先适用官方 intro pricing（例如 Carbon 的 $2/$10 促销价）；第二步在折后净额上计算 FSP 折扣；第三步才用无范围限制（unscoped）的合同 credits 冲抵剩余现金账单。唯一需要事先说明的例外（caveat）是 GFS 促销 credits，它优先按目录价扣减。</p>
               </article>
               <article style="margin-bottom:1.6rem;">
-                <div class="kicker" style="margin-bottom:0.4rem;">II. Commercial Mechanics: OpenAI MaaS on Marketplace with 0.5x Multiplier</div>
-                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">Second, we officially confirmed the commercial treatment for <span class="prosody-stress">OpenAI on Google Cloud Marketplace</span>. <span class="prosody-caesura">/</span> As OpenAI enters our Marketplace under Model-as-a-Service, eligible sellers earn standard Marketplace compensation— <span class="prosody-caesura">/</span> including the <span class="prosody-stress">0.5x multiplier</span> and standard Marketplace caps. <span class="prosody-caesura">/</span> More importantly, AISS compensation plans are being updated to officially include OpenAI eligibility alongside Anthropic. <span class="prosody-caesura">/</span> Remember the strict field governance: CN and HK IP addresses are geo-blocked at Google Front End, <span class="prosody-caesura">/</span> customer prompt data is retained on GCP for thirty days with zero feed-back to OpenAI, <span class="prosody-caesura">/</span> and contracts must execute through an overseas legal entity.</p>
-                <p class="cn-translation-block">第二，我们正式明确了 OpenAI 在 Google Cloud Marketplace 上的商务与佣金政策。随着 OpenAI 以 MaaS 模式入驻 Marketplace，符合条件的销售人员可享受标准 Marketplace 方案——包含 0.5x 乘数与标准封顶。更重要的是，AISS 佣金计划正在更新，正式将 OpenAI 与 Anthropic 并列纳入合格清单。切记一线合规四要点：中国大陆与香港 IP 在 GFE 层直接阻断、客户数据在 GCP 驻留最长 30 天且无任何数据回传 OpenAI、合同必须通过海外法人实体签约签署。</p>
+                <div class="kicker" style="margin-bottom:0.4rem;">II. The Bottom-Line Rule on Credits vs. Underlying EA Commits</div>
+                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">There is a second <span class="prosody-stress">underlying</span> rule your procurement lead needs in writing so there are zero surprises at year-end true-up. <span class="prosody-caesura">/</span> While cash-equivalent credits reduce the invoice your CFO pays and draw down the monthly FSP pool, <span class="prosody-caesura">/</span> credit-covered spend does <span class="prosody-stress">not</span> <span class="prosody-stress">retire</span> your <span class="prosody-stress">underlying</span> Enterprise Agreement annual commit. <span class="prosody-caesura">/</span> Putting that clarity <span class="prosody-stress">upfront</span> prevents awkward reconciliation debates in Q1—and helps your team size the cash commitment accurately against real projected usage.</p>
+                <p class="cn-translation-block">还有第二条底层（underlying）规则需要书面同步给你们采购，以免年底核销时产生误解：虽然 Credits 能直接减免 CFO 实际支付的现金账单并消耗当月 FSP 额度，但由 Credit 冲抵掉的金额不计入底层企业协议（EA）年度 Commit 的消耗（does not retire the underlying commit）。先把这个口径坦诚讲在前头（upfront），能避免 Q1 对账扯皮，也方便你们按真实预期用量准确测算承诺额。</p>
               </article>
               <article style="margin-bottom:1.6rem;">
-                <div class="kicker" style="margin-bottom:0.4rem;">III. Q4 AI Attach SPIFF and Milestone Credits Deduction Hygiene</div>
-                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">Two critical operational points to close out your deal desk review: <span class="prosody-caesura">/</span> First, verify `go/spiff-cloud-ai-2026`. <span class="prosody-caesura">/</span> Accounts spending over $100K on GCP where 1P Cloud AI currently represents under 5% are eligible for the <span class="prosody-stress">Q4 Cloud AI Attach SPIFF</span>— <span class="prosody-caesura">/</span> lifting them to 5% or higher triggers a fixed cash reward split between the eligible AISS and AI CE (covering plan IDs like `plan3210`). <span class="prosody-caesura">/</span> Second, on <span class="prosody-stress">Milestone Credits</span>: always clarify to customers that credits deduct at <span class="prosody-stress">list price</span> first. <span class="prosody-caesura">/</span> FSP commitment discounts only apply to actual cash billings incurred <span class="prosody-stress">after</span> the initial promotional credit pool is fully exhausted.</p>
-                <p class="cn-translation-block">最后提醒 deal desk 对齐的两项实操要点：第一，立即核查 `go/spiff-cloud-ai-2026` 目标清单。GCP 年消费达 10 万美元以上且 1P AI 消耗占比不足 5% 的客户有资格参与 Q4 Cloud AI Attach SPIFF——只要在 Q4 将其 1P AI 份额推升至 5% 以上，合资格的 AISS 与 AI CE（涵盖 plan3210 等）即可均分固定现金奖励。第二，在 Milestone Credits 商务解释上：切记向客户阐明，赠送的 credits 统一按目录价（list price）优先扣减，FSP 承诺折扣仅适用于 credits 完全抵扣完毕后的实际账单部分。</p>
+                <div class="kicker" style="margin-bottom:0.4rem;">III. Two Year-End Deadlines: Nov 30 Carbon Promo &amp; Dec 31 0.5x FSP</div>
+                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">With only two weeks left before <span class="prosody-stress">November thirtieth</span>, urgency is real. <span class="prosody-caesura">/</span> Carbon's $2/$10 <span class="prosody-stress">promo</span> price expires at month-end before doubling to $4/$20 on December first—so PoC accounts should <span class="prosody-stress">consolidate</span> and lock in usage now. <span class="prosody-caesura">/</span> Meanwhile, pairing that commitment with an FSP before <span class="prosody-stress">December thirty-first</span> captures the five-fold <span class="prosody-stress">0.5x multiplier</span> <span class="prosody-stress">surge</span> across GE Net ACV and iACV buckets, <span class="prosody-caesura">/</span> giving both your finance team predictable <span class="prosody-stress">blended</span> savings across Gemini 4 and Claude Fable 5.2, and our account team maximum closing momentum.</p>
+                <p class="cn-translation-block">距离 11 月 30 日仅剩最后两周，时间非常紧迫。Carbon 的 $2/$10 促销价月底截止，12 月 1 日起翻倍至 $4/$20——正在做 PoC 的客户现在就该收口（consolidate）并锁定用量。同时在 12 月 31 日前搭配 FSP 签约，可抓紧 0.5x 乘数 5 倍激增（surge）的激励窗口，既帮财务锁定跨 Gemini 4 与 Claude Fable 5.2 的混合（blended）省钱账本，也让我们年底关单势能最大化。</p>
               </article>
             </div>
             <div class="mode-brief-content">
               <div class="border-box" style="padding:1.35rem 1.5rem; border-left:3px solid var(--accent);">
                 <article style="margin-bottom:0;">
-                  <div class="kicker" style="color:var(--accent); margin-bottom:0.4rem;">90-Sec Executive Pitch · 0.5x FSP Surge &amp; OpenAI Marketplace</div>
-                  <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">From November first to December thirty-first, the FSP Multiplier surges five-fold from <span class="prosody-stress">0.1x to 0.5x</span> for GE Net ACV and iACV buckets (capped at 75%), offering an unprecedented window to close multi-year commitments. <span class="prosody-caesura">/</span> Concurrently, OpenAI on GCP Marketplace is confirmed at a <span class="prosody-stress">0.5x multiplier</span>, with AISS compensation plans updating to include OpenAI alongside Anthropic. <span class="prosody-caesura">/</span> Target low-AI accounts on `go/spiff-cloud-ai-2026` to capture the Q4 Attach SPIFF, and ensure customers understand that Milestone Credits deduct at list price before FSP discounts apply.</p>
-                  <p class="cn-translation-block">11 月 1 日至 12 月 31 日，FSP 乘数从 0.1x 暴涨 5 倍至 0.5x（覆盖 GE Net/iACV 桶，上限 75%），为锁定多年期承诺提供了重大利好窗口。同时，OpenAI 入驻 Marketplace 确认享有 0.5x 佣金乘数，AISS 方案正更新将 OpenAI 与 Anthropic 并列纳入。一线应锁定 `go/spiff-cloud-ai-2026` 清单内的低 AI 占比客户冲刺 Q4 SPIFF，并向客户准确解释 Milestone Credits 优先按目录价扣减的规则。</p>
+                  <div class="kicker" style="color:var(--accent); margin-bottom:0.4rem;">⚡ 90-Second Deal-Desk Brief · Deduction Order &amp; Nov 30 Cliff</div>
+                  <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">For CFO clarity, our billing <span class="prosody-stress">deduction</span> order is strict: <span class="prosody-stress">Intro Pricing</span> first, <span class="prosody-stress">FSP</span> discount second, and <span class="prosody-stress">unscoped</span> contractual credits third (with GFS credits as the list-price exception). <span class="prosody-caesura">/</span> Crucially, be <span class="prosody-stress">upfront</span> that credit-offset spend does not <span class="prosody-stress">retire</span> the <span class="prosody-stress">underlying</span> EA annual commit. <span class="prosody-caesura">/</span> With Carbon's $2/$10 <span class="prosody-stress">promo</span> ending <span class="prosody-stress">November thirtieth</span> and the <span class="prosody-stress">0.5x FSP multiplier</span> running through <span class="prosody-stress">December thirty-first</span>, now is the moment to <span class="prosody-stress">consolidate</span> Q4 commitments.</p>
+                  <p class="cn-translation-block">给 CFO 对齐的 90 秒核心账本：计费抵扣顺序严格为 Intro Pricing → FSP 折扣 → unscoped credits（GFS 例外按目录价）。务必事先说明 Credit 冲抵部分不消耗底层 EA 年度 Commit。距离 11 月 30 日 Carbon 促销截止仅剩两周，叠加密集冲刺 12 月 31 日截止的 0.5x FSP 乘数，现在正是收口 Q4 承诺的最佳窗口。</p>
                 </article>
               </div>
             </div>
@@ -777,10 +789,10 @@
           <div id="day-panel-4" class="day-panel">
             <div class="border-b" style="padding-bottom:1.1rem; margin-bottom:1.5rem;">
               <div style="margin-bottom:0.35rem;">
-                <span class="kicker" style="color:var(--accent);">Friday · Warm Workplace Rapport (跨国团队周五复盘、致敬 FDE 交付与 Q4 节奏把控)</span>
+                <span class="kicker" style="color:var(--accent);">Friday · Warm Workplace Rapport (PAA 认证备考、Wave 2 准入协同与冲刺节奏)</span>
               </div>
-              <h2 class="font-serif" style="font-size:clamp(1.45rem, 2.5vw, 2.05rem); font-weight:400; margin:0.2rem 0 0.5rem;">Celebrating Field Engineering Wins, Protecting Deep Work, and Q4 Sprint Discipline</h2>
-              <p style="font-size:0.92rem; color:var(--ink-secondary); margin:0 0 0.95rem;">Connecting with regional teammates, recognizing the miHoYo deployment milestone, and respecting closing bandwidth as year-end approaches.</p>
+              <h2 class="font-serif" style="font-size:clamp(1.45rem, 2.5vw, 2.05rem); font-weight:400; margin:0.2rem 0 0.5rem;">Friday Sync: PAA Prep, APAC Wave 2 Reviews, and Protecting Focus</h2>
+              <p style="font-size:0.92rem; color:var(--ink-secondary); margin:0 0 0.95rem;">Recognizing cross-team hustle during a double-launch week, coordinating APAC Carbon approvals, and keeping Friday calls crisp.</p>
               <div class="editorial-audio-bar">
                 <button type="button" id="audio-btn-4" class="editorial-play-btn" onclick="toggleSpeakDay(4)">
                   <span class="play-icon-svg"><svg width="11" height="12" viewBox="0 0 11 12" fill="currentColor"><path d="M1.5 1.2v9.6L9.8 6 1.5 1.2z"/></svg></span>
@@ -804,27 +816,27 @@
             </div>
             <div class="mode-deep-content">
               <article style="margin-bottom:1.6rem;">
-                <div class="kicker" style="margin-bottom:0.4rem;">I. Checking In: Global Momentum and Navigating Time Zones</div>
-                <p class="font-serif drop-cap" style="font-size:1.18rem; line-height:1.82; margin:0;">Happy Friday, everyone. <span class="prosody-caesura">/</span> I know it has been an intense week across North America, APAC, and EMEA, <span class="prosody-caesura">/</span> especially with the barrage of product drops from Omni 1.2 Flash to the Carbon Cyber briefing. <span class="prosody-caesura">/</span> Before we dive into operational triage, I want to take a breath and recognize the sheer cross-functional <span class="prosody-stress">alignment</span> it takes <span class="prosody-caesura">/</span> to keep our field messaging cohesive when product releases move this fast. <span class="prosody-caesura">/</span> Whether you're dialing in from Singapore, Tokyo, London, or the Bay Area, <span class="prosody-caesura">/</span> thank you for bringing clarity and poise to our customer conversations.</p>
-                <p class="cn-translation-block">大家周五愉快。我知道对于北美、亚太和欧洲团队来说，这都是高强度运转的一周，尤其是面对从 Omni 1.2 Flash 到 Carbon Cyber 启动会接踵而至的重磅发布。在我们进入业务梳理之前，我想先停下来，感谢大家在产品迭代如此迅速的情况下所展现的跨部门协作凝聚力。无论你是在新加坡、东京、伦敦还是湾区参会，感谢大家为我们的客户交流带来专业度与从容感。</p>
+                <div class="kicker" style="margin-bottom:0.4rem;">I. Opening Warmly After a Double-Launch Week</div>
+                <p class="font-serif drop-cap" style="font-size:1.18rem; line-height:1.82; margin:0;">Happy Friday, everyone! <span class="prosody-caesura">/</span> Between Carbon GA on Tuesday, PAA launching Wednesday, and Hydrogen landing Thursday, it has been a <span class="prosody-stress">packed</span> week across every time zone. <span class="prosody-caesura">/</span> Before we check pipeline numbers, I want to acknowledge the <span class="prosody-stress">poise</span> and preparation everyone brought to customer calls— <span class="prosody-caesura">/</span> especially translating pricing deadlines and APAC billing rules without missing a beat. <span class="prosody-caesura">/</span> Let's wait thirty seconds for our Shanghai and Singapore CEs to hop on.</p>
+                <p class="cn-translation-block">大家周五快乐！周二 Carbon GA、周三 PAA 认证上线、周四 Hydrogen 紧接着发布，这周各个时区都排得满满当当（packed）。在过管线数字前，先感谢大家在客户会上展现出的专业与从容（poise）——尤其是把促销死线和 APAC 计费规则解释得清清楚楚。我们再等 30 秒让上海和新加坡的 CE 同事进来。</p>
               </article>
               <article style="margin-bottom:1.6rem;">
-                <div class="kicker" style="margin-bottom:0.4rem;">II. Huge Kudos: The miHoYo Enterprise Production Breakthrough</div>
-                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">I want to give <span class="prosody-stress">huge kudos</span> to our Field Engineering and Specialist teams—specifically Xin Gao, Mengjiao Wang, Hugo Zheng, Hill Yu, and Ray Chan— <span class="prosody-caesura">/</span> for their landmark achievement with <span class="prosody-stress">miHoYo</span>. <span class="prosody-caesura">/</span> Transforming 15-language global CRM marketing asset generation from a three-day manual grind into a <span class="prosody-stress">twelve-hour automated loop</span> <span class="prosody-caesura">/</span> with <span class="prosody-stress">one hundred percent</span> first-pass production adoption is the gold standard of real-world AI deployment. <span class="prosody-caesura">/</span> By open-sourcing the underlying harness skills and Live API demos on GitHub, <span class="prosody-caesura">/</span> they have given every seller in this room an airtight executive narrative for our consumer internet and gaming accounts.</p>
-                <p class="cn-translation-block">我想给我们的 FDE 与 Specialist 团队送上热烈的祝贺（huge kudos）——特别是 Xin Gao、Mengjiao Wang、Hugo Zheng、Hill Yu 和 Ray Chan——他们在米哈游项目上取得了里程碑式的落地突破。将 15 种语言的全球 CRM 营销素材生成从耗时 3 天的手工繁琐流程转化为 12 小时的自动化闭环，并在真实生产中取得 100% 的首轮采纳率，这堪称真实世界 AI 落地的黄金标杆。通过在 GitHub 上开源底层的 Harness Skill 与 Live API Demo，他们为在座的每一位销售同事提供了拜访出海互联网与游戏客户的坚实弹药。</p>
+                <div class="kicker" style="margin-bottom:0.4rem;">II. Huge Kudos &amp; Coordinating APAC Wave 2 + PAA Credentials</div>
+                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">Alright, looks like we have a <span class="prosody-stress">quorum</span>. <span class="prosody-caesura">/</span> First, <span class="prosody-stress">huge kudos</span> to the team members already diving into the new <span class="prosody-stress">Professional Agentic Architect</span> <span class="prosody-stress">credential</span>—having FTE vouchers in GCR is a great opportunity to sharpen our <span class="prosody-stress">hands-on</span> lab chops together. <span class="prosody-caesura">/</span> Second, on Carbon APAC approvals: Wave 2 reviews are moving ahead with direct deals prioritized, <span class="prosody-caesura">/</span> and for reseller opportunities, remember that AI SS secondary sign-off is required after FSM approval. <span class="prosody-caesura">/</span> Let's keep our messaging consistent: route active Q4 volume to Argon as the <span class="prosody-stress">fallback</span> unless an override is confirmed.</p>
+                <p class="cn-translation-block">好，人齐了（quorum）。首先给已经着手备考新上线的 Professional Agentic Architect (PAA) 认证的同事点个大大的赞（huge kudos）——利用好大中华区 FTE 考试券一起打磨动手实验（hands-on）非常值。第二，关于 Carbon APAC Wave 2 批复：目前优先推进直签客户，reseller 商机需在 FSM 批复后由 AI SS 二次审核；没有特批前，活跃 Q4 用量统一引导至 Argon 兜底。</p>
               </article>
               <article style="margin-bottom:1.6rem;">
-                <div class="kicker" style="margin-bottom:0.4rem;">III. Mindful of Time: Streamlining Pipeline Reviews for Closing Velocity</div>
-                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">As we head into the final seven weeks of the year, everyone in this meeting is acutely mindful of <span class="prosody-stress">bandwidth</span>. <span class="prosody-caesura">/</span> With the FSP multiplier elevated to 0.5x and the Q4 SPIFF live, our sellers need uninterrupted focus to close business. <span class="prosody-caesura">/</span> Let's keep our pipeline syncs crisp and asynchronous wherever possible. <span class="prosody-caesura">/</span> If an issue does not require an immediate group decision, let's take it <span class="prosody-stress">offline</span> and let our account executives do what they do best: <span class="prosody-caesura">/</span> partner with customers and execute. <span class="prosody-caesura">/</span> Wishing all of you a restful, well-deserved weekend recharge.</p>
-                <p class="cn-translation-block">随着我们步入年底最后的七周，参会的每位同事都深感时间精力的宝贵。随着 FSP 乘数提升至 0.5x 以及 Q4 SPIFF 的上线，一线销售需要专注的精力来推动结案。让我们尽可能保持管线同步的高效精简与异步化。如果某个问题不需要全员立即拍板，我们直接在线下（offline）沟通，让我们的一线团队专注于他们最擅长的事：服务客户并促成签约。祝大家周末好好充电，享受充实而愉快的休息时光。</p>
+                <div class="kicker" style="margin-bottom:0.4rem;">III. Mindful of Closing Bandwidth Going into Late November</div>
+                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">I want to be <span class="prosody-stress">mindful</span> of everyone's closing <span class="prosody-stress">bandwidth</span> as we enter the second half of November. <span class="prosody-caesura">/</span> With only two weeks left until the November thirtieth Carbon promo <span class="prosody-stress">cliff</span>, let's keep internal syncs <span class="prosody-stress">crisp</span>: <span class="prosody-caesura">/</span> if a billing exception only impacts a single customer, let's take it <span class="prosody-stress">offline</span> right after this call and <span class="prosody-stress">circle</span> back by Monday morning. <span class="prosody-caesura">/</span> Wishing everyone a quiet, restorative weekend!</p>
+                <p class="cn-translation-block">进入十一月下半月，我非常体谅（mindful）大家冲刺关单的精力带宽（bandwidth）。距离 11 月 30 日 Carbon 促销截止只剩两周，内部会我们尽量保持干脆利落（crisp）：只涉及单个客户的计费特例我们会后单独聊（take it offline），周一早上再回头对齐（circle back）。祝大家周末愉快、好好休息！</p>
               </article>
             </div>
             <div class="mode-brief-content">
               <div class="border-box" style="padding:1.35rem 1.5rem; border-left:3px solid var(--accent);">
                 <article style="margin-bottom:0;">
-                  <div class="kicker" style="color:var(--accent); margin-bottom:0.4rem;">90-Sec Executive Pitch · Team Camaraderie &amp; Sprint Discipline</div>
-                  <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">Huge kudos to our Field Engineering and Specialist teams for deploying the 15-language CRM generation engine at miHoYo, compressing asset turnaround from three days to half a day with 100% adoption. <span class="prosody-caesura">/</span> As we enter the year-end sprint powered by the 0.5x FSP multiplier boost and Q4 SPIFF, let's protect seller closing bandwidth by keeping pipeline reviews crisp and taking non-critical discussions offline. <span class="prosody-caesura">/</span> Thank you for an incredible week of execution across every time zone—have a great weekend!</p>
-                  <p class="cn-translation-block">热烈祝贺我们的 FDE 与 Specialist 团队在米哈游成功部署 15 语言 CRM 生成引擎，将素材制作周期从 3 天压缩至半天且首轮采纳率达 100%。随着我们在 0.5x FSP 乘数与 Q4 SPIFF 的助推下步入年底冲刺，让我们通过精简管线评审、将非紧急议题转移至线下，切实保护一线销售的结案精力。感谢各区域团队本周的高效执行，祝大家周末愉快！</p>
+                  <div class="kicker" style="color:var(--accent); margin-bottom:0.4rem;">⚡ 90-Second Friday Huddle · PAA Prep &amp; Nov 30 Focus</div>
+                  <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">Happy Friday after a <span class="prosody-stress">packed</span> double-launch week! <span class="prosody-caesura">/</span> We have a <span class="prosody-stress">quorum</span>—<span class="prosody-stress">huge kudos</span> to everyone tackling the new <span class="prosody-stress">PAA</span> <span class="prosody-stress">credential</span> with our GCR vouchers. <span class="prosody-caesura">/</span> Quick reminder: Carbon APAC Wave 2 prioritizes direct accounts (resellers need AI SS sign-off), and Argon stays our <span class="prosody-stress">fallback</span> without an override. <span class="prosody-caesura">/</span> To be <span class="prosody-stress">mindful</span> of your <span class="prosody-stress">bandwidth</span> ahead of November thirtieth, let's take account-specific edge cases <span class="prosody-stress">offline</span> and enjoy the weekend!</p>
+                  <p class="cn-translation-block">双模型连发的忙碌一周后周五快乐！人齐了（quorum），给着手考取 PAA 认证的同事点个赞（huge kudos）。快速提醒：Carbon APAC Wave 2 优先直签（reseller 需 AI SS 二次审核），无特批先走 Argon 兜底。体谅大家年底精力带宽，个案会后单独聊，祝周末愉快！</p>
                 </article>
               </div>
             </div>
@@ -834,10 +846,10 @@
           <div id="day-panel-5" class="day-panel">
             <div class="border-b" style="padding-bottom:1.1rem; margin-bottom:1.5rem;">
               <div style="margin-bottom:0.35rem;">
-                <span class="kicker" style="color:var(--accent);">Saturday · Offsite Social &amp; Everyday Idiom (生活漫谈、时差调整、秋日户外与家庭充电)</span>
+                <span class="kicker" style="color:var(--accent);">Saturday · Offsite Social &amp; Everyday Idiom (十一月中旬的秋意、徒步充电与生活表达)</span>
               </div>
-              <h2 class="font-serif" style="font-size:clamp(1.45rem, 2.5vw, 2.05rem); font-weight:400; margin:0.2rem 0 0.5rem;">Shaking off the Red-Eye, Autumn Trails, and Recharging for the Sprint</h2>
-              <p style="font-size:0.92rem; color:var(--ink-secondary); margin:0 0 0.95rem;">Everyday conversational idioms, trail running, recovering from cross-Pacific flights, and finding presence outside the inbox.</p>
+              <h2 class="font-serif" style="font-size:clamp(1.45rem, 2.5vw, 2.05rem); font-weight:400; margin:0.2rem 0 0.5rem;">Crisp Mid-November Mornings: Pour-Over Coffee, Sourdough, and Unplugging</h2>
+              <p style="font-size:0.92rem; color:var(--ink-secondary); margin:0 0 0.95rem;">Natural weekend conversation on shaking off mid-quarter fatigue, autumn trails, and being offline before the final November sprint.</p>
               <div class="editorial-audio-bar">
                 <button type="button" id="audio-btn-5" class="editorial-play-btn" onclick="toggleSpeakDay(5)">
                   <span class="play-icon-svg"><svg width="11" height="12" viewBox="0 0 11 12" fill="currentColor"><path d="M1.5 1.2v9.6L9.8 6 1.5 1.2z"/></svg></span>
@@ -861,27 +873,27 @@
             </div>
             <div class="mode-deep-content">
               <article style="margin-bottom:1.6rem;">
-                <div class="kicker" style="margin-bottom:0.4rem;">I. Shaking off the Red-Eye: Early Sunlight and Morning Rituals</div>
-                <p class="font-serif drop-cap" style="font-size:1.18rem; line-height:1.82; margin:0;">After stepping off a thirteen-hour cross-Pacific flight on Thursday night, <span class="prosody-caesura">/</span> my internal clock was thoroughly scrambled between Tokyo, Shanghai, and San Francisco time. <span class="prosody-caesura">/</span> The best remedy I've found over the years isn't an extra espresso or fighting the fatigue— <span class="prosody-caesura">/</span> it's getting twenty minutes of direct <span class="prosody-stress">morning sunlight</span> right after waking up. <span class="prosody-caesura">/</span> Sitting on the porch with a fresh pour-over coffee while the crisp autumn air settles in <span class="prosody-caesura">/</span> does wonders for resetting your circadian rhythm and clearing the mental fog.</p>
-                <p class="cn-translation-block">周四深夜走下长达 13 个小时的跨太平洋航班后，我的生物钟在东京、上海和旧金山时间之间彻底错乱了。这些年我总结出的最好解药既不是连喝意式浓缩，也不是强行硬扛疲惫，而是起床后第一时间去沐浴 20 分钟的晨光。端着一杯新鲜手冲咖啡坐在走廊上，呼吸着清冽的秋日空气，对于重置昼夜节律、驱散大脑昏沉有着奇妙的效果。</p>
+                <div class="kicker" style="margin-bottom:0.4rem;">I. Shaking Off Mid-November Fatigue</div>
+                <p class="font-serif drop-cap" style="font-size:1.18rem; line-height:1.82; margin:0;">After back-to-back product launches all week, waking up on Saturday without an alarm feels like a small luxury. <span class="prosody-caesura">/</span> The air has turned genuinely <span class="prosody-stress">crisp</span> in mid-November—cool enough that a wool sweater and a hot pour-over coffee on the balcony hit the spot. <span class="prosody-caesura">/</span> Earlier this week my sleep was still <span class="prosody-stress">scrambled</span> from late-night global syncs, <span class="prosody-caesura">/</span> so I made a rule this weekend not to touch work chat until Monday morning.</p>
+                <p class="cn-translation-block">连着一周密集发版后，周六不用定闹钟自然醒简直是一种小奢侈。十一月中旬的空气变得格外清冽（crisp）——穿一件羊毛衫在阳台喝杯热手冲刚刚好。这周前面几天因为跨区晚间例会作息还有点错乱（scrambled），所以我给自己定了个规矩：这周末彻底不碰工作聊天，直到周一早上。</p>
               </article>
               <article style="margin-bottom:1.6rem;">
-                <div class="kicker" style="margin-bottom:0.4rem;">II. Hitting the Trails: Autumn Foliage, Rhythm, and Mental Space</div>
-                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">By mid-morning, nothing beats lacing up your running shoes and heading into the foothills. <span class="prosody-caesura">/</span> The maple and oak leaves have turned brilliant shades of amber and rust, <span class="prosody-caesura">/</span> carpeting the dirt trail in a soft, crunchy layer underfoot. <span class="prosody-caesura">/</span> When you're out on the trails, your mind finally detaches from unread email threads and quarterly attainment spreadsheets. <span class="prosody-caesura">/</span> You settle into a steady, rhythmic breathing cadence, <span class="prosody-caesura">/</span> and the knot of tension in your shoulders slowly dissolves into pure physical exertion.</p>
-                <p class="cn-translation-block">到了上午，最惬意的事莫过于系紧跑鞋鞋带，奔向山林小径。枫树和橡树的叶子已经变成了绚烂的琥珀色与铁锈红，在脚下铺成一层松软而沙沙作响的落叶毯。当置身山间小道时，你的思绪终于从未读邮件和季度业绩报表中抽离出来。随着呼吸节奏渐渐稳定，紧绷的双肩也在酣畅的运动中慢慢舒展放松。</p>
+                <div class="kicker" style="margin-bottom:0.4rem;">II. Heading Off the Beaten Path</div>
+                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">By ten o'clock, we packed a thermos and drove forty minutes out of town to a quiet ridge trail <span class="prosody-stress">off the beaten path</span>. <span class="prosody-caesura">/</span> Unlike the main city parks where weekend crowds are <span class="prosody-stress">bumper to bumper</span>, we only passed two hikers all morning. <span class="prosody-caesura">/</span> Out among the pine trees, your mind naturally <span class="prosody-stress">detaches</span> from pricing cliffs and forecast spreadsheets— <span class="prosody-caesura">/</span> giving you the space to <span class="prosody-stress">unwind</span> and breathe.</p>
+                <p class="cn-translation-block">十点钟我们带了保温杯开车四十分钟去城外一条冷门小众（off the beaten path）的山脊步道。不像市区主公园周末人挤人像堵车一样（bumper to bumper），整个上午只遇到两位徒步者。走在松林间，思绪自然从促销死线和预测表格里抽离出来（detaches），真正得到放松（unwind）和喘息。</p>
               </article>
               <article style="margin-bottom:1.6rem;">
-                <div class="kicker" style="margin-bottom:0.4rem;">III. Farm-to-Table Dinners and Being Truly Present</div>
-                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">Saturday evenings are reserved for gathering around the kitchen table with family and close friends. <span class="prosody-caesura">/</span> We picked up fresh butternut squash, wild chanterelles, and artisan sourdough from the local farmers market, <span class="prosody-caesura">/</span> roasting the vegetables with rosemary and sea salt while good music plays in the background. <span class="prosody-caesura">/</span> In our line of work, we spend sixty hours a week projecting into future quarters and architecting frontier systems. <span class="prosody-caesura">/</span> Taking an evening to be completely present—savoring good food and unhurried laughter— <span class="prosody-caesura">/</span> is the ultimate recharge before Monday morning's opening bell.</p>
-                <p class="cn-translation-block">周六的夜晚属于围坐在厨房餐桌旁的家人与挚友。我们在当地农贸市场挑了新鲜的胡桃南瓜、野生牛肝菌和手作酸面包，伴着悠扬的背景音乐，用迷迭香和海盐慢火烘烤蔬菜。在我们的工作中，每周往往要花 60 个小时展望未来季度、架构前沿系统。但抽出一个晚上全然活在当下——细品美食，享受从容惬意的欢声笑语——是在下周一晨钟敲响前最好的能量补给。</p>
+                <div class="kicker" style="margin-bottom:0.4rem;">III. Simple Kitchen Rituals to Recharge</div>
+                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">In the evening, we picked up warm artisan sourdough and roasted seasonal squash with garlic and thyme—nothing fancy, just good comfort food. <span class="prosody-caesura">/</span> When the second half of Q4 gets <span class="prosody-stress">hectic</span>, those quiet Saturday rituals are what keep me from <span class="prosody-stress">running on fumes</span> by December. <span class="prosody-caesura">/</span> Hope you get a chance to <span class="prosody-stress">recharge</span> your batteries too before we sprint toward month-end!</p>
+                <p class="cn-translation-block">晚上我们买了刚出炉的手作酸面包，用蒜瓣和百里香烤了应季南瓜——简单却治愈的家常味。每当 Q4 下半场变得忙碌连轴转（hectic）时，正是这些安静的周六小仪式让我不至于到十二月就精力耗尽硬撑（running on fumes）。希望你也能好好充电（recharge），迎接月底冲刺！</p>
               </article>
             </div>
             <div class="mode-brief-content">
               <div class="border-box" style="padding:1.35rem 1.5rem; border-left:3px solid var(--accent);">
                 <article style="margin-bottom:0;">
-                  <div class="kicker" style="color:var(--accent); margin-bottom:0.4rem;">90-Sec Executive Pitch · Weekend Reset &amp; Personal Presence</div>
-                  <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">After a long week of international travel and cross-time-zone sprints, the best antidote to jet lag is early morning sunlight and a brisk trail run through the autumn leaves. <span class="prosody-caesura">/</span> Stepping away from inbox notifications to cook a farm-to-table meal with loved ones restores the mental clarity and grounded presence <span class="prosody-caesura">/</span> required to lead high-stakes executive conversations when the business week resumes.</p>
-                  <p class="cn-translation-block">在一整周高强度的跨国差旅与时区切换之后，对抗时差的灵丹妙药就是清晨的阳光以及踏着秋叶在林间畅快奔跑。暂时放下通知提醒，与挚爱亲友一起做一顿温热的家常便饭，能够找回内心的澄澈与专注，为新一周高水准的高管对话积蓄充沛能量。</p>
+                  <div class="kicker" style="color:var(--accent); margin-bottom:0.4rem;">⚡ 90-Second Weekend Reset · Crisp Air &amp; Unplugging</div>
+                  <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">After a <span class="prosody-stress">hectic</span> launch week that left my sleep <span class="prosody-stress">scrambled</span>, waking up to <span class="prosody-stress">crisp</span> mid-November air and a hot coffee feels great. <span class="prosody-caesura">/</span> We hiked a quiet ridge trail <span class="prosody-stress">off the beaten path</span> where my mind could finally <span class="prosody-stress">detach</span> from spreadsheets and <span class="prosody-stress">unwind</span>. <span class="prosody-caesura">/</span> A simple dinner at home is all it takes to <span class="prosody-stress">recharge</span> so we aren't <span class="prosody-stress">running on fumes</span> during the November thirtieth sprint!</p>
+                  <p class="cn-translation-block">忙碌发版周让我作息有点错乱（scrambled），今天醒来呼吸到十一月中旬清冽（crisp）的空气、喝杯热咖啡太舒服了。我们去走了一条冷门（off the beaten path）山脊步道，大脑终于能从表格里抽离（detach）出来放松（unwind）。在家吃顿简餐充好电（recharge），才不会在月底冲刺时硬撑（running on fumes）！</p>
                 </article>
               </div>
             </div>
@@ -891,10 +903,10 @@
           <div id="day-panel-6" class="day-panel">
             <div class="border-b" style="padding-bottom:1.1rem; margin-bottom:1.5rem;">
               <div style="margin-bottom:0.35rem;">
-                <span class="kicker" style="color:var(--accent);">Sunday · Weekly Synthesis (全景高管复盘独白与生词串联织锦)</span>
+                <span class="kicker" style="color:var(--accent);">Sunday · Weekly Synthesis (Issue 48 全景复盘独白：Carbon + Hydrogen 双擎与商务闭环)</span>
               </div>
-              <h2 class="font-serif" style="font-size:clamp(1.45rem, 2.5vw, 2.05rem); font-weight:400; margin:0.2rem 0 0.5rem;">The Unified Frontier: Architecture, Governance, and Closing Momentum</h2>
-              <p style="font-size:0.92rem; color:var(--ink-secondary); margin:0 0 0.95rem;">A master executive synthesis connecting Omni 1.2 Flash, Carbon Cyber, the 0.5x FSP multiplier surge, and the miHoYo production milestone.</p>
+              <h2 class="font-serif" style="font-size:clamp(1.45rem, 2.5vw, 2.05rem); font-weight:400; margin:0.2rem 0 0.5rem;">Weekly Synthesis: Frontier Planner, Fast Executor, and Year-End Discipline</h2>
+              <p style="font-size:0.92rem; color:var(--ink-secondary); margin:0 0 0.95rem;">Weaving all seven days of Issue 48 vocabulary—from Carbon &amp; Hydrogen GA to Decisions API, Bloomberg ASKB, Fable 5.2, and Nov 30 execution.</p>
               <div class="editorial-audio-bar">
                 <button type="button" id="audio-btn-6" class="editorial-play-btn" onclick="toggleSpeakDay(6)">
                   <span class="play-icon-svg"><svg width="11" height="12" viewBox="0 0 11 12" fill="currentColor"><path d="M1.5 1.2v9.6L9.8 6 1.5 1.2z"/></svg></span>
@@ -918,27 +930,22 @@
             </div>
             <div class="mode-deep-content">
               <article style="margin-bottom:1.6rem;">
-                <div class="kicker" style="margin-bottom:0.4rem;">I. Architectural Maturity: Moving from Raw Modalities to Stateful Utility</div>
-                <p class="font-serif drop-cap" style="font-size:1.18rem; line-height:1.82; margin:0;">If we synthesize the strategic narrative of this first week of November, <span class="prosody-caesura">/</span> the enterprise AI market has definitively crossed the threshold from novelty demos into industrial accountability. <span class="prosody-caesura">/</span> On the multimodal frontier, <span class="prosody-stress">Gemini Omni 1.2 Flash</span> reaching General Availability at seven cents per second <span class="prosody-caesura">/</span> dismantles the cost barriers to high-volume commercial video, while its decoupled 360p-to-4K <span class="prosody-stress">upscale</span> path protects margins. <span class="prosody-caesura">/</span> Through the <span class="prosody-stress">Interactions API</span>, we are no longer treating multimodal generation as an isolated one-shot transaction, <span class="prosody-caesura">/</span> but as a persistent, stateful dialogue where artists and agents refine creative assets turn-by-turn with locked reference <span class="prosody-stress">fidelity</span>.</p>
-                <p class="cn-translation-block">如果我们复盘 11 月第一周的整体战略主线，企业级 AI 市场已经彻底跨越了盲目尝鲜的门槛，全面迈入具备工业级确定性与可审计性的深水区。在多模态前沿，Gemini Omni 1.2 Flash 以每秒 0.07 美元的单价正式 GA，彻底瓦解了大批量商业视频制作的成本门槛，其解耦的 360p 至 4K 独立放大链路有效保护了业务毛利。依托 Interactions API，我们不再将多模态生成视为孤立的单次黑盒调用，而是将其转化为持久有状态的交互对话，让创作者和 Agent 能够在保持角色与品牌保真度（fidelity）的前提下逐轮打磨素材。</p>
+                <div class="kicker" style="margin-bottom:0.4rem;">I. The Dual-Model Engine: Carbon + Hydrogen &amp; Zero-Output Routing</div>
+                <p class="font-serif drop-cap" style="font-size:1.18rem; line-height:1.82; margin:0;">Looking back on a landmark week, the product story fits together cleanly. <span class="prosody-caesura">/</span> <span class="prosody-stress">Gemini 4 Carbon</span> reached <span class="prosody-stress">Short GA</span> on November tenth as our <span class="prosody-stress">frontier</span> <span class="prosody-stress">planner</span> for <span class="prosody-stress">long-horizon</span> coding and cyber defense— <span class="prosody-caesura">/</span> cutting complex task cost in half through deep self-<span class="prosody-stress">verification</span>, while <span class="prosody-stress">Carbon for Cyber</span> opened to <span class="prosody-stress">vetted</span> defenders under Fairwind. <span class="prosody-caesura">/</span> Two days later, <span class="prosody-stress">Gemini 4 Hydrogen</span> arrived at a <span class="prosody-stress">$1.50/$7.50 flat</span> rate as the <span class="prosody-stress">complementary</span> high-speed <span class="prosody-stress">executor</span>, <span class="prosody-caesura">/</span> alongside the zero-output <span class="prosody-stress">Decisions API</span> to replace <span class="prosody-stress">fragile</span> JSON routing and <span class="prosody-stress">Deferred Tier</span> to prevent peak <span class="prosody-stress">throttling</span>.</p>
+                <p class="cn-translation-block">回顾这具有里程碑意义的一周，整个产品版图严丝合缝地拼在了一起。Gemini 4 Carbon 于 11 月 10 日正式进入 Short GA，作为专攻 long-horizon 编程与网络防御的前沿规划器（planner），靠深度自验证将复杂任务成本砍半，同时 Carbon for Cyber 向 Fairwind 审核机构开放。两天后，Gemini 4 Hydrogen 以 $1.50/$7.50 统一平价作为互补的高速执行器（executor）上线，配合零输出计费的 Decisions API 替代脆弱的 JSON 路由，并用 Deferred Tier 消除高峰限流（throttling）。</p>
               </article>
               <article style="margin-bottom:1.6rem;">
-                <div class="kicker" style="margin-bottom:0.4rem;">II. Governance as a Moat: From Computer Use HITL to Sovereign Cloud</div>
-                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">Simultaneously, enterprise trust has become the defining differentiator across the stack. <span class="prosody-caesura">/</span> While raw coding and reasoning models proliferate, our customers recognize that autonomous agency requires robust <span class="prosody-stress">guardrails</span>. <span class="prosody-caesura">/</span> The GA of our <span class="prosody-stress">Computer use tool</span> with the `configurableComputerUseToolSafetyPolicies` Org Policy constraint <span class="prosody-caesura">/</span> proves that Google Cloud designs agentic capabilities with CISO governance in mind from day one. <span class="prosody-caesura">/</span> Whether deploying <span class="prosody-stress">Boston Dynamics Spot</span> for continuous embodied inspection or enabling <span class="prosody-stress">PRODESP</span> in Brazil with local data residency, <span class="prosody-caesura">/</span> Google is proving that sovereign boundaries and enterprise safety are foundational capabilities, not afterthoughts.</p>
-                <p class="cn-translation-block">与此同时，企业级信任已成为贯穿全栈的核心护城河。尽管市面上的代码与通用推理模型层出不穷，但我们的客户清醒地认识到，真正的自主 Agent 必须依托坚实的安全护栏。Computer use tool 正式 GA 并引入 `configurableComputerUseToolSafetyPolicies` 组织级约束，证明了 Google Cloud 在设计 Agent 操控能力之初就将安全高管的合规治理置于核心。无论是部署波士顿动力 Spot 机器狗开展具身时序巡检，还是在巴西依托本地数据驻留支持 PRODESP，Google 证明了主权合规与企业安全从来都是底层基因，而非事后补丁。</p>
-              </article>
-              <article style="margin-bottom:1.6rem;">
-                <div class="kicker" style="margin-bottom:0.4rem;">III. Commercial Alignment: Capitalizing on the 0.5x Surge for Year-End Impact</div>
-                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">Finally, our commercial incentives and field execution are operating in complete lockstep. <span class="prosody-caesura">/</span> The five-fold increase in the <span class="prosody-stress">FSP Multiplier to 0.5x</span> through December thirty-first gives our sales teams an unprecedented lever to lock in multi-year commitments. <span class="prosody-caesura">/</span> Combining that surge with the <span class="prosody-stress">Q4 Cloud AI Attach SPIFF</span> and official Marketplace compensation for OpenAI, <span class="prosody-caesura">/</span> our sellers have every tool required to address customer shadow AI and consolidate fragmented spend onto Google Cloud. <span class="prosody-caesura">/</span> The landmark production success at <span class="prosody-stress">miHoYo</span> demonstrates that when our field engineering rigors are paired with frontier models, <span class="prosody-caesura">/</span> we don't just win deals—we redefine industry production benchmarks.</p>
-                <p class="cn-translation-block">最后，我们的商务激励机制正与一线战术打法形成紧密咬合。截至 12 月 31 日前 FSP 乘数暴涨 5 倍至 0.5x，为销售团队锁定多年期长期承诺提供了前所未有的强力杠杆。将这一红利与 Q4 Cloud AI Attach SPIFF 以及 OpenAI 入驻 Marketplace 的正式佣金方案相结合，我们的一线团队拥有了收拢企业内部 Shadow AI 并将碎片化预算收归 Google Cloud 的全套抓手。米哈游在生产环境取得的标杆成果充分证明，当我们的现场工程能力与前沿模型深度融合时，我们不仅是在赢得订单，更是在重新定义各行业的生产力标准。</p>
+                <div class="kicker" style="margin-bottom:0.4rem;">II. Enterprise Proof &amp; Commercial Precision</div>
+                <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">In production, <span class="prosody-stress">Bloomberg</span> proved the stack inside Terminal ASKB using Vector Search 2.0's new <span class="prosody-stress">boolean</span> search and managed <span class="prosody-stress">ingestion</span>, <span class="prosody-caesura">/</span> while <span class="prosody-stress">Claude Fable 5.2</span> launched on Vertex AI with <span class="prosody-stress">anti-distillation</span> protection and full FSP coverage. <span class="prosody-caesura">/</span> Commercially, I stayed <span class="prosody-stress">upfront</span> on the exact <span class="prosody-stress">deduction</span> order—Intro Pricing, FSP, then <span class="prosody-stress">unscoped</span> credits—and reminded buyers that credits do not <span class="prosody-stress">retire</span> the <span class="prosody-stress">underlying</span> EA commit. <span class="prosody-caesura">/</span> Now, after a quiet weekend to <span class="prosody-stress">unwind</span> and <span class="prosody-stress">recharge</span>, I am ready to help teams clear APAC <span class="prosody-stress">overrides</span> and lock in commitments before the <span class="prosody-stress">November thirtieth</span> pricing <span class="prosody-stress">cliff</span>.</p>
+                <p class="cn-translation-block">在生产落地上，彭博（Bloomberg）已经在 Terminal ASKB 中验证了 Vector Search 2.0 的布尔搜索与托管入库（ingestion）；Claude Fable 5.2 也带着防蒸馏保护和完整 FSP 覆盖登录 Vertex AI。商务上，我事先坦诚（upfront）讲清了 Intro Pricing → FSP → unscoped credits 的严格抵扣顺序，并提醒 Credits 不消耗底层 EA Commit。经过周末的放松（unwind）与充电（recharge），我已经准备好协助团队搞定 APAC 特批（override），在 11 月 30 日价格陡增线前锁定客户签约。</p>
               </article>
             </div>
             <div class="mode-brief-content">
               <div class="border-box" style="padding:1.35rem 1.5rem; border-left:3px solid var(--accent);">
                 <article style="margin-bottom:0;">
-                  <div class="kicker" style="color:var(--accent); margin-bottom:0.4rem;">90-Sec Executive Pitch · Weekly Synthesis</div>
-                  <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">This week marked a decisive maturation across the enterprise AI landscape: Gemini Omni 1.2 Flash GA establishes commercial video economics ($0.07/s), while the Interactions API and Computer Use HITL guardrails deliver enterprise-grade stateful governance. <span class="prosody-caesura">/</span> On the commercial front, the surge of the FSP multiplier from 0.1x to 0.5x alongside OpenAI Marketplace compensation equips account teams to aggressively capture year-end commitments. <span class="prosody-caesura">/</span> Anchored by miHoYo's 15-language production breakthrough, Google Cloud enters the year-end sprint as the definitive enterprise AI partner.</p>
-                  <p class="cn-translation-block">本周标志着企业级 AI 市场迈向全面成熟：Gemini Omni 1.2 Flash GA 树立了商业级视频生成的经济性标杆（$0.07/秒），Interactions API 与 Computer Use HITL 护栏则提供了企业级有状态治理能力。在商业层面，FSP 乘数从 0.1x 暴涨至 0.5x，叠加 OpenAI 入驻 Marketplace 的佣金方案，为销售团队锁定年底大额承诺提供了重大利好。以米哈游 15 语言素材生产的重大突破为锚，Google Cloud 正以无可替代的确定性领跑年底冲刺。</p>
+                  <div class="kicker" style="color:var(--accent); margin-bottom:0.4rem;">⚡ 90-Second Weekly Executive Synthesis · Issue 48</div>
+                  <p class="font-serif" style="font-size:1.18rem; line-height:1.82; margin:0;">This week delivered Google's complete agentic stack: <span class="prosody-stress">Gemini 4 Carbon</span> as the <span class="prosody-stress">frontier</span> <span class="prosody-stress">planner</span>, <span class="prosody-stress">Hydrogen</span> ($1.50/$7.50 <span class="prosody-stress">flat</span>) as the fast <span class="prosody-stress">executor</span>, zero-output <span class="prosody-stress">Decisions API</span>, and Vector Search 2.0 live at <span class="prosody-stress">Bloomberg</span>—plus <span class="prosody-stress">Claude Fable 5.2</span> on Vertex AI. <span class="prosody-caesura">/</span> With the <span class="prosody-stress">November thirtieth</span> Carbon <span class="prosody-stress">promo</span> <span class="prosody-stress">cliff</span> and <span class="prosody-stress">0.5x FSP</span> window ahead, let's stay <span class="prosody-stress">mindful</span> of closing <span class="prosody-stress">bandwidth</span>, clear APAC <span class="prosody-stress">fallbacks</span> cleanly, and <span class="prosody-stress">accelerate</span> Q4 commitments!</p>
+                  <p class="cn-translation-block">本周交出了完整的企业级 Agent 全栈答卷：Carbon 做前沿规划器、Hydrogen（$1.50/$7.50 平价）做高速执行器、零输出计费 Decisions API、彭博投产 Vector Search 2.0，以及 Claude Fable 5.2 登录 Vertex AI。面对 11 月 30 日 Carbon 促销陡增线和 0.5x FSP 窗口，让我们保护好冲刺带宽、妥善做好 APAC Argon 兜底，全力加速 Q4 签约！</p>
                 </article>
               </div>
             </div>
@@ -972,11 +979,19 @@
               <div id="marg-nuance" style="font-size:0.82rem; color:var(--ink-secondary); line-height:1.5;"></div>
               <div id="marg-ex-box" style="margin-top:0.25rem; padding:0.65rem 0.75rem; background-color:var(--paper); border:1px solid var(--rule); border-left:2.5px solid var(--accent);">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.25rem;">
-                  <span class="kicker" style="font-size:0.64rem; color:var(--accent);">Contextual Example · 双语例句</span>
-                  <button type="button" onclick="speakInspectedExample()" class="editorial-pronounce-pill" style="padding:0.12rem 0.45rem; font-size:0.62rem;">▶ 读例句</button>
+                  <span class="kicker" style="font-size:0.64rem; color:var(--accent);">📍 文中原句对照</span>
+                  <button type="button" onclick="speakInspectedExample()" class="editorial-pronounce-pill" style="padding:0.12rem 0.45rem; font-size:0.62rem;">▶ 读原句</button>
                 </div>
-                <div id="marg-ex-en" class="font-serif" style="font-size:0.86rem; line-height:1.55; color:var(--ink);"></div>
-                <div id="marg-ex-cn" style="font-size:0.78rem; color:var(--ink-secondary); margin-top:0.25rem; line-height:1.45;"></div>
+                <div id="marg-ex-en" class="font-serif" style="font-size:0.85rem; line-height:1.55; color:var(--ink);"></div>
+                <div id="marg-ex-cn" style="font-size:0.77rem; color:var(--ink-secondary); margin-top:0.22rem; line-height:1.45;"></div>
+              </div>
+              <div id="marg-biz-ex-box" class="hidden" style="padding:0.65rem 0.75rem; background-color:var(--paper); border:1px solid var(--rule); border-left:2.5px solid var(--ink);">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.25rem;">
+                  <span class="kicker" style="font-size:0.64rem; color:var(--ink);">💡 实战拓展例句</span>
+                  <button type="button" onclick="speakInspectedBizExample()" class="editorial-pronounce-pill" style="padding:0.12rem 0.45rem; font-size:0.62rem;">▶ 读拓展句</button>
+                </div>
+                <div id="marg-biz-ex-en" class="font-serif" style="font-size:0.85rem; line-height:1.55; color:var(--ink);"></div>
+                <div id="marg-biz-ex-cn" style="font-size:0.77rem; color:var(--ink-secondary); margin-top:0.22rem; line-height:1.45;"></div>
               </div>
             </div>
           </div>
@@ -986,63 +1001,63 @@
             <div class="kicker border-b" style="padding-bottom:0.45rem; margin-bottom:0.35rem;">Core Vocabulary Glossary (点击展开释义)</div>
 
             <details class="vocab-drawer" open>
-              <summary><span>indemnification</span><span class="kicker">n.</span></summary>
-              <div style="font-size:0.82rem; color:var(--accent); font-weight:600; margin-top:0.3rem;">侵权赔偿保障</div>
-              <div style="font-size:0.78rem; color:var(--ink-secondary); margin-top:0.15rem;">企业级法律保障，免除客户因使用大模型生成的素材而招致的第三方知识产权诉讼风险 (IP indemnification)。</div>
+              <summary><span>long-horizon / verification</span><span class="kicker">Carbon</span></summary>
+              <div style="font-size:0.82rem; color:var(--accent); font-weight:600; margin-top:0.3rem;">长程任务 / 自验证降本</div>
+              <div style="font-size:0.78rem; color:var(--ink-secondary); margin-top:0.15rem;">Carbon 通过深度 self-verification 减少重试，单任务综合成本反降 2 倍。</div>
             </details>
 
             <details class="vocab-drawer">
-              <summary><span>upscale</span><span class="kicker">v./n.</span></summary>
-              <div style="font-size:0.82rem; color:var(--accent); font-weight:600; margin-top:0.3rem;">超分放大 / 画质提升</div>
-              <div style="font-size:0.78rem; color:var(--ink-secondary); margin-top:0.15rem;">通过独立算法将 360p/720p 视频草案无损放大至 1080p 或 4K (draft-to-4K upscale task)。</div>
+              <summary><span>fallback / override</span><span class="kicker">APAC</span></summary>
+              <div style="font-size:0.82rem; color:var(--accent); font-weight:600; margin-top:0.3rem;">兜底方案 / 准入特批</div>
+              <div style="font-size:0.78rem; color:var(--ink-secondary); margin-top:0.15rem;">HK/SG/MY/IN 默认阻断 Carbon 时，以 Argon 为 Long GA fallback 或走 VP override。</div>
             </details>
 
             <details class="vocab-drawer">
-              <summary><span>fidelity</span><span class="kicker">n.</span></summary>
-              <div style="font-size:0.82rem; color:var(--accent); font-weight:600; margin-top:0.3rem;">保真度 / 一致性</div>
-              <div style="font-size:0.78rem; color:var(--ink-secondary); margin-top:0.15rem;">大模型输出在多轮交互中对原图特征、人物外观及品牌视觉规范的准确保持度 (character fidelity)。</div>
+              <summary><span>flat rate / fabricated</span><span class="kicker">Hydrogen</span></summary>
+              <div style="font-size:0.82rem; color:var(--accent); font-weight:600; margin-top:0.3rem;">1M 全窗口平价 / 捏造幻觉</div>
+              <div style="font-size:0.78rem; color:var(--ink-secondary); margin-top:0.15rem;">Hydrogen $1.50/$7.50 flat 覆盖 1M 窗口，fabricated claims 降低超 5 倍。</div>
             </details>
 
             <details class="vocab-drawer">
-              <summary><span>deprecation</span><span class="kicker">n.</span></summary>
-              <div style="font-size:0.82rem; color:var(--accent); font-weight:600; margin-top:0.3rem;">资产折旧 / 快速过时</div>
-              <div style="font-size:0.78rem; color:var(--ink-secondary); margin-top:0.15rem;">重资产算力设备因下一代芯片极速更迭而面临的残值暴跌与折旧风险 (hardware deprecation risks)。</div>
+              <summary><span>forward pass / calibrated</span><span class="kicker">Decisions</span></summary>
+              <div style="font-size:0.82rem; color:var(--accent); font-weight:600; margin-top:0.3rem;">单次前向传播 / 经校准概率</div>
+              <div style="font-size:0.78rem; color:var(--ink-secondary); margin-top:0.15rem;">Decisions API 不生成输出 token，150-250ms 返回 0-1 校准概率。</div>
             </details>
 
             <details class="vocab-drawer">
-              <summary><span>speculative decoding</span><span class="kicker">phr.</span></summary>
-              <div style="font-size:0.82rem; color:var(--accent); font-weight:600; margin-top:0.3rem;">投机采样</div>
-              <div style="font-size:0.78rem; color:var(--ink-secondary); margin-top:0.15rem;">利用小型 draft 模型预先预测 token 并由大模型单次前向验证的无损低延迟推理加速技术。</div>
+              <summary><span>boolean / ingestion</span><span class="kicker">Retrieval</span></summary>
+              <div style="font-size:0.82rem; color:var(--accent); font-weight:600; margin-top:0.3rem;">布尔检索 / 托管入库</div>
+              <div style="font-size:0.78rem; color:var(--ink-secondary); margin-top:0.15rem;">Vector Search 2.0 补齐 AND/OR/NOT 与免 ETL 入库，已在彭博 ASKB 投产。</div>
             </details>
 
             <details class="vocab-drawer">
-              <summary><span>stateful</span><span class="kicker">adj.</span></summary>
-              <div style="font-size:0.82rem; color:var(--accent); font-weight:600; margin-top:0.3rem;">有状态的</div>
-              <div style="font-size:0.78rem; color:var(--ink-secondary); margin-top:0.15rem;">服务端在多轮请求间主动维护并记忆上下文及工具执行状态的会话机制 (stateful sessions)。</div>
+              <summary><span>anti-distillation</span><span class="kicker">Vertex 3P</span></summary>
+              <div style="font-size:0.82rem; color:var(--accent); font-weight:600; margin-top:0.3rem;">防蒸馏抓取保护</div>
+              <div style="font-size:0.78rem; color:var(--ink-secondary); margin-top:0.15rem;">Claude Fable 5.2 登录 Vertex AI，降低 90%-99% 抓取风险并支持 ZDR。</div>
             </details>
 
             <details class="vocab-drawer">
-              <summary><span>defer</span><span class="kicker">v.</span></summary>
-              <div style="font-size:0.82rem; color:var(--accent); font-weight:600; margin-top:0.3rem;">延迟加载 / 按需加载</div>
-              <div style="font-size:0.78rem; color:var(--ink-secondary); margin-top:0.15rem;">在 Interactions API 中配置 defer_loading=true，实现海量工具 schema 在服务端的按需检索。</div>
+              <summary><span>unscoped / retire</span><span class="kicker">Billing</span></summary>
+              <div style="font-size:0.82rem; color:var(--accent); font-weight:600; margin-top:0.3rem;">无范围限制 Credits / 核销消耗</div>
+              <div style="font-size:0.78rem; color:var(--ink-secondary); margin-top:0.15rem;">抵扣顺序 Intro→FSP→Unscoped；Credits 不消耗底层 EA 年度 Commit。</div>
             </details>
 
             <details class="vocab-drawer">
-              <summary><span>guardrail</span><span class="kicker">n.</span></summary>
-              <div style="font-size:0.82rem; color:var(--accent); font-weight:600; margin-top:0.3rem;">安全护栏 / 策略约束</div>
-              <div style="font-size:0.78rem; color:var(--ink-secondary); margin-top:0.15rem;">在 Agent 工作流中防止非预期行为的确定性拦截机制与组织级合规策略 (Org Policy guardrails)。</div>
+              <summary><span>credential / hands-on</span><span class="kicker">PAA</span></summary>
+              <div style="font-size:0.82rem; color:var(--accent); font-weight:600; margin-top:0.3rem;">认证凭证 / 动手实操实验</div>
+              <div style="font-size:0.78rem; color:var(--ink-secondary); margin-top:0.15rem;">Professional Agentic Architect (PAA) 含 2 小时考试与实操实验。</div>
             </details>
 
             <details class="vocab-drawer">
-              <summary><span>surge</span><span class="kicker">v./n.</span></summary>
-              <div style="font-size:0.82rem; color:var(--accent); font-weight:600; margin-top:0.3rem;">暴涨 / 激增</div>
-              <div style="font-size:0.78rem; color:var(--ink-secondary); margin-top:0.15rem;">短期内指标或乘数呈现阶跃式大幅提升 (5x FSP multiplier surge)。</div>
+              <summary><span>crisp / bandwidth</span><span class="kicker">Workplace</span></summary>
+              <div style="font-size:0.82rem; color:var(--accent); font-weight:600; margin-top:0.3rem;">干脆利落的 / 精力带宽</div>
+              <div style="font-size:0.78rem; color:var(--ink-secondary); margin-top:0.15rem;">冲刺期保护销售 closing bandwidth，把个案 take it offline。</div>
             </details>
 
             <details class="vocab-drawer">
-              <summary><span>consolidate</span><span class="kicker">v.</span></summary>
-              <div style="font-size:0.82rem; color:var(--accent); font-weight:600; margin-top:0.3rem;">合并纳管 / 汇总结算</div>
-              <div style="font-size:0.78rem; color:var(--ink-secondary); margin-top:0.15rem;">将碎片化的外部预算统一归入云承诺账单，或在佣金政策中将同季度多单合并计算。</div>
+              <summary><span>scrambled / detach</span><span class="kicker">Social</span></summary>
+              <div style="font-size:0.82rem; color:var(--accent); font-weight:600; margin-top:0.3rem;">生物钟错乱 / 从工作抽离</div>
+              <div style="font-size:0.78rem; color:var(--ink-secondary); margin-top:0.15rem;">周末走冷门步道（off the beaten path）让大脑从表格中抽离充电。</div>
             </details>
 
           </div>
@@ -1054,37 +1069,35 @@
 
     <!-- ==================== PANEL II: LEXICON & FUTURE SCENE WEAVER ==================== -->
     <section id="panel-lexicon" class="sec-panel">
-      <div class="border-b" style="padding-bottom:1rem; margin-bottom:1.5rem;">
-        <div class="kicker" style="color:var(--accent);">The Lexicon &amp; Weaver</div>
-        <h2 class="font-serif" style="font-size:1.9rem; font-weight:400; margin:0.2rem 0 0;">Weekly Vocabulary in Action</h2>
+      <div class="border-b" style="padding-bottom:1rem; margin-bottom:1.75rem; display:flex; flex-wrap:wrap; justify-content:space-between; align-items:flex-end; gap:1rem;">
+        <div>
+          <div class="kicker" style="color:var(--accent);">4-Tier Persistent Lexicon &amp; Future-Scene Weaver</div>
+          <h2 class="font-serif" style="font-size:1.9rem; font-weight:400; margin:0.2rem 0 0;">Personal Lexicon &amp; Future-Scene Weaver</h2>
+        </div>
+        <div style="display:flex; flex-wrap:wrap; gap:0.5rem;">
+          <button type="button" id="btn-toggle-blur" onclick="toggleLexiconBlur()" class="btn-outline">🙈 遮罩自测 (Hide Meanings)</button>
+          <button type="button" onclick="exportQueriedLexicon()" class="btn-ink">☁️ 导出生词给下周周报</button>
+        </div>
       </div>
 
       <div class="editorial-grid">
         <div class="main-column">
-          <div class="border-box" style="padding:1.35rem 1.5rem; margin-bottom:1.5rem;">
-            <div class="kicker" style="color:var(--accent); margin-bottom:0.4rem;">Scenario A · CTO Multimodal Video &amp; Cyber Architectural Alignment</div>
-            "Good morning, team. In the spirit of full <span class="lex-trigger" onclick="lookupWord('candor')">candor</span>, while OpenAI launched GPT-6 Cyber this week, our internal and third-party evals show Gemini 4 Carbon maintaining a verified lead on ExploitGym. More importantly for your Q4 budget, Gemini Omni 1.2 Flash is now GA with enterprise IP <span class="lex-trigger" onclick="lookupWord('indemnification')">indemnification</span>. By decoupling 360p draft generation from final 4K <span class="lex-trigger" onclick="lookupWord('upscale')">upscale</span> tasks, we protect your unit margins while maintaining strict brand <span class="lex-trigger" onclick="lookupWord('fidelity')">fidelity</span>. Let's <span class="lex-trigger" onclick="lookupWord('anchor')">anchor</span> our production rollout on this unified architecture."
+          <div class="kicker" style="margin-bottom:0.5rem;">Synthesized Reading Passages (点击高亮词直接查看释义与双例句)</div>
+
+          <div class="border-box font-serif" style="padding:1.45rem 1.5rem; font-size:1.12rem; line-height:1.82; margin-bottom:1.25rem;">
+            <div class="kicker" style="color:var(--accent); margin-bottom:0.4rem;">Scenario A · Carbon + Hydrogen Dual-Engine Architecture Review</div>
+            "In the spirit of full <span class="lex-trigger" onclick="lookupWord('candor')">candor</span>, while Gemini 4 Carbon reached Short GA as our strongest <span class="lex-trigger" onclick="lookupWord('frontier')">frontier</span> <span class="lex-trigger" onclick="lookupWord('planner')">planner</span>, four APAC markets require an access <span class="lex-trigger" onclick="lookupWord('override')">override</span> or an Argon <span class="lex-trigger" onclick="lookupWord('fallback')">fallback</span>. By pairing Carbon's deep self-<span class="lex-trigger" onclick="lookupWord('verification')">verification</span> with Hydrogen's <span class="lex-trigger" onclick="lookupWord('flat')">flat</span> rate as a high-speed <span class="lex-trigger" onclick="lookupWord('executor')">executor</span>—and replacing <span class="lex-trigger" onclick="lookupWord('fragile')">fragile</span> JSON prompts with our <span class="lex-trigger" onclick="lookupWord('deterministic')">deterministic</span> Decisions API—your engineers eliminate <span class="lex-trigger" onclick="lookupWord('throttling')">throttling</span> and cut wasted <span class="lex-trigger" onclick="lookupWord('retry')">retry</span> spend."
           </div>
 
-          <div class="border-box" style="padding:1.35rem 1.5rem;">
-            <div class="kicker" style="color:var(--accent); margin-bottom:0.4rem;">Scenario B · Commercial Deal-Desk &amp; FSP Multiplier Surge Strategy</div>
-            "Being <span class="lex-trigger" onclick="lookupWord('mindful')">mindful</span> of closing bandwidth as we head into the final seven weeks of the year, let's seize the five-fold <span class="lex-trigger" onclick="lookupWord('surge')">surge</span> in the FSP Multiplier from 0.1x to 0.5x. This allows us to <span class="lex-trigger" onclick="lookupWord('consolidate')">consolidate</span> customer shadow AI spend across both first-party Gemini workloads and OpenAI Marketplace MaaS into a single commitment. In addition, by enforcing <span class="lex-trigger" onclick="lookupWord('guardrail')">guardrail</span> policies with our GA Computer use tool and leveraging <span class="lex-trigger" onclick="lookupWord('stateful')">stateful</span> Interactions API sessions, we deliver the governance enterprise CISOs demand. Let's take specific account allocations <span class="lex-trigger" onclick="lookupWord('offline')">offline</span>."
+          <div class="border-box font-serif" style="padding:1.45rem 1.5rem; font-size:1.12rem; line-height:1.82;">
+            <div class="kicker" style="color:var(--accent); margin-bottom:0.4rem;">Scenario B · Bloomberg Retrieval &amp; Nov 30 Deal-Desk Alignment</div>
+            "To <span class="lex-trigger" onclick="lookupWord('anchor')">anchor</span> your Q4 roadmap in production proof, Bloomberg already runs our managed <span class="lex-trigger" onclick="lookupWord('ingestion')">ingestion</span> and <span class="lex-trigger" onclick="lookupWord('boolean')">boolean</span> <span class="lex-trigger" onclick="lookupWord('retrieval')">retrieval</span> inside Terminal ASKB. Ahead of the November thirtieth pricing <span class="lex-trigger" onclick="lookupWord('cliff')">cliff</span>, let's <span class="lex-trigger" onclick="lookupWord('consolidate')">consolidate</span> your Gemini 4 and Claude Fable 5.2 spend onto one FSP—being <span class="lex-trigger" onclick="lookupWord('upfront')">upfront</span> that <span class="lex-trigger" onclick="lookupWord('unscoped')">unscoped</span> credits do not <span class="lex-trigger" onclick="lookupWord('retire')">retire</span> your <span class="lex-trigger" onclick="lookupWord('underlying')">underlying</span> EA commit."
           </div>
         </div>
 
         <aside class="marginalia-col">
-          <div class="kicker border-b" style="padding-bottom:0.4rem; margin-bottom:0.5rem;">Core Lexicon Entries</div>
+          <div class="kicker border-b" style="padding-bottom:0.4rem; margin-bottom:0.5rem;">Archived Lexicon Entries (跨周永久保留 · 点词自动置顶)</div>
           <div id="lexicon-list">
-            <div class="border-b" style="padding:0.65rem 0;"><strong>indemnification</strong> (n.) — 侵权赔偿保障 (IP indemnification)</div>
-            <div class="border-b" style="padding:0.65rem 0;"><strong>upscale</strong> (v./n.) — 独立超分放大 (draft-to-4K upscale)</div>
-            <div class="border-b" style="padding:0.65rem 0;"><strong>fidelity</strong> (n.) — 视觉保真度与一致性 (brand fidelity)</div>
-            <div class="border-b" style="padding:0.65rem 0;"><strong>deprecation</strong> (n.) — 算力资产快速折旧风险</div>
-            <div class="border-b" style="padding:0.65rem 0;"><strong>speculative decoding</strong> (phr.) — 投机采样加速</div>
-            <div class="border-b" style="padding:0.65rem 0;"><strong>stateful</strong> (adj.) — 原生有状态会话 (Interactions API)</div>
-            <div class="border-b" style="padding:0.65rem 0;"><strong>defer</strong> (v.) — 延迟动态加载工具 (defer_loading=true)</div>
-            <div class="border-b" style="padding:0.65rem 0;"><strong>guardrail</strong> (n.) — 组织级安全护栏 (Org Policy)</div>
-            <div class="border-b" style="padding:0.65rem 0;"><strong>surge</strong> (n./v.) — 乘数暴涨 (5x multiplier surge)</div>
-            <div class="border-b" style="padding:0.65rem 0;"><strong>consolidate</strong> (v.) — 合并纳管至统一合同</div>
           </div>
         </aside>
       </div>
@@ -1097,56 +1110,56 @@
         <h2 class="font-serif" style="font-size:1.9rem; font-weight:400; margin:0.2rem 0 0;">From Plain Intent to Executive Precision</h2>
       </div>
       <div class="border-b" style="padding:1.25rem 0;">
-        <div class="kicker" style="color:var(--accent);">01 · Positioning Omni 1.2 Flash Video Economics</div>
-        <div class="font-serif" style="font-size:1.1rem; margin:0.3rem 0 0.85rem;">Omni 1.2 降价到 0.07 美元一秒，支持先抽 360p 草稿再放大到 4K，大幅减少废片成本，还有 IP 侵权赔偿保护。</div>
+        <div class="kicker" style="color:var(--accent);">01 · Carbon + Hydrogen Planner/Executor Architecture</div>
+        <div class="font-serif" style="font-size:1.1rem; margin:0.3rem 0 0.85rem;">Carbon 刚 GA 但 APAC 四个地区默认阻断；日常代码和并发用 Hydrogen ($1.50/$7.50 平价)，最难的推理留给 Carbon 或用 Argon 兜底。</div>
         <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:1rem;">
           <div style="border:1px solid var(--rule); padding:0.9rem;">
             <div class="kicker">I. Literal / Plain</div>
-            <p class="font-serif" style="font-size:0.9rem; color:var(--ink-muted); text-decoration:line-through; margin:0.3rem 0 0;">Omni 1.2 is cheap now, 7 cents per second. Artists can generate small videos first and upscale to 4K so we waste less money, and Google pays if sued.</p>
+            <p class="font-serif" style="font-size:0.9rem; color:var(--ink-muted); text-decoration:line-through; margin:0.3rem 0 0;">Carbon is GA now, but blocked in HK and SG. Use Hydrogen because it is cheap and fast, or use Argon.</p>
           </div>
           <div class="border-box" style="padding:0.9rem;">
             <div class="kicker">II. Natural Colleague Sync</div>
-            <p class="font-serif" style="font-size:0.92rem; margin:0.3rem 0 0;">Omni 1.2 Flash dropped to $0.07 a second with full IP indemnification. Your team can run fast 360p drafts to test concepts, and only pay to upscale final approved shots to 4K.</p>
+            <p class="font-serif" style="font-size:0.92rem; margin:0.3rem 0 0;">Carbon just hit Short GA, though HK and SG billing accounts are blocked by default without an override. For daily coding, pair it with Hydrogen at a flat $1.50/$7.50—or lean on Argon as your Long GA fallback.</p>
           </div>
           <div class="border-box" style="padding:0.9rem; border-color:var(--ink);">
             <div class="kicker" style="color:var(--accent);">III. C-Suite / Executive Pitch</div>
-            <p class="font-serif" style="font-size:0.92rem; font-weight:600; margin:0.3rem 0 0;">With Gemini Omni 1.2 Flash reaching General Availability at $0.07 per second backed by enterprise IP indemnification, teams can adopt a decoupled pipeline: prototyping at 360p to triage creative concepts before paying to upscale only approved takes to 4K, substantially reducing net cost per deliverable.</p>
+            <p class="font-serif" style="font-size:0.92rem; font-weight:600; margin:0.3rem 0 0;">With Gemini 4 Carbon now Generally Available as our frontier planner and Hydrogen live at a flat $1.50/$7.50 as a high-speed executor, enterprises can optimize task economics—while utilizing Argon as a twelve-month Long GA fallback where APAC regional guardrails apply.</p>
           </div>
         </div>
       </div>
       <div class="border-b" style="padding:1.25rem 0;">
-        <div class="kicker" style="color:var(--accent);">02 · Explaining the 5x FSP Multiplier Surge</div>
-        <div class="font-serif" style="font-size:1.1rem; margin:0.3rem 0 0.85rem;">从 11 月 1 号到年底，FSP 乘数从 0.1 涨到了 0.5，翻了 5 倍，签 FSP 算到 GE 桶里特别划算，上限是 75%。</div>
+        <div class="kicker" style="color:var(--accent);">02 · Explaining Decisions API Without Jargon</div>
+        <div class="font-serif" style="font-size:1.1rem; margin:0.3rem 0 0.85rem;">不要再用大模型生成 JSON 来做路由判断了，Decisions API 一次前向传播能评估 1,000 个问题，200ms 返回，零输出费用。</div>
         <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:1rem;">
           <div style="border:1px solid var(--rule); padding:0.9rem;">
             <div class="kicker">I. Literal / Plain</div>
-            <p class="font-serif" style="font-size:0.9rem; color:var(--ink-muted); text-decoration:line-through; margin:0.3rem 0 0;">Comp boosted FSP from 0.1 to 0.5 until December. If you close FSP deals in GE bucket you get 5 times more commission up to 75% cap.</p>
+            <p class="font-serif" style="font-size:0.9rem; color:var(--ink-muted); text-decoration:line-through; margin:0.3rem 0 0;">Stop asking LLM to write JSON for routing. Decisions API checks 1000 questions fast and costs 0 for output.</p>
           </div>
           <div class="border-box" style="padding:0.9rem;">
             <div class="kicker">II. Natural Colleague Sync</div>
-            <p class="font-serif" style="font-size:0.92rem; margin:0.3rem 0 0;">Sales Incentive boosted the FSP Multiplier five-fold from 0.1x to 0.5x through December thirty-first. It counts toward GE Net ACV and iACV buckets up to the 75% quota cap, so closing commitments now delivers massive attainment.</p>
+            <p class="font-serif" style="font-size:0.92rem; margin:0.3rem 0 0;">Instead of relying on fragile JSON prompts for agent routing, our new Decisions API evaluates up to 1,000 closed-ended checks in a single forward pass—200ms latency and zero output token cost.</p>
           </div>
           <div class="border-box" style="padding:0.9rem; border-color:var(--ink);">
             <div class="kicker" style="color:var(--accent);">III. C-Suite / Executive Pitch</div>
-            <p class="font-serif" style="font-size:0.92rem; font-weight:600; margin:0.3rem 0 0;">To accelerate year-end closing momentum, Global Sales Incentive Strategy elevated the FSP Multiplier from 0.1x to 0.5x across GE Net ACV and iACV buckets through December thirty-first. Subject to the standard 75% bucket cap, this temporary policy dramatically enhances seller earning potential on multi-year commitments.</p>
+            <p class="font-serif" style="font-size:0.92rem; font-weight:600; margin:0.3rem 0 0;">The Gemini Decisions API replaces brittle prompt-parsing loops with deterministic scoring: evaluating up to 1,000 routing or policy checks in a single 150-to-250-millisecond forward pass at $0.10 per million input tokens and zero output token spend.</p>
           </div>
         </div>
       </div>
       <div class="border-b" style="padding:1.25rem 0;">
-        <div class="kicker" style="color:var(--accent);">03 · Articulating Computer Use HITL Guardrails</div>
-        <div class="font-serif" style="font-size:1.1rem; margin:0.3rem 0 0.85rem;">Computer use 正式商用了，管理员可以用组织级策略强制要求敏感操作必须人工二次确认，防止 Agent 自主乱点。</div>
+        <div class="kicker" style="color:var(--accent);">03 · Billing Deduction Order &amp; EA Commit Hygiene</div>
+        <div class="font-serif" style="font-size:1.1rem; margin:0.3rem 0 0.85rem;">抵扣顺序是先算促销价，再算 FSP 折扣，最后才用通用 Credit；而且 Credit 抵扣的部分不消耗年底的 EA Commit。</div>
         <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:1rem;">
           <div style="border:1px solid var(--rule); padding:0.9rem;">
             <div class="kicker">I. Literal / Plain</div>
-            <p class="font-serif" style="font-size:0.9rem; color:var(--ink-muted); text-decoration:line-through; margin:0.3rem 0 0;">Computer use is GA. Admins can set rules so the AI cannot click money transfer or delete stuff without human clicking yes.</p>
+            <p class="font-serif" style="font-size:0.9rem; color:var(--ink-muted); text-decoration:line-through; margin:0.3rem 0 0;">First promo price, then FSP discount, then credit. Also credits do not count toward your yearly EA commit.</p>
           </div>
           <div class="border-box" style="padding:0.9rem;">
             <div class="kicker">II. Natural Colleague Sync</div>
-            <p class="font-serif" style="font-size:0.92rem; margin:0.3rem 0 0;">Computer use is now GA with built-in Human-in-the-Loop controls. IT administrators can use the configurableComputerUseToolSafetyPolicies constraint to mandate explicit confirmation before high-risk actions occur.</p>
+            <p class="font-serif" style="font-size:0.92rem; margin:0.3rem 0 0;">Just to be crystal clear on billing order: intro pricing applies first, then your FSP discount, and finally unscoped credits. Also keep in mind upfront that credit-offset spend doesn&#x27;t retire the underlying EA commit.</p>
           </div>
           <div class="border-box" style="padding:0.9rem; border-color:var(--ink);">
             <div class="kicker" style="color:var(--accent);">III. C-Suite / Executive Pitch</div>
-            <p class="font-serif" style="font-size:0.92rem; font-weight:600; margin:0.3rem 0 0;">Now Generally Available, the Computer use tool integrates rigorous Human-in-the-Loop governance. Central IT administrators can enforce the configurableComputerUseToolSafetyPolicies Org Policy constraint, establishing an immutable requirement for human confirmation on financial transactions or critical data modifications.</p>
+            <p class="font-serif" style="font-size:0.92rem; font-weight:600; margin:0.3rem 0 0;">Under our billing order of operations, promotional intro pricing calculates first, followed by Flexible Savings Plan discounts, and finally unscoped contractual credits. To ensure clean year-end reconciliation, please note upfront that credit-covered usage does not retire the underlying annual EA commitment.</p>
           </div>
         </div>
       </div>
@@ -1236,30 +1249,703 @@
     <div id="mob-cn" style="font-size:0.92rem; font-weight:600; color:var(--accent); margin-top:0.25rem;"></div>
     <div id="mob-nuance" style="font-size:0.8rem; color:var(--ink-secondary); margin-top:0.15rem;"></div>
     <div style="margin-top:0.45rem; padding:0.5rem 0.65rem; background-color:var(--paper); border:1px solid var(--rule); border-left:2.5px solid var(--accent);">
+      <div class="kicker" style="font-size:0.6rem; color:var(--accent); margin-bottom:0.15rem;">📍 文中原句</div>
       <div id="mob-ex-en" class="font-serif" style="font-size:0.84rem; line-height:1.48; color:var(--ink);"></div>
-      <div id="mob-ex-cn" style="font-size:0.76rem; color:var(--ink-secondary); margin-top:0.2rem; line-height:1.4;"></div>
+      <div id="mob-ex-cn" style="font-size:0.76rem; color:var(--ink-secondary); margin-top:0.18rem; line-height:1.4;"></div>
+    </div>
+    <div id="mob-biz-ex-box" class="hidden" style="margin-top:0.35rem; padding:0.45rem 0.65rem; background-color:var(--paper); border:1px solid var(--rule); border-left:2.5px solid var(--ink);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.15rem;">
+        <span class="kicker" style="font-size:0.6rem; color:var(--ink);">💡 实战拓展例句</span>
+        <button type="button" onclick="speakInspectedBizExample()" class="editorial-pronounce-pill" style="padding:0.08rem 0.38rem; font-size:0.58rem;">▶ 读拓展句</button>
+      </div>
+      <div id="mob-biz-ex-en" class="font-serif" style="font-size:0.82rem; line-height:1.45; color:var(--ink);"></div>
+      <div id="mob-biz-ex-cn" style="font-size:0.74rem; color:var(--ink-secondary); margin-top:0.15rem; line-height:1.38;"></div>
     </div>
   </div>
 
   <!-- Progressive Enhancement Script (Activates Audio TTS & Click-Any-Word when opened in Safari/Chrome) -->
   <script>
     const LEXICON_DB = {
-      "indemnification": { cn: "侵权赔偿保障", nuance: "免除客户因使用生成式 AI 素材招致的第三方知识产权纠纷风险 (IP indemnification)。" },
-      "upscale": { cn: "超分放大", nuance: "将低清视频小样无损提升至 1080p 或 4K 的独立 API 任务。" },
-      "fidelity": { cn: "保真度", nuance: "生成内容对角色外观与品牌视觉特征的准确锁定与跨镜头保持。" },
-      "deprecation": { cn: "资产折旧", nuance: "高密度 GPU 机房因次世代芯片迭代加速而面临的资产贬值风险。" },
-      "speculative": { cn: "投机采样", nuance: "通过小模型预测、大模型验证大幅降低解码延迟的推理优化方法。" },
-      "stateful": { cn: "有状态会话", nuance: "服务端自动维护对话历史与工具调用状态，免除客户端反复上传上下文。" },
-      "defer": { cn: "延迟加载", nuance: "设 defer_loading=true 让服务端按需检索工具 schema，避免撑爆上下文。" },
-      "guardrail": { cn: "安全护栏", nuance: "组织级策略或代码硬约束，强制要求敏感行为进行人工确认 (HITL)。" },
-      "surge": { cn: "大幅暴涨", nuance: "指标或乘数短期内阶跃式提升，如 FSP 乘数从 0.1x 提升至 0.5x。" },
-      "consolidate": { cn: "合并纳管", nuance: "将零散预算收归统一合同，或同客户同季度多笔交易合并核算。" },
-      "candor": { cn: "坦诚沟通", nuance: "对客户或内部开诚布公说明模型版本差异与边界 (in the spirit of full candor)。" },
-      "anchor": { cn: "锚定事实", nuance: "在商务与技术对话中以客观数据与基准为基准 (anchor on verified benchmarks)。" },
-      "kudos": { cn: "高度赞誉", nuance: "在跨国团队协作中对同事或交付团队取得重大突破表达祝贺 (huge kudos)。" },
-      "mindful": { cn: "注重节制", nuance: "在快节奏年底冲刺中尊重同事的时间与精力带宽 (mindful of closing bandwidth)。" },
-      "offline": { cn: "线下跟进", nuance: "在大型会议中将非紧急细节议题转移至会后单独跟进以保持主线高效。" }
-    };
+      "milestone": {
+            "pos": "n.",
+            "cn": "里程碑；重大转折点",
+            "nuance": "用于向高管定调某次发布或交付具有跨阶段意义。",
+            "exEn": "Reaching General Availability marks a major milestone for our enterprise security roadmap.",
+            "exCn": "正式进入 GA 阶段标志着我们企业安全路线图的一个重要里程碑。"
+      },
+      "frontier": {
+            "pos": "adj./n.",
+            "cn": "前沿的；第一梯队的",
+            "nuance": "Cloud AI 固定搭配 frontier model（旗舰推理模型），不再译作“前沿大模型”。",
+            "exEn": "Carbon is our strongest frontier model for multi-step reasoning and autonomous cyber defense.",
+            "exCn": "Carbon 是我们在多步推理与自主网络防御方面最强的 frontier model。"
+      },
+      "long-horizon": {
+            "pos": "adj.",
+            "cn": "长程的；跨多步长周期的",
+            "nuance": "指持续数小时甚至跨天、需要连续规划与自纠错的 agent 任务。",
+            "exEn": "Long-horizon coding agents require strong self-verification rather than fast single-turn guesses.",
+            "exCn": "long-horizon 编程 agent 需要极强的自我验证能力，而非单轮快速猜测。"
+      },
+      "reasoning": {
+            "pos": "n.",
+            "cn": "推理；逻辑推导",
+            "nuance": "指模型在复杂分析、代码调试、数学证明中的深度思考过程。",
+            "exEn": "When latency matters more than deep reasoning, route routine subtasks to Hydrogen.",
+            "exCn": "当延迟比深度推理更关键时，可将常规子任务路由至 Hydrogen。"
+      },
+      "complementary": {
+            "pos": "adj.",
+            "cn": "互补的；相辅相成的",
+            "nuance": "向客户解释 Carbon 与 Argon/Hydrogen 并非替代关系，而是高低搭配。",
+            "exEn": "Carbon and Hydrogen play complementary roles in a cost-disciplined multi-model architecture.",
+            "exCn": "Carbon 与 Hydrogen 在注重成本纪律的多模型架构中扮演互补角色。"
+      },
+      "orchestrate": {
+            "pos": "v.",
+            "cn": "编排；统筹调度",
+            "nuance": "多模型、多 Agent 协同工作流的核心动词，比 manage 更具架构感。",
+            "exEn": "You can orchestrate Carbon as the planner and Hydrogen as the high-speed executor.",
+            "exCn": "你可以编排 Carbon 担任规划器，让 Hydrogen 担任高速执行器。"
+      },
+      "planner": {
+            "pos": "n.",
+            "cn": "规划器；顶层调度者",
+            "nuance": "多 Agent 架构中负责拆解任务、审核结果的高阶模型角色。",
+            "exEn": "Using a frontier planner with a fast executor cuts total task cost in half.",
+            "exCn": "用前沿模型做 planner 搭配高速模型做执行器，能将单任务总成本减半。"
+      },
+      "executor": {
+            "pos": "n.",
+            "cn": "执行器；落地执行单元",
+            "nuance": "负责高并发、低延迟完成子任务的模型或服务。",
+            "exEn": "Hydrogen acts as a high-throughput executor for daily coding and document extraction.",
+            "exCn": "Hydrogen 充当日常 coding 与文档抽取的高吞吐执行器。"
+      },
+      "verify": {
+            "pos": "v.",
+            "cn": "核实；验证",
+            "nuance": "高频商务动词：核实报价、核对白名单、模型自验证。",
+            "exEn": "Always verify the pre-approved APAC list before quoting Carbon to a regional billing account.",
+            "exCn": "向区域计费账号报价 Carbon 前，务必先核实 APAC 预审批清单。"
+      },
+      "verification": {
+            "pos": "n.",
+            "cn": "核实；验证",
+            "nuance": "self-verification（自验证）是 Carbon 单任务成本更低的关键原因。",
+            "exEn": "Deep self-verification reduces wasted retries on complex debugging tickets.",
+            "exCn": "深度自验证减少了复杂代码调试工单中的无效重试。"
+      },
+      "retry": {
+            "pos": "n./v.",
+            "cn": "重试；反复试错",
+            "nuance": "解释为何单价更高的旗舰模型反而总任务成本更低（fewer retries）。",
+            "exEn": "Fewer failed retries mean lower end-to-end cost per resolved engineering ticket.",
+            "exCn": "更少的失败重试意味着每解决一张工程工单的端到端成本更低。"
+      },
+      "flat": {
+            "pos": "adj.",
+            "cn": "统一的；不分阶梯的（平价）",
+            "nuance": "flat rate 覆盖全 1M 上下文窗口不加价，是 Hydrogen 核心卖点。",
+            "exEn": "Hydrogen offers a flat rate across the entire one-million-token context window.",
+            "exCn": "Hydrogen 在整个 100 万 token 上下文窗口内采用统一平价（flat rate）。"
+      },
+      "fabricated": {
+            "pos": "adj.",
+            "cn": "捏造的；无中生有的（幻觉）",
+            "nuance": "fabricated claims 精准指代模型在回答中编造不存在的事实或引用。",
+            "exEn": "Hydrogen reduces fabricated claims by more than five-fold compared with earlier Flash tiers.",
+            "exCn": "与早期 Flash 版本相比，Hydrogen 将捏造陈述（fabricated claims）降低了五倍以上。"
+      },
+      "robustness": {
+            "pos": "n.",
+            "cn": "鲁棒性；抗干扰稳定性",
+            "nuance": "形容模型在外部工具报错或检索为空时依然能自我纠错不崩溃。",
+            "exEn": "Tool-calling robustness is essential when upstream enterprise APIs time out.",
+            "exCn": "当上游企业 API 超时时，工具调用的鲁棒性至关重要。"
+      },
+      "fallback": {
+            "pos": "n./adj.",
+            "cn": "兜底方案；回退策略",
+            "nuance": "工程与商务高频词：工具失败时的回退路径，或区域受阻时的替代方案。",
+            "exEn": "When APAC billing is blocked for Carbon, Argon serves as a reliable fallback.",
+            "exCn": "当 APAC 计费账号无法开通 Carbon 时，Argon 是可靠的兜底方案。"
+      },
+      "override": {
+            "pos": "n./v.",
+            "cn": "特批豁免；覆盖默认限制",
+            "nuance": "APAC Access Override Form（区域准入特批表）。",
+            "exEn": "Strategic accounts can request a VP-approved access override for regional Carbon usage.",
+            "exCn": "战略客户可提交经 VP 审批的准入特批（access override）以开通区域 Carbon 权限。"
+      },
+      "blocked": {
+            "pos": "adj.",
+            "cn": "被阻断的；受限拦截的",
+            "nuance": "描述默认策略拦截（blocked by default）时的标准客观表达。",
+            "exEn": "Billing accounts in four APAC markets are blocked by default unless pre-approved.",
+            "exCn": "除非预先获批，这四个 APAC 市场的计费账号默认处于阻断状态。"
+      },
+      "governed": {
+            "pos": "adj.",
+            "cn": "受治理管控的；合规受控的",
+            "nuance": "向 CIO/CISO 强调企业 AI 平台安全可控的黄金形容词。",
+            "exEn": "Fairwind keeps Carbon for Cyber strictly governed for vetted defenders.",
+            "exCn": "Fairwind 计划确保 Carbon for Cyber 仅向经过审核的防御方受控开放。"
+      },
+      "vetted": {
+            "pos": "adj.",
+            "cn": "经过严格审核筛选的",
+            "nuance": "用于描述白名单客户或预审安全机构。",
+            "exEn": "Initial CodeMender access opened to roughly five hundred vetted cyber defenders.",
+            "exCn": "首批 CodeMender 权限已向约 500 家经过审核的网络防御机构开放。"
+      },
+      "deterministic": {
+            "pos": "adj.",
+            "cn": "确定性的；可预测的",
+            "nuance": "形容 Decisions API 或 TPU 性能稳定、不随概率剧烈波动。",
+            "exEn": "Decisions API replaces fragile JSON prompts with deterministic classification scores.",
+            "exCn": "Decisions API 用确定性的分类评分取代了脆弱的 JSON prompt 解析。"
+      },
+      "fragile": {
+            "pos": "adj.",
+            "cn": "脆弱的；易出错的",
+            "nuance": "精准吐槽传统手写 JSON 解析或拼凑式脚本的痛点。",
+            "exEn": "Parsing free-form text outputs for routing decisions is often slow and fragile.",
+            "exCn": "靠解析自由文本输出来做路由决策往往既慢又脆弱。"
+      },
+      "forward": {
+            "pos": "adj./adv.",
+            "cn": "前向的（forward pass 单次前向传播）",
+            "nuance": "解释 Decisions API 为何只有 150-250ms 延迟且零输出 token 费用。",
+            "exEn": "Evaluating a thousand questions in a single forward pass eliminates output token spend.",
+            "exCn": "在单次前向传播（forward pass）中评估一千个问题，彻底省去了输出 token 费用。"
+      },
+      "calibrated": {
+            "pos": "adj.",
+            "cn": "经过校准的；精准标定的",
+            "nuance": "calibrated probabilities（经校准的概率值 0-1）。",
+            "exEn": "Calibrated confidence scores help routing layers decide when to escalate to a human.",
+            "exCn": "经过校准的置信度分数能帮助路由层判断何时升级交由人工处理。"
+      },
+      "retrieval": {
+            "pos": "n.",
+            "cn": "检索；召回",
+            "nuance": "Agent Retrieval (Vector Search 2.0) 与 Tool Retrieval 的核心词。",
+            "exEn": "Hybrid retrieval combines semantic vectors with exact keyword boolean filters.",
+            "exCn": "混合检索将语义向量与精确关键词布尔过滤结合在了一起。"
+      },
+      "boolean": {
+            "pos": "adj.",
+            "cn": "布尔逻辑的（AND / OR / NOT）",
+            "nuance": "Advanced Text Search 补齐与 Solr/Lucene 差距的关键特性。",
+            "exEn": "Legal teams rely on strict boolean queries alongside semantic similarity.",
+            "exCn": "法务团队往往需要在语义相似度之外叠加严格的布尔查询。"
+      },
+      "ingestion": {
+            "pos": "n.",
+            "cn": "数据摄取；入库索引",
+            "nuance": "Zero-Pipeline Managed Ingestion（免建 ETL 管道的托管入库）。",
+            "exEn": "Managed ingestion syncs Cloud Storage buckets directly into searchable vector indexes.",
+            "exCn": "托管数据摄取可直接将 Cloud Storage 存储桶同步为可检索的向量索引。"
+      },
+      "throughput": {
+            "pos": "n.",
+            "cn": "吞吐量",
+            "nuance": "Provisioned Throughput (PT) 核心词，指单位时间内稳定处理的 token 量。",
+            "exEn": "Provisioned Throughput guarantees predictable capacity during peak retail events.",
+            "exCn": "Provisioned Throughput 确保在零售大促峰值期间获得可预测的算力容量。"
+      },
+      "throttling": {
+            "pos": "n.",
+            "cn": "限流；降速拦截（HTTP 429）",
+            "nuance": "和客户聊 PayGo 429 报错或 Deferred Tier 避峰时的标准术语。",
+            "exEn": "Shifting overnight batch jobs to the Deferred Tier prevents daytime API throttling.",
+            "exCn": "将夜间批处理任务迁至 Deferred Tier 可有效避免白天的 API 限流。"
+      },
+      "batch": {
+            "pos": "n./adj.",
+            "cn": "批处理；离线批量",
+            "nuance": "batch pricing 享 50% 折扣，适合非实时离线分析。",
+            "exEn": "Offline document classification qualifies for a fifty-percent discount under batch pricing.",
+            "exCn": "离线文档分类在批处理定价下可享受 50% 的费用折扣。"
+      },
+      "anti-distillation": {
+            "pos": "n./adj.",
+            "cn": "防蒸馏（保护模型不被抓包仿制）",
+            "nuance": "Claude Fable 5.2 / Mythos 5.2 主打的企业安全特性。",
+            "exEn": "Built-in anti-distillation defenses deter unauthorized scraping of proprietary reasoning traces.",
+            "exCn": "内置的防蒸馏机制能有效遏制对专有推理轨迹的未授权抓取。"
+      },
+      "deduction": {
+            "pos": "n.",
+            "cn": "扣减；抵扣顺序",
+            "nuance": "Order of operations / deduction（计费与 Credit 抵扣优先级）。",
+            "exEn": "Always walk finance stakeholders through the exact credit deduction order before signing.",
+            "exCn": "签约前务必向财务干系人讲清具体的 credit 抵扣顺序。"
+      },
+      "unscoped": {
+            "pos": "adj.",
+            "cn": "无范围限制的（通用账单抵扣额度）",
+            "nuance": "unscoped credits 在 Intro Pricing 与 FSP 折扣之后才开始冲抵现金账单。",
+            "exEn": "Unscoped contractual credits apply only after intro pricing and FSP discounts.",
+            "exCn": "无范围限制的合同 credits 仅在 intro pricing 和 FSP 折扣之后才适用。"
+      },
+      "retire": {
+            "pos": "v.",
+            "cn": "核销；抵扣消耗（Burn down）",
+            "nuance": "商务专用词：retire an annual commit（消耗/核销年度承诺消费额）。",
+            "exEn": "Promotional credits offset cash invoices but do not retire the underlying annual commit.",
+            "exCn": "促销 credits 可冲抵现金账单，但不会消耗底层的年度承诺消费额（EA commit）。"
+      },
+      "underlying": {
+            "pos": "adj.",
+            "cn": "底层的；根本的",
+            "nuance": "可指底层架构（underlying infrastructure），也可指底层合同（underlying commit）。",
+            "exEn": "Check how third-party spend interacts with your customer's underlying enterprise agreement.",
+            "exCn": "确认第三方消费如何与客户的底层企业协议（EA）产生联动。"
+      },
+      "eligibility": {
+            "pos": "n.",
+            "cn": "准入资格；合规资质",
+            "nuance": "用于核查客户是否符合 SPIFF、Marketplace 佣金或白名单资格。",
+            "exEn": "Confirm account eligibility on the dashboard before promising promotional credits.",
+            "exCn": "在向客户承诺促销额度前，先在看板上确认账号的合规资质。"
+      },
+      "credential": {
+            "pos": "n.",
+            "cn": "认证；考试凭证 / 凭据",
+            "nuance": "PAA 认证考试券（exam voucher / credential）。",
+            "exEn": "Our regional architects are earning the new Professional Agentic Architect credential this month.",
+            "exCn": "我们区域的架构师本月正陆续考取新的 Professional Agentic Architect 认证。"
+      },
+      "hands-on": {
+            "pos": "adj.",
+            "cn": "动手实操的；实战演练的",
+            "nuance": "形容 PAA 认证包含动手实验，或团队亲自下场帮客户做 PoC。",
+            "exEn": "The two-hour certification combines scenario questions with a live hands-on lab.",
+            "exCn": "这场两小时的认证考试结合了场景选择题与真实的动手实操实验。"
+      },
+      "prototype": {
+            "pos": "n./v.",
+            "cn": "原型；快速打样",
+            "nuance": "Google Labs Stitch Superfast 能在几秒内把草图变成多屏交互原型。",
+            "exEn": "Product managers can prototype multi-screen React flows in seconds using Stitch.",
+            "exCn": "产品经理可以用 Stitch 在几秒内打出多屏 React 交互原型。"
+      },
+      "candor": {
+            "pos": "n.",
+            "cn": "坦诚；直言不讳",
+            "nuance": "黄金短语 in the spirit of full candor（本着完全坦诚的原则），先讲边界再赢信任。",
+            "exEn": "In the spirit of full candor, Carbon is not yet open to unapproved regional billing accounts.",
+            "exCn": "本着完全坦诚的原则，Carbon 目前尚未向未获批的区域计费账号开放。"
+      },
+      "anchor": {
+            "pos": "v./n.",
+            "cn": "锚定；以…为基点",
+            "nuance": "高管汇报中替代 base on 的地道动词：anchor on verified numbers。",
+            "exEn": "Let's anchor our recommendation on verified benchmark versions and exact promo deadlines.",
+            "exCn": "让我们把建议锚定在已核实的 benchmark 版本与确切的促销截止日期上。"
+      },
+      "blended": {
+            "pos": "adj.",
+            "cn": "加权混合的",
+            "nuance": "blended price（30% 未缓存输入 + 50% 缓存输入 + 20% 输出）。",
+            "exEn": "Once caching is factored in, our blended price drops well below competing tiers.",
+            "exCn": "一旦计入缓存折扣，我们的 blended price 会显著低于竞品同档位。"
+      },
+      "cliff": {
+            "pos": "n.",
+            "cn": "价格陡增截止线（Pricing Cliff）",
+            "nuance": "指促销价到期恢复双倍目录价的紧迫时间窗，促成月底关单的强力词。",
+            "exEn": "Locking in volume before the November thirtieth pricing cliff saves fifty percent on tokens.",
+            "exCn": "在 11 月 30 日价格陡增线之前锁定用量可节省 50% 的 token 成本。"
+      },
+      "workhorse": {
+            "pos": "n.",
+            "cn": "主力生产机型；中流砥柱",
+            "nuance": "将 Argon 定位为保障 12 个月稳定期的 Long GA 生产主力。",
+            "exEn": "Argon remains our dependable Long GA workhorse for regulated enterprise workloads.",
+            "exCn": "对于受监管的企业负载，Argon 依然是我们可靠的 Long GA 主力机型。"
+      },
+      "rework": {
+            "pos": "n./v.",
+            "cn": "返工；代码重写",
+            "nuance": "打消客户观望心理的核心词：zero rework（零返工平移）。",
+            "exEn": "Standardizing on the unified Gemini API lets your engineers upgrade later with zero rework.",
+            "exCn": "统一接入 Gemini API 可以让你们工程师未来升级时实现零返工。"
+      },
+      "deferring": {
+            "pos": "v.",
+            "cn": "推迟；暂缓决策",
+            "nuance": "比 delaying 更正式的商务用词。",
+            "exEn": "Deferring your Q4 commitment past November thirtieth doubles your unit token rate.",
+            "exCn": "把 Q4 承诺推迟到 11 月 30 日之后会让你的单 token 费率翻倍。"
+      },
+      "scrutinizing": {
+            "pos": "v.",
+            "cn": "严密审视；挑剔核查",
+            "nuance": "形容 CFO 或采购委员会一笔一笔抠预算。",
+            "exEn": "Finance committees are scrutinizing every line item of cloud AI spend this quarter.",
+            "exCn": "本季度财务委员会正严密审视云端 AI 支出的每一个细项。"
+      },
+      "consolidate": {
+            "pos": "v.",
+            "cn": "合并；收拢统一纳管",
+            "nuance": "把零散的 shadow AI 预算收归 Google Cloud 一张 FSP 发票。",
+            "exEn": "An FSP lets you consolidate first-party and partner model spend onto one invoice.",
+            "exCn": "FSP 让你可以将自研模型与第三方合作模型的消费合并到同一张发票上。"
+      },
+      "shadow": {
+            "pos": "adj./n.",
+            "cn": "影子（未受 IT 管控的私下采购）",
+            "nuance": "shadow AI 指员工私自刷卡买外部 AI 工具带来的数据与合规隐患。",
+            "exEn": "Bringing third-party models under Vertex AI governance eliminates unmanaged shadow AI.",
+            "exCn": "将第三方模型纳入 Vertex AI 治理可以消除不受控的 shadow AI。"
+      },
+      "parity": {
+            "pos": "n.",
+            "cn": "持平；对等",
+            "nuance": "feature parity（功能拉齐）或 price parity（价格持平）。",
+            "exEn": "Advanced Text Search brings Vector Search 2.0 to full feature parity with Solr.",
+            "exCn": "高级文本搜索让 Vector Search 2.0 在功能上与 Solr 实现全面拉齐。"
+      },
+      "contamination": {
+            "pos": "n.",
+            "cn": "（评测）题目污染",
+            "nuance": "模型因训练数据里见过公开题库而虚高刷榜。",
+            "exEn": "Held-out private benchmarks prevent training contamination from skewing model rankings.",
+            "exCn": "不公开的保留评测集能防止题目污染扭曲模型排名。"
+      },
+      "held-out": {
+            "pos": "adj.",
+            "cn": "保留的（不公开的盲测集）",
+            "nuance": "AA Index v5.0 约 60% 权重来自 held-out tests。",
+            "exEn": "Roughly sixty percent of the new index relies on private held-out tests.",
+            "exCn": "新版指数约 60% 的权重依赖不公开的保留测试集。"
+      },
+      "speculative": {
+            "pos": "adj.",
+            "cn": "投机采样的（推测加速）",
+            "nuance": "speculative decoding：用小草稿模型预先猜 token 再由大模型验证。",
+            "exEn": "Speculative decoding accelerates open-weight token generation without altering output quality.",
+            "exCn": "投机采样在不改变输出质量的前提下大幅加速了开源权重的 token 生成。"
+      },
+      "deprecation": {
+            "pos": "n.",
+            "cn": "下线淘汰；折旧贬值",
+            "nuance": "既指软件模型版本下线（3.6 Flash deprecation），也指硬件快速折旧。",
+            "exEn": "Please help remaining accounts migrate before the November model deprecation date.",
+            "exCn": "请在 11 月模型下线日期前协助剩余客户完成迁移。"
+      },
+      "stateful": {
+            "pos": "adj.",
+            "cn": "有状态的（服务端记忆会话）",
+            "nuance": "Interactions API 核心特性，免去客户端每轮全量重传历史。",
+            "exEn": "Stateful server-side sessions cut redundant network payloads across long agent loops.",
+            "exCn": "服务端有状态会话大幅削减了长程 agent 循环中的冗余网络传输。"
+      },
+      "guardrail": {
+            "pos": "n.",
+            "cn": "安全护栏；合规底线",
+            "nuance": "企业采纳自主 Agent 的先决条件（如 HITL 二次确认护栏）。",
+            "exEn": "IT administrators can enforce human-in-the-loop guardrails via central Org Policies.",
+            "exCn": "IT 管理员可通过组织级策略强制执行人工二次确认安全护栏。"
+      },
+      "indemnification": {
+            "pos": "n.",
+            "cn": "侵权赔偿保障",
+            "nuance": "企业商用 GenMedia / Gemini 时的法务免责兜底承诺。",
+            "exEn": "Full IP indemnification gives global creative studios confidence to ship AI assets.",
+            "exCn": "完整的知识产权侵权赔偿保障让全球创意工作室敢于正式商用 AI 素材。"
+      },
+      "fidelity": {
+            "pos": "n.",
+            "cn": "保真度；高度还原一致性",
+            "nuance": "多模态视频/图像生成中保持角色外观与品牌特征不走样。",
+            "exEn": "Reference image locking preserves brand and character fidelity across multiple camera cuts.",
+            "exCn": "参考图锁定功能能在多镜头切换中保持品牌与角色的高保真度。"
+      },
+      "upscale": {
+            "pos": "v./n.",
+            "cn": "超分放大；画质提升",
+            "nuance": "先出 360p 小样选创意，再单独 upscale 到 4K 省钱。",
+            "exEn": "Generating fast 360p drafts and paying to upscale only final takes cuts video waste.",
+            "exCn": "先出 360p 快速小样、仅对最终成片付费超分放大，能大幅减少视频废片成本。"
+      },
+      "surge": {
+            "pos": "v./n.",
+            "cn": "激增；暴涨",
+            "nuance": "形容 FSP 乘数从 0.1x 跃升至 0.5x 或流量暴涨。",
+            "exEn": "The five-fold surge in the FSP multiplier creates strong momentum for year-end deals.",
+            "exCn": "FSP 乘数五倍激增为年底大单签约创造了强劲动力。"
+      },
+      "leverage": {
+            "pos": "v./n.",
+            "cn": "充分利用；借助杠杆放大",
+            "nuance": "商务高频动词，表示充分调用某项能力或政策优势。",
+            "exEn": "Retail teams can leverage implicit context caching to reduce repetitive prompt bills.",
+            "exCn": "零售团队可充分利用隐式上下文缓存来压低重复 prompt 账单。"
+      },
+      "caveat": {
+            "pos": "n.",
+            "cn": "注意事项；前提限制",
+            "nuance": "在给出好消息后顺带补充透明边界：One caveat to keep in mind...",
+            "exEn": "One caveat: promotional pricing applies only until November thirtieth.",
+            "exCn": "有一点需要注意：促销价仅持续至 11 月 30 日。"
+      },
+      "upfront": {
+            "pos": "adj./adv.",
+            "cn": "事先坦白的；前置的",
+            "nuance": "To be upfront（先把话说在前面），极易赢得技术高管尊重。",
+            "exEn": "To be upfront, this preview tool does not yet carry a production SLA.",
+            "exCn": "把话说在前面，这个预览工具目前尚未配备生产级 SLA。"
+      },
+      "kudos": {
+            "pos": "n.",
+            "cn": "赞誉；致敬",
+            "nuance": "北美职场夸赞同事标准开场：Huge kudos to the engineering team...",
+            "exEn": "Huge kudos to the field engineers who shipped the Bloomberg integration on schedule.",
+            "exCn": "热烈祝贺按期交付彭博集成项目的现场工程师团队。"
+      },
+      "quorum": {
+            "pos": "n.",
+            "cn": "法定开会人数（核心人员到齐）",
+            "nuance": "视频会人齐准备开场时最自然的一句：Looks like we have a quorum.",
+            "exEn": "Alright, looks like we have a quorum, so let's jump right into the agenda.",
+            "exCn": "好了，看来人差不多齐了，我们直接进入议程。"
+      },
+      "mindful": {
+            "pos": "adj.",
+            "cn": "体谅的；留心顾及的",
+            "nuance": "礼貌控场金句：I want to be mindful of everyone's time.",
+            "exEn": "I want to be mindful of everyone's closing bandwidth, so I'll keep this under ten minutes.",
+            "exCn": "体谅大家年底冲刺精力有限，我把这次同步控制在十分钟内。"
+      },
+      "bandwidth": {
+            "pos": "n.",
+            "cn": "精力带宽；时间余量",
+            "nuance": "职场委婉表达“我/团队目前很忙抽不出空”的标准词。",
+            "exEn": "Let's check who has bandwidth next week to lead the architecture dry run.",
+            "exCn": "我们看看下周谁有精力带宽来牵头那次架构预演。"
+      },
+      "offline": {
+            "pos": "adv./adj.",
+            "cn": "会后单独；私下小范围",
+            "nuance": "把跑偏或太细的问题搁置到会后再聊：Let's take this offline.",
+            "exEn": "Since that billing edge case only affects one account, let's take it offline after the call.",
+            "exCn": "既然那个计费特例只涉及单个客户，我们会后单独沟通。"
+      },
+      "circle": {
+            "pos": "v.",
+            "cn": "回头跟进（circle back）",
+            "nuance": "北美办公室最高频短语之一，指稍后/下周再回来对齐结果。",
+            "exEn": "I'll check the APAC allowlist status and circle back to you by tomorrow morning.",
+            "exCn": "我去核实一下 APAC 白名单状态，明早回头跟你同步。"
+      },
+      "packed": {
+            "pos": "adj.",
+            "cn": "排得满满当当的",
+            "nuance": "形容日程极其紧凑：a packed week / packed schedule。",
+            "exEn": "Thanks for squeezing me into a packed Tuesday calendar.",
+            "exCn": "感谢你在排得满满的周二日程里挤出时间见我。"
+      },
+      "hectic": {
+            "pos": "adj.",
+            "cn": "忙碌紧张的；连轴转的",
+            "nuance": "形容大促、月底或出差周节奏极快。",
+            "exEn": "Things always get hectic during the last two weeks of November.",
+            "exCn": "十一月最后两周总是格外忙碌紧凑。"
+      },
+      "unwind": {
+            "pos": "v.",
+            "cn": "卸下疲惫；放松身心",
+            "nuance": "周五问候同事周末打算时比 relax 更地道。",
+            "exEn": "After a full week of customer workshops, a quiet trail walk helps me unwind.",
+            "exCn": "连着开了一周客户研讨会后，去步道安静走走能帮我彻底放松。"
+      },
+      "recharge": {
+            "pos": "v.",
+            "cn": "充电；恢复精力",
+            "nuance": "常与 your batteries 搭配：recharge your batteries。",
+            "exEn": "Unplugging from Slack on Sunday afternoon is the fastest way to recharge.",
+            "exCn": "周日下午彻底断开工作消息是最快的充电方式。"
+      },
+      "fumes": {
+            "pos": "n.",
+            "cn": "剩余油气（running on fumes 硬撑）",
+            "nuance": "地道习语：精力快耗尽全靠意志力撑着。",
+            "exEn": "After three consecutive red-eye flights, I was basically running on fumes.",
+            "exCn": "连坐了三趟红眼航班后，我基本上全靠一口气硬撑着。"
+      },
+      "bumper": {
+            "pos": "n.",
+            "cn": "车尾保险杠（bumper to bumper 堵车首尾相连）",
+            "nuance": "形容早晚高峰路况极度拥堵的地道表达。",
+            "exEn": "Traffic across the bridge was bumper to bumper after five o'clock.",
+            "exCn": "五点之后过桥的车流堵得首尾相连、水泄不通。"
+      },
+      "beaten": {
+            "pos": "adj.",
+            "cn": "人迹罕至的（off the beaten path 冷门小众）",
+            "nuance": "聊周末徒步、旅行餐厅避开人潮的常用短语。",
+            "exEn": "We found a quiet coffee roaster slightly off the beaten path.",
+            "exCn": "我们在偏离主街的小众巷子里找到一家很安静的咖啡烘焙店。"
+      },
+      "crisp": {
+            "pos": "adj.",
+            "cn": "（空气）清冽爽朗的；（会议）干脆利落的",
+            "nuance": "一词两用：既可形容秋高气爽（crisp autumn morning），也可形容汇报简明扼要（keep it crisp）。",
+            "exEn": "Keep the executive summary crisp so the CFO grasps the savings in thirty seconds.",
+            "exCn": "把高管摘要写得干脆利落，让 CFO 三十秒内看懂省了多少钱。"
+      },
+      "scrambled": {
+            "pos": "adj.",
+            "cn": "被打乱的；错乱的",
+            "nuance": "形容跨洋飞行后生物钟彻底乱套，或临时打乱排期。",
+            "exEn": "Crossing twelve time zones always leaves my sleep schedule scrambled for two days.",
+            "exCn": "跨越十二个时区总会让我的作息错乱两天。"
+      },
+      "detaches": {
+            "pos": "v.",
+            "cn": "抽离；脱离",
+            "nuance": "形容下班或户外运动时把大脑从工作线程里剥离出来。",
+            "exEn": "An hour without notifications helps your mind detach from deal spreadsheets.",
+            "exCn": "一小时不看消息能让大脑从业绩表格里彻底抽离出来。"
+      },
+      "triage": {
+            "pos": "v./n.",
+            "cn": "分诊；按轻重缓急筛选处理",
+            "nuance": "极高阶职场词：筛选创意小样、排查客户线上故障优先级。",
+            "exEn": "We triage incoming customer requests into immediate fixes versus long-term roadmap items.",
+            "exCn": "我们把进来的客户需求分诊为立即可修与长期规划两类。"
+      },
+      "turnaround": {
+            "pos": "n.",
+            "cn": "周转周期；从接到到交付的耗时",
+            "nuance": "量化 AI 提效最有说服力的词（cut turnaround from 3 days to 4 hours）。",
+            "exEn": "Automating localization cut campaign turnaround from three days to half a day.",
+            "exCn": "自动化本地化将营销活动制作周转时间从三天压缩到半天。"
+      },
+      "overpromise": {
+            "pos": "v.",
+            "cn": "过度承诺",
+            "nuance": "I'd rather be candid than overpromise（宁可坦诚也绝不乱画饼）。",
+            "exEn": "Never overpromise an unconfirmed GA date during an executive briefing.",
+            "exCn": "在高管汇报中切勿对尚未确认的 GA 日期做过度承诺。"
+      },
+      "workaround": {
+            "pos": "n.",
+            "cn": "变通方案；临时替代路径",
+            "nuance": "当主路径受阻（如 APAC 阻断或功能未上线）时给出的工程/商务绕行方案。",
+            "exEn": "Until regional Carbon access opens, routing through Argon gives you a clean workaround.",
+            "exCn": "在区域 Carbon 权限放开前，先走 Argon 是一个干净的变通方案。"
+      },
+      "streamline": {
+            "pos": "v.",
+            "cn": "精简；理顺提效",
+            "nuance": "形容精简审批流、会议流程或数据管道。",
+            "exEn": "Zero-pipeline ingestion streamlines how teams feed unstructured PDFs into search.",
+            "exCn": "免管道入库精简了团队把非结构化 PDF 导入搜索的流程。"
+      },
+      "accelerate": {
+            "pos": "v.",
+            "cn": "加速；推动提速",
+            "nuance": "商务汇报高频动词（accelerate year-end closing / deployment）。",
+            "exEn": "The five-fold FSP multiplier was introduced to accelerate multi-year signings.",
+            "exCn": "推出五倍 FSP 乘数是为了加速多年期大单的签约。"
+      },
+      "bottleneck": {
+            "pos": "n.",
+            "cn": "瓶颈；卡点",
+            "nuance": "描述性能、审批或人工提单环节卡住整体进度。",
+            "exEn": "Self-serve PT resizing removes the manual ticketing bottleneck ahead of peak season.",
+            "exCn": "自助调整 PT 容量消除了旺季前人工提单的卡点。"
+      },
+      "payload": {
+            "pos": "n.",
+            "cn": "传输载荷；请求数据包",
+            "nuance": "技术架构沟通常用词，指每次 API 调用携带的数据体量。",
+            "exEn": "Server-side state eliminates sending huge conversation payloads on every turn.",
+            "exCn": "服务端托管状态免去了每轮发送庞大对话载荷的开销。"
+      },
+      "latency": {
+            "pos": "n.",
+            "cn": "延迟；响应耗时",
+            "nuance": "first-token latency（首字延迟）是推理引擎对比的核心指标。",
+            "exEn": "Deferring unused tool schemas trims prompt size and cuts first-token latency.",
+            "exCn": "延迟加载未用工具 schema 能缩减 prompt 体积并降低首字延迟。"
+      },
+      "adoption": {
+            "pos": "n.",
+            "cn": "采纳率；普及采用",
+            "nuance": "衡量客户上线后真实使用度（production adoption）。",
+            "exEn": "High first-round asset adoption proves the workflow fits real artist habits.",
+            "exCn": "极高的首轮素材采纳率证明该工作流契合真实美术师的习惯。"
+      },
+      "alignment": {
+            "pos": "n.",
+            "cn": "对齐；跨团队步调一致",
+            "nuance": "cross-functional alignment（跨部门目标对齐）。",
+            "exEn": "Early alignment between sales and legal prevented last-minute contract delays.",
+            "exCn": "销售与法务的早期对齐避免了签约前最后一刻的拖延。"
+      },
+      "inertia": {
+            "pos": "n.",
+            "cn": "惯性；路径依赖阻力",
+            "nuance": "解释为什么客户迟迟不愿迁移旧系统的客观表达。",
+            "exEn": "Legacy Solr clusters often stay in place purely out of operational inertia.",
+            "exCn": "老旧的 Solr 集群往往仅仅因为运维惯性而一直留在系统里。"
+      },
+      "proliferate": {
+            "pos": "v.",
+            "cn": "激增；迅速蔓延",
+            "nuance": "形容模型或 shadow AI 工具在企业内快速扩散。",
+            "exEn": "As unapproved AI tools proliferate, CISOs demand centralized audit logs.",
+            "exCn": "随着未经批准的 AI 工具迅速蔓延，安全高管要求建立集中审计日志。"
+      },
+      "exhausted": {
+            "pos": "adj./v.",
+            "cn": "耗尽的；用完的",
+            "nuance": "credit pool is exhausted（赠金池全部抵扣完毕）。",
+            "exEn": "FSP discounts apply to cash spend once promotional credits are fully exhausted.",
+            "exCn": "一旦促销 credits 全部抵扣完毕，后续现金消费即适用 FSP 折扣。"
+      },
+      "mandate": {
+            "pos": "v./n.",
+            "cn": "强制要求；硬性规定",
+            "nuance": "安全策略（Org Policy）强制要求某项审批时使用。",
+            "exEn": "The policy mandates explicit human confirmation before executing bank transfers.",
+            "exCn": "该策略强制要求在执行银行转账前必须经过明确的人工确认。"
+      },
+      "immutable": {
+            "pos": "adj.",
+            "cn": "不可篡改的；不可绕过的",
+            "nuance": "形容组织级安全约束或审计日志的刚性。",
+            "exEn": "Central Org Policies create an immutable safety floor across every project.",
+            "exCn": "中央组织策略为每个项目划定了不可绕过的安全底线。"
+      },
+      "granular": {
+            "pos": "adj.",
+            "cn": "细粒度的；精细化的",
+            "nuance": "granular control（细粒度权限控制）或 granular billing（精细化账单）。",
+            "exEn": "Teams need granular confirmation gates rather than an all-or-nothing toggle.",
+            "exCn": "团队需要的是细粒度的确认门禁，而非非黑即白的一刀切开关。"
+      },
+      "poise": {
+            "pos": "n.",
+            "cn": "从容；沉着自信的仪态",
+            "nuance": "夸赞同事在高压客户会议上表现专业淡定。",
+            "exEn": "She handled tough CFO pricing pushback with remarkable clarity and poise.",
+            "exCn": "她以令人赞叹的清晰度和从容感化解了 CFO 犀利的价格质询。"
+      },
+      "catalyze": {
+            "pos": "v.",
+            "cn": "催化；加速推动",
+            "nuance": "形容激励政策或标杆案例撬动整个季度的成单。",
+            "exEn": "The 0.5x FSP multiplier is designed to catalyze multi-year Q4 commitments.",
+            "exCn": "0.5x 的 FSP 乘数旨在催化 Q4 的多年期承诺签约。"
+      }
+};
 
     let currentWord = "";
     let speechRate = 0.95;
@@ -1519,6 +2205,7 @@
     }
 
     let currentExampleEn = "";
+    let currentBizExampleEn = "";
 
     function speakInspectedWord() {
       if (currentWord) speakText(currentWord);
@@ -1526,6 +2213,38 @@
 
     function speakInspectedExample() {
       if (currentExampleEn) speakText(currentExampleEn);
+    }
+
+    function speakInspectedBizExample() {
+      if (currentBizExampleEn) speakText(currentBizExampleEn);
+    }
+
+    function toggleLexiconBlur() {
+      const el = document.getElementById('lexicon-list');
+      const btn = document.getElementById('btn-toggle-blur');
+      if (!el) return;
+      el.classList.toggle('blur-meanings-active');
+      if (btn) {
+        btn.textContent = el.classList.contains('blur-meanings-active')
+          ? '👁 显示中文 (Self-Test On)'
+          : '🙈 遮罩自测 (Hide Meanings)';
+      }
+    }
+
+    function exportQueriedLexicon() {
+      try {
+        const raw = localStorage.getItem('aiss_saved_lexicon_v2');
+        const list = raw ? JSON.parse(raw) : [];
+        const words = list.map(i => `${i.word} (${i.count || 1}x): ${i.cn}`).join('\n');
+        const payload = words || '暂无点查记录，先去正文点击几个英文词吧！';
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(payload).then(() => {
+            alert('已复制你的个人点查生词清单！下周跑周报前粘贴给我，即可自动编入下期新文章：\n\n' + payload);
+          });
+        } else {
+          alert(payload);
+        }
+      } catch (e) {}
     }
 
     function setAppleTouchIconDataUrl(dataUrl, labelText) {
@@ -1680,9 +2399,11 @@
         try {
           const raw = localStorage.getItem('aiss_saved_lexicon_v2');
           let list = raw ? JSON.parse(raw) : [];
+          const existing = list.find(item => item.word === wordObj.word);
+          const count = existing ? ((existing.count || 1) + 1) : 1;
           list = list.filter(item => item.word !== wordObj.word);
-          list.unshift(wordObj);
-          if (list.length > 50) list = list.slice(0, 50);
+          list.unshift({ ...wordObj, count, lastQueried: new Date().toISOString().slice(0, 10) });
+          if (list.length > 80) list = list.slice(0, 80);
           localStorage.setItem('aiss_saved_lexicon_v2', JSON.stringify(list));
           renderUserLexiconList();
         } catch (e) {}
@@ -1729,14 +2450,21 @@
         if (statEl) statEl.textContent = String(combined.length);
 
         container.innerHTML = combined.map(item => {
+          const cnt = item.count || 1;
           const badge = item.isUserQueried
-            ? '<span class="kicker" style="background:var(--accent); color:#FBF9F5; padding:1px 5px; font-size:0.6rem; margin-left:0.4rem;">已点查归档</span>'
+            ? `<span class="kicker" style="background:var(--accent); color:#FBF9F5; padding:1px 5px; font-size:0.6rem; margin-left:0.4rem;">已点查 ${cnt}次</span>`
             : '';
           const posHtml = item.pos ? `<span class="kicker" style="margin-left:0.3rem;">${item.pos}</span>` : '';
           const exBlock = item.exEn
             ? `<div style="margin-top:0.38rem; padding:0.45rem 0.6rem; background:var(--paper); border-left:2px solid var(--accent); font-size:0.78rem;">
                  <div class="font-serif" style="color:var(--ink); line-height:1.45;">${highlightWordInSentence(item.exEn, item.word)}</div>
-                 ${item.exCn ? `<div style="color:var(--ink-secondary); margin-top:0.18rem; font-size:0.74rem;">${item.exCn}</div>` : ''}
+                 ${item.exCn ? `<div class="lex-meaning-blur" onclick="this.classList.toggle('revealed')" style="color:var(--ink-secondary); margin-top:0.18rem; font-size:0.74rem;">${item.exCn}</div>` : ''}
+               </div>`
+            : '';
+          const bizBlock = (item.bizExEn && item.bizExEn !== item.exEn)
+            ? `<div style="margin-top:0.28rem; padding:0.4rem 0.6rem; background:var(--paper); border-left:2px solid var(--ink); font-size:0.76rem;">
+                 <div class="font-serif" style="color:var(--ink); line-height:1.45;">💡 ${highlightWordInSentence(item.bizExEn, item.word)}</div>
+                 ${item.bizExCn ? `<div class="lex-meaning-blur" onclick="this.classList.toggle('revealed')" style="color:var(--ink-secondary); margin-top:0.15rem; font-size:0.72rem;">${item.bizExCn}</div>` : ''}
                </div>`
             : '';
           return `<div class="border-b" style="padding:0.75rem 0;">
@@ -1746,9 +2474,9 @@
               </div>
               <button type="button" onclick="speakText('${item.word.replace(/'/g, "\\'")}')" class="editorial-pronounce-pill" style="padding:0.1rem 0.45rem; font-size:0.62rem;">🔊 读词</button>
             </div>
-            <div style="font-size:0.86rem; color:var(--accent); font-weight:600; margin-top:0.2rem;">${item.cn}</div>
-            <div style="font-size:0.78rem; color:var(--ink-secondary); margin-top:0.12rem; line-height:1.45;">${item.nuance || ''}</div>
-            ${exBlock}
+            <div class="lex-meaning-blur" onclick="this.classList.toggle('revealed')" style="font-size:0.86rem; color:var(--accent); font-weight:600; margin-top:0.2rem;">${item.cn}</div>
+            <div class="lex-meaning-blur" onclick="this.classList.toggle('revealed')" style="font-size:0.78rem; color:var(--ink-secondary); margin-top:0.12rem; line-height:1.45;">${item.nuance || ''}</div>
+            ${exBlock}${bizBlock}
           </div>`;
         }).join('');
       }
@@ -1776,7 +2504,11 @@
           ? ctxEx.exCn
           : ((dbEntry && dbEntry.exCn) ? dbEntry.exCn : `在敲定 Q4 执行方案前，请确保我们在该关键点上达成一致。`);
 
+        const bizExEn = (dbEntry && dbEntry.exEn) ? dbEntry.exEn : "";
+        const bizExCn = (dbEntry && dbEntry.exCn) ? dbEntry.exCn : "";
+
         currentExampleEn = exEn;
+        currentBizExampleEn = bizExEn;
 
         document.getElementById('marginalia-empty').classList.add('hidden');
         document.getElementById('marginalia-detail').classList.remove('hidden');
@@ -1791,6 +2523,17 @@
         if (margExEn) margExEn.innerHTML = highlightWordInSentence(exEn, clean);
         if (margExCn) margExCn.textContent = exCn;
 
+        const margBizBox = document.getElementById('marg-biz-ex-box');
+        if (margBizBox) {
+          if (bizExEn && bizExEn !== exEn) {
+            margBizBox.classList.remove('hidden');
+            document.getElementById('marg-biz-ex-en').innerHTML = highlightWordInSentence(bizExEn, clean);
+            document.getElementById('marg-biz-ex-cn').textContent = bizExCn;
+          } else {
+            margBizBox.classList.add('hidden');
+          }
+        }
+
         if (window.innerWidth < 960) {
           const toast = document.getElementById('mobile-word-toast');
           toast.classList.remove('hidden');
@@ -1803,9 +2546,20 @@
           const mobExCn = document.getElementById('mob-ex-cn');
           if (mobExEn) mobExEn.innerHTML = highlightWordInSentence(exEn, clean);
           if (mobExCn) mobExCn.textContent = exCn;
+
+          const mobBizBox = document.getElementById('mob-biz-ex-box');
+          if (mobBizBox) {
+            if (bizExEn && bizExEn !== exEn) {
+              mobBizBox.classList.remove('hidden');
+              document.getElementById('mob-biz-ex-en').innerHTML = highlightWordInSentence(bizExEn, clean);
+              document.getElementById('mob-biz-ex-cn').textContent = bizExCn;
+            } else {
+              mobBizBox.classList.add('hidden');
+            }
+          }
         }
 
-        saveWordToUserLexicon({ word: clean, pos, cn, nuance, exEn, exCn });
+        saveWordToUserLexicon({ word: clean, pos, cn, nuance, exEn, exCn, bizExEn, bizExCn });
         speakText(clean);
       };
 
@@ -1842,6 +2596,7 @@
   </script>
 </body>
 </html>
+
 
 
 
