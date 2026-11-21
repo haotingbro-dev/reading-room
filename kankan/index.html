@@ -302,36 +302,171 @@
       flex-shrink: 0;
       box-shadow: var(--brand-box-shadow);
     }
-    .masthead-stats {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 0.85rem 1.05rem;
-      background: var(--paper-sub);
-      border: 1.5px solid var(--rule);
-      border-radius: 16px;
-      padding: 0.55rem 1rem;
+    /* ==================== EXPLORER QUEST HUD (HERO EMERALD + STAMPS + VAULT) ==================== */
+    .explorer-hud-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.7rem;
+      margin: 0.25rem 0 0.9rem;
     }
-    .mission-dots { display: flex; gap: 5px; margin-top: 0.25rem; }
-    .m-dot {
-      width: 26px;
-      height: 26px;
-      border-radius: 9px;
+    @media (min-width: 600px) {
+      .explorer-hud-grid {
+        grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.85fr);
+      }
+      .hud-card-emerald {
+        grid-column: 1 / -1;
+      }
+    }
+    @media (min-width: 920px) {
+      .explorer-hud-grid {
+        grid-template-columns: minmax(0, 1.62fr) minmax(0, 1.15fr) minmax(0, 0.82fr);
+      }
+      .hud-card-emerald {
+        grid-column: auto;
+      }
+    }
+    .hud-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 0.55rem;
+      background: var(--paper-sub);
+      border: 2px solid var(--rule);
+      border-radius: 18px;
+      padding: 0.8rem 0.95rem;
+      transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+    }
+    .hud-card-clickable {
+      cursor: pointer;
+    }
+    .hud-card-clickable:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent-cyan);
+      box-shadow: var(--card-shadow);
+    }
+    .hud-card-emerald {
+      background: linear-gradient(135deg, var(--green-soft) 0%, var(--paper-card) 72%);
+      border: 2.5px solid var(--green);
+      box-shadow: 0 6px 18px rgba(16, 185, 129, 0.15);
+      position: relative;
+      overflow: hidden;
+    }
+    .hud-card-emerald:hover {
+      border-color: var(--green);
+      box-shadow: 0 10px 26px rgba(16, 185, 129, 0.24);
+    }
+    .hud-em-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.65rem;
+    }
+    .hud-em-slot {
+      width: 46px;
+      height: 46px;
+      border-radius: 13px;
+      background: linear-gradient(145deg, #0D2E1D, #071A10);
+      border: 2px solid #17DD62;
+      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.45), 0 0 12px rgba(23, 221, 98, 0.25);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .hud-em-slot svg {
+      width: 30px;
+      height: 30px;
+    }
+    .hud-em-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.28rem 0.72rem;
+      border-radius: 999px;
+      background: var(--green);
+      color: #FFFFFF;
+      font-family: "Quicksand", "Baloo 2", ui-rounded, sans-serif;
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.01em;
+      white-space: nowrap;
+      box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+    }
+    .hud-coop-strip {
+      background: var(--paper-card);
       border: 1.5px solid var(--rule);
+      border-radius: 11px;
+      padding: 0.42rem 0.62rem;
+    }
+    .hud-coop-track {
+      width: 100%;
+      height: 9px;
+      border-radius: 999px;
+      background: var(--paper-sub);
+      border: 1px solid var(--rule);
+      overflow: hidden;
+      margin-top: 0.3rem;
+    }
+    .hud-coop-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #10B981, #34D399, #F59E0B);
+      transition: width 0.35s ease;
+    }
+    .hud-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .hud-mini-pill {
+      font-family: "Quicksand", "Baloo 2", ui-rounded, sans-serif;
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 0.14rem 0.55rem;
+      border-radius: 999px;
+      background: var(--paper-card);
+      border: 1.5px solid var(--rule);
+      color: var(--ink-secondary);
+      white-space: nowrap;
+    }
+    .mission-dots { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 0.1rem; }
+    .m-dot {
+      width: 31px;
+      height: 31px;
+      border-radius: 10px;
+      border: 2px solid var(--rule);
       display: inline-flex;
       align-items: center;
       justify-content: center;
       font-family: "Baloo 2", ui-rounded, sans-serif;
-      font-size: 0.76rem;
-      font-weight: 700;
+      font-size: 0.82rem;
+      font-weight: 800;
       color: var(--ink-muted);
       background: var(--paper-card);
+      cursor: pointer;
+      padding: 0;
+      transition: transform 0.12s, border-color 0.12s, background-color 0.15s;
+    }
+    .m-dot:hover {
+      border-color: var(--accent-cyan);
+      transform: translateY(-1px);
     }
     .m-dot.done {
       background: var(--green);
       border-color: var(--green);
       color: #FFFFFF;
+      box-shadow: 0 2px 6px rgba(16, 185, 129, 0.28);
     }
+    .hud-chest-micro {
+      font-size: 0.73rem;
+      font-weight: 700;
+      color: var(--ink-muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .hud-chest-micro .claimed { color: var(--green); }
 
     .nav-bar {
       padding-top: 0.75rem;
@@ -1698,7 +1833,7 @@
         <span class="kicker">⏱ 10–15 Min Daily Discovery</span>
       </div>
 
-      <div class="masthead-main">
+      <div class="masthead-main" style="padding:0.8rem 0 0.65rem;">
         <div class="brand-row">
           <div class="brand-icon-box">🔭</div>
           <div>
@@ -1706,30 +1841,71 @@
             <h1 class="font-display" style="font-size:clamp(1.85rem, 3.6vw, 2.65rem); font-weight:800; margin:0; line-height:1.08;">
               The Inquiry Lab
             </h1>
-            <div style="font-size:0.88rem; color:var(--ink-secondary); margin-top:0.2rem;">
+            <div style="font-size:0.88rem; color:var(--ink-secondary); margin-top:0.18rem;">
               <strong>Theme:</strong> Seeing &amp; Computing Beyond Human Limits
             </div>
           </div>
         </div>
+      </div>
 
-        <div class="masthead-stats">
-          <div>
-            <div class="kicker">Weekly Stamp Card</div>
-            <div class="mission-dots"><span class="m-dot" id="m-dot-0" title="Mon">M</span><span class="m-dot" id="m-dot-1" title="Tue">T</span><span class="m-dot" id="m-dot-2" title="Wed">W</span><span class="m-dot" id="m-dot-3" title="Thu">T</span><span class="m-dot" id="m-dot-4" title="Fri">F</span><span class="m-dot" id="m-dot-5" title="Sat">S</span><span class="m-dot" id="m-dot-6" title="Sun">S</span></div>
+      <!-- Explorer Quest HUD: Featured Minecraft Emerald Bank + Weekly Stamp Card + Word Vault -->
+      <div class="explorer-hud-grid">
+        <!-- HERO CARD: Minecraft Emerald Bank -->
+        <label for="sec-rad-trade" class="hud-card hud-card-clickable hud-card-emerald" title="Open Minecraft Emerald Trading Post">
+          <div class="hud-em-top">
+            <div style="display:flex; align-items:center; gap:0.7rem;">
+              <div class="hud-em-slot" aria-hidden="true">
+                <svg class="mc-em"><use href="#mc-emerald-sym" /></svg>
+              </div>
+              <div>
+                <div class="kicker" style="color:var(--green); font-size:0.74rem; letter-spacing:0.04em; text-transform:uppercase;">Emerald Bank · Ender Chest</div>
+                <div style="display:flex; align-items:baseline; gap:0.42rem; flex-wrap:wrap; margin-top:0.04rem;">
+                  <span id="stat-emeralds" class="font-display" style="font-size:2rem; font-weight:800; color:var(--green); line-height:1;">0</span>
+                  <span style="font-size:0.84rem; font-weight:800; color:var(--ink);">Emeralds</span>
+                  <span id="hud-equiv-min" class="hud-mini-pill" style="color:var(--green); border-color:var(--green);">≈ 0 min</span>
+                </div>
+              </div>
+            </div>
+            <span class="hud-em-cta">Trade Shop →</span>
           </div>
-          <div style="border-left:1.5px solid var(--rule); padding-left:0.95rem;">
-            <div class="kicker">Word Vault</div>
-            <label for="sec-rad-lexicon" class="font-display" style="font-size:1.45rem; font-weight:800; color:var(--accent); cursor:pointer;">
-              <span id="stat-lexicon">64</span> <span style="font-size:0.78rem; color:var(--ink-muted); font-weight:600;">words</span>
-            </label>
+          <div class="hud-coop-strip">
+            <div style="display:flex; justify-content:space-between; align-items:center; gap:0.4rem; font-size:0.75rem; font-weight:700;">
+              <span style="color:var(--ink);">🏆 Weekend Co-op Goal (1.5h)</span>
+              <span id="hud-coop-ratio" style="color:var(--green);">0 / 90</span>
+            </div>
+            <div class="hud-coop-track">
+              <div id="hud-coop-bar" class="hud-coop-fill" style="width:0%;"></div>
+            </div>
           </div>
-          <div style="border-left:1.5px solid var(--rule); padding-left:0.95rem;">
-            <div class="kicker">Emerald Bank</div>
-            <label for="sec-rad-trade" class="font-display" style="font-size:1.45rem; font-weight:800; color:var(--green); cursor:pointer;" title="Open Minecraft Emerald Trading Post">
-              <svg class="mc-em mc-em-lg" aria-hidden="true"><use href="#mc-emerald-sym" /></svg> <span id="stat-emeralds">0</span> <span style="font-size:0.76rem; color:var(--ink-muted); font-weight:600;">emeralds</span>
-            </label>
+        </label>
+
+        <!-- CENTER CARD: 7-Day Weekly Stamp Card -->
+        <div class="hud-card hud-card-stamps">
+          <div class="hud-top-row">
+            <span class="kicker accent-text" style="font-size:0.75rem; letter-spacing:0.03em; text-transform:uppercase;">🗓 Weekly Stamp Card</span>
+            <span id="hud-stamp-count" class="hud-mini-pill">0 / 7 Days</span>
+          </div>
+          <div class="mission-dots"><button type="button" class="m-dot" id="m-dot-0" onclick="jumpToDay(0)" title="Open Mon">M</button><button type="button" class="m-dot" id="m-dot-1" onclick="jumpToDay(1)" title="Open Tue">T</button><button type="button" class="m-dot" id="m-dot-2" onclick="jumpToDay(2)" title="Open Wed">W</button><button type="button" class="m-dot" id="m-dot-3" onclick="jumpToDay(3)" title="Open Thu">T</button><button type="button" class="m-dot" id="m-dot-4" onclick="jumpToDay(4)" title="Open Fri">F</button><button type="button" class="m-dot" id="m-dot-5" onclick="jumpToDay(5)" title="Open Sat">S</button><button type="button" class="m-dot" id="m-dot-6" onclick="jumpToDay(6)" title="Open Sun">S</button></div>
+          <div class="hud-chest-micro">
+            <span id="hud-chest5">🛡 5d Chest: +15</span>
+            <span id="hud-chest7">💎 7d Chest: +20</span>
           </div>
         </div>
+
+        <!-- RIGHT CARD: Word Vault -->
+        <label for="sec-rad-lexicon" class="hud-card hud-card-clickable hud-card-vault" title="Open Word Vault & Root Bank">
+          <div class="hud-top-row">
+            <span class="kicker accent-text" style="font-size:0.75rem; letter-spacing:0.03em; text-transform:uppercase;">🧬 Word Vault</span>
+            <span style="font-size:0.73rem; font-weight:800; color:var(--accent);">Self-Test →</span>
+          </div>
+          <div style="display:flex; align-items:baseline; gap:0.35rem;">
+            <span id="stat-lexicon" class="font-display" style="font-size:1.85rem; font-weight:800; color:var(--accent); line-height:1;">64</span>
+            <span style="font-size:0.82rem; color:var(--ink-secondary); font-weight:700;">words</span>
+          </div>
+          <div>
+            <span id="hud-tapped-count" class="hud-mini-pill">★ 0 collected</span>
+          </div>
+        </label>
       </div>
 
       <!-- Navigation Bar -->
@@ -4922,10 +5098,19 @@
     function loadProgress() {
       try { return JSON.parse(localStorage.getItem(STORAGE_PROG) || "{}"); } catch (e) { return {}; }
     }
+    function jumpToDay(dayIdx) {
+      const readRad = document.getElementById("sec-rad-reading");
+      const dayRad = document.getElementById("day-rad-" + dayIdx);
+      if (readRad) readRad.checked = true;
+      if (dayRad) dayRad.checked = true;
+      stopNarration();
+    }
     function renderProgress() {
       const prog = loadProgress();
+      let doneCount = 0;
       for (let i = 0; i < 7; i++) {
         const isDone = !!prog[String(i)];
+        if (isDone) doneCount += 1;
         const mDot = document.getElementById("m-dot-" + i);
         const tDot = document.getElementById("tab-dot-" + i);
         const btn = document.getElementById("complete-btn-" + i);
@@ -4936,6 +5121,8 @@
           btn.textContent = isDone ? "★ Completed!" : "✓ Mark Day Complete";
         }
       }
+      const sc = document.getElementById("hud-stamp-count");
+      if (sc) sc.textContent = doneCount + " / 7 Days";
     }
     function toggleDayComplete(dayIdx) {
       const prog = loadProgress();
@@ -6415,6 +6602,8 @@
 
       const statEl = document.getElementById("stat-emeralds");
       if (statEl) statEl.textContent = String(bank.balance);
+      const hudEq = document.getElementById("hud-equiv-min");
+      if (hudEq) hudEq.textContent = `≈ ${Math.floor(bank.balance * rate)} min`;
       const balEl = document.getElementById("trade-balance-num");
       if (balEl) balEl.textContent = String(bank.balance);
       const eqEl = document.getElementById("trade-equiv-text");
@@ -6431,8 +6620,12 @@
       const wkEl = document.getElementById("trade-week-earned-pill");
       if (wkEl) wkEl.innerHTML = `Earned This Week: ${weekEarned} ${EM_ICO} · Lifetime Earned: ${bank.lifetimeEarned} ${EM_ICO}`;
 
-      // Grand Goal progress bar (Weekend Co-op 1.5h / 90m)
+      // Grand Goal progress bar (Weekend Co-op 1.5h / 90m) — Trading Post + Masthead Hero HUD
       const pct = Math.min(100, Math.round((bank.balance / coopCost) * 100));
+      const hudRatio = document.getElementById("hud-coop-ratio");
+      if (hudRatio) hudRatio.textContent = `${bank.balance} / ${coopCost} (${pct}%)`;
+      const hudBar = document.getElementById("hud-coop-bar");
+      if (hudBar) hudBar.style.width = pct + "%";
       const ratioEl = document.getElementById("coop-goal-ratio");
       if (ratioEl) ratioEl.innerHTML = `${bank.balance} / ${coopCost} ${EM_ICO} (${pct}%)`;
       const barEl = document.getElementById("coop-goal-bar");
@@ -6451,6 +6644,16 @@
 
       // Weekly chests + saver streak
       const clearedDays = Object.values(iss.days || {}).filter(d => (d.baseAwarded || 0) >= 15).length;
+      const hc5 = document.getElementById("hud-chest5");
+      if (hc5) {
+        hc5.classList.toggle("claimed", !!iss.streak5Awarded);
+        hc5.textContent = iss.streak5Awarded ? "🛡 5d Chest ✓" : `🛡 5d (${clearedDays}/5): +15`;
+      }
+      const hc7 = document.getElementById("hud-chest7");
+      if (hc7) {
+        hc7.classList.toggle("claimed", !!iss.streak7Awarded);
+        hc7.textContent = iss.streak7Awarded ? "💎 7d Chest ✓" : `💎 7d (${clearedDays}/7): +20`;
+      }
       const c5Box = document.getElementById("chest-5-box");
       const c5Sub = document.getElementById("chest-5-sub");
       if (c5Box) c5Box.classList.toggle("unlocked", !!iss.streak5Awarded);
@@ -6677,6 +6880,9 @@
 
       const statEl = document.getElementById("stat-lexicon");
       if (statEl) statEl.textContent = String(combined.length);
+      const tappedCount = saved.filter(i => i && i.word).length;
+      const hudTap = document.getElementById("hud-tapped-count");
+      if (hudTap) hudTap.textContent = `★ ${tappedCount} collected`;
 
       if (!combined.length) {
         container.innerHTML = '<div style="padding:1.5rem; color:var(--ink-secondary);">Tap words while reading any story to start filling your Word Vault!</div>';
