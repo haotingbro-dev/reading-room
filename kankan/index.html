@@ -247,6 +247,7 @@
     #sec-rad-reading:checked ~ .container #panel-reading { display: block; }
     #sec-rad-lexicon:checked ~ .container #panel-lexicon { display: block; }
     #sec-rad-craft:checked ~ .container #panel-craft { display: block; }
+    #sec-rad-trade:checked ~ .container #panel-trade { display: block; }
     #sec-rad-ipad:checked ~ .container #panel-ipad { display: block; }
 
     /* Playful Notebook Masthead Card */
@@ -303,8 +304,9 @@
     }
     .masthead-stats {
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
-      gap: 1.1rem;
+      gap: 0.85rem 1.05rem;
       background: var(--paper-sub);
       border: 1.5px solid var(--rule);
       border-radius: 16px;
@@ -362,6 +364,7 @@
     #sec-rad-reading:checked ~ .container label[for="sec-rad-reading"],
     #sec-rad-lexicon:checked ~ .container label[for="sec-rad-lexicon"],
     #sec-rad-craft:checked ~ .container label[for="sec-rad-craft"],
+    #sec-rad-trade:checked ~ .container label[for="sec-rad-trade"],
     #sec-rad-ipad:checked ~ .container label[for="sec-rad-ipad"] {
       background: var(--accent-soft);
       color: var(--accent-ink);
@@ -1330,6 +1333,273 @@
     }
     .coach-key-input:focus { border-color: var(--accent); }
 
+    /* ==================== MINECRAFT EMERALD BANK & TRADING POST ==================== */
+    .emerald-hero-card {
+      background: linear-gradient(135deg, var(--green-soft), var(--paper-card) 62%);
+      border: 2px solid var(--green);
+      border-radius: 20px;
+      padding: 1.15rem 1.3rem;
+      margin-top: 1rem;
+      box-shadow: var(--card-shadow);
+    }
+    .emerald-hero-top {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.9rem;
+    }
+    .emerald-big-num {
+      font-family: "Baloo 2", ui-rounded, sans-serif;
+      font-size: clamp(2rem, 4.5vw, 2.75rem);
+      font-weight: 800;
+      color: var(--green);
+      line-height: 1.05;
+    }
+    .emerald-cap-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.34rem 0.8rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      background: var(--paper-card);
+      border: 1.5px solid var(--rule);
+      color: var(--ink);
+    }
+    .emerald-goal-box {
+      margin-top: 0.95rem;
+      padding: 0.85rem 1rem;
+      border-radius: 15px;
+      background: var(--paper-card);
+      border: 1.5px solid var(--rule);
+    }
+    .emerald-bar-track {
+      width: 100%;
+      height: 14px;
+      border-radius: 999px;
+      background: var(--paper-sub);
+      border: 1.5px solid var(--rule);
+      overflow: hidden;
+      margin-top: 0.48rem;
+    }
+    .emerald-bar-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #10B981, #34D399, #F59E0B);
+      transition: width 0.35s ease;
+    }
+    .chest-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.65rem;
+      margin-top: 0.9rem;
+    }
+    @media (min-width: 680px) { .chest-grid { grid-template-columns: repeat(3, 1fr); } }
+    .chest-chip {
+      padding: 0.65rem 0.85rem;
+      border-radius: 14px;
+      background: var(--paper-card);
+      border: 1.5px solid var(--rule);
+      font-size: 0.82rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .chest-chip.unlocked {
+      background: var(--green-soft);
+      border-color: var(--green);
+    }
+    .trade-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.85rem;
+      margin-top: 0.85rem;
+    }
+    @media (min-width: 680px) { .trade-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 980px) { .trade-grid { grid-template-columns: repeat(3, 1fr); } }
+    .trade-card {
+      background: var(--paper-card);
+      border: 2px solid var(--rule);
+      border-radius: 18px;
+      padding: 1rem 1.05rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 0.65rem;
+      box-shadow: var(--card-shadow);
+    }
+    .trade-card.coop-grand {
+      border-color: var(--amber);
+      border-width: 2.5px;
+      background: linear-gradient(180deg, var(--amber-soft), var(--paper-card) 42%);
+    }
+    .trade-card-cost {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.2rem 0.65rem;
+      border-radius: 999px;
+      background: var(--green-soft);
+      color: var(--green);
+      font-family: "Baloo 2", ui-rounded, sans-serif;
+      font-size: 0.94rem;
+      font-weight: 800;
+    }
+    .trade-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.16rem 0.55rem;
+      border-radius: 8px;
+      background: var(--paper-sub);
+      color: var(--ink-secondary);
+    }
+    .trade-tag.weekend { background: var(--amber-soft); color: var(--amber); }
+    .day-emerald-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.76rem;
+      font-weight: 700;
+      padding: 0.22rem 0.65rem;
+      border-radius: 999px;
+      background: var(--green-soft);
+      color: var(--green);
+      border: 1.5px solid var(--rule);
+    }
+    .mc-timer-card {
+      margin-top: 1rem;
+      padding: 1.05rem 1.2rem;
+      border-radius: 18px;
+      background: var(--paper-card);
+      border: 2.5px solid var(--accent-cyan);
+      box-shadow: var(--card-shadow);
+    }
+    .mc-timer-card.is-break {
+      border-color: var(--green);
+      background: linear-gradient(135deg, var(--green-soft), var(--paper-card) 60%);
+    }
+    .mc-timer-card.is-warn {
+      border-color: var(--amber);
+      background: linear-gradient(135deg, var(--amber-soft), var(--paper-card) 60%);
+    }
+    .mc-timer-clock {
+      font-family: "Baloo 2", ui-monospace, monospace;
+      font-size: clamp(2.1rem, 5vw, 2.9rem);
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      color: var(--ink);
+      line-height: 1.05;
+    }
+    .mc-timer-banner {
+      margin-bottom: 1rem;
+      padding: 0.65rem 1rem;
+      border-radius: 16px;
+      background: var(--paper-card);
+      border: 2px solid var(--green);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.6rem;
+      box-shadow: var(--card-shadow);
+    }
+    .emerald-log-list {
+      margin-top: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      max-height: 290px;
+      overflow-y: auto;
+    }
+    .emerald-log-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.48rem 0.75rem;
+      border-radius: 11px;
+      background: var(--paper-sub);
+      font-size: 0.82rem;
+    }
+    .emerald-toast {
+      position: fixed;
+      left: 50%;
+      bottom: 1.35rem;
+      transform: translateX(-50%) translateY(20px);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 95;
+      background: var(--paper-card);
+      border: 2.5px solid var(--green);
+      color: var(--ink);
+      padding: 0.65rem 1.15rem;
+      border-radius: 999px;
+      font-family: "Quicksand", "Baloo 2", ui-rounded, "PingFang SC", sans-serif;
+      font-size: 0.88rem;
+      font-weight: 800;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.22);
+      transition: opacity 0.22s ease, transform 0.22s ease;
+      max-width: 92vw;
+      text-align: center;
+    }
+    .emerald-toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+    .pin-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 120;
+      background: rgba(15, 23, 42, 0.58);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    .pin-modal-card {
+      width: 100%;
+      max-width: 440px;
+      background: var(--paper-card);
+      border: 2.5px solid var(--green);
+      border-radius: 22px;
+      padding: 1.3rem 1.35rem;
+      box-shadow: 0 22px 50px rgba(0, 0, 0, 0.35);
+    }
+    .pin-input-box {
+      width: 100%;
+      padding: 0.65rem 0.9rem;
+      border-radius: 12px;
+      border: 2px solid var(--rule);
+      background: var(--paper-sub);
+      color: var(--ink);
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: 0.35em;
+      text-align: center;
+      outline: none;
+    }
+    .pin-input-box:focus { border-color: var(--green); }
+    .parent-mini-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.55rem;
+      margin-top: 0.6rem;
+    }
+    @media (min-width: 680px) { .parent-mini-grid { grid-template-columns: repeat(4, 1fr); } }
+    .parent-field-label {
+      display: block;
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: var(--ink-secondary);
+      margin-bottom: 0.22rem;
+    }
+
     .hidden { display: none !important; }
   </style>
 </head>
@@ -1339,6 +1609,7 @@
   <input type="radio" name="sec-nav" id="sec-rad-reading" class="state-radio" checked />
   <input type="radio" name="sec-nav" id="sec-rad-lexicon" class="state-radio" />
   <input type="radio" name="sec-nav" id="sec-rad-craft" class="state-radio" />
+  <input type="radio" name="sec-nav" id="sec-rad-trade" class="state-radio" />
   <input type="radio" name="sec-nav" id="sec-rad-ipad" class="state-radio" />
 
   <input type="radio" name="day-nav" id="day-rad-0" class="state-radio" checked />
@@ -1389,6 +1660,12 @@
               <span id="stat-lexicon">64</span> <span style="font-size:0.78rem; color:var(--ink-muted); font-weight:600;">words</span>
             </label>
           </div>
+          <div style="border-left:1.5px solid var(--rule); padding-left:0.95rem;">
+            <div class="kicker">Emerald Bank</div>
+            <label for="sec-rad-trade" class="font-display" style="font-size:1.45rem; font-weight:800; color:var(--green); cursor:pointer;" title="打开 Minecraft 绿宝石交易站">
+              💚 <span id="stat-emeralds">0</span> <span style="font-size:0.76rem; color:var(--ink-muted); font-weight:600;">emeralds</span>
+            </label>
+          </div>
         </div>
       </div>
 
@@ -1398,6 +1675,7 @@
           <label for="sec-rad-reading" class="nav-label">📖 Daily Stories (每日精读)</label>
           <label for="sec-rad-lexicon" class="nav-label">🧬 Word Vault (词库与词根)</label>
           <label for="sec-rad-craft" class="nav-label">✏️ Craft Guide (句法秘籍)</label>
+          <label for="sec-rad-trade" class="nav-label">💚 Emerald Trade (绿宝石站)</label>
           <label for="sec-rad-ipad" class="nav-label">📱 iPad 与 AI 导师设置</label>
         </div>
 
@@ -1411,6 +1689,18 @@
         </div>
       </nav>
     </header>
+
+    <!-- Active Minecraft Game Timer Ribbon (Visible across all tabs when running) -->
+    <div id="mc-timer-banner" class="mc-timer-banner hidden">
+      <div style="display:flex; align-items:center; gap:0.65rem; flex-wrap:wrap;">
+        <span id="mc-banner-phase" style="font-weight:800; font-size:0.9rem; color:var(--green);">🎮 Minecraft 计时中</span>
+        <span id="mc-banner-clock" class="font-display" style="font-size:1.25rem; font-weight:800; color:var(--ink);">30:00</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:0.45rem;">
+        <label for="sec-rad-trade" class="btn-outline btn-sm" style="cursor:pointer;">查看计时器</label>
+        <button type="button" class="btn-outline btn-sm" id="mc-banner-pause-btn" onclick="toggleMcTimerPause()">⏸ Pause</button>
+      </div>
+    </div>
 
     <!-- ==================== PANEL I: DAILY READING ==================== -->
     <main id="panel-reading" class="sec-panel">
@@ -1798,7 +2088,10 @@
                 </div>
 
                 <div class="mission-footer">
-                  <span class="kicker" id="note-status-0">0 words · Saved on this iPad</span>
+                  <div style="display:flex; flex-wrap:wrap; align-items:center; gap:0.55rem;">
+                    <span class="kicker" id="note-status-0">0 words · Saved on this iPad</span>
+                    <span class="day-emerald-pill" id="day-emerald-badge-0">💚 今日 0 / 25</span>
+                  </div>
                   <button type="button" class="btn-complete" id="complete-btn-0" onclick="toggleDayComplete(0)">
                     ✓ Mark Mon Complete
                   </button>
@@ -2137,7 +2430,10 @@
                 </div>
 
                 <div class="mission-footer">
-                  <span class="kicker" id="note-status-1">0 words · Saved on this iPad</span>
+                  <div style="display:flex; flex-wrap:wrap; align-items:center; gap:0.55rem;">
+                    <span class="kicker" id="note-status-1">0 words · Saved on this iPad</span>
+                    <span class="day-emerald-pill" id="day-emerald-badge-1">💚 今日 0 / 25</span>
+                  </div>
                   <button type="button" class="btn-complete" id="complete-btn-1" onclick="toggleDayComplete(1)">
                     ✓ Mark Tue Complete
                   </button>
@@ -2482,7 +2778,10 @@
                 </div>
 
                 <div class="mission-footer">
-                  <span class="kicker" id="note-status-2">0 words · Saved on this iPad</span>
+                  <div style="display:flex; flex-wrap:wrap; align-items:center; gap:0.55rem;">
+                    <span class="kicker" id="note-status-2">0 words · Saved on this iPad</span>
+                    <span class="day-emerald-pill" id="day-emerald-badge-2">💚 今日 0 / 25</span>
+                  </div>
                   <button type="button" class="btn-complete" id="complete-btn-2" onclick="toggleDayComplete(2)">
                     ✓ Mark Wed Complete
                   </button>
@@ -2815,7 +3114,10 @@
                 </div>
 
                 <div class="mission-footer">
-                  <span class="kicker" id="note-status-3">0 words · Saved on this iPad</span>
+                  <div style="display:flex; flex-wrap:wrap; align-items:center; gap:0.55rem;">
+                    <span class="kicker" id="note-status-3">0 words · Saved on this iPad</span>
+                    <span class="day-emerald-pill" id="day-emerald-badge-3">💚 今日 0 / 25</span>
+                  </div>
                   <button type="button" class="btn-complete" id="complete-btn-3" onclick="toggleDayComplete(3)">
                     ✓ Mark Thu Complete
                   </button>
@@ -3134,7 +3436,10 @@
                 </div>
 
                 <div class="mission-footer">
-                  <span class="kicker" id="note-status-4">0 words · Saved on this iPad</span>
+                  <div style="display:flex; flex-wrap:wrap; align-items:center; gap:0.55rem;">
+                    <span class="kicker" id="note-status-4">0 words · Saved on this iPad</span>
+                    <span class="day-emerald-pill" id="day-emerald-badge-4">💚 今日 0 / 25</span>
+                  </div>
                   <button type="button" class="btn-complete" id="complete-btn-4" onclick="toggleDayComplete(4)">
                     ✓ Mark Fri Complete
                   </button>
@@ -3443,7 +3748,10 @@
                 </div>
 
                 <div class="mission-footer">
-                  <span class="kicker" id="note-status-5">0 words · Saved on this iPad</span>
+                  <div style="display:flex; flex-wrap:wrap; align-items:center; gap:0.55rem;">
+                    <span class="kicker" id="note-status-5">0 words · Saved on this iPad</span>
+                    <span class="day-emerald-pill" id="day-emerald-badge-5">💚 今日 0 / 25</span>
+                  </div>
                   <button type="button" class="btn-complete" id="complete-btn-5" onclick="toggleDayComplete(5)">
                     ✓ Mark Sat Complete
                   </button>
@@ -3777,7 +4085,10 @@
                 </div>
 
                 <div class="mission-footer">
-                  <span class="kicker" id="note-status-6">0 words · Saved on this iPad</span>
+                  <div style="display:flex; flex-wrap:wrap; align-items:center; gap:0.55rem;">
+                    <span class="kicker" id="note-status-6">0 words · Saved on this iPad</span>
+                    <span class="day-emerald-pill" id="day-emerald-badge-6">💚 今日 0 / 25</span>
+                  </div>
                   <button type="button" class="btn-complete" id="complete-btn-6" onclick="toggleDayComplete(6)">
                     ✓ Mark Sun Complete
                   </button>
@@ -3949,6 +4260,107 @@
       </div>
     </section>
 
+    <!-- ==================== PANEL V: MINECRAFT EMERALD TRADING POST ==================== -->
+    <section id="panel-trade" class="sec-panel">
+      <div class="panel-card" style="border-top-color:var(--green);">
+        <div class="border-b" style="padding-bottom:1rem; display:flex; flex-wrap:wrap; justify-content:space-between; align-items:flex-end; gap:0.75rem;">
+          <div>
+            <div class="kicker" style="color:var(--green);">💚 Minecraft Emerald Bank &amp; Villager Trading Post</div>
+            <h2 class="font-display" style="font-size:1.75rem; font-weight:800; margin:0.15rem 0 0;">绿宝石银行与村民交易所</h2>
+            <p style="font-size:0.88rem; color:var(--ink-secondary); margin:0.25rem 0 0;">
+              每天读完文章、闯关小测并完成第 4 题，自动收获 Minecraft 绿宝石——可以当天兑换游戏时间，也可以存进末影箱攒大目标！
+            </p>
+          </div>
+          <label for="sec-rad-ipad" class="btn-outline btn-sm" style="cursor:pointer;">⚙️ 家长 PIN 与规则设置</label>
+        </div>
+
+        <div class="emerald-hero-card">
+          <div class="emerald-hero-top">
+            <div>
+              <div class="kicker">🟣 Ender Chest Balance · 当前绿宝石余额</div>
+              <div class="emerald-big-num">💚 <span id="trade-balance-num">0</span> <span style="font-size:1rem; font-weight:700; color:var(--ink-secondary);">Emeralds</span></div>
+              <div id="trade-equiv-text" style="font-size:0.85rem; color:var(--ink-secondary); margin-top:0.15rem;">当前可兑换约 0 分钟 Minecraft 时间（汇率：1 💚 = 1 分钟）</div>
+            </div>
+            <div style="display:flex; flex-direction:column; align-items:flex-end; gap:0.4rem;">
+              <span id="trade-today-cap-pill" class="emerald-cap-pill">📅 今日已兑：0 / 30 分钟</span>
+              <span id="trade-week-earned-pill" class="kicker">本周已赚：0 💚 · 累计已赚：0 💚</span>
+            </div>
+          </div>
+
+          <div class="emerald-goal-box">
+            <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:0.4rem;">
+              <strong style="font-size:0.9rem; color:var(--ink);">🏆 攒分大目标：周末和同学联机（最长 1.5 小时 / 90 分钟）</strong>
+              <span id="coop-goal-ratio" class="kicker" style="color:var(--green); font-size:0.82rem;">0 / 90 💚</span>
+            </div>
+            <div class="emerald-bar-track">
+              <div id="coop-goal-bar" class="emerald-bar-fill" style="width:0%;"></div>
+            </div>
+            <div id="coop-goal-hint" style="font-size:0.8rem; color:var(--ink-secondary); margin-top:0.38rem;">
+              每天认真阅读可赚 18–25 💚，攒够 90 💚 就能在周末兑换最长 1.5 小时的同学联机大局！
+            </div>
+          </div>
+
+          <div class="chest-grid">
+            <div id="chest-5-box" class="chest-chip">
+              <span><strong>🛡 5 天铁傀儡宝箱</strong><br /><span class="kicker" id="chest-5-sub">本周通关 0 / 5 天</span></span>
+              <span class="trade-card-cost">+15 💚</span>
+            </div>
+            <div id="chest-7-box" class="chest-chip">
+              <span><strong>💎 7 天钻石宝箱</strong><br /><span class="kicker" id="chest-7-sub">本周通关 0 / 7 天</span></span>
+              <span class="trade-card-cost">+20 💚</span>
+            </div>
+            <div id="chest-save-box" class="chest-chip">
+              <span><strong>🟣 末影箱连存 3 天不花</strong><br /><span class="kicker" id="chest-save-sub">已连存 0 / 3 天</span></span>
+              <span class="trade-card-cost">+5 💚</span>
+            </div>
+          </div>
+
+          <div style="margin-top:0.75rem; font-size:0.79rem; color:var(--ink-secondary); line-height:1.55;">
+            <strong>赚分规则：</strong>读完故事 + 做对 3 道小测 + 打卡完成 = <strong>+15 💚</strong>；第 4 题评分 1–7★ / 8–10★ / 11–12★ = <strong>+3 / +6 / +10 💚</strong>（改写提分自动补差额，不重复刷分）。读完英文建议先离屏远眺休息 5–10 分钟再玩游戏。
+          </div>
+        </div>
+
+        <!-- Built-in Eye-Safe Multi-Block Minecraft Timer -->
+        <div id="mc-timer-card" class="mc-timer-card hidden">
+          <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:0.6rem;">
+            <div>
+              <div id="mc-timer-title" class="kicker" style="color:var(--accent); font-size:0.84rem;">🎮 Minecraft 护眼分段计时器</div>
+              <div id="mc-timer-phase-desc" style="font-size:0.9rem; font-weight:700; color:var(--ink); margin-top:0.15rem;">准备开始</div>
+            </div>
+            <div id="mc-timer-clock" class="mc-timer-clock">30:00</div>
+          </div>
+          <div id="mc-timer-alert" style="margin-top:0.55rem; font-size:0.84rem; font-weight:700; color:var(--amber);" class="hidden"></div>
+          <div style="display:flex; flex-wrap:wrap; gap:0.5rem; margin-top:0.75rem;">
+            <button type="button" id="mc-timer-main-btn" class="btn-coach-primary" onclick="toggleMcTimerPause()">⏸ 暂停</button>
+            <button type="button" id="mc-timer-next-btn" class="btn-outline btn-sm hidden" onclick="advanceMcTimerPhase()">▶ 开始下一段</button>
+            <button type="button" class="btn-outline btn-sm" onclick="stopMcTimer()">⏹ 结束计时</button>
+          </div>
+        </div>
+
+        <!-- Villager Trade Shelf -->
+        <div style="margin-top:1.3rem;">
+          <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:0.5rem;">
+            <div>
+              <div class="kicker accent-text">🧑‍🌾 Villager Trade Shelf · 村民交易货架</div>
+              <div style="font-size:0.83rem; color:var(--ink-secondary); margin-top:0.12rem;">
+                赚钱自动到账，兑换时请爸爸/妈妈输入 4 位家长 PIN 码核销发车。超过 30 分钟的场次会自动拆成每 30 分钟一段 + 10 分钟护眼休息。
+              </div>
+            </div>
+          </div>
+          <div id="trade-shop-grid" class="trade-grid"></div>
+        </div>
+
+        <!-- Trade Log -->
+        <div style="margin-top:1.35rem; padding-top:1rem; border-top:2px dashed var(--rule);">
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:0.5rem;">
+            <div class="kicker accent-text">📒 Emerald Trade Log · 最近收支账本</div>
+            <span class="kicker">保存在本机 iPad · 跨周自动累计</span>
+          </div>
+          <div id="emerald-log-list" class="emerald-log-list"></div>
+        </div>
+      </div>
+    </section>
+
     <!-- ==================== PANEL IV: IPAD HOME SCREEN & ICON STUDIO ==================== -->
     <section id="panel-ipad" class="sec-panel">
       <div class="panel-card">
@@ -4021,10 +4433,82 @@
 
           <div style="margin-top:0.95rem; padding-top:0.85rem; border-top:1.5px dashed var(--rule); display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:0.6rem;">
             <div style="font-size:0.83rem; color:var(--ink-secondary);">
-              <strong>📋 周末复盘与下周定向出题：</strong>点击复制本周 7 天的第 4 题作答，周末粘贴给 Jetski 即可做周总结并融入下周新刊。
+              <strong>📋 周末复盘与下周定向出题：</strong>点击复制本周 7 天的第 4 题作答（附绿宝石本周明细），周末粘贴给 Jetski 即可做周总结并融入下周新刊。
             </div>
             <button type="button" class="btn-outline btn-sm" onclick="exportWeeklyMissions()">📋 Copy Week's 7-Day Missions</button>
           </div>
+        </div>
+
+        <div class="craft-card" style="margin-top:1rem; border-color:var(--green);">
+          <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:0.5rem;">
+            <div class="kicker" style="color:var(--green);">Step 4 · 💚 家长管理：Minecraft 绿宝石汇率、限额与 4 位 PIN 码</div>
+            <span id="pin-status-badge" class="coach-mode-badge">🔒 当前 PIN：默认 1234（建议修改）</span>
+          </div>
+          <p style="font-size:0.83rem; color:var(--ink-secondary); margin:0.4rem 0 0.7rem; line-height:1.55;">
+            所有兑换、修改限额和手动调分均需验证 4 位家长 PIN 码（仅存在本机 iPad <code>localStorage</code>）。
+          </p>
+
+          <!-- PIN Verification & Change -->
+          <div style="padding:0.75rem 0.9rem; background:var(--paper-sub); border-radius:12px; border:1.5px solid var(--rule);">
+            <div class="kicker" style="margin-bottom:0.4rem;">🔑 1. 修改 4 位家长核销 PIN 码</div>
+            <div style="display:flex; flex-wrap:wrap; gap:0.5rem; align-items:center;">
+              <input type="password" id="parent-old-pin" class="coach-key-input" inputmode="numeric" maxlength="4" placeholder="当前 PIN（初始 1234）" style="max-width:170px;" />
+              <input type="password" id="parent-new-pin" class="coach-key-input" inputmode="numeric" maxlength="4" placeholder="新 4 位数字 PIN" style="max-width:170px;" />
+              <button type="button" class="btn-outline btn-sm" onclick="updateParentPin()">💾 更新 PIN</button>
+            </div>
+          </div>
+
+          <!-- Exchange Rate & Daily Caps -->
+          <div style="margin-top:0.75rem; padding:0.75rem 0.9rem; background:var(--paper-sub); border-radius:12px; border:1.5px solid var(--rule);">
+            <div class="kicker">⚖️ 2. 汇率与每日游戏上限设置</div>
+            <div class="parent-mini-grid">
+              <div>
+                <label class="parent-field-label" for="cfg-rate">1 💚 兑换分钟数</label>
+                <input type="number" id="cfg-rate" class="coach-key-input" min="0.5" max="5" step="0.5" value="1" />
+              </div>
+              <div>
+                <label class="parent-field-label" for="cfg-weekday-cap">工作日上限(分钟)</label>
+                <input type="number" id="cfg-weekday-cap" class="coach-key-input" min="10" max="90" step="5" value="30" />
+              </div>
+              <div>
+                <label class="parent-field-label" for="cfg-weekend-cap">周末常规上限(分钟)</label>
+                <input type="number" id="cfg-weekend-cap" class="coach-key-input" min="15" max="120" step="5" value="60" />
+              </div>
+              <div>
+                <label class="parent-field-label" for="cfg-coop-cap">周末同学联机上限(分钟)</label>
+                <input type="number" id="cfg-coop-cap" class="coach-key-input" min="30" max="120" step="15" value="90" />
+              </div>
+            </div>
+            <div style="display:flex; flex-wrap:wrap; gap:0.5rem; align-items:center; margin-top:0.65rem;">
+              <input type="password" id="cfg-save-pin" class="coach-key-input" inputmode="numeric" maxlength="4" placeholder="输入家长 PIN 保存" style="max-width:175px;" />
+              <button type="button" class="btn-outline btn-sm" onclick="saveEmeraldSettings()">💾 保存规则设置</button>
+            </div>
+          </div>
+
+          <!-- Manual Adjustment -->
+          <div style="margin-top:0.75rem; padding:0.75rem 0.9rem; background:var(--paper-sub); border-radius:12px; border:1.5px solid var(--rule);">
+            <div class="kicker" style="margin-bottom:0.4rem;">🎛 3. 家长手动加减绿宝石（额外口头表达奖励 / 临时调整）</div>
+            <div style="display:flex; flex-wrap:wrap; gap:0.5rem; align-items:center;">
+              <input type="number" id="adj-amount" class="coach-key-input" placeholder="如 +10 或 -5" style="max-width:130px;" />
+              <input type="text" id="adj-note" class="coach-key-input" placeholder="备注（如：晚饭主动用英文讲故事）" style="flex:1; min-width:190px;" />
+              <input type="password" id="adj-pin" class="coach-key-input" inputmode="numeric" maxlength="4" placeholder="家长 PIN" style="max-width:120px;" />
+              <button type="button" class="btn-outline btn-sm" onclick="parentAdjustEmeralds()">✓ 确认调分</button>
+            </div>
+          </div>
+
+          <!-- Custom Reward Builder -->
+          <div style="margin-top:0.75rem; padding:0.75rem 0.9rem; background:var(--paper-sub); border-radius:12px; border:1.5px solid var(--rule);">
+            <div class="kicker" style="margin-bottom:0.4rem;">🎁 4. 新增自定义村民货架奖励（如皮肤包 / 科普书 / 家庭活动）</div>
+            <div style="display:flex; flex-wrap:wrap; gap:0.5rem; align-items:center;">
+              <input type="text" id="custom-rew-title" class="coach-key-input" placeholder="奖励名称（如：新 Minecraft 皮肤包）" style="flex:1; min-width:180px;" />
+              <input type="number" id="custom-rew-cost" class="coach-key-input" min="5" max="500" placeholder="所需 💚" style="max-width:110px;" />
+              <input type="number" id="custom-rew-min" class="coach-key-input" min="0" max="90" placeholder="游戏分钟(0=实物)" style="max-width:140px;" />
+              <input type="password" id="custom-rew-pin" class="coach-key-input" inputmode="numeric" maxlength="4" placeholder="家长 PIN" style="max-width:120px;" />
+              <button type="button" class="btn-outline btn-sm" onclick="addCustomReward()">＋ 添加商品</button>
+            </div>
+            <div id="custom-rew-list" style="margin-top:0.5rem; display:flex; flex-wrap:wrap; gap:0.4rem;"></div>
+          </div>
+          <div id="parent-emerald-msg" style="font-size:0.82rem; font-weight:700; margin-top:0.6rem; color:var(--green);"></div>
         </div>
       </div>
     </section>
@@ -4063,6 +4547,38 @@
     </div>
   </div>
 
+  <!-- Emerald Celebration Toast -->
+  <div id="emerald-toast" class="emerald-toast" role="status" aria-live="polite"></div>
+
+  <!-- Parent 4-Digit PIN Trade Approval Modal -->
+  <div id="pin-trade-modal" class="pin-modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="pin-modal-title">
+    <div class="pin-modal-card">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:0.5rem;">
+        <div>
+          <div class="kicker" style="color:var(--green);">🧑‍🌾 Villager Trade Ticket · 家长核销凭证</div>
+          <h3 id="pin-modal-title" class="font-display" style="font-size:1.3rem; font-weight:800; margin:0.15rem 0 0;">确认兑换</h3>
+        </div>
+        <button type="button" class="btn-outline btn-sm" onclick="closeTradeModal()">✕</button>
+      </div>
+      <div id="pin-modal-summary" style="margin-top:0.75rem; padding:0.75rem 0.9rem; border-radius:12px; background:var(--paper-sub); font-size:0.86rem; line-height:1.6; color:var(--ink);"></div>
+      <div id="pin-modal-override-wrap" style="margin-top:0.65rem;" class="hidden">
+        <label style="display:flex; align-items:center; gap:0.45rem; font-size:0.82rem; color:var(--amber); font-weight:700; cursor:pointer;">
+          <input type="checkbox" id="pin-modal-override-chk" />
+          <span>家长特批（如节假日，允许本次跳过日常时间限制）</span>
+        </label>
+      </div>
+      <div style="margin-top:0.8rem;">
+        <label class="kicker" for="pin-modal-input" style="display:block; margin-bottom:0.35rem;">请爸爸/妈妈输入 4 位 PIN 码核销（初始默认 1234）：</label>
+        <input type="password" id="pin-modal-input" class="pin-input-box" inputmode="numeric" maxlength="4" placeholder="••••" autocomplete="off" />
+      </div>
+      <div id="pin-modal-err" style="font-size:0.82rem; font-weight:700; color:var(--red); margin-top:0.45rem;"></div>
+      <div style="display:flex; justify-content:flex-end; gap:0.5rem; margin-top:0.95rem;">
+        <button type="button" class="btn-outline btn-sm" onclick="closeTradeModal()">取消</button>
+        <button type="button" class="btn-coach-primary" onclick="confirmPinTrade()">💚 核销并启动计时</button>
+      </div>
+    </div>
+  </div>
+
   <script>
     const ISSUE_SLUG = "2026-11-16";
     const LEXICON_DB = {"infrared": {"pos": "n. / adj.", "ipa": "/ˌɪnfrəˈrɛd/", "en": "Electromagnetic light with wavelengths longer than visible red light, felt mainly as heat and invisible to human eyes.", "cn": "红外线；红外光的", "root": "infra- (below) + red (below visible red light on the spectrum)", "family": "infrastructure, infrasonic", "exEn": "Astronomers rely on infrared sensors to peer through thick clouds of interstellar dust.", "exCn": "天文学家依靠红外传感器穿透厚重的星际尘埃云。"}, "redshift": {"pos": "n.", "ipa": "/ˈrɛdˌʃɪft/", "en": "The stretching of light toward longer, redder wavelengths as the universe expands between a distant galaxy and Earth.", "cn": "红移（宇宙膨胀导致遥远星光波长拉长的现象）", "root": "red + shift (moving toward the red end of the spectrum)", "family": "blueshift, wavelength", "exEn": "By measuring a galaxy's redshift, scientists can calculate how long its light has traveled through space.", "exCn": "通过测量星系的红移，科学家可以算出它的光在太空中行进了多久。"}, "hexagonal": {"pos": "adj.", "ipa": "/hɛkˈsægənəl/", "en": "Having six straight sides and six equal angles, like the cells of a honeycomb.", "cn": "六边形的", "root": "hexa- (Greek: six) + gonia (angle)", "family": "hexagon, polygon, pentagon, diagonal", "exEn": "Engineers chose hexagonal mirror segments because they pack together with no wasted gaps.", "exCn": "工程师选用六边形镜片，因为它们可以无缝紧密拼接。"}, "beryllium": {"pos": "n.", "ipa": "/bəˈrɪliəm/", "en": "A rare, ultra-lightweight yet remarkably stiff metal that holds its exact shape even in extreme cold.", "cn": "铍（极轻、极坚硬且耐极寒的稀有金属）", "root": "Greek beryllos (the mineral beryl, from which emerald forms)", "family": "element, alloy", "exEn": "Each mirror segment on the Webb telescope is carved from beryllium and coated in microscopic gold.", "exCn": "韦伯望远镜的每块镜片都由铍金属切削而成，并镀有微米级金层。"}, "equilibrium": {"pos": "n.", "ipa": "/ˌiːkwəˈlɪbriəm/", "en": "A balanced state in which opposing forces or influences cancel each other out.", "cn": "平衡状态；均衡", "root": "aequus (Latin: equal) + libra (balance/scales)", "family": "equal, equation, equate, calibrate", "exEn": "At the L2 Lagrange point, gravitational pull and orbital motion reach a delicate equilibrium.", "exCn": "在 L2 拉格朗日点，引力与轨道运动达到一种微妙的平衡。"}, "cryogenic": {"pos": "adj.", "ipa": "/ˈkraɪəˌdʒɛnɪk/", "en": "Relating to the production or behavior of materials at extraordinarily low temperatures.", "cn": "极低温的；深冷的", "root": "kryos (Greek: icy cold) + -gen (producing)", "family": "cryosphere, generate, hydrogen", "exEn": "Its sunshield keeps the telescope's instruments at cryogenic temperatures below minus 220 degrees Celsius.", "exCn": "遮阳板使望远镜的仪器保持在零下 220 摄氏度以下的极低温状态。"}, "interstellar": {"pos": "adj.", "ipa": "/ˌɪntərˈstɛlər/", "en": "Occurring or situated in the vast space between stars.", "cn": "星际的；恒星之间的", "root": "inter- (Latin: between) + stella (star)", "family": "constellation, stellar, interactive", "exEn": "Visible light scatters off interstellar dust, whereas longer infrared wavelengths glide right past it.", "exCn": "可见光会被星际尘埃散射，而波长更长的红外光却能直接穿过它。"}, "spectrum": {"pos": "n.", "ipa": "/ˈspɛktrəm/", "en": "A continuous band of wavelengths or values, such as all forms of electromagnetic radiation from radio waves to gamma rays.", "cn": "光谱；频谱；连续范围", "root": "specere (Latin: to look/see)", "family": "inspect, perspective, telescope, spectroscope", "exEn": "Human eyes detect only a narrow sliver of the full electromagnetic spectrum.", "exCn": "人眼只能探测到整个电磁波谱中极窄的一小段。"}, "observatory": {"pos": "n.", "ipa": "/əbˈzɜːrvəˌtɔri/", "en": "A station or spacecraft equipped with instruments for studying astronomical or natural phenomena.", "cn": "天文台；观测站", "root": "ob- (over) + servare (Latin: to watch/keep)", "family": "observe, conservation, preserve", "exEn": "Placing an observatory beyond Earth's atmosphere prevents twinkling air currents from blurring distant stars.", "exCn": "将观测站部署在地球大气层之外，可以避免大气扰动使遥远星光变得模糊。"}, "cosmic": {"pos": "adj.", "ipa": "/ˈkɑzmɪk/", "en": "Relating to the universe as a vast, ordered whole beyond Earth.", "cn": "宇宙的", "root": "kosmos (Greek: order, universe)", "family": "cosmology, microcosm, cosmonaut", "exEn": "Studying ancient starlight lets astrophysicists reconstruct cosmic history billion by billion years.", "exCn": "研究古老的星光让天体物理学家能够以十亿年为单位重建宇宙历史。"}, "aerodynamic": {"pos": "adj.", "ipa": "/ˌɛroʊdaɪˈnæmɪk/", "en": "Relating to how air flows around moving objects and creates forces such as lift and drag.", "cn": "空气动力学的", "root": "aero- (Greek: air) + dynamis (power/force)", "family": "dynamic, thermodynamics, aeronautics", "exEn": "Generating aerodynamic lift on Mars requires spinning rotor blades much faster than on Earth.", "exCn": "在火星上产生空气动力升力，需要让旋翼以远超地球的速度旋转。"}, "autonomous": {"pos": "adj.", "ipa": "/ɔˈtɑnəməs/", "en": "Capable of making decisions and operating independently without real-time human control.", "cn": "自主的；独立运行的", "root": "auto- (Greek: self) + nomos (law/rule)", "family": "autonomy, astronomy, economy, automatic", "exEn": "Because radio signals take minutes to cross space, Ingenuity relied on autonomous onboard navigation.", "exCn": "由于无线电信号跨越太空需要数分钟，机智号依靠机载自主导航完成飞行。"}, "tenuous": {"pos": "adj.", "ipa": "/ˈtɛnjəwəs/", "en": "Very thin, weak, or lacking density; fragile in substance or reasoning.", "cn": "稀薄的；微弱的", "root": "tenuis (Latin: thin/slender)", "family": "attenuate, extenuating", "exEn": "Mars's tenuous atmosphere has roughly one percent of Earth's surface air density.", "exCn": "火星稀薄的大气层密度只有地球海平面空气密度的约 1%。"}, "composite": {"pos": "n. / adj.", "ipa": "/kɑmˈpɑzət/", "en": "A material engineered by combining two or more distinct substances to achieve superior strength and lightness.", "cn": "复合材料（的）；合成的", "root": "com- (together) + ponere (Latin: to place)", "family": "compose, component, decompose, position", "exEn": "Carbon-fiber composite blades gave the Mars helicopter stiffness without adding heavy mass.", "exCn": "碳纤维复合材料桨叶在保证刚性的同时，没有增加过多重量。"}, "telemetry": {"pos": "n.", "ipa": "/təˈlɛmətri/", "en": "Automated measurement data transmitted wirelessly from a distant robot or spacecraft back to Earth.", "cn": "遥测数据；远程测量传输", "root": "tele- (Greek: far) + metron (measure)", "family": "telescope, thermometer, geometry, symmetry", "exEn": "Mission controllers waited anxiously for telemetry confirming that the rotorcraft had touched down intact.", "exCn": "任务控制人员焦急地等待遥测数据，以确认旋翼机安然着陆。"}, "counter-rotating": {"pos": "adj.", "ipa": "/ˈkaʊntər ˈroʊˌteɪtɪŋ/", "en": "Spinning in opposite directions around the same axis to cancel out twisting torque.", "cn": "反向旋转的；共轴反转的", "root": "counter- (against/opposite) + rota (Latin: wheel)", "family": "rotate, counterpart, counteract", "exEn": "Two counter-rotating rotors allowed Ingenuity to fly steadily without needing a tail rotor.", "exCn": "两副反向旋转的旋翼让机智号无需尾桨也能稳定飞行。"}, "latency": {"pos": "n.", "ipa": "/ˈleɪtənsi/", "en": "The delay between sending a signal or command and receiving a response.", "cn": "延迟；信号时延", "root": "latere (Latin: to lie hidden / wait)", "family": "latent", "exEn": "Communication latency between Earth and Mars makes live joystick piloting physically impossible.", "exCn": "地球与火星之间的通信延迟使得实时手柄操控在物理上不可能实现。"}, "reconnaissance": {"pos": "n.", "ipa": "/riˈkɑnəsəns/", "en": "Preliminary scouting or surveying of unfamiliar terrain to gather useful information before advancing.", "cn": "侦察；先行勘察", "root": "re- (again) + cognoscere (Latin: to know)", "family": "recognize, cognition, incognito", "exEn": "After passing its initial test flights, Ingenuity served as an aerial reconnaissance scout for Perseverance.", "exCn": "通过最初的试飞后，机智号担任了毅力号火星车的空中勘察先锋。"}, "torque": {"pos": "n.", "ipa": "/ˈtɔrk/", "en": "A rotational force that causes an object to twist or spin around an axis.", "cn": "扭矩；转矩", "root": "torquere (Latin: to twist)", "family": "distort, torsion, contort", "exEn": "Opposing blades balance each other's torque so the helicopter's body does not spin out of control.", "exCn": "反向桨叶抵消彼此的扭矩，防止直升机机身失控打转。"}, "heuristic": {"pos": "n. / adj.", "ipa": "/hjʊˈrɪstɪk/", "en": "A practical rule of thumb or shortcut programmed to help solve complex problems faster, though not guaranteed to be perfect.", "cn": "启发式规则；经验法则", "root": "heuriskein (Greek: to discover/find — same root as Eureka!)", "family": "Eureka", "exEn": "Older chess engines depended on human-written heuristics, such as assigning fixed point values to pieces.", "exCn": "早期国际象棋引擎依赖人类编写的启发式规则，例如给棋子赋予固定分值。"}, "algorithm": {"pos": "n.", "ipa": "/ˈælgərˌɪðəm/", "en": "A step-by-step set of unambiguous mathematical rules a computer follows to solve a problem.", "cn": "算法", "root": "Named after 9th-century Persian mathematician al-Khwarizmi", "family": "algorithmic, algebra", "exEn": "A well-designed search algorithm explores promising board positions instead of testing every legal move blindly.", "exCn": "设计精良的搜索算法会优先探索有希望的棋局，而不是盲目测试每一步合法走法。"}, "reinforcement": {"pos": "n.", "ipa": "/ˌriɪnˈfɔrsmənt/", "en": "A machine learning method in which an agent learns strategies by trying actions and receiving numerical rewards or penalties.", "cn": "强化（学习）；加固", "root": "re- (again) + in- + fortis (Latin: strong)", "family": "fortify, fortress, force, effort", "exEn": "Through reinforcement learning, AlphaZero discovered openings that human grandmasters had never studied.", "exCn": "通过强化学习，AlphaZero 发现了人类特级大师从未研究过的开局走法。"}, "probability": {"pos": "n.", "ipa": "/ˌprɑbəˈbɪləˌti/", "en": "A mathematical measure, between 0 and 1, expressing how likely an event or outcome is to happen.", "cn": "概率；可能性", "root": "probare (Latin: to test/prove)", "family": "probable, prove, approve, probe", "exEn": "The neural network estimates the probability of winning from any given board arrangement.", "exCn": "神经网络会估算在任意给定棋局下获胜的概率。"}, "exponential": {"pos": "adj.", "ipa": "/ˌɛkspoʊˈnɛnʃəl/", "en": "Growing by repeated multiplication rather than simple addition, causing numbers to explode rapidly.", "cn": "指数级的；呈几何倍增的", "root": "ex- (out) + ponere (Latin: to place)", "family": "exponent, component, propose", "exEn": "Because each turn branches into dozens of replies, the number of possible Go games undergoes exponential growth.", "exCn": "由于每一步都会分出几十种应对，围棋可能对局总数呈指数级暴增。"}, "brute-force": {"pos": "adj.", "ipa": "/ˈbrut ˈfɔrs/", "en": "Solving a problem by testing huge numbers of raw possibilities with sheer computing speed rather than selective strategy.", "cn": "暴力穷举的；硬算的", "root": "brutus (Latin: heavy/unreasoning) + force", "family": "brutal, reinforce", "exEn": "Even the fastest supercomputer cannot conquer Go with brute-force calculation alone.", "exCn": "即使是最快的超级计算机，也无法仅靠暴力穷举攻克围棋。"}, "intuition": {"pos": "n.", "ipa": "/ˌɪntuˈɪʃən/", "en": "Rapid pattern recognition that guides judgment without consciously stepping through every calculation.", "cn": "直觉；快速模式判断", "root": "in- (into) + tueri (Latin: to look at / watch)", "family": "intuitive, tutor, tuition", "exEn": "In AlphaZero, the neural network acts like artificial intuition while tree search verifies the tactics.", "exCn": "在 AlphaZero 中，神经网络像“人工直觉”，而树搜索负责验证具体战术。"}, "prune": {"pos": "v.", "ipa": "/ˈprun/", "en": "To trim away unpromising branches of a search tree so a computer focuses its effort on the best options.", "cn": "剪枝；剔除无效分支", "root": "Old French proignier (to cut back branches)", "family": "pruning", "exEn": "Smart search algorithms prune weak moves early, saving millions of wasted computations.", "exCn": "聪明的搜索算法会尽早剪掉弱走法，省去数百万次无效计算。"}, "iteration": {"pos": "n.", "ipa": "/ˌɪtərˈeɪʃən/", "en": "One complete cycle in a repeating process designed to refine a result step by step.", "cn": "迭代；循环改进的一轮", "root": "iterum (Latin: again)", "family": "iterate, reiterate", "exEn": "With each iteration of self-play, the model replaced weaker habits with sharper strategies.", "exCn": "每经过一轮自我博弈迭代，模型都会用更敏锐的策略淘汰较弱的习惯。"}, "binary": {"pos": "adj. / n.", "ipa": "/ˈbaɪnəri/", "en": "A base-2 number system representing all information using only two states: 0 (off) and 1 (on).", "cn": "二进制的；二元状态", "root": "bini (Latin: two together)", "family": "bicycle, binoculars, combine, billion", "exEn": "Every text message, game world, and photograph inside a computer ultimately boils down to binary signals.", "exCn": "计算机里的每条短信、游戏世界和照片，归根结底都是二进制信号。"}, "transistor": {"pos": "n.", "ipa": "/trænˈzɪstər/", "en": "A microscopic electronic switch inside a microchip that turns electrical current on or off to process binary logic.", "cn": "晶体管（芯片里的微型电子开关）", "root": "transfer + resistor (coined at Bell Labs in 1948)", "family": "transfer, transmit, resistor", "exEn": "A modern smartphone processor packs billions of transistors, yet each follows the same logic as a Redstone torch.", "exCn": "现代智能手机芯片集成了数十亿个晶体管，但每个都遵循与红石火把相同的逻辑。"}, "propagation": {"pos": "n.", "ipa": "/ˌprɑpəˈgeɪʃən/", "en": "The spreading or travel of a wave, signal, or change through a circuit or medium.", "cn": "传播；信号传导", "root": "pro- (forward) + pangere (Latin: to fasten/plant)", "family": "propagate, compact, impact", "exEn": "In a large Minecraft ALU, engineers must account for propagation delay across every repeater.", "exCn": "在大型 Minecraft 算术逻辑单元中，建造者必须计算每个中继器带来的信号传导延迟。"}, "synchronize": {"pos": "v.", "ipa": "/ˈsɪŋkrəˌnaɪz/", "en": "To coordinate multiple events or circuits so they happen at the exact same tempo or moment.", "cn": "使同步；校准节奏", "root": "syn- (Greek: together) + chronos (time)", "family": "chronology, chronic, chronicle, asynchronous", "exEn": "A Redstone clock pulses every few ticks to synchronize how data enters and leaves memory registers.", "exCn": "红石时钟每隔几个刻发出一次脉冲，用来同步数据进出内存寄存器的节奏。"}, "invert": {"pos": "v.", "ipa": "/ˌɪnˈvɜːrt/", "en": "To flip a value, direction, or state into its exact opposite (turning 1 into 0, or 0 into 1).", "cn": "反转；取反", "root": "in- (into/against) + vertere (Latin: to turn)", "family": "convert, reverse, universe, versatile", "exEn": "A single Redstone torch acts as a NOT gate because it automatically inverts whatever signal enters its block.", "exCn": "一根红石火把就是一个非门（NOT gate），因为它会自动反转输入该方块的信号。"}, "turing-complete": {"pos": "adj.", "ipa": "/ˈtʊrɪŋ kəmˈplit/", "en": "Capable of performing any logical computation that a standard computer can run, given enough memory and time.", "cn": "图灵完备的（理论上可模拟任意计算机运算）", "root": "Named after British mathematician Alan Turing (1912–1954)", "family": "computation, Turing machine", "exEn": "Because Redstone supports logic gates, clocks, and memory latches, the system is mathematically Turing-complete.", "exCn": "因为红石支持逻辑门、时钟和记忆锁存器，它在数学上是图灵完备的。"}, "abstraction": {"pos": "n.", "ipa": "/æbˈstrækʃən/", "en": "Hiding complex lower-level details behind a simpler building block so engineers can design bigger systems.", "cn": "抽象（把复杂底层封装成简洁模块）", "root": "abs- (away) + trahere (Latin: to pull/draw)", "family": "subtract, attract, extract, contract", "exEn": "Through abstraction, a builder stops thinking about single torches and starts wiring full binary adders.", "exCn": "借助抽象思维，建造者不再只盯着单根火把，而是开始连接完整的二进制加法器。"}, "degrade": {"pos": "v.", "ipa": "/dɪˈgreɪd/", "en": "To weaken gradually in strength, clarity, or quality over distance or time.", "cn": "衰减；降级", "root": "de- (down) + gradus (Latin: step/degree)", "family": "grade, gradual, progress, upgrade", "exEn": "Redstone dust signals degrade by one unit per block until they drop to zero after fifteen blocks.", "exCn": "红石粉的信号每经过一格就会衰减 1 级，传过 15 格后归零。"}, "sequential": {"pos": "adj.", "ipa": "/səˈkwɛnʃəl/", "en": "Following a strict logical order in time, where each step depends on what happened before.", "cn": "时序的；按顺序进行的", "root": "sequi (Latin: to follow)", "family": "sequence, consequence, subsequent", "exEn": "Unlike simple door switches, sequential circuits remember past inputs using flip-flop memory cells.", "exCn": "与简单的门开关不同，时序电路借助触发器记忆单元记住过去的输入。"}, "geocentric": {"pos": "adj.", "ipa": "/ˌdʒiːoʊˈsɛntrɪk/", "en": "Describing the ancient astronomical model that placed Earth motionless at the center of the entire universe.", "cn": "地心说的；以地球为中心的", "root": "geo- (Greek: Earth) + kentron (center)", "family": "geology, geometry, concentric, heliocentric", "exEn": "For more than a thousand years, European scholars treated the geocentric cosmos as unquestioned fact.", "exCn": "一千多年来，欧洲学者一直把地心说宇宙当成不容置疑的事实。"}, "heliocentric": {"pos": "adj.", "ipa": "/ˌhiːlioʊˈsɛntrɪk/", "en": "Describing the astronomical model in which planets, including Earth, orbit the Sun.", "cn": "日心说的；以太阳为中心的", "root": "helios (Greek: Sun) + kentron (center)", "family": "helium, geocentric, eccentric", "exEn": "Galileo's notebooks provided direct visual evidence that strengthened the heliocentric theory.", "exCn": "伽利略的观测笔记提供了直接视觉证据，有力支撑了日心说理论。"}, "celestial": {"pos": "adj.", "ipa": "/səˈlɛstʃəl/", "en": "Belonging to the sky, stars, planets, or outer space.", "cn": "天体的；天空的", "root": "caelum (Latin: sky/heavens)", "family": "ceiling", "exEn": "Before telescopes, observers assumed every celestial body revolved cleanly around Earth.", "exCn": "在望远镜出现之前，观测者以为所有天体都规规矩矩地绕地球旋转。"}, "refracting": {"pos": "adj.", "ipa": "/rɪˈfræktɪŋ/", "en": "Bending light rays as they pass through curved glass lenses to magnify distant images.", "cn": "折射（式）的", "root": "re- (back) + frangere (Latin: to break)", "family": "refraction, fraction, fracture, fragile", "exEn": "Galileo ground his own glass lenses to build a refracting telescope capable of twenty-power magnification.", "exCn": "伽利略亲手打磨玻璃镜片，造出了一台可放大二十倍的折射式望远镜。"}, "skepticism": {"pos": "n.", "ipa": "/ˈskɛptɪˌsɪzəm/", "en": "A questioning attitude that demands solid, repeatable evidence before accepting a claim as true.", "cn": "怀疑精神；审慎质疑", "root": "skeptesthai (Greek: to look carefully / examine)", "family": "skeptic, skeptical, telescope", "exEn": "Healthy skepticism pushed Galileo to sketch Jupiter night after night rather than trusting a single glance.", "exCn": "健康的怀疑精神促使伽利略连续多晚手绘木星，而不是轻信匆匆一瞥。"}, "meticulous": {"pos": "adj.", "ipa": "/məˈtɪkjələs/", "en": "Showing extreme care and precision with every small detail.", "cn": "一丝不苟的；极其细致的", "root": "metus (Latin: fear — originally careful out of fear of making an error)", "family": "meticulously", "exEn": "His meticulous ink sketches proved that the four tiny dots shifted position in lockstep with Jupiter.", "exCn": "他一丝不苟的墨水草图证明，那四个微小光点始终伴随木星同步移动。"}, "orthodoxy": {"pos": "n.", "ipa": "/ˈɔrθəˌdɑksi/", "en": "Traditional, officially accepted beliefs or doctrines that people are expected not to challenge.", "cn": "正统观念；传统定论", "root": "orthos (Greek: straight/right) + doxa (opinion/belief)", "family": "orthogonal, paradox, unorthodox", "exEn": "Published in March 1610, Sidereus Nuncius quietly overturned centuries of astronomical orthodoxy.", "exCn": "1610 年 3 月出版的《星际信使》悄然推翻了延续数个世纪的天文学正统观念。"}, "treatise": {"pos": "n.", "ipa": "/ˈtritəs/", "en": "A formal, systematically written work that investigates and argues a specific scientific or scholarly subject.", "cn": "专著；学术论文", "root": "tractare (Latin: to handle / discuss)", "family": "treat, contract, extract", "exEn": "Galileo rushed his short treatise into print so scholars across Europe could verify his observations.", "exCn": "伽利略抓紧将这本简短专著付印，以便全欧洲学者都能验证他的观测结果。"}, "luminous": {"pos": "adj.", "ipa": "/ˈlumənəs/", "en": "Shining brightly or emitting steady light, especially against darkness.", "cn": "发光的；明亮的", "root": "lumen (Latin: light)", "family": "illuminate, bioluminescent, lumen", "exEn": "Four luminous specks lined up beside Jupiter like beads strung on an invisible wire.", "exCn": "四个明亮的光点排成一线悬在木星旁，宛如串在无形丝线上的细珠。"}, "hydrothermal": {"pos": "adj.", "ipa": "/ˌhaɪdroʊˈθɜːrməl/", "en": "Relating to superheated, mineral-rich water circulating beneath the seafloor and erupting through volcanic cracks.", "cn": "热液的（海底火山裂隙喷出的超高温富矿水流）", "root": "hydor (Greek: water) + therme (heat)", "family": "hydrogen, hydrate, thermometer, geothermal", "exEn": "In 1977, the submersible Alvin stumbled upon towering hydrothermal vents along the Galapagos Rift.", "exCn": "1977 年，“阿尔文号”深潜器在加拉帕戈斯裂谷意外发现了高耸的海底热液喷口。"}, "chemosynthesis": {"pos": "n.", "ipa": "/ˌkiːmoʊˈsɪnθəsɪs/", "en": "The biological process by which microbes convert chemical energy from minerals—without sunlight—into food.", "cn": "化能合成作用（无需阳光、靠化学反应制造养分）", "root": "chemo- (chemical) + syn- (together) + thesis (putting/placing)", "family": "photosynthesis, synthesis, hypothesis", "exEn": "Chemosynthesis revealed that whole ecosystems can flourish in pitch-black oceans far from the Sun.", "exCn": "化能合成作用揭示出，即使在远离太阳的漆黑深海，完整生态系统也能蓬勃繁衍。"}, "submersible": {"pos": "n. / adj.", "ipa": "/səbˈmɜːrsɪbəl/", "en": "A compact underwater research vessel built to withstand crushing deep-ocean pressure.", "cn": "深海潜水器；可潜水的", "root": "sub- (under) + mergere (Latin: to plunge/dip)", "family": "submerge, emerge, immerse, submarine", "exEn": "Inside the titanium sphere of the submersible, three researchers descended more than 2,500 meters.", "exCn": "三位科研人员乘坐在潜水器的钛合金耐压球舱内，下潜超过 2,500 米。"}, "symbiosis": {"pos": "n.", "ipa": "/ˌsɪmbaɪˈoʊsəs/", "en": "A close, long-term biological partnership between two different species living together.", "cn": "共生关系", "root": "syn- (Greek: together) + bios (life)", "family": "biology, biome, antibiotic, symbiotic", "exEn": "Giant tube worms have no mouths or stomachs; instead, they survive through symbiosis with internal bacteria.", "exCn": "巨型管虫没有口也没有胃，它们依靠与体内细菌的共生关系存活。"}, "astrobiology": {"pos": "n.", "ipa": "/ˌæstroʊbaɪˈɑlədʒi/", "en": "The scientific study of the origin, evolution, and possible existence of life beyond Earth.", "cn": "天体生物学", "root": "astron (Greek: star) + bios (life) + -logia (study of)", "family": "astronomy, asteroid, biology, ecology", "exEn": "Deep-sea vents transformed astrobiology by making icy ocean moons like Europa top targets for exploration.", "exCn": "深海热液喷口彻底改写了天体生物学，让木卫二这样的冰封海洋卫星成为首要探索目标。"}, "extremophile": {"pos": "n.", "ipa": "/ɪkˈstriːməˌfaɪl/", "en": "An organism that thrives in harsh physical or chemical conditions—such as boiling vents or crushing pressure—that would kill most life.", "cn": "嗜极生物（能在极端高温、高压等环境中繁衍的生物）", "root": "extremus (Latin: outermost) + philos (Greek: loving)", "family": "philosophy, hydrophilic, bibliophile", "exEn": "Every newly discovered extremophile expands scientists' map of where life could endure across the cosmos.", "exCn": "每发现一种新的嗜极生物，科学家对宇宙宜居边界的认知就会再向外拓展一步。"}, "subsurface": {"pos": "adj.", "ipa": "/ˈsʌbˌsɜːrfəs/", "en": "Located beneath an outer crust, ground layer, or frozen shell.", "cn": "地下的；冰层之下的", "root": "sub- (under) + surface", "family": "submarine, subway, subterranean", "exEn": "Planetary scientists suspect a salty subsurface ocean sloshes beneath Europa's cracked icy crust.", "exCn": "行星科学家推测，木卫二龟裂的冰壳之下涌动着一片含盐的地下海洋。"}, "metabolize": {"pos": "v.", "ipa": "/məˈtæbəˌlaɪz/", "en": "To break down nutrients or chemical compounds inside living cells to release usable energy.", "cn": "新陈代谢；分解转化", "root": "meta- (Greek: change) + ballein (to throw)", "family": "metabolism, metamorphosis, symbol", "exEn": "Vent microbes metabolize hydrogen sulfide—a gas toxic to humans—into energy-rich sugars.", "exCn": "热液微生物将对人类有毒的硫化氢代谢转化为富含能量的糖类。"}, "inference": {"pos": "n.", "ipa": "/ˈɪnfərəns/", "en": "A logical conclusion reached by combining observed evidence with prior reasoning rather than seeing the answer directly.", "cn": "推理；基于证据得出的推论", "root": "in- (in) + ferre (Latin: to carry/bring)", "family": "infer, transfer, reference, confer", "exEn": "Modern science relies on careful inference whenever an object is too distant, small, or ancient to touch.", "exCn": "当研究对象过于遥远、微小或古老而无法触碰时，现代科学就依赖严谨的推理。"}, "calibration": {"pos": "n.", "ipa": "/ˌkæləˈbreɪʃən/", "en": "The process of checking and adjusting an instrument against a known standard so its measurements stay accurate.", "cn": "校准；标定", "root": "Arabic qalib (mold/measure) -> caliber", "family": "calibrate, caliber", "exEn": "Without regular calibration, even the sharpest space sensor would gradually drift off target.", "exCn": "如果没有定期校准，即便最精密的太空传感器也会逐渐产生误差漂移。"}, "constraint": {"pos": "n.", "ipa": "/kənˈstreɪnt/", "en": "A physical, mathematical, or practical limitation that shapes how an engineer must design a solution.", "cn": "约束条件；物理限制", "root": "con- (together) + stringere (Latin: to draw tight)", "family": "constrain, strict, restrict, district", "exEn": "Engineering creativity flourishes inside tough constraints, whether thin Martian air or fifteen-block Redstone decay.", "exCn": "工程创造力往往在严苛的约束条件中迸发，无论是稀薄的火星大气还是 15 格红石衰减。"}, "paradigm": {"pos": "n.", "ipa": "/ˈpɛrəˌdaɪm/", "en": "A foundational framework of shared assumptions and theories that guides how a scientific field thinks.", "cn": "范式；基础认知框架", "root": "para- (beside) + deiknynai (Greek: to show)", "family": "parallel, indicate, index", "exEn": "Both Galileo's moons and deep-sea chemosynthesis triggered a dramatic paradigm shift in science.", "exCn": "伽利略发现木星卫星与深海化能合成的发现，都引发了科学界深刻的范式转变。"}, "synthesis": {"pos": "n.", "ipa": "/ˈsɪnθəsəs/", "en": "Combining separate ideas, findings, or components into a unified, deeper understanding.", "cn": "综合；整合提炼", "root": "syn- (Greek: together) + thesis (placing)", "family": "photosynthesis, chemosynthesis, synthetic", "exEn": "Weekly synthesis helps readers notice hidden patterns connecting astronomy, robotics, and computer logic.", "exCn": "每周综合复盘能帮助读者发现连接天文学、机器人与计算机逻辑的隐藏规律。"}, "anomalous": {"pos": "adj.", "ipa": "/əˈnɑmələs/", "en": "Deviating noticeably from what is standard, normal, or expected by existing theory.", "cn": "反常的；偏离常规的", "root": "an- (not) + homalos (Greek: even/regular)", "family": "anomaly", "exEn": "An anomalous temperature spike on the ocean floor first tipped off geologists to the hidden vents.", "exCn": "海底一处反常的温度飙升，最先向地质学家泄露了隐藏热液喷口的踪迹。"}, "precision": {"pos": "n.", "ipa": "/priˈsɪʒən/", "en": "The quality of being exact, consistent, and finely controlled down to tiny margins.", "cn": "精确度；精密性", "root": "prae- (before) + caedere (Latin: to cut)", "family": "precise, concise, decide, incision", "exEn": "Aligning Webb's eighteen mirrors required nanometer precision—finer than a fraction of a human hair.", "exCn": "校准韦伯望远镜的 18 块镜片需要纳米级精度——比一根头发丝的几千分之一还细。"}, "empirical": {"pos": "adj.", "ipa": "/ˌɛmˈpɪrɪkəl/", "en": "Based on direct observation, measurement, or experiment rather than pure guesswork or tradition.", "cn": "实证的；基于实验观察的", "root": "empeiria (Greek: experience/trial)", "family": "experiment, experience", "exEn": "Empirical evidence gathered through a simple brass tube defeated centuries of untested opinion.", "exCn": "透过一支简陋铜管收集到的实证证据，击败了延续数世纪却未经检验的传统定见。"}, "redundancy": {"pos": "n.", "ipa": "/rɪˈdʌndənsi/", "en": "In engineering: backup systems for safety. In writing: unnecessary repetition of words that say the same thing.", "cn": "冗余（工程中指安全备份；写作中指多余重复的措辞）", "root": "re- (again) + unda (Latin: wave — overflowing like waves)", "family": "redundant, abundant, inundate", "exEn": "Spacecraft designers love hardware redundancy, whereas skilled editors cut word redundancy ruthlessly.", "exCn": "航天设计师偏爱硬件冗余备份，而优秀编辑会果断删掉文字中的多余重复。"}, "resilient": {"pos": "adj.", "ipa": "/rɪˈzɪljənt/", "en": "Able to recover quickly or keep functioning reliably despite harsh shocks or unexpected failures.", "cn": "有韧性的；抗冲击的", "root": "re- (back) + salire (Latin: to leap/jump)", "family": "resilience, salient, somersault", "exEn": "Surviving three freezing Martian winters proved Ingenuity was far more resilient than anyone predicted.", "exCn": "挺过三个严寒的火星冬季，证明机智号远比任何人预料的更有韧性。"}};
@@ -4077,6 +4593,8 @@
     const STORAGE_WORKING_MODEL = "kankan_gemini_working_model";
     const STORAGE_ICON = "kankan_inquiry_icon_v2";
     const STORAGE_THEME = "kankan_color_mode";
+    const STORAGE_EMERALD = "kankan_emerald_bank_v1";
+    const STORAGE_MC_TIMER = "kankan_mc_timer_v1";
 
     let currentWord = "";
     let currentExampleEn = "";
@@ -4310,6 +4828,7 @@
         if (chosenIdx === correctIdx) {
           fb.classList.add("fb-ok");
           fb.innerHTML = "<strong>🎉 Awesome!</strong> " + expl;
+          recordQuizSolved(dayIdx, qType);
         } else {
           fb.classList.add("fb-try");
           fb.innerHTML = "<strong>Almost! Give another option a try</strong> — look closely at the clue in the sentence.";
@@ -4408,6 +4927,11 @@
       prog[String(dayIdx)] = !prog[String(dayIdx)];
       try { localStorage.setItem(STORAGE_PROG, JSON.stringify(prog)); } catch (e) {}
       renderProgress();
+      if (prog[String(dayIdx)]) {
+        tryAwardDailyBase(dayIdx, true);
+      } else {
+        renderEmeraldUI();
+      }
     }
 
     /* ==================== 3-IN-1 MISSION COACH (OFFLINE RUBRIC + GEMINI API + EXPORT) ==================== */
@@ -4877,6 +5401,7 @@
       if (!apiKey) {
         saveCoachResult(dayIdx, offlineRes);
         renderCoachCard(dayIdx, offlineRes);
+        awardMissionStarsEmeralds(dayIdx, offlineRes);
         return;
       }
 
@@ -4891,15 +5416,18 @@
         if (aiOut.ok) {
           saveCoachResult(dayIdx, aiOut.result);
           renderCoachCard(dayIdx, aiOut.result);
+          awardMissionStarsEmeralds(dayIdx, aiOut.result);
         } else {
           offlineRes.fallback_note = "AI Coach 暂时不可用（" + aiOut.error + "），已自动切换为本地即时评分。";
           saveCoachResult(dayIdx, offlineRes);
           renderCoachCard(dayIdx, offlineRes);
+          awardMissionStarsEmeralds(dayIdx, offlineRes);
         }
       } catch (err) {
         offlineRes.fallback_note = "当前设备离线或无法连接 Gemini API，已自动切换为本地即时评分。";
         saveCoachResult(dayIdx, offlineRes);
         renderCoachCard(dayIdx, offlineRes);
+        awardMissionStarsEmeralds(dayIdx, offlineRes);
       } finally {
         if (btn) btn.disabled = false;
       }
@@ -5019,16 +5547,1003 @@
         lines.push("");
       });
 
-      const payload = filledCount
+      const bank = loadEmeraldBank();
+      const weekEarned = computeWeekEarned(bank);
+      lines.push("## 💚 Emerald Bank Summary");
+      lines.push(`- **Current Balance**: ${bank.balance} Emeralds (Week Earned: ${weekEarned} · Lifetime Earned: ${bank.lifetimeEarned})`);
+      if (bank.logs && bank.logs.length) {
+        lines.push("- **Recent Activity**: " + bank.logs.slice(0, 6).map(l => `${l.ts} ${l.delta >= 0 ? "+" : ""}${l.delta}💚 (${l.note})`).join(" | "));
+      }
+      lines.push("");
+
+      const payload = (filledCount || weekEarned > 0)
         ? lines.join("\n")
         : "No written missions saved yet for this week — write a few sentences in Question 4 first!";
 
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(payload).then(() => {
-          alert(`已复制本周 ${filledCount} 天的作答记录！粘贴发给 Jetski 即可做周总结并定制下周的 Editor's Desk：\n\n` + payload.slice(0, 600) + (payload.length > 600 ? "\n..." : ""));
+          alert(`已复制本周 ${filledCount} 天的作答记录与绿宝石明细！粘贴发给 Jetski 即可做周总结并定制下周的 Editor's Desk：\n\n` + payload.slice(0, 600) + (payload.length > 600 ? "\n..." : ""));
         }).catch(() => alert(payload));
       } else {
         alert(payload);
+      }
+    }
+
+    /* ==================== MINECRAFT EMERALD BANK, PIN & EYE-SAFE TIMER ==================== */
+    function getLocalDateKey(dateObj) {
+      const d = dateObj || new Date();
+      const y = d.getFullYear();
+      const m = String(d.getMonth() + 1).padStart(2, "0");
+      const day = String(d.getDate()).padStart(2, "0");
+      return `${y}-${m}-${day}`;
+    }
+
+    function getLocalTimestamp() {
+      const d = new Date();
+      const m = String(d.getMonth() + 1).padStart(2, "0");
+      const day = String(d.getDate()).padStart(2, "0");
+      const hh = String(d.getHours()).padStart(2, "0");
+      const mm = String(d.getMinutes()).padStart(2, "0");
+      return `${m}-${day} ${hh}:${mm}`;
+    }
+
+    function defaultEmeraldBank() {
+      return {
+        balance: 0,
+        lifetimeEarned: 0,
+        lifetimeSpent: 0,
+        pin: "1234",
+        pinCustomized: false,
+        rateMinPerEmerald: 1,
+        weekdayCapMin: 30,
+        weekendCapMin: 60,
+        weekendCoopCapMin: 90,
+        customRewards: [],
+        issueLedger: {},
+        dailyRedeemed: {},
+        saveDates: [],
+        logs: []
+      };
+    }
+
+    function loadEmeraldBank() {
+      const def = defaultEmeraldBank();
+      try {
+        const raw = JSON.parse(localStorage.getItem(STORAGE_EMERALD) || "null");
+        if (!raw || typeof raw !== "object") return def;
+        return {
+          ...def,
+          ...raw,
+          balance: Math.max(0, Number(raw.balance) || 0),
+          lifetimeEarned: Math.max(0, Number(raw.lifetimeEarned) || 0),
+          lifetimeSpent: Math.max(0, Number(raw.lifetimeSpent) || 0),
+          rateMinPerEmerald: Math.max(0.5, Number(raw.rateMinPerEmerald) || 1),
+          weekdayCapMin: Math.max(10, Number(raw.weekdayCapMin) || 30),
+          weekendCapMin: Math.max(15, Number(raw.weekendCapMin) || 60),
+          weekendCoopCapMin: Math.max(30, Number(raw.weekendCoopCapMin) || 90),
+          customRewards: Array.isArray(raw.customRewards) ? raw.customRewards : [],
+          issueLedger: (raw.issueLedger && typeof raw.issueLedger === "object") ? raw.issueLedger : {},
+          dailyRedeemed: (raw.dailyRedeemed && typeof raw.dailyRedeemed === "object") ? raw.dailyRedeemed : {},
+          saveDates: Array.isArray(raw.saveDates) ? raw.saveDates : [],
+          logs: Array.isArray(raw.logs) ? raw.logs : []
+        };
+      } catch (e) {
+        return def;
+      }
+    }
+
+    function saveEmeraldBank(bank) {
+      try { localStorage.setItem(STORAGE_EMERALD, JSON.stringify(bank)); } catch (e) {}
+    }
+
+    function getIssueLedger(bank) {
+      if (!bank.issueLedger[ISSUE_SLUG]) {
+        bank.issueLedger[ISSUE_SLUG] = { days: {}, streak5Awarded: false, streak7Awarded: false };
+      }
+      const iss = bank.issueLedger[ISSUE_SLUG];
+      if (!iss.days || typeof iss.days !== "object") iss.days = {};
+      return iss;
+    }
+
+    function getDayLedger(bank, dayIdx) {
+      const iss = getIssueLedger(bank);
+      const k = String(dayIdx);
+      if (!iss.days[k]) {
+        iss.days[k] = { quiz: { sf: false, sa: false, iq: false }, baseAwarded: 0, missionAwarded: 0 };
+      }
+      if (!iss.days[k].quiz) iss.days[k].quiz = { sf: false, sa: false, iq: false };
+      return iss.days[k];
+    }
+
+    function computeWeekEarned(bank) {
+      const iss = getIssueLedger(bank);
+      let sum = 0;
+      Object.values(iss.days || {}).forEach(d => {
+        sum += (Number(d.baseAwarded) || 0) + (Number(d.missionAwarded) || 0);
+      });
+      if (iss.streak5Awarded) sum += 15;
+      if (iss.streak7Awarded) sum += 20;
+      return sum;
+    }
+
+    let emeraldToastTimer = null;
+    function showEmeraldToast(msg) {
+      const el = document.getElementById("emerald-toast");
+      if (!el) return;
+      el.textContent = msg;
+      el.classList.add("show");
+      if (emeraldToastTimer) clearTimeout(emeraldToastTimer);
+      emeraldToastTimer = setTimeout(() => el.classList.remove("show"), 4200);
+    }
+
+    function playEmeraldChime(kind) {
+      try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return;
+        const ctx = new AudioCtx();
+        const freqs = kind === "warn" ? [523.25, 440] : (kind === "done" ? [587.33, 659.25, 880] : [523.25, 659.25, 783.99]);
+        freqs.forEach((f, idx) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = "triangle";
+          osc.frequency.value = f;
+          const t0 = ctx.currentTime + idx * 0.11;
+          gain.gain.setValueAtTime(0.001, t0);
+          gain.gain.exponentialRampToValueAtTime(0.11, t0 + 0.02);
+          gain.gain.exponentialRampToValueAtTime(0.001, t0 + 0.22);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(t0);
+          osc.stop(t0 + 0.24);
+        });
+      } catch (e) {}
+    }
+
+    function creditEmeralds(bank, amount, note, countForSaver) {
+      if (amount <= 0) return false;
+      bank.balance += amount;
+      bank.lifetimeEarned += amount;
+      bank.logs.unshift({ ts: getLocalTimestamp(), type: "earn", delta: amount, note });
+      if (bank.logs.length > 60) bank.logs = bank.logs.slice(0, 60);
+
+      let saverBonus = false;
+      if (countForSaver) {
+        const today = getLocalDateKey();
+        if (!bank.saveDates.includes(today)) {
+          bank.saveDates.push(today);
+        }
+        if (bank.saveDates.length >= 3) {
+          bank.saveDates = [];
+          bank.balance += 5;
+          bank.lifetimeEarned += 5;
+          bank.logs.unshift({ ts: getLocalTimestamp(), type: "earn", delta: 5, note: "🟣 末影箱连存 3 天不花 · 附魔利息奖励" });
+          saverBonus = true;
+        }
+      }
+      return saverBonus;
+    }
+
+    function checkWeeklyChests(bank) {
+      const iss = getIssueLedger(bank);
+      const clearedDays = Object.values(iss.days || {}).filter(d => (d.baseAwarded || 0) >= 15).length;
+      const msgs = [];
+      if (clearedDays >= 5 && !iss.streak5Awarded) {
+        iss.streak5Awarded = true;
+        creditEmeralds(bank, 15, "🛡 解锁本周 5 天铁傀儡连击宝箱", false);
+        msgs.push("🛡 5 天铁傀儡宝箱 +15 💚");
+      }
+      if (clearedDays >= 7 && !iss.streak7Awarded) {
+        iss.streak7Awarded = true;
+        creditEmeralds(bank, 20, "💎 解锁本周 7 天钻石全勤宝箱", false);
+        msgs.push("💎 7 天钻石宝箱 +20 💚");
+      }
+      return msgs;
+    }
+
+    function recordQuizSolved(dayIdx, qType) {
+      const bank = loadEmeraldBank();
+      const dRec = getDayLedger(bank, dayIdx);
+      if (!dRec.quiz[qType]) {
+        dRec.quiz[qType] = true;
+        saveEmeraldBank(bank);
+        const prog = loadProgress();
+        if (prog[String(dayIdx)]) {
+          tryAwardDailyBase(dayIdx, false);
+        } else {
+          renderEmeraldUI();
+        }
+      }
+    }
+
+    function tryAwardDailyBase(dayIdx, fromCompleteClick) {
+      const bank = loadEmeraldBank();
+      const dRec = getDayLedger(bank, dayIdx);
+      const q = dRec.quiz || {};
+      const solvedCount = (q.sf ? 1 : 0) + (q.sa ? 1 : 0) + (q.iq ? 1 : 0);
+      const meta = MISSION_META[dayIdx] || { dayShort: "Day " + (dayIdx + 1) };
+
+      if (dRec.baseAwarded >= 15) {
+        renderEmeraldUI();
+        return;
+      }
+      if (solvedCount < 3) {
+        if (fromCompleteClick) {
+          showEmeraldToast(`🧩 已打卡！再答对剩下 ${3 - solvedCount} 道小测，自动解锁今日 +15 💚 绿宝石！`);
+        }
+        renderEmeraldUI();
+        return;
+      }
+
+      dRec.baseAwarded = 15;
+      const gotSaver = creditEmeralds(bank, 15, `${meta.dayShort} 精读 + 3 道小测通关打卡`, true);
+      const chestMsgs = checkWeeklyChests(bank);
+      if (gotSaver) chestMsgs.push("🟣 连存 3 天附魔利息 +5 💚");
+      saveEmeraldBank(bank);
+      playEmeraldChime("earn");
+      showEmeraldToast("💚 +15 绿宝石已存入末影箱！" + (chestMsgs.length ? " 额外解锁 " + chestMsgs.join(" & ") : ""));
+      renderEmeraldUI();
+    }
+
+    function awardMissionStarsEmeralds(dayIdx, res) {
+      if (!res) return;
+      const totalStars = (res.science_stars || 1) + (res.vocab_stars || 1) + (res.craft_stars || 1) + (res.clarity_stars || 1);
+      const target = totalStars >= 11 ? 10 : (totalStars >= 8 ? 6 : 3);
+      const bank = loadEmeraldBank();
+      const dRec = getDayLedger(bank, dayIdx);
+      const prev = Number(dRec.missionAwarded) || 0;
+      const meta = MISSION_META[dayIdx] || { dayShort: "Day " + (dayIdx + 1) };
+
+      if (target > prev) {
+        const delta = target - prev;
+        dRec.missionAwarded = target;
+        const note = prev > 0
+          ? `${meta.dayShort} 第 4 题改写冲星 ${totalStars}/12★（补差额）`
+          : `${meta.dayShort} 第 4 题 Mission Brief 评分 ${totalStars}/12★`;
+        const gotSaver = creditEmeralds(bank, delta, note, true);
+        saveEmeraldBank(bank);
+        playEmeraldChime("earn");
+        showEmeraldToast(`💚 第 4 题获得 ${totalStars}/12★，奖励 +${delta} 绿宝石！` + (gotSaver ? " 额外触发 🟣 连存 3 天 +5 💚！" : ""));
+      }
+      renderEmeraldUI();
+    }
+
+    function getShopCatalog(bank) {
+      const rate = bank.rateMinPerEmerald || 1;
+      const costFor = (mins) => Math.max(1, Math.ceil(mins / rate));
+      const coopMax = bank.weekendCoopCapMin || 90;
+      const builtIn = [
+        {
+          id: "quick15",
+          icon: "⚡",
+          title: "15 分钟快速建造",
+          desc: "当天现兑 · 适合工作日完成阅读后轻松玩一小局（建议先离屏远眺休息 5 分钟）。",
+          minutes: 15,
+          cost: costFor(15),
+          weekendOnly: false,
+          isCoopGoal: false
+        },
+        {
+          id: "quick20",
+          icon: "🧱",
+          title: "20 分钟红石工程",
+          desc: "当天现兑 · 刚好完成一个小建筑或红石电路测试，剩 5 分钟自动温和提醒存档。",
+          minutes: 20,
+          cost: costFor(20),
+          weekendOnly: false,
+          isCoopGoal: false
+        },
+        {
+          id: "quick30",
+          icon: "⛏️",
+          title: "30 分钟标准冒险",
+          desc: "工作日封顶档 · 探索矿洞或建造基地，到点准时收尾不影响作业和睡眠。",
+          minutes: 30,
+          cost: costFor(30),
+          weekendOnly: false,
+          isCoopGoal: false
+        },
+        {
+          id: "wknd60",
+          icon: "🌟",
+          title: "周末 60 分钟畅玩",
+          desc: "周末专享 · 启动后自动分成两段（30 分钟 + 10 分钟护眼远眺休息 + 30 分钟）。",
+          minutes: 60,
+          cost: costFor(60),
+          weekendOnly: true,
+          isCoopGoal: false
+        },
+        {
+          id: "coop60",
+          icon: "🧑‍🤝‍🧑",
+          title: "周末和同学联机（60 分钟）",
+          desc: "周末联机热身档 · 约同学一起联机建造，自动分 2 段 30 分钟护眼计时。",
+          minutes: 60,
+          cost: costFor(60),
+          weekendOnly: true,
+          isCoopGoal: true
+        },
+        {
+          id: "coop90",
+          icon: "🏆",
+          title: `大目标：周末和同学联机（${(coopMax / 60).toFixed(coopMax % 60 === 0 ? 0 : 1)} 小时）`,
+          desc: `攒分终极目标（单日最长 ${coopMax} 分钟上限）· 自动分成每 30 分钟一段 + 10 分钟护眼休息，玩得痛快又护眼！`,
+          minutes: coopMax,
+          cost: costFor(coopMax),
+          weekendOnly: true,
+          isCoopGoal: true,
+          isGrandGoal: true
+        }
+      ];
+      const extras = (bank.customRewards || []).map(r => ({
+        id: r.id,
+        icon: r.icon || "🎁",
+        title: r.title,
+        desc: r.minutes > 0 ? `家长自定义奖励 · 包含 ${r.minutes} 分钟游戏计时。` : "家长自定义实物/特权奖励（核销后由爸爸/妈妈兑现）。",
+        minutes: Number(r.minutes) || 0,
+        cost: Math.max(1, Number(r.cost) || 10),
+        weekendOnly: !!r.weekendOnly,
+        isCoopGoal: false,
+        isCustom: true
+      }));
+      return [...builtIn, ...extras];
+    }
+
+    function describeSplitPlan(mins) {
+      if (mins <= 0) return "实物/特权奖励（无需游戏倒计时）";
+      if (mins <= 30) return `1 段 × ${mins} 分钟（剩 5 分钟自动提醒存档收尾）`;
+      const chunks = [];
+      let rem = mins;
+      while (rem > 0) {
+        const c = Math.min(30, rem);
+        chunks.push(c);
+        rem -= c;
+      }
+      return `自动护眼分段：${chunks.map(c => c + " 分钟").join(" → 👀休息 10 分钟 → ")}`;
+    }
+
+    let pendingTradeItem = null;
+    function openTradeModal(itemId) {
+      const bank = loadEmeraldBank();
+      const item = getShopCatalog(bank).find(x => x.id === itemId);
+      if (!item) return;
+      pendingTradeItem = item;
+
+      const today = getLocalDateKey();
+      const dayOfWeek = new Date().getDay();
+      const isWeekend = (dayOfWeek === 0 || dayOfWeek === 6);
+      const usedMin = (bank.dailyRedeemed[today] && bank.dailyRedeemed[today].minutes) || 0;
+      const allowedCap = isWeekend
+        ? (item.isCoopGoal ? bank.weekendCoopCapMin : bank.weekendCapMin)
+        : bank.weekdayCapMin;
+
+      const titleEl = document.getElementById("pin-modal-title");
+      const sumEl = document.getElementById("pin-modal-summary");
+      const overWrap = document.getElementById("pin-modal-override-wrap");
+      const overChk = document.getElementById("pin-modal-override-chk");
+      const inp = document.getElementById("pin-modal-input");
+      const err = document.getElementById("pin-modal-err");
+
+      if (titleEl) titleEl.textContent = item.icon + " " + item.title;
+      const blockers = [];
+      if (bank.balance < item.cost) {
+        blockers.push(`绿宝石不足（还差 ${item.cost - bank.balance} 💚）`);
+      }
+      let needOverride = false;
+      if (item.weekendOnly && !isWeekend) {
+        needOverride = true;
+        blockers.push("此项为周末专享，今天是工作日");
+      }
+      if (item.minutes > 0 && (usedMin + item.minutes) > allowedCap) {
+        needOverride = true;
+        blockers.push(`将超出今日上限（已用 ${usedMin} 分钟 + 本次 ${item.minutes} 分钟 > 上限 ${allowedCap} 分钟）`);
+      }
+
+      if (sumEl) {
+        sumEl.innerHTML = `
+          <div><strong>本次消耗：</strong><span style="color:var(--green); font-weight:800;">-${item.cost} 💚</span>（兑换后余额：${Math.max(0, bank.balance - item.cost)} 💚）</div>
+          <div><strong>护眼计时：</strong>${escHtml(describeSplitPlan(item.minutes))}</div>
+          ${blockers.length ? `<div style="margin-top:0.4rem; color:var(--amber); font-weight:700;">⚠️ 提示：${escHtml(blockers.join("；"))}</div>` : ""}
+        `;
+      }
+      if (overWrap) overWrap.classList.toggle("hidden", !needOverride);
+      if (overChk) overChk.checked = false;
+      if (inp) inp.value = "";
+      if (err) err.textContent = "";
+
+      const modal = document.getElementById("pin-trade-modal");
+      if (modal) modal.classList.remove("hidden");
+      if (inp) setTimeout(() => inp.focus(), 60);
+    }
+
+    function closeTradeModal() {
+      pendingTradeItem = null;
+      const modal = document.getElementById("pin-trade-modal");
+      if (modal) modal.classList.add("hidden");
+    }
+
+    function confirmPinTrade() {
+      if (!pendingTradeItem) return;
+      const bank = loadEmeraldBank();
+      const item = pendingTradeItem;
+      const inp = document.getElementById("pin-modal-input");
+      const err = document.getElementById("pin-modal-err");
+      const overChk = document.getElementById("pin-modal-override-chk");
+      const pinVal = (inp ? inp.value : "").trim();
+      const overrideOn = !!(overChk && overChk.checked);
+
+      if (pinVal !== bank.pin) {
+        if (err) err.textContent = "❌ 家长 PIN 码不正确，请重试（初始默认 1234）。";
+        return;
+      }
+      if (bank.balance < item.cost) {
+        if (err) err.textContent = `❌ 绿宝石余额不足，还差 ${item.cost - bank.balance} 💚！`;
+        return;
+      }
+
+      const today = getLocalDateKey();
+      const dayOfWeek = new Date().getDay();
+      const isWeekend = (dayOfWeek === 0 || dayOfWeek === 6);
+      const usedMin = (bank.dailyRedeemed[today] && bank.dailyRedeemed[today].minutes) || 0;
+      const allowedCap = isWeekend
+        ? (item.isCoopGoal ? bank.weekendCoopCapMin : bank.weekendCapMin)
+        : bank.weekdayCapMin;
+
+      if (!overrideOn) {
+        if (item.weekendOnly && !isWeekend) {
+          if (err) err.textContent = "❌ 这是周末专享奖励；若今天是节假日，请勾选上方“家长特批”。";
+          return;
+        }
+        if (item.minutes > 0 && (usedMin + item.minutes) > allowedCap) {
+          if (err) err.textContent = `❌ 今日已兑换 ${usedMin} 分钟，加上本次将超过上限 ${allowedCap} 分钟；如需放宽请勾选上方“家长特批”。`;
+          return;
+        }
+      }
+
+      bank.balance -= item.cost;
+      bank.lifetimeSpent += item.cost;
+      bank.saveDates = [];
+      if (!bank.dailyRedeemed[today]) bank.dailyRedeemed[today] = { minutes: 0, coopUsed: false };
+      bank.dailyRedeemed[today].minutes += item.minutes;
+      if (item.isCoopGoal) bank.dailyRedeemed[today].coopUsed = true;
+      bank.logs.unshift({
+        ts: getLocalTimestamp(),
+        type: "spend",
+        delta: -item.cost,
+        note: `兑换 ${item.title}${overrideOn ? "（家长特批）" : ""}`
+      });
+      if (bank.logs.length > 60) bank.logs = bank.logs.slice(0, 60);
+      saveEmeraldBank(bank);
+
+      closeTradeModal();
+      renderEmeraldUI();
+      playEmeraldChime("done");
+      showEmeraldToast(`✅ 核销成功！已扣除 ${item.cost} 💚，祝玩得开心！`);
+      if (item.minutes > 0) {
+        startMcEyeSafeTimer(item.title, item.minutes);
+      }
+    }
+
+    /* ==================== EYE-SAFE MULTI-BLOCK MINECRAFT TIMER ==================== */
+    let mcTimerState = null;
+    let mcTimerInterval = null;
+
+    function buildTimerPhases(title, totalMinutes) {
+      const chunks = [];
+      let rem = totalMinutes;
+      while (rem > 0) {
+        const c = Math.min(30, rem);
+        chunks.push(c);
+        rem -= c;
+      }
+      const phases = [];
+      chunks.forEach((mins, idx) => {
+        phases.push({
+          kind: "play",
+          label: chunks.length > 1
+            ? `🎮 第 ${idx + 1} / ${chunks.length} 段游戏（${mins} 分钟）· ${title}`
+            : `🎮 游戏时间（${mins} 分钟）· ${title}`,
+          seconds: mins * 60
+        });
+        if (idx < chunks.length - 1) {
+          phases.push({
+            kind: "break",
+            label: `👀 护眼休息（10 分钟）：请离屏喝口水、远眺 6 米外窗景！`,
+            seconds: 10 * 60
+          });
+        }
+      });
+      return phases;
+    }
+
+    function saveMcTimerState() {
+      try {
+        if (mcTimerState) localStorage.setItem(STORAGE_MC_TIMER, JSON.stringify(mcTimerState));
+        else localStorage.removeItem(STORAGE_MC_TIMER);
+      } catch (e) {}
+    }
+
+    function formatClockMMSS(totalSec) {
+      const s = Math.max(0, Math.ceil(totalSec));
+      const mm = String(Math.floor(s / 60)).padStart(2, "0");
+      const ss = String(s % 60).padStart(2, "0");
+      return `${mm}:${ss}`;
+    }
+
+    function startMcEyeSafeTimer(title, totalMinutes) {
+      const phases = buildTimerPhases(title, totalMinutes);
+      if (!phases.length) return;
+      mcTimerState = {
+        title,
+        phases,
+        phaseIdx: 0,
+        paused: false,
+        waitingNext: false,
+        warned5m: false,
+        remainingSec: phases[0].seconds,
+        phaseEndAt: Date.now() + phases[0].seconds * 1000
+      };
+      saveMcTimerState();
+      runMcTimerLoop();
+      renderMcTimerUI();
+    }
+
+    function runMcTimerLoop() {
+      if (mcTimerInterval) clearInterval(mcTimerInterval);
+      mcTimerInterval = setInterval(tickMcTimer, 1000);
+    }
+
+    function tickMcTimer() {
+      if (!mcTimerState) {
+        if (mcTimerInterval) clearInterval(mcTimerInterval);
+        mcTimerInterval = null;
+        return;
+      }
+      if (mcTimerState.paused || mcTimerState.waitingNext) {
+        renderMcTimerUI();
+        return;
+      }
+      const rem = Math.max(0, Math.round((mcTimerState.phaseEndAt - Date.now()) / 1000));
+      mcTimerState.remainingSec = rem;
+      const cur = mcTimerState.phases[mcTimerState.phaseIdx];
+
+      if (cur && cur.kind === "play" && rem > 0 && rem <= 300 && !mcTimerState.warned5m) {
+        mcTimerState.warned5m = true;
+        saveMcTimerState();
+        playEmeraldChime("warn");
+        if (!isQueuePlaying) {
+          speakText("Five minutes left in this Minecraft round. Please wrap up and save your world!");
+        }
+      }
+
+      if (rem <= 0) {
+        playEmeraldChime("done");
+        if (mcTimerState.phaseIdx < mcTimerState.phases.length - 1) {
+          mcTimerState.waitingNext = true;
+          mcTimerState.paused = true;
+          saveMcTimerState();
+          const nextPh = mcTimerState.phases[mcTimerState.phaseIdx + 1];
+          if (!isQueuePlaying) {
+            speakText(nextPh.kind === "break"
+              ? "Time for a ten minute eye break! Please rest your eyes and look far away."
+              : "Eye break finished! Tap start next round when ready.");
+          }
+        } else {
+          mcTimerState.waitingNext = false;
+          mcTimerState.paused = true;
+          saveMcTimerState();
+          if (!isQueuePlaying) {
+            speakText("Minecraft time is complete! Great job saving your world on time.");
+          }
+        }
+      }
+      renderMcTimerUI();
+    }
+
+    function toggleMcTimerPause() {
+      if (!mcTimerState || mcTimerState.waitingNext) return;
+      if (mcTimerState.remainingSec <= 0) return;
+      if (mcTimerState.paused) {
+        mcTimerState.paused = false;
+        mcTimerState.phaseEndAt = Date.now() + mcTimerState.remainingSec * 1000;
+      } else {
+        mcTimerState.remainingSec = Math.max(0, Math.round((mcTimerState.phaseEndAt - Date.now()) / 1000));
+        mcTimerState.paused = true;
+      }
+      saveMcTimerState();
+      renderMcTimerUI();
+    }
+
+    function advanceMcTimerPhase() {
+      if (!mcTimerState) return;
+      if (mcTimerState.phaseIdx >= mcTimerState.phases.length - 1) {
+        stopMcTimer();
+        return;
+      }
+      mcTimerState.phaseIdx += 1;
+      const cur = mcTimerState.phases[mcTimerState.phaseIdx];
+      mcTimerState.remainingSec = cur.seconds;
+      mcTimerState.phaseEndAt = Date.now() + cur.seconds * 1000;
+      mcTimerState.paused = false;
+      mcTimerState.waitingNext = false;
+      mcTimerState.warned5m = false;
+      saveMcTimerState();
+      renderMcTimerUI();
+    }
+
+    function stopMcTimer() {
+      mcTimerState = null;
+      if (mcTimerInterval) clearInterval(mcTimerInterval);
+      mcTimerInterval = null;
+      saveMcTimerState();
+      renderMcTimerUI();
+    }
+
+    function restoreMcTimer() {
+      try {
+        const raw = JSON.parse(localStorage.getItem(STORAGE_MC_TIMER) || "null");
+        if (!raw || !Array.isArray(raw.phases) || !raw.phases.length) return;
+        mcTimerState = raw;
+        runMcTimerLoop();
+        tickMcTimer();
+      } catch (e) {}
+    }
+
+    function renderMcTimerUI() {
+      const card = document.getElementById("mc-timer-card");
+      const banner = document.getElementById("mc-timer-banner");
+      if (!mcTimerState) {
+        if (card) card.classList.add("hidden");
+        if (banner) banner.classList.add("hidden");
+        return;
+      }
+      const cur = mcTimerState.phases[mcTimerState.phaseIdx] || { kind: "play", label: "🎮 Minecraft" };
+      const rem = mcTimerState.paused
+        ? mcTimerState.remainingSec
+        : Math.max(0, Math.round((mcTimerState.phaseEndAt - Date.now()) / 1000));
+      const clockStr = formatClockMMSS(rem);
+      const isLast = mcTimerState.phaseIdx >= mcTimerState.phases.length - 1;
+      const isWarn = cur.kind === "play" && rem > 0 && rem <= 300;
+
+      if (card) {
+        card.classList.remove("hidden", "is-break", "is-warn");
+        if (cur.kind === "break") card.classList.add("is-break");
+        else if (isWarn) card.classList.add("is-warn");
+      }
+      if (banner) banner.classList.remove("hidden");
+
+      const phaseDesc = document.getElementById("mc-timer-phase-desc");
+      const clockEl = document.getElementById("mc-timer-clock");
+      const alertEl = document.getElementById("mc-timer-alert");
+      const mainBtn = document.getElementById("mc-timer-main-btn");
+      const nextBtn = document.getElementById("mc-timer-next-btn");
+      const bPhase = document.getElementById("mc-banner-phase");
+      const bClock = document.getElementById("mc-banner-clock");
+      const bPause = document.getElementById("mc-banner-pause-btn");
+
+      if (phaseDesc) phaseDesc.textContent = cur.label;
+      if (clockEl) clockEl.textContent = clockStr;
+      if (bPhase) bPhase.textContent = cur.kind === "break" ? "👀 护眼休息中" : "🎮 Minecraft 计时中";
+      if (bClock) bClock.textContent = clockStr;
+      if (bPause) bPause.textContent = mcTimerState.paused ? "▶ Resume" : "⏸ Pause";
+
+      if (alertEl) {
+        if (mcTimerState.waitingNext) {
+          const nextPh = mcTimerState.phases[mcTimerState.phaseIdx + 1];
+          alertEl.textContent = nextPh && nextPh.kind === "break"
+            ? "⏰ 本段 30 分钟结束！请先停下游戏，点击下方开始「10 分钟护眼远眺休息」。"
+            : "✅ 10 分钟护眼休息完成！准备好后点击下方开始下一段游戏。";
+          alertEl.classList.remove("hidden");
+        } else if (rem <= 0 && isLast) {
+          alertEl.textContent = "🎉 本次 Minecraft 时间全部结束！干得漂亮，记得保存地图收工哦。";
+          alertEl.classList.remove("hidden");
+        } else if (isWarn) {
+          alertEl.textContent = "⏰ 还有不到 5 分钟！准备给建筑收尾并保存地图哦。";
+          alertEl.classList.remove("hidden");
+        } else {
+          alertEl.classList.add("hidden");
+        }
+      }
+
+      if (mainBtn) {
+        mainBtn.classList.toggle("hidden", mcTimerState.waitingNext || (rem <= 0 && isLast));
+        mainBtn.textContent = mcTimerState.paused ? "▶ 继续计时" : "⏸ 暂停";
+      }
+      if (nextBtn) {
+        nextBtn.classList.toggle("hidden", !mcTimerState.waitingNext);
+        if (mcTimerState.waitingNext) {
+          const nextPh = mcTimerState.phases[mcTimerState.phaseIdx + 1];
+          nextBtn.textContent = nextPh && nextPh.kind === "break" ? "👀 开始 10 分钟护眼休息" : "▶ 开始下一段游戏";
+        }
+      }
+    }
+
+    /* ==================== PARENT EMERALD & PIN SETTINGS ==================== */
+    function setParentEmeraldMsg(text, isErr) {
+      const el = document.getElementById("parent-emerald-msg");
+      if (!el) return;
+      el.style.color = isErr ? "var(--red)" : "var(--green)";
+      el.textContent = text;
+    }
+
+    function updateParentPin() {
+      const bank = loadEmeraldBank();
+      const oldPin = (document.getElementById("parent-old-pin").value || "").trim();
+      const newPin = (document.getElementById("parent-new-pin").value || "").trim();
+      if (oldPin !== bank.pin) {
+        setParentEmeraldMsg("❌ 当前 PIN 码不正确（未修改过时初始默认为 1234）。", true);
+        return;
+      }
+      if (!/^\d{4}$/.test(newPin)) {
+        setParentEmeraldMsg("❌ 新 PIN 码必须是 4 位纯数字。", true);
+        return;
+      }
+      bank.pin = newPin;
+      bank.pinCustomized = true;
+      saveEmeraldBank(bank);
+      document.getElementById("parent-old-pin").value = "";
+      document.getElementById("parent-new-pin").value = "";
+      setParentEmeraldMsg("✅ 4 位家长核销 PIN 码已更新并保存在本机 iPad！", false);
+      renderEmeraldUI();
+    }
+
+    function saveEmeraldSettings() {
+      const bank = loadEmeraldBank();
+      const pinVal = (document.getElementById("cfg-save-pin").value || "").trim();
+      if (pinVal !== bank.pin) {
+        setParentEmeraldMsg("❌ 家长 PIN 码不正确，无法修改规则。", true);
+        return;
+      }
+      const rate = parseFloat(document.getElementById("cfg-rate").value);
+      const wdCap = parseInt(document.getElementById("cfg-weekday-cap").value, 10);
+      const weCap = parseInt(document.getElementById("cfg-weekend-cap").value, 10);
+      const coopCap = parseInt(document.getElementById("cfg-coop-cap").value, 10);
+      if (!(rate >= 0.5 && rate <= 5) || !(wdCap >= 10 && wdCap <= 90) || !(weCap >= 15 && weCap <= 120) || !(coopCap >= 30 && coopCap <= 120)) {
+        setParentEmeraldMsg("❌ 参数范围无效，请检查汇率（0.5–5）与时长上限。", true);
+        return;
+      }
+      bank.rateMinPerEmerald = rate;
+      bank.weekdayCapMin = wdCap;
+      bank.weekendCapMin = weCap;
+      bank.weekendCoopCapMin = coopCap;
+      saveEmeraldBank(bank);
+      document.getElementById("cfg-save-pin").value = "";
+      setParentEmeraldMsg(`✅ 已保存：1 💚 = ${rate} 分钟 · 工作日上限 ${wdCap}m · 周末常规 ${weCap}m · 周末联机大目标 ${coopCap}m。`, false);
+      renderEmeraldUI();
+    }
+
+    function parentAdjustEmeralds() {
+      const bank = loadEmeraldBank();
+      const pinVal = (document.getElementById("adj-pin").value || "").trim();
+      if (pinVal !== bank.pin) {
+        setParentEmeraldMsg("❌ 家长 PIN 码不正确，无法调分。", true);
+        return;
+      }
+      const amt = parseInt(document.getElementById("adj-amount").value, 10);
+      const note = (document.getElementById("adj-note").value || "").trim() || (amt >= 0 ? "家长额外奖励" : "家长手动扣减");
+      if (!amt || isNaN(amt)) {
+        setParentEmeraldMsg("❌ 请输入非零整数（如 10 或 -5）。", true);
+        return;
+      }
+      bank.balance = Math.max(0, bank.balance + amt);
+      if (amt > 0) bank.lifetimeEarned += amt;
+      else bank.lifetimeSpent += Math.abs(amt);
+      bank.logs.unshift({ ts: getLocalTimestamp(), type: "adjust", delta: amt, note: "家长调整：" + note });
+      if (bank.logs.length > 60) bank.logs = bank.logs.slice(0, 60);
+      saveEmeraldBank(bank);
+      document.getElementById("adj-amount").value = "";
+      document.getElementById("adj-note").value = "";
+      document.getElementById("adj-pin").value = "";
+      setParentEmeraldMsg(`✅ 调分完成（${amt > 0 ? "+" : ""}${amt} 💚），当前余额 ${bank.balance} 💚。`, false);
+      renderEmeraldUI();
+    }
+
+    function addCustomReward() {
+      const bank = loadEmeraldBank();
+      const pinVal = (document.getElementById("custom-rew-pin").value || "").trim();
+      if (pinVal !== bank.pin) {
+        setParentEmeraldMsg("❌ 家长 PIN 码不正确，无法添加货架商品。", true);
+        return;
+      }
+      const title = (document.getElementById("custom-rew-title").value || "").trim();
+      const cost = parseInt(document.getElementById("custom-rew-cost").value, 10);
+      const mins = parseInt(document.getElementById("custom-rew-min").value || "0", 10);
+      if (!title || !(cost >= 5)) {
+        setParentEmeraldMsg("❌ 请填写商品名称和所需绿宝石（至少 5 💚）。", true);
+        return;
+      }
+      bank.customRewards.push({
+        id: "cust_" + Date.now(),
+        icon: "🎁",
+        title,
+        cost,
+        minutes: Math.max(0, isNaN(mins) ? 0 : mins),
+        weekendOnly: false
+      });
+      saveEmeraldBank(bank);
+      document.getElementById("custom-rew-title").value = "";
+      document.getElementById("custom-rew-cost").value = "";
+      document.getElementById("custom-rew-min").value = "";
+      document.getElementById("custom-rew-pin").value = "";
+      setParentEmeraldMsg(`✅ 已上架自定义奖励「${title}」（${cost} 💚）！`, false);
+      renderEmeraldUI();
+    }
+
+    function deleteCustomReward(id) {
+      const bank = loadEmeraldBank();
+      const pin = prompt("请输入 4 位家长 PIN 码以移除该自定义商品：");
+      if (pin === null) return;
+      if (pin.trim() !== bank.pin) {
+        setParentEmeraldMsg("❌ PIN 码不正确，未删除。", true);
+        return;
+      }
+      bank.customRewards = (bank.customRewards || []).filter(r => r.id !== id);
+      saveEmeraldBank(bank);
+      setParentEmeraldMsg("✅ 已从村民货架移除该自定义商品。", false);
+      renderEmeraldUI();
+    }
+
+    function renderEmeraldUI() {
+      const bank = loadEmeraldBank();
+      const iss = getIssueLedger(bank);
+      const rate = bank.rateMinPerEmerald || 1;
+      const coopMax = bank.weekendCoopCapMin || 90;
+      const coopCost = Math.max(1, Math.ceil(coopMax / rate));
+      const weekEarned = computeWeekEarned(bank);
+      const today = getLocalDateKey();
+      const dow = new Date().getDay();
+      const isWeekend = (dow === 0 || dow === 6);
+      const usedTodayMin = (bank.dailyRedeemed[today] && bank.dailyRedeemed[today].minutes) || 0;
+      const stdCap = isWeekend ? bank.weekendCapMin : bank.weekdayCapMin;
+
+      const statEl = document.getElementById("stat-emeralds");
+      if (statEl) statEl.textContent = String(bank.balance);
+      const balEl = document.getElementById("trade-balance-num");
+      if (balEl) balEl.textContent = String(bank.balance);
+      const eqEl = document.getElementById("trade-equiv-text");
+      if (eqEl) {
+        const minsEq = Math.floor(bank.balance * rate);
+        eqEl.textContent = `当前可兑换约 ${minsEq} 分钟 Minecraft 时间（汇率：1 💚 = ${rate} 分钟）`;
+      }
+      const capEl = document.getElementById("trade-today-cap-pill");
+      if (capEl) {
+        capEl.textContent = isWeekend
+          ? `🎉 周末：已兑 ${usedTodayMin} / ${stdCap} 分钟（同学联机上限 ${coopMax} 分钟）`
+          : `📅 工作日：今日已兑 ${usedTodayMin} / ${stdCap} 分钟`;
+      }
+      const wkEl = document.getElementById("trade-week-earned-pill");
+      if (wkEl) wkEl.textContent = `本周已赚：${weekEarned} 💚 · 累计已赚：${bank.lifetimeEarned} 💚`;
+
+      // Grand Goal progress bar (Weekend Co-op 1.5h / 90m)
+      const pct = Math.min(100, Math.round((bank.balance / coopCost) * 100));
+      const ratioEl = document.getElementById("coop-goal-ratio");
+      if (ratioEl) ratioEl.textContent = `${bank.balance} / ${coopCost} 💚 (${pct}%)`;
+      const barEl = document.getElementById("coop-goal-bar");
+      if (barEl) barEl.style.width = pct + "%";
+      const hintEl = document.getElementById("coop-goal-hint");
+      if (hintEl) {
+        if (bank.balance >= coopCost) {
+          hintEl.textContent = isWeekend
+            ? "🎉 绿宝石已攒够，而且今天就是周末！点击下方「周末和同学联机（1.5 小时）」找爸爸核销开玩吧！"
+            : "🎉 绿宝石已攒够！存好等周末就可以和同学开启最长 1.5 小时的联机大局！";
+        } else {
+          const left = coopCost - bank.balance;
+          hintEl.textContent = `距离解锁「周末和同学联机（${coopMax} 分钟）」还差 ${left} 💚（约 ${Math.ceil(left / 22)} 天认真阅读 + 打卡）。`;
+        }
+      }
+
+      // Weekly chests + saver streak
+      const clearedDays = Object.values(iss.days || {}).filter(d => (d.baseAwarded || 0) >= 15).length;
+      const c5Box = document.getElementById("chest-5-box");
+      const c5Sub = document.getElementById("chest-5-sub");
+      if (c5Box) c5Box.classList.toggle("unlocked", !!iss.streak5Awarded);
+      if (c5Sub) c5Sub.textContent = iss.streak5Awarded ? "✓ 本周已领取！" : `本周通关 ${clearedDays} / 5 天`;
+
+      const c7Box = document.getElementById("chest-7-box");
+      const c7Sub = document.getElementById("chest-7-sub");
+      if (c7Box) c7Box.classList.toggle("unlocked", !!iss.streak7Awarded);
+      if (c7Sub) c7Sub.textContent = iss.streak7Awarded ? "✓ 本周已领取！" : `本周通关 ${clearedDays} / 7 天`;
+
+      const csBox = document.getElementById("chest-save-box");
+      const csSub = document.getElementById("chest-save-sub");
+      const saveCnt = (bank.saveDates || []).length;
+      if (csBox) csBox.classList.toggle("unlocked", saveCnt >= 2);
+      if (csSub) csSub.textContent = `连续赚分不花 ${saveCnt} / 3 天`;
+
+      // Villager Trade Shelf cards
+      const grid = document.getElementById("trade-shop-grid");
+      if (grid) {
+        const items = getShopCatalog(bank);
+        grid.innerHTML = items.map(it => {
+          const enough = bank.balance >= it.cost;
+          const lockedWeekday = it.weekendOnly && !isWeekend;
+          const itemCap = isWeekend ? (it.isCoopGoal ? coopMax : bank.weekendCapMin) : bank.weekdayCapMin;
+          const overCap = it.minutes > 0 && (usedTodayMin + it.minutes) > itemCap;
+          let btnLabel = `💚 申请兑换 (-${it.cost})`;
+          if (!enough) btnLabel = `还差 ${it.cost - bank.balance} 💚`;
+          else if (lockedWeekday) btnLabel = "🔒 周末开放（家长可特批）";
+          else if (overCap) btnLabel = "⏱ 今日限额已满（家长可特批）";
+
+          return `
+            <div class="trade-card ${it.isGrandGoal ? "coop-grand" : ""}">
+              <div>
+                <div style="display:flex; justify-content:space-between; align-items:center; gap:0.4rem;">
+                  <span class="trade-tag ${it.weekendOnly ? "weekend" : ""}">${it.weekendOnly ? "🎉 周末专享" : "⚡ 当天可兑"}</span>
+                  <span class="trade-card-cost">${it.cost} 💚</span>
+                </div>
+                <div class="font-display" style="font-size:1.12rem; font-weight:800; margin-top:0.55rem; color:var(--ink);">
+                  ${escHtml(it.icon)} ${escHtml(it.title)}
+                </div>
+                <div style="font-size:0.81rem; color:var(--ink-secondary); margin-top:0.32rem; line-height:1.5;">
+                  ${escHtml(it.desc)}
+                </div>
+              </div>
+              <div style="margin-top:0.35rem;">
+                <button type="button" class="${enough && !lockedWeekday && !overCap ? "btn-coach-primary" : "btn-outline btn-sm"}" style="width:100%; justify-content:center;" onclick="openTradeModal('${escHtml(it.id)}')">
+                  ${escHtml(btnLabel)}
+                </button>
+              </div>
+            </div>
+          `;
+        }).join("");
+      }
+
+      // Trade Log
+      const logList = document.getElementById("emerald-log-list");
+      if (logList) {
+        if (!bank.logs || !bank.logs.length) {
+          logList.innerHTML = '<div style="font-size:0.84rem; color:var(--ink-muted); padding:0.75rem;">还没有绿宝石记录——去完成今天的精读、3 道小测和第 4 题赚取第一桶绿宝石吧！</div>';
+        } else {
+          logList.innerHTML = bank.logs.slice(0, 25).map(l => {
+            const isPos = l.delta >= 0;
+            return `
+              <div class="emerald-log-row">
+                <span><span class="kicker" style="margin-right:0.45rem;">${escHtml(l.ts)}</span>${escHtml(l.note)}</span>
+                <strong style="color:${isPos ? "var(--green)" : "var(--amber)"};">${isPos ? "+" : ""}${l.delta} 💚</strong>
+              </div>
+            `;
+          }).join("");
+        }
+      }
+
+      // Daily cards inline emerald pills (Days 0..6)
+      for (let i = 0; i < 7; i++) {
+        const b = document.getElementById("day-emerald-badge-" + i);
+        if (!b) continue;
+        const dRec = getDayLedger(bank, i);
+        const q = dRec.quiz || {};
+        const qDone = (q.sf ? 1 : 0) + (q.sa ? 1 : 0) + (q.iq ? 1 : 0);
+        const earned = (dRec.baseAwarded || 0) + (dRec.missionAwarded || 0);
+        if (earned >= 25) {
+          b.textContent = "💚 今日满额 25 / 25";
+        } else if (dRec.baseAwarded >= 15) {
+          b.textContent = `💚 今日已赚 ${earned} / 25（第 4 题冲星最高 +10）`;
+        } else {
+          b.textContent = `💚 今日 ${earned} / 25 · 小测 ${qDone}/3`;
+        }
+      }
+
+      // Parent settings sync
+      const pinBadge = document.getElementById("pin-status-badge");
+      if (pinBadge) {
+        pinBadge.textContent = bank.pinCustomized ? "🔒 已启用自定义 4 位家长 PIN" : "🔒 当前 PIN：默认 1234（建议修改）";
+      }
+      const rInp = document.getElementById("cfg-rate");
+      if (rInp && document.activeElement !== rInp) rInp.value = String(rate);
+      const wdInp = document.getElementById("cfg-weekday-cap");
+      if (wdInp && document.activeElement !== wdInp) wdInp.value = String(bank.weekdayCapMin);
+      const weInp = document.getElementById("cfg-weekend-cap");
+      if (weInp && document.activeElement !== weInp) weInp.value = String(bank.weekendCapMin);
+      const coInp = document.getElementById("cfg-coop-cap");
+      if (coInp && document.activeElement !== coInp) coInp.value = String(coopMax);
+
+      const cList = document.getElementById("custom-rew-list");
+      if (cList) {
+        cList.innerHTML = (bank.customRewards || []).map(r => `
+          <span class="trade-tag" style="display:inline-flex; align-items:center; gap:0.35rem;">
+            ${escHtml(r.icon || "🎁")} ${escHtml(r.title)} (${r.cost}💚)
+            <button type="button" onclick="deleteCustomReward('${escHtml(r.id)}')" style="border:none; background:none; color:var(--red); font-weight:800; cursor:pointer; padding:0;">✕</button>
+          </span>
+        `).join("");
       }
     }
 
@@ -5528,6 +7043,21 @@
         }
       }
       updateCoachStatusUI();
+      renderEmeraldUI();
+      restoreMcTimer();
+
+      const pinInp = document.getElementById("pin-modal-input");
+      if (pinInp) {
+        pinInp.addEventListener("keydown", (e) => {
+          if (e.key === "Enter") confirmPinTrade();
+        });
+      }
+      const pinModal = document.getElementById("pin-trade-modal");
+      if (pinModal) {
+        pinModal.addEventListener("click", (e) => {
+          if (e.target === pinModal) closeTradeModal();
+        });
+      }
 
       document.querySelectorAll('input[name="day-nav"], input[name="track-nav"], input[name="sec-nav"]').forEach(inp => {
         inp.addEventListener("change", () => stopNarration());
