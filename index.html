@@ -632,6 +632,40 @@
       filter: none;
     }
 
+    .ipa-phonetic {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.34rem;
+      font-family: "SF Pro Text", "Lucida Grande", "Charis SIL", "Doulos SIL", "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 0.86rem;
+      font-weight: 500;
+      letter-spacing: 0.015em;
+      color: var(--accent);
+      background-color: var(--accent-soft);
+      border: 1px solid var(--rule);
+      border-radius: 6px;
+      padding: 0.12rem 0.5rem;
+      cursor: pointer;
+      transition: background-color 0.15s, border-color 0.15s;
+    }
+    .ipa-phonetic:hover {
+      border-color: var(--accent);
+    }
+    .ipa-phonetic .ipa-tag {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      opacity: 0.78;
+      text-transform: uppercase;
+    }
+    .ipa-phonetic-inline {
+      font-family: "SF Pro Text", "Lucida Grande", "Charis SIL", "Doulos SIL", "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 0.78rem;
+      color: var(--ink-secondary);
+      margin-left: 0.42rem;
+      letter-spacing: 0.01em;
+    }
+
     .hidden { display: none !important; }
   </style>
 </head>
@@ -1195,12 +1229,15 @@
             </div>
 
             <div id="marginalia-detail" class="hidden" style="display:flex; flex-direction:column; gap:0.55rem;">
-              <div style="display:flex; justify-content:space-between; align-items:baseline;">
+              <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:0.5rem;">
                 <div>
-                  <span id="marg-word" class="font-serif" style="font-size:1.45rem; font-weight:700;"></span>
-                  <span id="marg-pos" class="kicker" style="margin-left:0.35rem; color:var(--ink-muted);"></span>
+                  <div style="display:flex; flex-wrap:wrap; align-items:baseline; gap:0.35rem;">
+                    <span id="marg-word" class="font-serif" style="font-size:1.45rem; font-weight:700;"></span>
+                    <span id="marg-pos" class="kicker" style="color:var(--ink-muted);"></span>
+                  </div>
+                  <div id="marg-ipa" class="ipa-phonetic hidden" onclick="speakInspectedWord()" title="点击朗读发音" style="margin-top:0.18rem;"></div>
                 </div>
-                <button type="button" onclick="speakInspectedWord()" class="editorial-pronounce-pill"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg><span>读单词</span></button>
+                <button type="button" onclick="speakInspectedWord()" class="editorial-pronounce-pill" style="flex-shrink:0;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg><span>读单词</span></button>
               </div>
               <div id="marg-cn" style="font-size:0.95rem; font-weight:600; color:var(--accent);"></div>
               <div id="marg-nuance" style="font-size:0.82rem; color:var(--ink-secondary); line-height:1.5;"></div>
@@ -1464,12 +1501,15 @@
 
   <!-- Mobile Bottom Word Lookup Sheet -->
   <div id="mobile-word-toast" class="hidden">
-    <div style="display:flex; justify-content:space-between; align-items:baseline;">
+    <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:0.5rem;">
       <div>
-        <span id="mob-word" class="font-serif" style="font-size:1.3rem; font-weight:700;"></span>
-        <span id="mob-pos" class="kicker" style="margin-left:0.35rem;"></span>
+        <div style="display:flex; flex-wrap:wrap; align-items:baseline; gap:0.35rem;">
+          <span id="mob-word" class="font-serif" style="font-size:1.3rem; font-weight:700;"></span>
+          <span id="mob-pos" class="kicker"></span>
+        </div>
+        <div id="mob-ipa" class="ipa-phonetic hidden" onclick="speakInspectedWord()" title="点击朗读发音" style="margin-top:0.15rem;"></div>
       </div>
-      <div style="display:flex; gap:0.45rem; align-items:center;">
+      <div style="display:flex; gap:0.45rem; align-items:center; flex-shrink:0;">
         <button type="button" onclick="speakInspectedWord()" class="editorial-pronounce-pill"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg><span>读单词</span></button>
         <button type="button" onclick="speakInspectedExample()" class="editorial-pronounce-pill"><span>▶ 读例句</span></button>
         <button onclick="document.getElementById('mobile-word-toast').classList.add('hidden')" class="kicker" style="padding:0.2rem 0.4rem;">Close ×</button>
@@ -1498,6 +1538,7 @@
     const LEXICON_DB = {
       "milestone": {
             "pos": "n.",
+            "ipa": "/ˈmaɪlˌstoʊn/",
             "cn": "里程碑；重大转折点",
             "nuance": "用于向高管定调某次发布或交付具有跨阶段意义。",
             "exEn": "Reaching General Availability marks a major milestone for our enterprise security roadmap.",
@@ -1505,6 +1546,7 @@
       },
       "frontier": {
             "pos": "adj./n.",
+            "ipa": "/frʌnˈtɪr/",
             "cn": "前沿的；第一梯队的",
             "nuance": "固定搭配 frontier model，指同期能力最强的一档模型，直接用英文。",
             "exEn": "Carbon is our strongest frontier model for multi-step reasoning and autonomous cyber defense.",
@@ -1512,6 +1554,7 @@
       },
       "long-horizon": {
             "pos": "adj.",
+            "ipa": "/ˈlɔŋ həˈraɪzən/",
             "cn": "跨多步、持续时间长的（任务）",
             "nuance": "指持续数小时甚至跨天、需要连续规划与自纠错的 agent 任务。",
             "exEn": "Long-horizon coding agents require strong self-verification rather than fast single-turn guesses.",
@@ -1519,6 +1562,7 @@
       },
       "reasoning": {
             "pos": "n.",
+            "ipa": "/ˈrizənɪŋ/",
             "cn": "推理；逻辑推导",
             "nuance": "指模型在复杂分析、代码调试、数学证明中的深度思考过程。",
             "exEn": "When latency matters more than deep reasoning, route routine subtasks to Hydrogen.",
@@ -1526,6 +1570,7 @@
       },
       "complementary": {
             "pos": "adj.",
+            "ipa": "/ˌkɑmpləˈmɛntri/",
             "cn": "互补的；相辅相成的",
             "nuance": "向客户解释 Carbon 与 Argon/Hydrogen 并非替代关系，而是高低搭配。",
             "exEn": "Carbon and Hydrogen play complementary roles in a cost-disciplined multi-model architecture.",
@@ -1533,6 +1578,7 @@
       },
       "orchestrate": {
             "pos": "v.",
+            "ipa": "/ˈɔrkɪˌstreɪt/",
             "cn": "编排；统筹调度",
             "nuance": "多模型、多 Agent 协同工作流的核心动词，比 manage 更具架构感。",
             "exEn": "You can orchestrate Carbon as the planner and Hydrogen as the high-speed executor.",
@@ -1540,6 +1586,7 @@
       },
       "planner": {
             "pos": "n.",
+            "ipa": "/ˈplænər/",
             "cn": "规划器；顶层调度者",
             "nuance": "多 Agent 架构中负责拆解任务、审核结果的高阶模型角色。",
             "exEn": "Pairing a frontier planner with a fast executor can lower the total cost per task.",
@@ -1547,6 +1594,7 @@
       },
       "executor": {
             "pos": "n.",
+            "ipa": "/ɪgˈzɛkjətər/",
             "cn": "执行器；落地执行单元",
             "nuance": "负责高并发、低延迟完成子任务的模型或服务。",
             "exEn": "Hydrogen acts as a high-throughput executor for daily coding and document extraction.",
@@ -1554,6 +1602,7 @@
       },
       "verify": {
             "pos": "v.",
+            "ipa": "/ˈvɛrəˌfaɪ/",
             "cn": "核实；验证",
             "nuance": "常用于核实报价、核对 allowlist、模型自验证。",
             "exEn": "Always verify the pre-approved APAC list before quoting Carbon to a regional billing account.",
@@ -1561,6 +1610,7 @@
       },
       "verification": {
             "pos": "n.",
+            "ipa": "/ˌvɛrəfəˈkeɪʃən/",
             "cn": "核实；验证",
             "nuance": "self-verification（自验证）是 Carbon 单任务成本更低的关键原因。",
             "exEn": "Deep self-verification reduces wasted retries on complex debugging tickets.",
@@ -1568,6 +1618,7 @@
       },
       "retry": {
             "pos": "n./v.",
+            "ipa": "/riˈtraɪ/",
             "cn": "重试；反复试错",
             "nuance": "解释为何单价更高的旗舰模型反而总任务成本更低（fewer retries）。",
             "exEn": "Fewer failed retries mean lower end-to-end cost per resolved engineering ticket.",
@@ -1575,6 +1626,7 @@
       },
       "flat": {
             "pos": "adj.",
+            "ipa": "/ˈflæt/",
             "cn": "统一的；不分阶梯的（平价）",
             "nuance": "flat rate 覆盖全 1M 上下文窗口不加价，是 Hydrogen 核心卖点。",
             "exEn": "Hydrogen offers a flat rate across the entire one-million-token context window.",
@@ -1582,6 +1634,7 @@
       },
       "fabricated": {
             "pos": "adj.",
+            "ipa": "/ˈfæbrɪˌkeɪtəd/",
             "cn": "捏造的；无中生有的（幻觉）",
             "nuance": "fabricated claims 精准指代模型在回答中编造不存在的事实或引用。",
             "exEn": "Hydrogen reduces fabricated claims by more than five-fold compared with earlier Flash tiers.",
@@ -1589,6 +1642,7 @@
       },
       "robustness": {
             "pos": "n.",
+            "ipa": "/roʊˈbʌstnəs/",
             "cn": "鲁棒性；抗干扰稳定性",
             "nuance": "形容模型在外部工具报错或检索为空时依然能自我纠错不崩溃。",
             "exEn": "Tool-calling robustness is essential when upstream enterprise APIs time out.",
@@ -1596,6 +1650,7 @@
       },
       "fallback": {
             "pos": "n./adj.",
+            "ipa": "/ˈfɔlˌbæk/",
             "cn": "备选方案；回退策略",
             "nuance": "工程与商务高频词：工具失败时的回退路径，或区域受阻时的替代方案。",
             "exEn": "When APAC billing is blocked for Carbon, Argon serves as a reliable fallback.",
@@ -1603,6 +1658,7 @@
       },
       "override": {
             "pos": "n./v.",
+            "ipa": "/ˈoʊvərˌraɪd/",
             "cn": "特批豁免；覆盖默认限制",
             "nuance": "APAC Access Override Form：VP 审批后开通区域 Carbon 访问的申请表。",
             "exEn": "Strategic accounts can request a VP-approved access override for regional Carbon usage.",
@@ -1610,6 +1666,7 @@
       },
       "blocked": {
             "pos": "adj.",
+            "ipa": "/ˈblɑkt/",
             "cn": "被阻断的；受限拦截的",
             "nuance": "描述默认策略拦截（blocked by default）时的标准客观表达。",
             "exEn": "Billing accounts in four APAC markets are blocked by default unless pre-approved.",
@@ -1617,6 +1674,7 @@
       },
       "governed": {
             "pos": "adj.",
+            "ipa": "/ˈgʌvərnd/",
             "cn": "受治理管控的；合规受控的",
             "nuance": "向 CIO / CISO 说明平台访问和用途受策略管控时使用。",
             "exEn": "Fairwind keeps Carbon for Cyber strictly governed for vetted defenders.",
@@ -1624,6 +1682,7 @@
       },
       "vetted": {
             "pos": "adj.",
+            "ipa": "/ˈvɛtɪd/",
             "cn": "经过严格审核筛选的",
             "nuance": "描述已进入 allowlist 的客户或通过预审的安全机构。",
             "exEn": "Initial CodeMender access opened to roughly five hundred vetted cyber defenders.",
@@ -1631,6 +1690,7 @@
       },
       "deterministic": {
             "pos": "adj.",
+            "ipa": "/dɪˌtɜːrməˈnɪstɪk/",
             "cn": "确定性的；可预测的",
             "nuance": "形容 Decisions API 或 TPU 性能稳定、不随概率剧烈波动。",
             "exEn": "Decisions API replaces fragile JSON prompts with deterministic classification scores.",
@@ -1638,6 +1698,7 @@
       },
       "fragile": {
             "pos": "adj.",
+            "ipa": "/ˈfrædʒəl/",
             "cn": "脆弱的；易出错的",
             "nuance": "描述手写 JSON 解析或临时拼接脚本容易出错。",
             "exEn": "Parsing free-form text outputs for routing decisions is often slow and fragile.",
@@ -1645,6 +1706,7 @@
       },
       "forward": {
             "pos": "adj./adv.",
+            "ipa": "/ˈfɔrwərd/",
             "cn": "前向的（forward pass 单次前向传播）",
             "nuance": "解释 Decisions API 为何延迟只有 150–250ms 且 output 不计费。",
             "exEn": "Evaluating a thousand questions in a single forward pass means there are no output-token charges.",
@@ -1652,6 +1714,7 @@
       },
       "calibrated": {
             "pos": "adj.",
+            "ipa": "/ˈkæləˌbreɪtəd/",
             "cn": "经过校准的；精准标定的",
             "nuance": "calibrated probabilities（经校准的概率值 0-1）。",
             "exEn": "Calibrated confidence scores help routing layers decide when to escalate to a human.",
@@ -1659,6 +1722,7 @@
       },
       "retrieval": {
             "pos": "n.",
+            "ipa": "/riˈtrivəl/",
             "cn": "检索；召回",
             "nuance": "Agent Retrieval (Vector Search 2.0) 与 Tool Retrieval 的核心词。",
             "exEn": "Hybrid retrieval combines semantic vectors with exact keyword boolean filters.",
@@ -1666,6 +1730,7 @@
       },
       "boolean": {
             "pos": "adj.",
+            "ipa": "/buˈliən/",
             "cn": "布尔逻辑的（AND / OR / NOT）",
             "nuance": "Advanced Text Search 补齐与 Solr/Lucene 差距的关键特性。",
             "exEn": "Legal teams rely on strict boolean queries alongside semantic similarity.",
@@ -1673,6 +1738,7 @@
       },
       "ingestion": {
             "pos": "n.",
+            "ipa": "/ˌɪnˈdʒɛstʃən/",
             "cn": "数据入库（导入并建立索引）",
             "nuance": "Zero-Pipeline Managed Ingestion：不用自建 ETL pipeline，由 Google 管理入库。",
             "exEn": "Managed ingestion syncs Cloud Storage buckets directly into searchable vector indexes.",
@@ -1680,6 +1746,7 @@
       },
       "throughput": {
             "pos": "n.",
+            "ipa": "/ˈθruˌpʊt/",
             "cn": "吞吐量",
             "nuance": "Provisioned Throughput (PT) 核心词，指单位时间内稳定处理的 token 量。",
             "exEn": "Provisioned Throughput guarantees predictable capacity during peak retail events.",
@@ -1687,6 +1754,7 @@
       },
       "throttling": {
             "pos": "n.",
+            "ipa": "/ˈθrɑtəlɪŋ/",
             "cn": "限流；降速拦截（HTTP 429）",
             "nuance": "和客户聊 PayGo 429 报错或 Deferred Tier 避峰时的标准术语。",
             "exEn": "Shifting overnight batch jobs to the Deferred Tier prevents daytime API throttling.",
@@ -1694,6 +1762,7 @@
       },
       "batch": {
             "pos": "n./adj.",
+            "ipa": "/ˈbætʃ/",
             "cn": "批处理；离线批量",
             "nuance": "batch pricing 享 50% 折扣，适合非实时离线分析。",
             "exEn": "Offline document classification qualifies for a fifty-percent discount under batch pricing.",
@@ -1701,6 +1770,7 @@
       },
       "anti-distillation": {
             "pos": "n./adj.",
+            "ipa": "/ˈænˌtaɪ ˌdɪstəˈleɪʃən/",
             "cn": "anti-distillation：防止他人通过大量调用复制模型能力的机制",
             "nuance": "Claude Fable 5.2 / Mythos 5.2 主打的企业安全特性。",
             "exEn": "Built-in anti-distillation defenses deter unauthorized scraping of proprietary reasoning traces.",
@@ -1708,6 +1778,7 @@
       },
       "deduction": {
             "pos": "n.",
+            "ipa": "/dɪˈdʌkʃən/",
             "cn": "扣减；抵扣顺序",
             "nuance": "Order of operations / deduction（计费与 Credit 抵扣优先级）。",
             "exEn": "Always walk finance stakeholders through the exact credit deduction order before signing.",
@@ -1715,6 +1786,7 @@
       },
       "unscoped": {
             "pos": "adj.",
+            "ipa": "/ʌnˈskoʊpt/",
             "cn": "无范围限制的（通用账单抵扣额度）",
             "nuance": "unscoped credits 在 Intro Pricing 与 FSP 折扣之后才开始冲抵现金账单。",
             "exEn": "Unscoped contractual credits apply only after intro pricing and FSP discounts.",
@@ -1722,6 +1794,7 @@
       },
       "retire": {
             "pos": "v.",
+            "ipa": "/ˌriˈtaɪər/",
             "cn": "核销；抵扣消耗（Burn down）",
             "nuance": "商务专用词：retire an annual commit（消耗/核销年度承诺消费额）。",
             "exEn": "Promotional credits offset cash invoices but do not retire the underlying annual commit.",
@@ -1729,6 +1802,7 @@
       },
       "underlying": {
             "pos": "adj.",
+            "ipa": "/ˌʌndərˈlaɪɪŋ/",
             "cn": "底层的；根本的",
             "nuance": "可指底层架构（underlying infrastructure），也可指底层合同（underlying commit）。",
             "exEn": "Check how third-party spend interacts with your customer's underlying enterprise agreement.",
@@ -1736,6 +1810,7 @@
       },
       "eligibility": {
             "pos": "n.",
+            "ipa": "/ˌɛlɪdʒəˈbɪlɪti/",
             "cn": "资格；是否符合条件",
             "nuance": "用于核查客户是否符合 SPIFF、Marketplace comp 或 allowlist 条件。",
             "exEn": "Confirm account eligibility on the dashboard before promising promotional credits.",
@@ -1743,6 +1818,7 @@
       },
       "credential": {
             "pos": "n.",
+            "ipa": "/krəˈdɛnʃəl/",
             "cn": "认证；考试凭证 / 凭据",
             "nuance": "PAA 认证考试券（exam voucher / credential）。",
             "exEn": "Our regional architects are earning the new Professional Agentic Architect credential this month.",
@@ -1750,6 +1826,7 @@
       },
       "hands-on": {
             "pos": "adj.",
+            "ipa": "/ˌhænˈzɔn/",
             "cn": "动手操作的；实际上手的",
             "nuance": "形容 PAA 认证包含动手实验，或团队亲自下场帮客户做 PoC。",
             "exEn": "The two-hour certification combines scenario questions with a live hands-on lab.",
@@ -1757,6 +1834,7 @@
       },
       "prototype": {
             "pos": "n./v.",
+            "ipa": "/ˈproʊtəˌtaɪp/",
             "cn": "原型；快速打样",
             "nuance": "Google Labs Stitch Superfast 能在几秒内把草图变成多屏交互原型。",
             "exEn": "Product managers can prototype multi-screen React flows in seconds using Stitch.",
@@ -1764,6 +1842,7 @@
       },
       "candor": {
             "pos": "n.",
+            "ipa": "/ˈkændər/",
             "cn": "坦诚；直言不讳",
             "nuance": "常用说法 in the spirit of full candor，先讲清限制再谈方案，更容易建立信任。",
             "exEn": "In the spirit of full candor, Carbon is not yet open to unapproved regional billing accounts.",
@@ -1771,6 +1850,7 @@
       },
       "anchor": {
             "pos": "v./n.",
+            "ipa": "/ˈæŋkər/",
             "cn": "锚定；以…为基点",
             "nuance": "高管汇报中替代 base on 的地道动词：anchor on verified numbers。",
             "exEn": "Let's anchor our recommendation on verified benchmark versions and exact promo deadlines.",
@@ -1778,6 +1858,7 @@
       },
       "blended": {
             "pos": "adj.",
+            "ipa": "/ˈblɛndɪd/",
             "cn": "加权混合的",
             "nuance": "blended price 按假设比例加权：30% uncached input + 50% cached input + 20% output。",
             "exEn": "Once caching is factored in, our blended price comes in well below comparable tiers.",
@@ -1785,6 +1866,7 @@
       },
       "cliff": {
             "pos": "n.",
+            "ipa": "/ˈklɪf/",
             "cn": "价格上调截止点（pricing cliff）",
             "nuance": "promo price 到期、恢复 list price 的时间点，常用于提醒客户在截止前签约。",
             "exEn": "Locking in volume before the November thirtieth pricing cliff saves fifty percent on tokens.",
@@ -1792,6 +1874,7 @@
       },
       "workhorse": {
             "pos": "n.",
+            "ipa": "/ˈwɜːrkˌhɔrs/",
             "cn": "主力模型；日常承担主要工作量的一款",
             "nuance": "将 Argon 定位为保障 12 个月稳定期的 Long GA 生产主力。",
             "exEn": "Argon remains our dependable Long GA workhorse for regulated enterprise workloads.",
@@ -1799,6 +1882,7 @@
       },
       "rework": {
             "pos": "n./v.",
+            "ipa": "/riˈwɜːrk/",
             "cn": "返工；代码重写",
             "nuance": "打消客户观望顾虑时常用：zero rework（升级不需要改代码）。",
             "exEn": "Standardizing on the unified Gemini API lets your engineers upgrade later with zero rework.",
@@ -1806,6 +1890,7 @@
       },
       "deferring": {
             "pos": "v.",
+            "ipa": "/dɪˈfɜːrɪŋ/",
             "cn": "推迟；暂缓决策",
             "nuance": "比 delaying 更正式的商务用词。",
             "exEn": "Deferring your Q4 commitment past November thirtieth doubles your unit token rate.",
@@ -1813,6 +1898,7 @@
       },
       "scrutinizing": {
             "pos": "v.",
+            "ipa": "/ˈskrutəˌnaɪzɪŋ/",
             "cn": "严密审视；挑剔核查",
             "nuance": "形容 CFO 或采购委员会一笔一笔抠预算。",
             "exEn": "Finance committees are scrutinizing every line item of cloud AI spend this quarter.",
@@ -1820,6 +1906,7 @@
       },
       "consolidate": {
             "pos": "v.",
+            "ipa": "/kənˈsɑlɪˌdeɪt/",
             "cn": "合并；统一管理",
             "nuance": "把分散的 shadow AI 支出合并到 Google Cloud 同一份 FSP 账单。",
             "exEn": "An FSP lets you consolidate first-party and partner model spend onto one invoice.",
@@ -1827,6 +1914,7 @@
       },
       "shadow": {
             "pos": "adj./n.",
+            "ipa": "/ˈʃæˌdoʊ/",
             "cn": "影子（未受 IT 管控的私下采购）",
             "nuance": "shadow AI 指员工私自刷卡买外部 AI 工具带来的数据与合规隐患。",
             "exEn": "Bringing third-party models under Vertex AI governance reduces unmanaged shadow AI.",
@@ -1834,6 +1922,7 @@
       },
       "parity": {
             "pos": "n.",
+            "ipa": "/ˈpɛrəti/",
             "cn": "对等；持平",
             "nuance": "feature parity（功能对等）或 price parity（价格持平）。",
             "exEn": "Advanced Text Search closes the main keyword-search gaps between Vector Search 2.0 and Solr.",
@@ -1841,6 +1930,7 @@
       },
       "contamination": {
             "pos": "n.",
+            "ipa": "/kənˌtæməˈneɪʃən/",
             "cn": "（benchmark）测试集污染",
             "nuance": "模型在训练中见过公开题目，导致分数偏高。",
             "exEn": "Held-out private benchmarks prevent training contamination from skewing model rankings.",
@@ -1848,6 +1938,7 @@
       },
       "held-out": {
             "pos": "adj.",
+            "ipa": "/ˈhɛld ˈaʊt/",
             "cn": "不公开的（保留测试集）",
             "nuance": "AA Index v5.0 约 60% 权重来自 held-out tests。",
             "exEn": "Roughly sixty percent of the new index relies on private held-out tests.",
@@ -1855,6 +1946,7 @@
       },
       "speculative": {
             "pos": "adj.",
+            "ipa": "/ˈspɛkjələtɪv/",
             "cn": "推测式的（speculative decoding）",
             "nuance": "speculative decoding：先用小模型生成候选 token，再由大模型校验。",
             "exEn": "Speculative decoding speeds up token generation for open-weight models without changing output quality.",
@@ -1862,6 +1954,7 @@
       },
       "deprecation": {
             "pos": "n.",
+            "ipa": "/ˌdɛprəˈkeɪʃən/",
             "cn": "下线淘汰；折旧贬值",
             "nuance": "既指软件模型版本下线（3.6 Flash deprecation），也指硬件快速折旧。",
             "exEn": "Please help remaining accounts migrate before the November model deprecation date.",
@@ -1869,6 +1962,7 @@
       },
       "stateful": {
             "pos": "adj.",
+            "ipa": "/ˈsteɪtfəl/",
             "cn": "stateful：服务端保存会话状态",
             "nuance": "Interactions API 核心特性，免去客户端每轮全量重传历史。",
             "exEn": "Stateful server-side sessions cut redundant network payloads across long agent loops.",
@@ -1876,6 +1970,7 @@
       },
       "guardrail": {
             "pos": "n.",
+            "ipa": "/ˈgɑrˌdreɪl/",
             "cn": "guardrails：限制模型行为的规则与检查",
             "nuance": "企业采用自主 agent 的前提之一，例如敏感操作前的 HITL 人工确认。",
             "exEn": "IT administrators can enforce human-in-the-loop guardrails via central Org Policies.",
@@ -1883,6 +1978,7 @@
       },
       "indemnification": {
             "pos": "n.",
+            "ipa": "/ˌɪnˌdɛmnəfɪˈkeɪʃən/",
             "cn": "侵权赔偿保障",
             "nuance": "企业商用 GenMedia 或 Gemini 生成内容时，Google 提供的知识产权侵权赔偿承诺。",
             "exEn": "Full IP indemnification gives global creative studios confidence to ship AI assets.",
@@ -1890,6 +1986,7 @@
       },
       "fidelity": {
             "pos": "n.",
+            "ipa": "/ˌfaɪˈdɛləti/",
             "cn": "保真度；与参考素材的一致程度",
             "nuance": "多模态视频/图像生成中保持角色外观与品牌特征不走样。",
             "exEn": "Reference image locking preserves brand and character fidelity across multiple camera cuts.",
@@ -1897,6 +1994,7 @@
       },
       "upscale": {
             "pos": "v./n.",
+            "ipa": "/ˈʌpˌskeɪl/",
             "cn": "upscale：把低分辨率视频放大到更高分辨率",
             "nuance": "先出 360p 小样选创意，再单独 upscale 到 4K 省钱。",
             "exEn": "Generating fast 360p drafts and paying to upscale only final takes cuts video waste.",
@@ -1904,6 +2002,7 @@
       },
       "surge": {
             "pos": "v./n.",
+            "ipa": "/ˈsɜːrdʒ/",
             "cn": "激增；暴涨",
             "nuance": "形容数值大幅上升，例如 FSP multiplier 从 0.1x 调到 0.5x，或流量暴涨。",
             "exEn": "The fivefold increase in the FSP multiplier gives teams a strong reason to close deals before year-end.",
@@ -1911,6 +2010,7 @@
       },
       "leverage": {
             "pos": "v./n.",
+            "ipa": "/ˈlɛvərɪdʒ/",
             "cn": "利用；借助",
             "nuance": "商务高频动词，表示充分调用某项能力或政策优势。",
             "exEn": "Retail teams can use implicit context caching to cut the cost of repeated prompts.",
@@ -1918,6 +2018,7 @@
       },
       "caveat": {
             "pos": "n.",
+            "ipa": "/ˈkeɪviˌæt/",
             "cn": "注意事项；前提限制",
             "nuance": "在给出好消息后顺带补充透明边界：One caveat to keep in mind...",
             "exEn": "One caveat: promotional pricing applies only until November thirtieth.",
@@ -1925,6 +2026,7 @@
       },
       "upfront": {
             "pos": "adj./adv.",
+            "ipa": "/ˈʌpˌfrʌnt/",
             "cn": "事先坦白的；前置的",
             "nuance": "To be upfront（先把话说清楚），技术高管通常更认可这种坦诚。",
             "exEn": "To be upfront, this preview tool does not yet carry a production SLA.",
@@ -1932,6 +2034,7 @@
       },
       "kudos": {
             "pos": "n.",
+            "ipa": "/ˈkudoʊs/",
             "cn": "赞誉；致敬",
             "nuance": "北美职场感谢或表扬同事的常用说法：Huge kudos to the team for...",
             "exEn": "Huge kudos to the field engineers who shipped the Bloomberg integration on schedule.",
@@ -1939,6 +2042,7 @@
       },
       "quorum": {
             "pos": "n.",
+            "ipa": "/ˈkwɔrəm/",
             "cn": "法定开会人数（核心人员到齐）",
             "nuance": "视频会人齐准备开场时最自然的一句：Looks like we have a quorum.",
             "exEn": "Alright, looks like we have a quorum, so let's jump right into the agenda.",
@@ -1946,6 +2050,7 @@
       },
       "mindful": {
             "pos": "adj.",
+            "ipa": "/ˈmaɪndfəl/",
             "cn": "体谅的；留心顾及的",
             "nuance": "礼貌控制会议时长的常用说法：I want to be mindful of everyone's time.",
             "exEn": "I want to be mindful of everyone's closing bandwidth, so I'll keep this under ten minutes.",
@@ -1953,6 +2058,7 @@
       },
       "bandwidth": {
             "pos": "n.",
+            "ipa": "/ˈbændwɪdθ/",
             "cn": "（个人或团队的）时间和精力",
             "nuance": "职场委婉表达“我/团队目前很忙抽不出空”的标准词。",
             "exEn": "Let's check who has bandwidth next week to lead the architecture dry run.",
@@ -1960,6 +2066,7 @@
       },
       "offline": {
             "pos": "adv./adj.",
+            "ipa": "/ˈɔˌflaɪn/",
             "cn": "会后单独；私下小范围",
             "nuance": "把跑偏或太细的问题搁置到会后再聊：Let's take this offline.",
             "exEn": "Since that billing edge case only affects one account, let's take it offline after the call.",
@@ -1967,6 +2074,7 @@
       },
       "circle": {
             "pos": "v.",
+            "ipa": "/ˈsɜːrkəl/",
             "cn": "回头跟进（circle back）",
             "nuance": "北美办公室最高频短语之一，指稍后/下周再回来对齐结果。",
             "exEn": "I'll check the APAC allowlist status and circle back to you by tomorrow morning.",
@@ -1974,6 +2082,7 @@
       },
       "packed": {
             "pos": "adj.",
+            "ipa": "/ˈpækt/",
             "cn": "排得满满当当的",
             "nuance": "形容日程极其紧凑：a packed week / packed schedule。",
             "exEn": "Thanks for squeezing me into a packed Tuesday calendar.",
@@ -1981,6 +2090,7 @@
       },
       "hectic": {
             "pos": "adj.",
+            "ipa": "/ˈhɛktɪk/",
             "cn": "忙碌紧张的；连轴转的",
             "nuance": "形容大促、月底或出差周节奏极快。",
             "exEn": "Things always get hectic during the last two weeks of November.",
@@ -1988,6 +2098,7 @@
       },
       "unwind": {
             "pos": "v.",
+            "ipa": "/ənˈwaɪnd/",
             "cn": "卸下疲惫；放松身心",
             "nuance": "周五问候同事周末打算时比 relax 更地道。",
             "exEn": "After a full week of customer workshops, a quiet trail walk helps me unwind.",
@@ -1995,6 +2106,7 @@
       },
       "recharge": {
             "pos": "v.",
+            "ipa": "/riˈtʃɑrdʒ/",
             "cn": "充电；恢复精力",
             "nuance": "常与 your batteries 搭配：recharge your batteries。",
             "exEn": "Unplugging from Slack on Sunday afternoon is the fastest way to recharge.",
@@ -2002,6 +2114,7 @@
       },
       "fumes": {
             "pos": "n.",
+            "ipa": "/ˈfjumz/",
             "cn": "剩余油气（running on fumes 硬撑）",
             "nuance": "地道习语：精力快耗尽全靠意志力撑着。",
             "exEn": "After three consecutive red-eye flights, I was basically running on fumes.",
@@ -2009,6 +2122,7 @@
       },
       "bumper": {
             "pos": "n.",
+            "ipa": "/ˈbʌmpər/",
             "cn": "车尾保险杠（bumper to bumper 堵车首尾相连）",
             "nuance": "形容早晚高峰路况极度拥堵的地道表达。",
             "exEn": "Traffic across the bridge was bumper to bumper after five o'clock.",
@@ -2016,6 +2130,7 @@
       },
       "beaten": {
             "pos": "adj.",
+            "ipa": "/ˈbitən/",
             "cn": "人迹罕至的（off the beaten path 冷门小众）",
             "nuance": "聊周末徒步、旅行餐厅避开人潮的常用短语。",
             "exEn": "We found a quiet coffee roaster slightly off the beaten path.",
@@ -2023,6 +2138,7 @@
       },
       "crisp": {
             "pos": "adj.",
+            "ipa": "/ˈkrɪsp/",
             "cn": "（空气）清冽爽朗的；（会议）干脆利落的",
             "nuance": "一词两用：既可形容秋高气爽（crisp autumn morning），也可形容汇报简明扼要（keep it crisp）。",
             "exEn": "Keep the executive summary crisp so the CFO grasps the savings in thirty seconds.",
@@ -2030,6 +2146,7 @@
       },
       "scrambled": {
             "pos": "adj.",
+            "ipa": "/ˈskræmbəld/",
             "cn": "被打乱的；错乱的",
             "nuance": "形容跨时区飞行后作息被打乱，或排期被临时打乱。",
             "exEn": "Crossing twelve time zones always leaves my sleep schedule scrambled for two days.",
@@ -2037,6 +2154,7 @@
       },
       "detaches": {
             "pos": "v.",
+            "ipa": "/diˈtætʃəz/",
             "cn": "抽离；脱离",
             "nuance": "形容下班或运动时让注意力离开工作。",
             "exEn": "An hour without notifications helps your mind detach from deal spreadsheets.",
@@ -2044,6 +2162,7 @@
       },
       "triage": {
             "pos": "v./n.",
+            "ipa": "/ˈtraɪɪdʒ/",
             "cn": "分诊；按轻重缓急筛选处理",
             "nuance": "常用于按优先级筛选客户需求、故障或创意草稿。",
             "exEn": "We triage incoming customer requests into immediate fixes versus long-term roadmap items.",
@@ -2051,6 +2170,7 @@
       },
       "turnaround": {
             "pos": "n.",
+            "ipa": "/ˈtɜːrnərˌaʊnd/",
             "cn": "周转周期；从接到到交付的耗时",
             "nuance": "量化 AI 带来的效率提升时常用，例如 cut turnaround from 3 days to 4 hours。",
             "exEn": "Automating localization cut campaign turnaround from three days to half a day.",
@@ -2058,6 +2178,7 @@
       },
       "overpromise": {
             "pos": "v.",
+            "ipa": "/ˌoʊvərˈprɑmɪs/",
             "cn": "过度承诺",
             "nuance": "I'd rather be candid than overpromise（宁可说清限制，也不做做不到的承诺）。",
             "exEn": "Never overpromise an unconfirmed GA date during an executive briefing.",
@@ -2065,6 +2186,7 @@
       },
       "workaround": {
             "pos": "n.",
+            "ipa": "/ˈwɜːrkərˈaʊnd/",
             "cn": "变通方案；临时替代路径",
             "nuance": "当主路径受阻（如 APAC 阻断或功能未上线）时给出的工程/商务绕行方案。",
             "exEn": "Until regional Carbon access opens, routing through Argon gives you a clean workaround.",
@@ -2072,6 +2194,7 @@
       },
       "streamline": {
             "pos": "v.",
+            "ipa": "/ˈstrimˌlaɪn/",
             "cn": "简化；理顺流程",
             "nuance": "形容简化审批、会议流程或数据 pipeline。",
             "exEn": "Zero-pipeline ingestion streamlines how teams feed unstructured PDFs into search.",
@@ -2079,6 +2202,7 @@
       },
       "accelerate": {
             "pos": "v.",
+            "ipa": "/ækˈsɛlərˌeɪt/",
             "cn": "加速；推动提速",
             "nuance": "商务汇报高频动词（accelerate year-end closing / deployment）。",
             "exEn": "The fivefold increase in the FSP multiplier is meant to speed up multi-year signings.",
@@ -2086,6 +2210,7 @@
       },
       "bottleneck": {
             "pos": "n.",
+            "ipa": "/ˈbɑtəlˌnɛk/",
             "cn": "瓶颈",
             "nuance": "描述性能、审批或人工提单环节卡住整体进度。",
             "exEn": "Self-serve PT resizing removes the manual ticketing bottleneck ahead of peak season.",
@@ -2093,6 +2218,7 @@
       },
       "payload": {
             "pos": "n.",
+            "ipa": "/ˈpeɪˌloʊd/",
             "cn": "传输载荷；请求数据包",
             "nuance": "技术架构沟通常用词，指每次 API 调用携带的数据体量。",
             "exEn": "Server-side state removes the need to resend the full conversation history on every turn.",
@@ -2100,6 +2226,7 @@
       },
       "latency": {
             "pos": "n.",
+            "ipa": "/ˈleɪtənsi/",
             "cn": "延迟；响应耗时",
             "nuance": "first-token latency（首字延迟）是推理引擎对比的核心指标。",
             "exEn": "Deferring unused tool schemas trims prompt size and cuts first-token latency.",
@@ -2107,6 +2234,7 @@
       },
       "adoption": {
             "pos": "n.",
+            "ipa": "/əˈdɑpʃən/",
             "cn": "采纳率；普及采用",
             "nuance": "衡量客户上线后真实使用度（production adoption）。",
             "exEn": "High first-round asset adoption proves the workflow fits real artist habits.",
@@ -2114,6 +2242,7 @@
       },
       "alignment": {
             "pos": "n.",
+            "ipa": "/əˈlaɪnmənt/",
             "cn": "对齐；跨团队步调一致",
             "nuance": "cross-functional alignment（跨部门目标对齐）。",
             "exEn": "Early alignment between sales and legal prevented last-minute contract delays.",
@@ -2121,6 +2250,7 @@
       },
       "inertia": {
             "pos": "n.",
+            "ipa": "/ˌɪˈnɜːrʃə/",
             "cn": "惯性；不愿改变现状的阻力",
             "nuance": "解释为什么客户迟迟不愿迁移旧系统的客观表达。",
             "exEn": "Legacy Solr clusters often stay in place purely out of operational inertia.",
@@ -2128,6 +2258,7 @@
       },
       "proliferate": {
             "pos": "v.",
+            "ipa": "/proʊˈlɪfərˌeɪt/",
             "cn": "激增；迅速蔓延",
             "nuance": "形容模型或 shadow AI 工具在企业内快速扩散。",
             "exEn": "As unapproved AI tools proliferate, CISOs demand centralized audit logs.",
@@ -2135,6 +2266,7 @@
       },
       "exhausted": {
             "pos": "adj./v.",
+            "ipa": "/ɪgˈzɔstɪd/",
             "cn": "耗尽的；用完的",
             "nuance": "credit pool is exhausted（赠金池全部抵扣完毕）。",
             "exEn": "FSP discounts apply to cash spend once promotional credits are fully exhausted.",
@@ -2142,6 +2274,7 @@
       },
       "mandate": {
             "pos": "v./n.",
+            "ipa": "/ˈmænˌdeɪt/",
             "cn": "强制要求；硬性规定",
             "nuance": "安全策略（Org Policy）强制要求某项审批时使用。",
             "exEn": "The policy mandates explicit human confirmation before executing bank transfers.",
@@ -2149,6 +2282,7 @@
       },
       "immutable": {
             "pos": "adj.",
+            "ipa": "/ˌɪmˈjutəbəl/",
             "cn": "不可篡改的；不可绕过的",
             "nuance": "形容组织级安全约束或审计日志的刚性。",
             "exEn": "Central Org Policies create an immutable safety floor across every project.",
@@ -2156,6 +2290,7 @@
       },
       "granular": {
             "pos": "adj.",
+            "ipa": "/ˈgrænjələr/",
             "cn": "细粒度的；精细化的",
             "nuance": "granular control（细粒度权限控制）或 granular billing（精细化账单）。",
             "exEn": "Teams need granular confirmation gates rather than an all-or-nothing toggle.",
@@ -2163,6 +2298,7 @@
       },
       "poise": {
             "pos": "n.",
+            "ipa": "/ˈpɔɪz/",
             "cn": "从容；沉着自信的仪态",
             "nuance": "夸赞同事在高压客户会议上表现专业淡定。",
             "exEn": "She handled tough CFO pricing pushback with remarkable clarity and poise.",
@@ -2170,12 +2306,15 @@
       },
       "catalyze": {
             "pos": "v.",
+            "ipa": "/ˈkætəˌlaɪz/",
             "cn": "推动；促成",
             "nuance": "形容激励政策或标杆案例带动整个季度的签约。",
             "exEn": "The 0.5x FSP multiplier is designed to drive multi-year commitments in Q4.",
             "exCn": "0.5x 的 FSP multiplier 旨在推动 Q4 的多年期承诺签约。"
       }
     }; // END_LEXICON_DB
+
+    const IPA_DICT = {"about":"/əˈbaʊt/","accelerate":"/ækˈsɛlərˌeɪt/","access":"/ˈækˌsɛs/","account-specific":"/əˈkaʊnt spəˈsɪfɪk/","accounts":"/əˈkaʊnts/","accurately":"/ˈækjərətli/","acknowledge":"/ækˈnɑlɪdʒ/","across":"/əˈkrɔs/","active":"/ˈæktɪv/","acv":"/ˌeɪˌsiːˈviː/","added":"/ˈædəd/","additional":"/əˈdɪʃənəl/","adoption":"/əˈdɑpʃən/","advanced":"/ədˈvænst/","advisor":"/ædˈvaɪzər/","after":"/ˈæftər/","against":"/əˈgeɪnst/","agent":"/ˈeɪdʒənt/","agent-driven":"/ˈeɪdʒənt ˈdrɪvən/","agentic":"/eɪˈdʒɛntɪk/","agents":"/ˈeɪdʒənts/","agreement":"/əˈgrimənt/","ahead":"/əˈhɛd/","ai":"/ˈaɪ/","air":"/ˈɛr/","aiss":"/ˌeɪˌaɪˌɛsˈɛs/","alarm":"/əˈlɑrm/","alex":"/ˈæləks/","alignment":"/əˈlaɪnmənt/","all":"/ˈɔl/","alongside":"/əˈlɔŋˈsaɪd/","already":"/ɔˈrɛdi/","alright":"/ˌɔlˈraɪt/","also":"/ˈɔlsoʊ/","am":"/ˈæm/","among":"/əˈmʌŋ/","amount":"/əˈmaʊnt/","an":"/ˈæn/","anchor":"/ˈæŋkər/","and":"/ˈænd/","anecdotal":"/ˌænəkˈdoʊtəl/","annual":"/ˈænjuəl/","answer":"/ˈænsər/","anthropic":"/ænˈθrɑpɪk/","anthropic's":"/ænˈθrɑpɪks/","anti-distillation":"/ˈænˌtaɪ ˌdɪstəˈleɪʃən/","antigravity":"/ˌæntiˈgrævəti/","apac":"/ˈeɪpæk/","api":"/ˌeɪˌpiːˈaɪ/","api's":"/ˌeɪˌpiːˈaɪ/","apis":"/ˌeɪˌpiːˈaɪz/","application":"/ˌæpləˈkeɪʃən/","applies":"/əˈplaɪz/","apply":"/əˈplaɪ/","approval":"/əˈpruvəl/","approvals":"/əˈpruvəlz/","approved":"/əˈpruvd/","architect":"/ˈɑrkəˌtɛkt/","architects":"/ˈɑrkəˌtɛkts/","architecture":"/ˈɑrkəˌtɛktʃər/","archived":"/ˈɑrˌkaɪvd/","are":"/ˈɑr/","aren't":"/ɑrnt/","argon":"/ˈɑrˌgɑn/","around":"/ərˈaʊn/","arrive":"/ərˈaɪv/","arrived":"/ərˈaɪvd/","artisan":"/ˈɑrtəzən/","as":"/ˈæz/","askb":"/ˌeɪˌɛsˌkeɪˈbiː/","asked":"/ˈæskt/","asking":"/ˈæskɪŋ/","assistant":"/əˈsɪstənt/","at":"/ˈæt/","auto":"/ˈɔtoʊ/","automated":"/ˈɔtəˌmeɪtɪd/","autumn":"/ˈɔtəm/","availability":"/əˌveɪləˈbɪləti/","available":"/əˈveɪləbəl/","awkward":"/ˈɑkwərd/","back":"/ˈbæk/","back-to-back":"/ˈbæk ˈtu ˈbæk/","backed":"/ˈbækt/","background":"/ˈbækˌgraʊnd/","balance":"/ˈbæləns/","balcony":"/ˈbælkəni/","bandwidth":"/ˈbændwɪdθ/","batch":"/ˈbætʃ/","batteries":"/ˈbætəriz/","be":"/ˈbi/","beat":"/ˈbit/","beaten":"/ˈbitən/","because":"/bɪˈkɑz/","been":"/ˈbɪn/","before":"/ˌbiˈfɔr/","being":"/ˈbiɪŋ/","below":"/biˈloʊ/","bench":"/ˈbɛntʃ/","benchmark":"/ˈbɛntʃˌmɑrk/","benchmarking":"/ˈbɛntʃˌmɑrkɪŋ/","best":"/ˈbɛst/","between":"/bitˈwin/","billing":"/ˈbɪlɪŋ/","blended":"/ˈblɛndɪd/","blocked":"/ˈblɑkt/","bloomberg":"/ˈblumbərg/","bloomberg's":"/ˈblumbərgz/","booked":"/ˈbʊkt/","boolean":"/buˈliən/","boosting":"/ˈbustɪŋ/","both":"/ˈboʊθ/","bots":"/ˈbɔts/","bottleneck":"/ˈbɑtəlˌnɛk/","bottlenecks":"/ˈbɑtəlˌnɛks/","bottom-line":"/ˈbɑtəm ˈlaɪn/","breathe":"/ˈbrið/","brief":"/ˈbrif/","briefing":"/ˈbrifɪŋ/","bringing":"/ˈbrɪŋɪŋ/","brittle":"/ˈbrɪtəl/","brought":"/ˈbrɔt/","bucket":"/ˈbʌkət/","buckets":"/ˈbʌkəts/","builders":"/ˈbɪldərz/","building":"/ˈbɪldɪŋ/","built":"/ˈbɪlt/","built-in":"/ˈbɪlˌtɪn/","bumper":"/ˈbʌmpər/","but":"/ˈbʌt/","buyers":"/ˈbaɪərz/","by":"/ˈbaɪ/","c-suite":"/ˈsi ˈswit/","cached":"/ˈkæʃt/","calculates":"/ˈkælkjəˌleɪts/","calibrated":"/ˈkæləˌbreɪtəd/","calibration":"/ˌkæləˈbreɪʃən/","call":"/ˈkɔl/","calls":"/ˈkɔlz/","can":"/ˈkæn/","candid":"/ˈkændəd/","candor":"/ˈkændər/","capabilities":"/ˌkeɪpəˈbɪlətiz/","capability":"/ˌkeɪpəˈbɪləti/","carbon":"/ˈkɑrbən/","carbon's":"/ˈkɑrbən/","carries":"/ˈkæriz/","cases":"/ˈkeɪsəz/","cash":"/ˈkæʃ/","cash-equivalent":"/ˈkæʃ ɪˈkwɪvələnt/","catalyze":"/ˈkætəˌlaɪz/","caveat":"/ˈkeɪviˌæt/","ce":"/ˌsiːˈiː/","cents":"/ˈsɛns/","certification":"/ˌsɜːrtəfəˈkeɪʃən/","certify":"/ˈsɜːrtəˌfaɪ/","certifying":"/ˈsɜːrtəˌfaɪɪŋ/","ces":"/ˌsiːˈiːz/","cfo":"/ˌsiːˌɛfˈoʊ/","cfos":"/ˌsiːˌɛfˈoʊz/","chance":"/ˈtʃæns/","charges":"/ˈtʃɑrdʒəz/","chat":"/ˈtʃæt/","cheap":"/ˈtʃip/","check":"/ˈtʃɛk/","checks":"/ˈtʃɛks/","choice":"/ˈtʃɔɪs/","chops":"/ˈtʃɑps/","circle":"/ˈsɜːrkəl/","cisos":"/ˈsiːsoʊz/","city":"/ˈsɪti/","claims":"/ˈkleɪmz/","clarifying":"/ˈklɛrəˌfaɪɪŋ/","clarity":"/ˈklɛrəti/","claude":"/ˈklɔd/","clean":"/ˈklin/","clear":"/ˈklɪr/","clearly":"/ˈklɪrli/","cliff":"/ˈklɪf/","cliffs":"/ˈklɪfs/","close":"/ˈkloʊs/","closed-ended":"/ˈkloʊzd ˈɛndəd/","closing":"/ˈkloʊzɪŋ/","cloud":"/ˈklaʊd/","clusters":"/ˈklʌstərz/","codemender":"/ˈkoʊdˌmɛndər/","coding":"/ˈkoʊdɪŋ/","coffee":"/ˈkɑfi/","colleague":"/ˈkɑlig/","comfort":"/ˈkʌmfərt/","commercial":"/kəˈmɜːrʃəl/","commercially":"/kəˈmɜːrʃəli/","commit":"/kəˈmɪt/","commitment":"/kəˈmɪtmənt/","commitments":"/kəˈmɪtmənts/","commits":"/kəˈmɪts/","committee":"/kəˈmɪti/","compare":"/kəmˈpɛr/","complementary":"/ˌkɑmpləˈmɛntri/","complex":"/ˈkɑmplɛks/","confirmed":"/kənˈfɜːrmd/","consider":"/kənˈsɪdər/","consistent":"/kənˈsɪstənt/","consolidate":"/kənˈsɑlɪˌdeɪt/","constraints":"/kənˈstreɪnts/","contamination":"/kənˌtæməˈneɪʃən/","contracts":"/ˈkɑnˌtrækts/","contractual":"/kənˈtræktʃuəl/","conversation":"/ˌkɑnvərˈseɪʃən/","conversations":"/ˌkɑnvərˈseɪʃənz/","cool":"/ˈkul/","coordinating":"/koʊˈɔrdəˌneɪtɪŋ/","cost":"/ˈkɑst/","costs":"/ˈkɑsts/","could":"/ˈkʊd/","count":"/ˈkaʊnt/","cover":"/ˈkʌvər/","covered":"/ˈkʌvərd/","covering":"/ˈkʌvərɪŋ/","credential":"/krəˈdɛnʃəl/","credentials":"/krəˈdɛnʃəlz/","credit":"/ˈkrɛdət/","credit-covered":"/ˈkrɛdət ˈkʌvərd/","credit-offset":"/ˈkrɛdət ˈɔfˌsɛt/","credits":"/ˈkrɛdɪts/","crisp":"/ˈkrɪsp/","cross-team":"/ˈkrɔs ˈtim/","crowds":"/ˈkraʊdz/","crucially":"/ˈkruʃəli/","cto":"/ˌsiːˌtiːˈoʊ/","cursorbench":"/ˈkɜːrsərˌbɛntʃ/","customer":"/ˈkʌstəmər/","customer-facing":"/ˈkʌstəmər ˈfeɪsɪŋ/","cut":"/ˈkʌt/","cutoff":"/ˈkʌˌtɔf/","cutting":"/ˈkʌtɪŋ/","cwe-bench":"/ˌsiːˌdʌbəljuːˈiː bɛntʃ/","cyber":"/ˈsaɪbər/","daily":"/ˈdeɪli/","data":"/ˈdætə/","david":"/ˈdeɪvɪd/","days":"/ˈdeɪz/","deadline":"/ˈdɛdˌlaɪn/","deadlines":"/ˈdɛdˌlaɪnz/","deal-desk":"/ˈdil ˈdɛsk/","deals":"/ˈdilz/","debates":"/dəˈbeɪts/","debugging":"/diˈbʌgɪŋ/","december":"/dɪˈsɛmbər/","decisions":"/dɪˈsɪʒənz/","deducting":"/dɪˈdʌktɪŋ/","deduction":"/dɪˈdʌkʃən/","deep":"/ˈdip/","deepmind":"/ˈdiːpˌmaɪnd/","default":"/dɪˈfɔlt/","defenders":"/dɪˈfɛndərz/","defense":"/dɪˈfɛns/","defenses":"/dɪˈfɛnsəz/","deferred":"/dɪˈfɜːrd/","deferring":"/dɪˈfɜːrɪŋ/","deploying":"/dɪˈplɔɪɪŋ/","deprecation":"/ˌdɛprəˈkeɪʃən/","detach":"/ˈdɪˌtætʃ/","detaches":"/diˈtætʃəz/","deterministic":"/dɪˌtɜːrməˈnɪstɪk/","dinner":"/ˈdɪnər/","direct":"/daɪˈrɛkt/","directly":"/daɪˈrɛkli/","discipline":"/ˈdɪsəplən/","discount":"/ˈdɪskaʊnt/","discounts":"/ˈdɪsˌkaʊnts/","discovery":"/ˌdɪsˈkʌvri/","discussed":"/dɪˈskʌst/","diving":"/ˈdaɪvɪŋ/","do":"/ˈdu/","document":"/ˈdɑkjəmɛnt/","does":"/ˈdʌz/","doesn't":"/ˈdʌzənt/","dollar":"/ˈdɑlər/","dollars":"/ˈdɑlərz/","don't":"/doʊnt/","double-launch":"/ˈdʌbəl ˈlɔntʃ/","doubles":"/ˈdʌbəlz/","doubling":"/ˈdʌbəlɪŋ/","down":"/ˈdaʊn/","draw":"/ˈdrɔ/","drove":"/ˈdroʊv/","dual-engine":"/ˈduəl ˈɛndʒən/","dual-use":"/ˈduəl ˈjus/","during":"/ˈdɜːrɪŋ/","dynamic":"/daɪˈnæmɪk/","ea":"/ˌiːˈeɪ/","earlier":"/ˈɜːrliər/","early":"/ˈɜːrli/","edge":"/ˈɛdʒ/","edition":"/əˈdɪʃən/","eight":"/ˈeɪt/","eleventh":"/ˈilɛvənθ/","eligibility":"/ˌɛlɪdʒəˈbɪlɪti/","eligible":"/ˈɛlədʒəbəl/","ending":"/ˈɛndɪŋ/","endpoints":"/ˈɛndˌpɔɪnts/","ends":"/ˈɛndz/","engineered":"/ˌɛndʒəˈnird/","engineering":"/ˈɛndʒəˈnɪrɪŋ/","engineers":"/ˈɛndʒəˈnɪrz/","enjoy":"/ˌɛnˈdʒɔɪ/","enough":"/iˈnʌf/","ensure":"/ɛnˈʃʊr/","enter":"/ˈɛnər/","enterprise":"/ˈɛnərˌpraɪz/","enterprises":"/ˈɛnərˌpraɪzɪz/","entire":"/ɪnˈtaɪər/","entries":"/ˈɛntriz/","entry":"/ˈɛntri/","equal":"/ˈikwəl/","especially":"/əˈspɛʃəli/","evaluates":"/iˈvæljuˌeɪts/","evaluating":"/iˈvæljuˌeɪtɪŋ/","even":"/ˈivɪn/","evening":"/ˈivnɪŋ/","every":"/ˈɛvəri/","everyday":"/ˈɛvriˈdeɪ/","everyone":"/ˈɛvriˌwʌn/","everyone's":"/ˈɛvriˌwʌnz/","exact":"/ɪgˈzækt/","exam":"/ɪgˈzæm/","exception":"/ɪkˈsɛpʃən/","execution":"/ˌɛksəkˈjuʃən/","executive":"/ɪgˈzɛkjətɪv/","executor":"/ɪgˈzɛkjətər/","exhausted":"/ɪgˈzɔstɪd/","existing":"/ɪgˈzɪstɪŋ/","expires":"/ɪkˈspaɪərz/","explaining":"/ɪksˈpleɪnɪŋ/","external":"/ɪkˈstɜːrnəl/","fable":"/ˈfeɪbəl/","fabricated":"/ˈfæbrɪˌkeɪtəd/","fail":"/ˈfeɪl/","fair":"/ˈfɛr/","fairly":"/ˈfɛrli/","fairwind":"/ˈfɛrˌwɪnd/","fallback":"/ˈfɔlˌbæk/","fallbacks":"/ˈfɔlˌbæks/","families":"/ˈfæməliz/","fancy":"/ˈfænsi/","fast":"/ˈfæst/","faster":"/ˈfæstər/","fatigue":"/fəˈtig/","feels":"/ˈfilz/","fidelity":"/ˌfaɪˈdɛləti/","fifty":"/ˈfɪfti/","fifty-seven":"/ˈfɪfti ˈsɛvən/","finalize":"/ˈfaɪnəˌlaɪz/","finally":"/ˈfaɪnəli/","finance":"/ˈfaɪˌnæns/","first":"/ˈfɜːrst/","five":"/ˈfaɪv/","fivefold":"/ˈfaɪvˌfoʊld/","flag":"/ˈflæg/","flags":"/ˈflægz/","flash":"/ˈflæʃ/","flat":"/ˈflæt/","flexible":"/ˈflɛksəbəl/","flows":"/ˈfloʊz/","focus":"/ˈfoʊkəs/","followed":"/ˈfɑloʊd/","food":"/ˈfud/","footing":"/ˈfʊtɪŋ/","for":"/ˈfɔr/","forecast":"/ˈfɔrˌkæst/","forming":"/ˈfɔrmɪŋ/","forty":"/ˈfɔrti/","forward":"/ˈfɔrwərd/","four":"/ˈfɔr/","fragile":"/ˈfrædʒəl/","friday":"/ˈfraɪˌdeɪ/","from":"/ˈfrʌm/","frontier":"/frʌnˈtɪr/","fsm":"/ˌɛfˌɛsˈɛm/","fsp":"/ˌɛfˌɛsˈpiː/","fte":"/ˌɛfˌtiːˈiː/","ftes":"/ˌɛfˌtiːˈiːz/","full":"/ˈfʊl/","fumes":"/ˈfjumz/","future-scene":"/ˈfjutʃər ˈsin/","ga":"/ˌdʒiːˈeɪ/","gap":"/ˈgæp/","garlic":"/ˈgɑrlɪk/","gcr":"/ˌdʒiːˌsiːˈɑr/","ge":"/ˌdʒiːˈiː/","gemini":"/ˈdʒɛməˌnaɪ/","gemini-decision":"/ˈdʒɛməˌnaɪ dɪˈsɪʒən/","genai":"/ˌdʒɛnˈeɪˌaɪ/","general":"/ˈdʒɛnərəl/","generally":"/ˈdʒɛnərəli/","generating":"/ˈdʒɛnərˌeɪtɪŋ/","generative":"/ˈdʒɛnərətɪv/","genuinely":"/ˈdʒɛnˈjuˌwaɪnli/","get":"/ˈgɛt/","gets":"/ˈgɛts/","gfs":"/ˌdʒiːˌɛfˈɛs/","gives":"/ˈgɪvz/","giving":"/ˈgɪvɪŋ/","global":"/ˈgloʊbəl/","going":"/ˈgoʊɪn/","good":"/ˈgʊd/","google":"/ˈgugəl/","governance":"/ˈgʌvərnəns/","governed":"/ˈgʌvərnd/","granular":"/ˈgrænjələr/","great":"/ˈgreɪt/","guarantees":"/ˌgɛrənˈtiz/","guardrail":"/ˈgɑrˌdreɪl/","guardrails":"/ˈgɑrˌdreɪlz/","guiding":"/ˈgaɪdɪŋ/","half":"/ˈhæf/","handle":"/ˈhændəl/","hands-on":"/ˌhænˈzɔn/","happy":"/ˈhæpi/","has":"/ˈhæz/","have":"/ˈhæv/","having":"/ˈhævɪŋ/","heading":"/ˈhɛdɪŋ/","hectic":"/ˈhɛktɪk/","held-out":"/ˈhɛld ˈaʊt/","help":"/ˈhɛlp/","helps":"/ˈhɛlps/","hide":"/ˈhaɪd/","high-concurrency":"/ˌhaɪ kənˈkɜːrənsi/","high-speed":"/ˈhaɪˌspid/","higher":"/ˈhaɪər/","hiked":"/ˈhaɪkt/","hikers":"/ˈhaɪkərz/","hit":"/ˈhɪt/","hk":"/ˌeɪtʃˈkeɪ/","holds":"/ˈhoʊldz/","home":"/ˈhoʊm/","hong":"/ˈhɔŋ/","hop":"/ˈhɑp/","hope":"/ˈhoʊp/","hot":"/ˈhɑt/","how":"/ˈhaʊ/","huddle":"/ˈhʌdəl/","huge":"/ˈhjudʒ/","hundred":"/ˈhʌndərd/","hustle":"/ˈhʌsəl/","hydrogen":"/ˈhaɪdrədʒən/","hydrogen's":"/ˈhaɪdrədʒən/","hygiene":"/ˈhaɪˌdʒin/","iacv":"/ˌaɪˌeɪˌsiːˈviː/","idiom":"/ˈɪdiəm/","ids":"/ˈaɪˈdiz/","if":"/ˈɪf/","immutable":"/ˌɪmˈjutəbəl/","impacts":"/ˈɪmpæks/","in":"/ˈɪn/","includes":"/ˌɪnˈkludz/","indemnification":"/ˌɪnˌdɛmnəfɪˈkeɪʃən/","india":"/ˈɪndiə/","industry":"/ˈɪndəstri/","inertia":"/ˌɪˈnɜːrʃə/","inference":"/ˈɪnfərəns/","ing":"/ˈɪŋ/","ingestion":"/ˌɪnˈdʒɛstʃən/","input":"/ˈɪnˌpʊt/","inside":"/ˈɪnˌsaɪd/","instead":"/ˌɪnˈstɛd/","intent":"/ˌɪnˈtɛnt/","interfaces":"/ˈɪnərˌfeɪsɪz/","internal":"/ˌɪnˈtɜːrnəl/","into":"/ˈɪntu/","intro":"/ˈɪntroʊ/","invoice":"/ˈɪnvɔɪs/","is":"/ˈɪz/","issue":"/ˈɪʃu/","it":"/ˈɪt/","its":"/ˈɪts/","jargon":"/ˈdʒɑrgən/","jobs":"/ˈdʒɑbz/","joining":"/ˈdʒɔɪnɪŋ/","json":"/ˈdʒeɪsən/","just":"/ˈdʒʌst/","keep":"/ˈkip/","keeping":"/ˈkipɪŋ/","kitchen":"/ˈkɪtʃən/","kong":"/ˈkɔŋ/","kudos":"/ˈkudoʊs/","lab":"/ˈlæb/","landing":"/ˈlændɪŋ/","lands":"/ˈlændz/","last":"/ˈlæs/","late":"/ˈleɪt/","late-night":"/ˈleɪtˌnaɪt/","latency":"/ˈleɪtənsi/","later":"/ˈleɪtər/","latest":"/ˈleɪtəst/","launch":"/ˈlɔntʃ/","launched":"/ˈlɔntʃt/","launches":"/ˈlɔntʃəz/","launching":"/ˈlɔntʃɪŋ/","layer":"/ˈleɪər/","layers":"/ˈleɪərz/","lead":"/ˈlɛd/","lean":"/ˈlin/","leave":"/ˈliv/","left":"/ˈlɛft/","legacy":"/ˈlɛgəsi/","let":"/ˈlɛt/","let's":"/ˈlɛts/","lets":"/ˈlɛts/","leverage":"/ˈlɛvərɪdʒ/","lexicon":"/ˈlɛksɪˌkɑn/","like":"/ˈlaɪk/","list":"/ˈlɪst/","list-price":"/ˈlɪst ˈpraɪs/","literal":"/ˈlɪtərəl/","live":"/ˈlaɪv/","llm":"/ˌɛlˌɛlˈɛm/","lock":"/ˈlɑk/","long":"/ˈlɔŋ/","long-horizon":"/ˈlɔŋ həˈraɪzən/","look":"/ˈlʊk/","looking":"/ˈlʊkɪŋ/","looks":"/ˈlʊks/","loops":"/ˈlups/","low-cost":"/ˌloʊˈkɔst/","lower":"/ˈloʊər/","lowering":"/ˈloʊərɪŋ/","lucene":"/luːˈsiːn/","luxury":"/ˈlʌgʒəri/","made":"/ˈmeɪd/","main":"/ˈmeɪn/","maintains":"/meɪnˈteɪnz/","making":"/ˈmeɪkɪŋ/","malaysia":"/məˈleɪʒə/","managed":"/ˈmænədʒd/","mandate":"/ˈmænˌdeɪt/","mark":"/ˈmɑrk/","market":"/ˈmɑrkət/","markets":"/ˈmɑrkəts/","matrix":"/ˈmeɪtrɪks/","matters":"/ˈmætərz/","me":"/ˈmi/","meanings":"/ˈminɪŋz/","meanwhile":"/ˈminˌwaɪl/","measure":"/ˈmɛʒər/","members":"/ˈmɛmbərz/","messaging":"/ˈmɛsɪdʒɪŋ/","mid-november":"/ˈmɪd noʊˈvɛmbər/","mid-quarter":"/ˈmɪd ˈkwɔrtər/","milestone":"/ˈmaɪlˌstoʊn/","million":"/ˈmɪljən/","millisecond":"/ˈmɪlɪˌsɛkənd/","milliseconds":"/ˈmɪlɪˌsɛkəndz/","mimicbench":"/ˈmɪmɪkˌbɛntʃ/","mind":"/ˈmaɪnd/","mindful":"/ˈmaɪndfəl/","minutes":"/ˈmɪnəts/","miss":"/ˈmɪs/","missing":"/ˈmɪsɪŋ/","mode":"/ˈmoʊd/","model":"/ˈmɑdəl/","models":"/ˈmɑdəlz/","monday":"/ˈmʌnˌdeɪ/","month":"/ˈmʌnθ/","month-end":"/ˈmʌnθ ˈɛnd/","monthly":"/ˈmʌnθli/","more":"/ˈmɔr/","morning":"/ˈmɔrnɪŋ/","mornings":"/ˈmɔrnɪŋz/","move":"/ˈmuv/","moves":"/ˈmuvz/","moving":"/ˈmuvɪŋ/","ms":"/ˈmɪz/","multi-model":"/ˈmʌlti ˈmɑdəl/","multi-screen":"/ˈmʌlti ˈskrin/","multimodal":"/ˌmʌltiˈmoʊdəl/","multiplier":"/ˈmʌltəˌplaɪər/","must":"/ˈmʌst/","my":"/ˈmaɪ/","mythos":"/ˈmɪθɑs/","narrate":"/ˈnɛˌreɪt/","natural":"/ˈnætʃərəl/","naturally":"/ˈnætʃərəli/","need":"/ˈnid/","needs":"/ˈnidz/","net":"/ˈnɛt/","neural":"/ˈnjʊrəl/","new":"/ˈnju/","newest":"/ˈnuəst/","ninety":"/ˈnaɪnti/","ninety-five":"/ˈnaɪnti ˈfaɪv/","ninety-nine":"/ˈnaɪnti ˈnaɪn/","no":"/ˈnoʊ/","not":"/ˈnɑt/","note":"/ˈnoʊt/","nothing":"/ˈnʌθɪŋ/","nov":"/ˈnoʊv/","november":"/noʊˈvɛmbər/","now":"/ˈnaʊ/","number-one":"/ˌnʌmbərˈwʌn/","numbers":"/ˈnʌmbərz/","o'clock":"/əˈklɑk/","of":"/ˈʌv/","off":"/ˈɔf/","official":"/əˈfɪʃəl/","officially":"/əˈfɪʃəli/","offline":"/ˈɔˌflaɪn/","offset":"/ˈɔfˌsɛt/","often":"/ˈɔfən/","on":"/ˈɑn/","one":"/ˈwʌn/","one-million-token":"/ˈwʌn ˈmɪljən ˈtoʊkən/","only":"/ˈoʊnli/","onto":"/ˈɑntu/","open-ended":"/ˈoʊpəˌnɛndəd/","opened":"/ˈoʊpənd/","opening":"/ˈoʊpənɪŋ/","operational":"/ˌɑpərˈeɪʃənəl/","operations":"/ˌɑpərˈeɪʃənz/","opportunities":"/ˌɑpərˈtunətiz/","opportunity":"/ˌɑpərˈtunəti/","optional":"/ˈɑpʃənəl/","or":"/ˈɔr/","orchestrate":"/ˈɔrkɪˌstreɪt/","orchestration":"/ˌɔrkəˈstreɪʃən/","order":"/ˈɔrdər/","organization":"/ˌɔrgənəˈzeɪʃən/","organizations":"/ˌɔrgənəˈzeɪʃənz/","our":"/ˈaʊər/","out":"/ˈaʊt/","output":"/ˈaʊtˌpʊt/","output-token":"/ˈaʊtˌpʊt ˈtoʊkən/","overhead":"/ˈoʊvərˈhɛd/","overpromise":"/ˌoʊvərˈprɑmɪs/","override":"/ˈoʊvərˌraɪd/","overrides":"/ˈoʊvərˌraɪdz/","paa":"/ˌpiːˌeɪˈeɪ/","pace":"/ˈpeɪs/","packed":"/ˈpækt/","pair":"/ˈpɛr/","paired":"/ˈpɛrd/","pairing":"/ˈpɛrɪŋ/","parity":"/ˈpɛrəti/","parks":"/ˈpɑrks/","parse":"/ˈpɑrs/","partner":"/ˈpɑrtnər/","pass":"/ˈpæs/","passages":"/ˈpæsədʒəz/","passed":"/ˈpæst/","past":"/ˈpæst/","patching":"/ˈpætʃɪŋ/","path":"/ˈpæθ/","paygo":"/ˈpeɪˌgoʊ/","payload":"/ˈpeɪˌloʊd/","pays":"/ˈpeɪz/","peak":"/ˈpik/","peak-hour":"/ˈpik ˈaʊər/","per":"/ˈpɜːr/","per-token":"/ˈpɜːr ˈtoʊkən/","percent":"/pərˈsɛnt/","perplexity":"/pərˈplɛksəti/","persistent":"/pərˈsɪstənt/","personal":"/ˈpɜːrsɪnəl/","picked":"/ˈpɪkt/","pilot":"/ˈpaɪlət/","pine":"/ˈpaɪn/","pipeline":"/ˈpaɪˌplaɪn/","pitch":"/ˈpɪtʃ/","plain":"/ˈpleɪn/","plan":"/ˈplæn/","planner":"/ˈplænər/","planner-and":"/ˈplænər ˈænd/","planning":"/ˈplænɪŋ/","platform":"/ˈplætˌfɔrm/","please":"/ˈpliz/","plus":"/ˈplʌs/","pms":"/ˌpiːˈɛmz/","poc":"/ˌpiːˌoʊˈsiː/","pocs":"/ˌpiːˌoʊˈsiːz/","point":"/ˈpɔɪnt/","poise":"/ˈpɔɪz/","policy":"/ˈpɑləsi/","pool":"/ˈpul/","pour-over":"/ˈpɔr ˈoʊvər/","powered":"/ˈpaʊərd/","practical":"/ˈpræktəkəl/","pre-announcement":"/ˈpri əˈnaʊnsmənt/","pre-approved":"/ˈpri əˈpruvd/","precision":"/priˈsɪʒən/","predictable":"/priˈdɪktəbəl/","prep":"/ˈprɛp/","preparation":"/ˌprɛpərˈeɪʃən/","preserving":"/prəˈzɜːrvɪŋ/","prevents":"/priˈvɛnts/","preview":"/ˈprivˌju/","price":"/ˈpraɪs/","prices":"/ˈpraɪsəz/","pricing":"/ˈpraɪsɪŋ/","prioritized":"/praɪˈɔrəˌtaɪzd/","prioritizes":"/praɪˈɔrəˌtaɪzɪz/","pro":"/ˈproʊ/","probabilities":"/ˌprɑbəˈbɪləˌtiz/","procurement":"/proʊkˈjʊrmənt/","product":"/ˈprɑdəkt/","production":"/pərˈdʌkʃən/","professional":"/prəˈfɛʃənəl/","program":"/ˈproʊˌgræm/","projected":"/prəˈdʒɛktəd/","proliferate":"/proʊˈlɪfərˌeɪt/","promo":"/ˈproʊˌmoʊ/","promotional":"/pərˈmoʊʃənəl/","prompt":"/ˈprɑmpt/","prompt-parsing":"/ˈprɑmpt ˈpɑrsɪŋ/","prompts":"/ˈprɑmps/","proof":"/ˈpruf/","protecting":"/prəˈtɛktɪŋ/","protection":"/prəˈtɛkʃən/","prototype":"/ˈproʊtəˌtaɪp/","public":"/ˈpʌblɪk/","pulse":"/ˈpʌls/","push":"/ˈpʊʃ/","putting":"/ˈpʌtɪŋ/","queries":"/ˈkwɪriz/","question":"/ˈkwɛstʃən/","questions":"/ˈkwɛstʃənz/","quick":"/ˈkwɪk/","quicker":"/ˈkwɪkər/","quiet":"/ˈkwaɪət/","quorum":"/ˈkwɔrəm/","rag":"/ræg/","ranking":"/ˈræŋkɪŋ/","ranks":"/ˈræŋks/","rapid":"/ˈræpəd/","rapport":"/ræˈpɔr/","rate":"/ˈreɪt/","rather":"/ˈræðər/","reached":"/ˈritʃt/","reaches":"/ˈritʃəz/","react":"/riˈækt/","reading":"/ˈrɛdɪŋ/","ready":"/ˈrɛdi/","real":"/ˈril/","reasoning":"/ˈrizənɪŋ/","received":"/rəˈsivd/","recharge":"/riˈtʃɑrdʒ/","recognizing":"/ˈrɛkəgˌnaɪzɪŋ/","reconciliation":"/ˌrɛkənˌsɪliˈeɪʃən/","reduce":"/rəˈdus/","reduces":"/rəˈdusəz/","regional":"/ˈridʒənəl/","regions":"/ˈridʒənz/","register":"/ˈrɛdʒɪstər/","release":"/riˈlis/","releases":"/rɪˈlisɪz/","relying":"/riˈlaɪɪŋ/","remaining":"/riˈmeɪnɪŋ/","remains":"/riˈmeɪnz/","remember":"/riˈmɛmbər/","reminded":"/riˈmaɪndɪd/","reminder":"/riˈmaɪndər/","replace":"/ˌriˈpleɪs/","replaces":"/rɪˈpleɪsɪz/","replacing":"/rɪˈpleɪsɪŋ/","require":"/ˌriˈkwaɪər/","required":"/riˈkwaɪərd/","research":"/ˈrisərtʃ/","reseller":"/riˈsɛlər/","resellers":"/riˈsɛlərz/","reset":"/ˈrisɛt/","restorative":"/rəˈstɔrətɪv/","results":"/riˈzʌlts/","retention":"/riˈtɛnʃən/","retire":"/ˌriˈtaɪər/","retries":"/ˈriːˌtraɪz/","retrieval":"/riˈtrivəl/","retry":"/riˈtraɪ/","returning":"/riˈtɜːrnɪŋ/","review":"/ˌrivˈju/","reviews":"/rəvˈjuz/","rework":"/riˈwɜːrk/","ridge":"/ˈrɪdʒ/","right":"/ˈraɪt/","risks":"/ˈrɪsks/","rituals":"/ˈrɪtʃuəlz/","roadmap":"/ˈroʊdˌmæp/","roasted":"/ˈroʊstəd/","robustness":"/roʊˈbʌstnəs/","rolling":"/ˈroʊlɪŋ/","rough":"/ˈrʌf/","roughly":"/ˈrʌfli/","route":"/ˈraʊt/","router":"/ˈraʊtər/","routing":"/ˈraʊtɪŋ/","rule":"/ˈrul/","rules":"/ˈrulz/","run":"/ˈrʌn/","run-up":"/ˈrʌn ˈʌp/","running":"/ˈrʌnɪŋ/","runs":"/ˈrʌnz/","same":"/ˈseɪm/","saturday":"/ˈsæˌtɪˌdeɪ/","savings":"/ˈseɪvɪŋz/","scales":"/ˈskeɪlz/","scenario":"/sɪˈnɛrioʊ/","scoring":"/ˈskɔrɪŋ/","scrambled":"/ˈskræmbəld/","scraping":"/ˈskreɪpɪŋ/","scrutinizing":"/ˈskrutəˌnaɪzɪŋ/","search":"/ˈsɜːrtʃ/","seasonal":"/ˈsizənəl/","sec-bench":"/ˈsɛk ˈbɛntʃ/","second":"/ˈsɛkənd/","secondary":"/ˈsɛkənˌdɛri/","seconds":"/ˈsɛkəndz/","secure":"/sɪkˈjʊr/","security":"/sɪkˈjʊrəti/","see":"/ˈsi/","self":"/ˈsɛlf/","self-verification":"/ˈsɛlf ˌvɛrəfəˈkeɪʃən/","sends":"/ˈsɛndz/","separate":"/ˈsɛpərˌeɪt/","separately":"/ˈsɛpərətli/","sequence":"/ˈsikwəns/","seven":"/ˈsɛvən/","sg":"/ˌɛsˈdʒiː/","shadow":"/ˈʃæˌdoʊ/","shaking":"/ˈʃeɪkɪŋ/","shanghai":"/ˈʃæŋˈhaɪ/","sharp":"/ˈʃɑrp/","sharpen":"/ˈʃɑrpən/","sheets":"/ˈʃits/","short":"/ˈʃɔrt/","should":"/ˈʃʊd/","shows":"/ˈʃoʊz/","side":"/ˈsaɪd/","side-by-side":"/ˈsaɪdbaɪˈsaɪd/","sign-off":"/ˈsaɪn ˈɔf/","simple":"/ˈsɪmpəl/","singapore":"/ˈsɪŋəˌpɔr/","single":"/ˈsɪŋgəl/","size":"/ˈsaɪz/","sketches":"/ˈskɛtʃəz/","sleep":"/ˈslip/","slow":"/ˈsloʊ/","small":"/ˈsmɔl/","smc":"/ˌɛsˌɛmˈsiː/","so":"/ˈsoʊ/","social":"/ˈsoʊʃəl/","solr":"/ˈsoʊlər/","solved":"/ˈsɑlvd/","solving":"/ˈsɑlvɪŋ/","sonnet":"/ˈsɑnɪt/","sourdough":"/ˈsaʊərˌdoʊ/","space":"/ˈspeɪs/","specifically":"/spəˈsɪfɪkli/","speculative":"/ˈspɛkjələtɪv/","speed":"/ˈspid/","spend":"/ˈspɛnd/","spirit":"/ˈspɪrət/","spot":"/ˈspɑt/","spreadsheets":"/ˈsprɛdˌʃits/","squash":"/ˈskwɑʃ/","stack":"/ˈstæk/","standard":"/ˈstændərd/","stateful":"/ˈsteɪtfəl/","stay":"/ˈsteɪ/","stayed":"/ˈsteɪd/","stays":"/ˈsteɪz/","steering":"/ˈstɪrɪŋ/","stemming":"/ˈstɛmɪŋ/","still":"/ˈstɪl/","stitch":"/ˈstɪtʃ/","stop":"/ˈstɑp/","story":"/ˈstɔri/","streamline":"/ˈstrimˌlaɪn/","strength":"/ˈstrɛŋkθ/","stretch":"/ˈstrɛtʃ/","strict":"/ˈstrɪkt/","strictly":"/ˈstrɪktli/","strongest":"/ˈstrɔŋgəst/","studio":"/ˈstudiˌoʊ/","such":"/ˈsʌtʃ/","sunday":"/ˈsʌnˌdeɪ/","superfast":"/ˈsupərˌfæst/","support":"/səˈpɔrt/","surge":"/ˈsɜːrdʒ/","surprises":"/səˈpraɪzɪz/","sweater":"/ˈswɛtər/","sync":"/ˈsɪŋk/","syncs":"/sɪŋks/","synthesis":"/ˈsɪnθəsəs/","synthesized":"/ˈsɪnθɪˌsaɪzd/","tackling":"/ˈtækəlɪŋ/","take":"/ˈteɪk/","takes":"/ˈteɪks/","talent":"/ˈtælənt/","task":"/ˈtæsk/","team":"/ˈtim/","teams":"/ˈtimz/","tell":"/ˈtɛl/","ten":"/ˈtɛn/","ten-dollar":"/ˈtɛn ˈdɑlər/","tenth":"/ˈtɛnθ/","terminal":"/ˈtɜːrmənəl/","terminal-bench":"/ˈtɜːrmənəl ˈbɛntʃ/","test":"/ˈtɛst/","text":"/ˈtɛkst/","than":"/ˈðæn/","thanks":"/ˈθæŋks/","that":"/ˈðæt/","the":"/ˈðʌ/","then":"/ˈðɛn/","there":"/ˈðɛr/","thermos":"/ˈθɜːrməs/","these":"/ˈðiz/","they":"/ˈðeɪ/","third":"/ˈθɜːrd/","thirtieth":"/ˈθɜːrtiəθ/","thirty":"/ˈθɜːrˌdi/","thirty-first":"/ˈθɜːrˌdi ˈfɜːrst/","this":"/ˈðɪs/","those":"/ˈðoʊz/","though":"/ˈðoʊ/","thousand":"/ˈθaʊzən/","three":"/ˈθri/","throttling":"/ˈθrɑtəlɪŋ/","through":"/ˈθru/","throughput":"/ˈθruˌpʊt/","thursday":"/ˈθɜːrzˌdeɪ/","thyme":"/ˈθaɪm/","tier":"/ˈtir/","time":"/ˈtaɪm/","times":"/ˈtaɪmz/","timing":"/ˈtaɪmɪŋ/","to":"/ˈtu/","today":"/təˈdeɪ/","together":"/təˈgɛðər/","token":"/ˈtoʊkən/","tokens":"/ˈtoʊkənz/","too":"/ˈtu/","tool":"/ˈtul/","tool-calling":"/ˈtul ˈkɔlɪŋ/","total":"/ˈtoʊtəl/","touch":"/ˈtʌtʃ/","toward":"/ˈtɔrd/","town":"/ˈtaʊn/","trail":"/ˈtreɪl/","trails":"/ˈtreɪlz/","transcript":"/ˈtrænsˌkrɪpt/","translating":"/ˈtrænˌsleɪtɪŋ/","trees":"/ˈtriz/","triage":"/ˈtraɪɪdʒ/","triple":"/ˈtrɪpəl/","true-up":"/ˈtru ˈʌp/","trusted":"/ˈtrʌstɪd/","tuesday":"/ˈtjuzˌdeɪ/","turnaround":"/ˈtɜːrnərˌaʊnd/","turned":"/ˈtɜːrnd/","twelfth":"/ˈtwɛlfθ/","twelve-month":"/ˈtwɛlv ˈmʌnθ/","twenty":"/ˈtwɛni/","twenty-five":"/ˈtwɛntiˌfaɪv/","two":"/ˈtu/","two-dollar":"/ˈtu ˈdɑlər/","two-hour":"/ˈtu ˈaʊər/","ui":"/ˌjuːˈaɪ/","uis":"/ˌjuːˈaɪz/","unauthorized":"/əˈnɔθərˌaɪzd/","under":"/ˈʌndər/","underlying":"/ˌʌndərˈlaɪɪŋ/","unless":"/ənˈlɛs/","unlike":"/ənˈlaɪk/","unscoped":"/ʌnˈskoʊpt/","until":"/ənˈtɪl/","unwind":"/ənˈwaɪnd/","up":"/ˈʌp/","upfront":"/ˈʌpˌfrʌnt/","upscale":"/ˈʌpˌskeɪl/","us":"/ˈʌs/","usage":"/ˈjusədʒ/","use":"/ˈjus/","using":"/ˈjuzɪŋ/","vector":"/ˈvɛktər/","verifiable":"/ˈvɛrəˌfaɪəbəl/","verification":"/ˌvɛrəfəˈkeɪʃən/","verify":"/ˈvɛrəˌfaɪ/","vertex":"/ˈvɜːrˌtɛks/","vetted":"/ˈvɛtɪd/","vision":"/ˈvɪʒən/","vocabulary":"/voʊˈkæbjəˌlɛri/","voice":"/ˈvɔɪs/","volume":"/ˈvɑljum/","vouchers":"/ˈvaʊtʃərz/","vp":"/ˌviˈpi/","vp-approved":"/ˌviˈpi əˈpruvd/","vs":"/ˈviˈɛs/","vulnerability":"/ˌvʌlnərəˈbɪlɪti/","wait":"/ˈweɪt/","waking":"/ˈweɪkɪŋ/","wandr":"/ˈwɑndər/","want":"/ˈwɑnt/","warm":"/ˈwɔrm/","warmly":"/ˈwɔrmli/","was":"/ˈwɑz/","wasted":"/ˈweɪstɪd/","wave":"/ˈweɪv/","waves":"/ˈweɪvz/","we":"/ˈwi/","weaver":"/ˈwivər/","weaving":"/ˈwivɪŋ/","wednesday":"/ˈwɛnzˌdeɪ/","week":"/ˈwik/","week's":"/ˈwiks/","weekend":"/ˈwiˌkɛnd/","weekly":"/ˈwikli/","weeks":"/ˈwiks/","what":"/ˈhwʌt/","when":"/ˈhwɛn/","where":"/ˈhwɛr/","whether":"/ˈhwɛðər/","which":"/ˈhwɪtʃ/","while":"/ˈhwaɪl/","why":"/ˈhwaɪ/","window":"/ˈwɪndoʊ/","wishing":"/ˈwɪʃɪŋ/","with":"/ˈwɪð/","without":"/wɪˈðaʊt/","wool":"/ˈwʊl/","work":"/ˈwɜːrk/","workaround":"/ˈwɜːrkərˈaʊnd/","workflows":"/ˈwɜːrkˌfloʊz/","workhorse":"/ˈwɜːrkˌhɔrs/","workplace":"/ˈwɜːrkˌpleɪs/","write":"/ˈraɪt/","writing":"/ˈraɪtɪŋ/","year-end":"/ˈjɪr ˈɛnd/","yearly":"/ˈjɪrli/","yesterday":"/ˈjɛstərˌdeɪ/","you":"/ˈju/","your":"/ˈjɔr/","zdr":"/ˌziːˌdiːˈɑr/","zero":"/ˈziroʊ/","zero-data-retention":"/ˈziroʊ ˈdætə riˈtɛnʃən/","zero-pipeline":"/ˈziroʊ ˈpaɪˌplaɪn/","zone":"/ˈzoʊn/"}; // END_IPA_DICT
 
     let currentWord = "";
     let speechRate = 0.95;
@@ -2659,6 +2798,43 @@
         return null;
       }
 
+      function lookupIpa(word) {
+        if (!word) return '';
+        const w = String(word).trim().replace(/[’‘]/g, "'").toLowerCase();
+        if (!w) return '';
+        if (typeof IPA_DICT === 'object' && IPA_DICT && IPA_DICT[w]) return IPA_DICT[w];
+        if (LEXICON_DB[w] && LEXICON_DB[w].ipa) return LEXICON_DB[w].ipa;
+        const noPoss = w.replace(/'s$/, '');
+        if (noPoss !== w) {
+          if (typeof IPA_DICT === 'object' && IPA_DICT && IPA_DICT[noPoss]) return IPA_DICT[noPoss];
+          if (LEXICON_DB[noPoss] && LEXICON_DB[noPoss].ipa) return LEXICON_DB[noPoss].ipa;
+        }
+        const noApos = noPoss.replace(/'/g, '');
+        if (noApos !== noPoss) {
+          if (typeof IPA_DICT === 'object' && IPA_DICT && IPA_DICT[noApos]) return IPA_DICT[noApos];
+          if (LEXICON_DB[noApos] && LEXICON_DB[noApos].ipa) return LEXICON_DB[noApos].ipa;
+        }
+        if (w.includes('-')) {
+          const parts = w.split('-').filter(Boolean);
+          const resolved = parts.map(p => (typeof IPA_DICT === 'object' && IPA_DICT && IPA_DICT[p]) || (LEXICON_DB[p] && LEXICON_DB[p].ipa) || '');
+          if (resolved.length && resolved.every(Boolean)) {
+            return '/' + resolved.map(r => r.replace(/^\/|\/$/g, '')).join(' ') + '/';
+          }
+        }
+        return '';
+      }
+
+      function renderIpaBadge(el, ipa) {
+        if (!el) return;
+        if (ipa) {
+          el.innerHTML = `<span class="ipa-tag">US</span><span>${ipa}</span>`;
+          el.classList.remove('hidden');
+        } else {
+          el.innerHTML = '';
+          el.classList.add('hidden');
+        }
+      }
+
       function saveWordToUserLexicon(wordObj) {
         try {
           const raw = localStorage.getItem('aiss_saved_lexicon_v2');
@@ -2690,7 +2866,7 @@
         saved.forEach(item => {
           if (item && item.word && !seen.has(item.word)) {
             seen.add(item.word);
-            combined.push({ ...item, isUserQueried: true });
+            combined.push({ ...item, ipa: item.ipa || lookupIpa(item.word), isUserQueried: true });
           }
         });
 
@@ -2701,6 +2877,7 @@
             combined.push({
               word: k,
               pos: d.pos || '',
+              ipa: d.ipa || lookupIpa(k),
               cn: d.cn,
               nuance: d.nuance,
               exEn: d.exEn || '',
@@ -2719,6 +2896,7 @@
             ? `<span class="kicker" style="background:var(--accent); color:#FBF9F5; padding:1px 5px; font-size:0.6rem; margin-left:0.4rem;">已点查 ${cnt}次</span>`
             : '';
           const posHtml = item.pos ? `<span class="kicker" style="margin-left:0.3rem;">${item.pos}</span>` : '';
+          const ipaHtml = item.ipa ? `<span class="ipa-phonetic-inline">${item.ipa}</span>` : '';
           const exBlock = item.exEn
             ? `<div style="margin-top:0.38rem; padding:0.45rem 0.6rem; background:var(--paper); border-left:2px solid var(--accent); font-size:0.78rem;">
                  <div class="font-serif" style="color:var(--ink); line-height:1.45;">${highlightWordInSentence(item.exEn, item.word)}</div>
@@ -2732,11 +2910,11 @@
                </div>`
             : '';
           return `<div class="border-b" style="padding:0.75rem 0;">
-            <div style="display:flex; justify-content:space-between; align-items:baseline;">
-              <div>
-                <strong class="font-serif" style="font-size:1.05rem;">${item.word}</strong>${posHtml}${badge}
+            <div style="display:flex; justify-content:space-between; align-items:baseline; gap:0.5rem;">
+              <div style="flex:1; min-width:0;">
+                <strong class="font-serif" style="font-size:1.05rem;">${item.word}</strong>${posHtml}${ipaHtml}${badge}
               </div>
-              <button type="button" onclick="speakText('${item.word.replace(/'/g, "\\'")}')" class="editorial-pronounce-pill" style="padding:0.1rem 0.45rem; font-size:0.62rem;">🔊 读词</button>
+              <button type="button" onclick="speakText('${item.word.replace(/'/g, "\\'")}')" class="editorial-pronounce-pill" style="padding:0.1rem 0.45rem; font-size:0.62rem; flex-shrink:0;">🔊 读词</button>
             </div>
             <div class="lex-meaning-blur" onclick="this.classList.toggle('revealed')" style="font-size:0.86rem; color:var(--accent); font-weight:600; margin-top:0.2rem;">${item.cn}</div>
             <div class="lex-meaning-blur" onclick="this.classList.toggle('revealed')" style="font-size:0.78rem; color:var(--ink-secondary); margin-top:0.12rem; line-height:1.45;">${item.nuance || ''}</div>
@@ -2746,7 +2924,13 @@
       }
 
       window.lookupWord = function(rawWord, contextParagraphElem) {
-        const clean = (rawWord || "").replace(/[^a-zA-Z-]/g, '').toLowerCase();
+        const rawNorm = (rawWord || "").trim().replace(/[’‘]/g, "'");
+        const cleanExact = rawNorm.replace(/^[^a-zA-Z]+|[^a-zA-Z]+$/g, '').toLowerCase();
+        const CONTRACTIONS = new Set(["don't", "doesn't", "won't", "can't", "isn't", "aren't", "o'clock", "let's", "it's", "we're", "you're", "they're", "i'd", "i'm", "we've", "that's", "there's"]);
+        const isContraction = CONTRACTIONS.has(cleanExact);
+        const clean = isContraction
+          ? cleanExact
+          : cleanExact.replace(/'s$/, '').replace(/[^a-zA-Z-]/g, '').replace(/^-+|-+$/g, '');
         if (clean.length <= 1) return;
         currentWord = clean;
 
@@ -2754,6 +2938,7 @@
         const ctxEx = extractContextualExample(clean, contextParagraphElem);
 
         const pos = (dbEntry && dbEntry.pos) ? dbEntry.pos : '';
+        const ipa = lookupIpa(clean) || lookupIpa(cleanExact) || (dbEntry && dbEntry.ipa) || '';
         const cn = (dbEntry && dbEntry.cn)
           ? dbEntry.cn
           : '核心语境词汇（结合下方原句与中文对照掌握地道用法）';
@@ -2780,6 +2965,7 @@
         document.getElementById('marg-word').textContent = clean;
         const margPos = document.getElementById('marg-pos');
         if (margPos) margPos.textContent = pos;
+        renderIpaBadge(document.getElementById('marg-ipa'), ipa);
         document.getElementById('marg-cn').textContent = cn;
         document.getElementById('marg-nuance').textContent = nuance;
         const margExEn = document.getElementById('marg-ex-en');
@@ -2804,6 +2990,7 @@
           document.getElementById('mob-word').textContent = clean;
           const mobPos = document.getElementById('mob-pos');
           if (mobPos) mobPos.textContent = pos;
+          renderIpaBadge(document.getElementById('mob-ipa'), ipa);
           document.getElementById('mob-cn').textContent = cn;
           document.getElementById('mob-nuance').textContent = nuance;
           const mobExEn = document.getElementById('mob-ex-en');
@@ -2823,8 +3010,41 @@
           }
         }
 
-        saveWordToUserLexicon({ word: clean, pos, cn, nuance, exEn, exCn, bizExEn, bizExCn });
+        saveWordToUserLexicon({ word: clean, pos, ipa, cn, nuance, exEn, exCn, bizExEn, bizExCn });
         speakText(clean);
+
+        // Layer 3 online fallback for any out-of-dictionary word when network is available
+        if (!ipa && typeof fetch === 'function') {
+          fetch('https://api.dictionaryapi.dev/api/v2/entries/en/' + encodeURIComponent(clean))
+            .then(r => (r.ok ? r.json() : null))
+            .then(data => {
+              if (!Array.isArray(data) || !data[0] || currentWord !== clean) return;
+              const phs = Array.isArray(data[0].phonetics) ? data[0].phonetics : [];
+              const usPh = phs.find(x => x && x.text && /us/i.test(x.audio || ''));
+              const anyPh = phs.find(x => x && x.text);
+              const liveIpa = (usPh && usPh.text) || (anyPh && anyPh.text) || data[0].phonetic || '';
+              if (liveIpa) {
+                renderIpaBadge(document.getElementById('marg-ipa'), liveIpa);
+                if (window.innerWidth < 960) {
+                  renderIpaBadge(document.getElementById('mob-ipa'), liveIpa);
+                }
+                if (typeof IPA_DICT === 'object' && IPA_DICT) IPA_DICT[clean] = liveIpa;
+                try {
+                  const raw = localStorage.getItem('aiss_saved_lexicon_v2');
+                  if (raw) {
+                    const list = JSON.parse(raw);
+                    const hit = list.find(i => i.word === clean);
+                    if (hit) {
+                      hit.ipa = liveIpa;
+                      localStorage.setItem('aiss_saved_lexicon_v2', JSON.stringify(list));
+                      renderUserLexiconList();
+                    }
+                  }
+                } catch (e) {}
+              }
+            })
+            .catch(() => {});
+        }
       };
 
       renderUserLexiconList();
@@ -2833,26 +3053,39 @@
         p.addEventListener('click', (e) => {
           const selection = window.getSelection();
           let word = "";
-          if (e.target && e.target.classList.contains('prosody-stress')) {
-            word = e.target.innerText.trim().split(/\s+/).pop();
-          } else if (selection && selection.toString().trim()) {
+          if (selection && selection.toString().trim()) {
             word = selection.toString().trim();
           } else {
-            let range;
+            let textNode = null;
+            let offset = 0;
             if (document.caretRangeFromPoint) {
-              range = document.caretRangeFromPoint(e.clientX, e.clientY);
+              const range = document.caretRangeFromPoint(e.clientX, e.clientY);
+              if (range && range.startContainer.nodeType === Node.TEXT_NODE) {
+                textNode = range.startContainer;
+                offset = range.startOffset;
+              }
+            } else if (document.caretPositionFromPoint) {
+              const pos = document.caretPositionFromPoint(e.clientX, e.clientY);
+              if (pos && pos.offsetNode && pos.offsetNode.nodeType === Node.TEXT_NODE) {
+                textNode = pos.offsetNode;
+                offset = pos.offset;
+              }
             }
-            if (range && range.startContainer.nodeType === Node.TEXT_NODE) {
-              const text = range.startContainer.textContent;
-              const offset = range.startOffset;
-              const left = text.slice(0, offset).search(/\S+$/);
-              const right = text.slice(offset).search(/\s/);
-              word = right < 0 ? text.slice(left) : text.slice(left, offset + right);
+            if (textNode) {
+              const text = textNode.textContent || "";
+              const left = text.slice(0, offset).search(/[A-Za-z'’-]+$/);
+              const rightRel = text.slice(offset).search(/[^A-Za-z'’-]/);
+              if (left >= 0) {
+                word = rightRel < 0 ? text.slice(left) : text.slice(left, offset + rightRel);
+              }
+            }
+            if (!word && e.target && e.target.classList.contains('prosody-stress')) {
+              word = e.target.innerText.trim().split(/\s+/).pop();
             }
           }
-          const clean = (word || "").replace(/[^a-zA-Z-]/g, '').toLowerCase();
-          if (clean.length > 2) {
-            window.lookupWord(clean, p);
+          const cleanCheck = (word || "").replace(/[^a-zA-Z]/g, '');
+          if (cleanCheck.length >= 2) {
+            window.lookupWord(word, p);
           }
         });
       });
@@ -2860,17 +3093,3 @@
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
