@@ -3997,20 +3997,21 @@
             <span id="coach-status-pill" class="coach-mode-badge">🧭 当前：离线本地评分</span>
           </div>
           <p style="font-size:0.85rem; color:var(--ink-secondary); margin:0.45rem 0 0.75rem; line-height:1.6;">
-            粘贴个人 Google AI Studio（<code>aistudio.google.com/apikey</code>）生成的免费 <code>AIza...</code> Key 并测试连接，即可为每天第 4 题开启实时 AI 导师逐句点评与升级示范。<strong>安全说明：Key 仅保存在这台 iPad 的浏览器本地存储（<code>localStorage</code>），不会写入 GitHub 网页源码，也不会附带任何孩子姓名或学校信息。</strong>
+            粘贴个人 Google AI Studio（<code>aistudio.google.com/apikey</code>）生成的免费 API Key（<code>AQ...</code> 或 <code>AIza...</code> 开头）并测试连接，即可为每天第 4 题开启实时 AI 导师逐句点评与升级示范。<strong>安全说明：Key 仅保存在这台 iPad 的浏览器本地存储（<code>localStorage</code>），不会写入 GitHub 网页源码，也不会附带任何孩子姓名或学校信息。</strong>
           </p>
           <div style="display:grid; grid-template-columns:1fr; gap:0.65rem;">
             <div style="display:flex; gap:0.45rem; align-items:center;">
-              <input type="password" id="gemini-key-input" class="coach-key-input" placeholder="粘贴 AIza... 开头的个人 Gemini API Key" autocomplete="off" spellcheck="false" />
+              <input type="password" id="gemini-key-input" class="coach-key-input" placeholder="粘贴个人 Gemini API Key（AQ... 或 AIza...）" autocomplete="off" spellcheck="false" />
               <button type="button" class="btn-outline btn-sm" onclick="toggleKeyVisibility()" title="显示/隐藏 Key" style="flex-shrink:0;">👁</button>
             </div>
             <div style="display:flex; flex-wrap:wrap; align-items:center; gap:0.55rem;">
               <label for="gemini-model-select" class="kicker">Model:</label>
-              <select id="gemini-model-select" class="editorial-voice-select" style="max-width:260px;">
-                <option value="auto">Auto · 自动优选免费 Flash 模型（推荐）</option>
-                <option value="gemini-2.5-flash">gemini-2.5-flash</option>
+              <select id="gemini-model-select" class="editorial-voice-select" style="max-width:270px;" onchange="try{localStorage.setItem(STORAGE_AI_MODEL,this.value);updateCoachStatusUI();}catch(e){}">
+                <option value="auto">Auto · 自动优选最快免费 Flash（推荐）</option>
+                <option value="gemini-3.5-flash-lite">gemini-3.5-flash-lite（极速推荐）</option>
+                <option value="gemini-flash-lite-latest">gemini-flash-lite-latest</option>
+                <option value="gemini-3.5-flash">gemini-3.5-flash</option>
                 <option value="gemini-3.8-flash">gemini-3.8-flash</option>
-                <option value="gemini-2.5-flash-lite">gemini-2.5-flash-lite</option>
               </select>
               <button type="button" id="btn-test-key" class="btn-coach-primary" onclick="saveAndTestGeminiKey()">⚡ Save &amp; Test Key</button>
               <button type="button" class="btn-outline btn-sm" onclick="clearGeminiKey()">🗑 Clear Key</button>
@@ -4410,7 +4411,13 @@
     }
 
     /* ==================== 3-IN-1 MISSION COACH (OFFLINE RUBRIC + GEMINI API + EXPORT) ==================== */
-    const DEFAULT_FLASH_MODELS = ["gemini-2.5-flash", "gemini-3.8-flash", "gemini-2.5-flash-lite", "gemini-2.0-flash"];
+    const DEFAULT_FLASH_MODELS = [
+      "gemini-3.5-flash-lite",
+      "gemini-flash-lite-latest",
+      "gemini-3.5-flash",
+      "gemini-3.1-flash-lite",
+      "gemini-3.8-flash"
+    ];
 
     function escHtml(s) {
       return String(s || "")
@@ -4436,6 +4443,8 @@
         chosen = localStorage.getItem(STORAGE_AI_MODEL) || "auto";
         working = localStorage.getItem(STORAGE_WORKING_MODEL) || "";
       } catch (e) {}
+      if (chosen !== "auto" && !DEFAULT_FLASH_MODELS.includes(chosen)) chosen = "auto";
+      if (working && !DEFAULT_FLASH_MODELS.includes(working)) working = "";
       const list = [];
       if (chosen && chosen !== "auto") list.push(chosen);
       if (working && !list.includes(working)) list.push(working);
@@ -4475,7 +4484,10 @@
       const keyInp = document.getElementById("gemini-key-input");
       if (keyInp && !keyInp.value && key) keyInp.value = key;
       const sel = document.getElementById("gemini-model-select");
-      if (sel) sel.value = model;
+      if (sel) {
+        const valid = Array.from(sel.options).some(o => o.value === model);
+        sel.value = valid ? model : "auto";
+      }
 
       document.querySelectorAll(".coach-btn-label").forEach(sp => {
         sp.textContent = key ? "🤖 Ask Lab Coach" : "🧭 Check My Mission";
@@ -4503,20 +4515,33 @@
       updateCoachStatusUI();
     }
 
-    async function probeGeminiEndpoint(apiKey, payloadObj, modelCandidates) {
+    async function probeGeminiEndpoint(apiKey, payloadObj, modelCandidates, onProgress) {
       let lastErr = "Network error";
       for (const model of modelCandidates) {
+        if (typeof onProgress === "function") onProgress(model);
         const url = "https://generativelanguage.googleapis.com/v1beta/models/" + encodeURIComponent(model) + ":generateContent?key=" + encodeURIComponent(apiKey);
-        const resp = await fetch(url, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payloadObj)
-        });
+        const ctrl = typeof AbortController !== "undefined" ? new AbortController() : null;
+        const tid = ctrl ? setTimeout(() => ctrl.abort(), 9000) : null;
+        let resp;
+        try {
+          resp = await fetch(url, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payloadObj),
+            signal: ctrl ? ctrl.signal : undefined
+          });
+        } catch (fetchErr) {
+          if (tid) clearTimeout(tid);
+          lastErr = (fetchErr && fetchErr.name === "AbortError") ? (model + " timed out (9s)") : String(fetchErr || "Network error");
+          continue;
+        }
+        if (tid) clearTimeout(tid);
         if (resp.ok) {
           const data = await resp.json();
-          const text = (data && data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts)
-            ? data.candidates[0].content.parts.map(p => p.text || "").join("")
-            : "";
+          const parts = (data && data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts)
+            ? data.candidates[0].content.parts
+            : [];
+          const text = parts.filter(p => p && !p.thought).map(p => p.text || "").join("") || parts.map(p => p.text || "").join("");
           if (text) {
             try { localStorage.setItem(STORAGE_WORKING_MODEL, model); } catch (e) {}
             return { ok: true, model, text };
@@ -4536,7 +4561,7 @@
         if (resp.status === 429) {
           return { ok: false, status: 429, error: "Rate limit reached — wait a moment and try again." };
         }
-        // Try next model on 404 or unsupported model 400
+        // Try next model on 404, 503 high demand, or unsupported model 400
       }
       return { ok: false, status: 0, error: lastErr };
     }
@@ -4547,23 +4572,18 @@
       const st = document.getElementById("gemini-key-status");
       const btn = document.getElementById("btn-test-key");
       const key = (inp ? inp.value : "").trim();
-      const chosenModel = sel ? sel.value : "auto";
+      const chosenModel = (sel && sel.value) ? sel.value : "auto";
 
       if (!key) {
         if (st) {
           st.style.color = "var(--red)";
-          st.textContent = "请先粘贴个人 AI Studio 生成的 AIza... API Key。";
+          st.textContent = "请先粘贴个人 AI Studio 生成的 API Key（AQ... 或 AIza...）。";
         }
         return;
       }
-      if (!key.startsWith("AIza")) {
-        if (st) {
-          st.style.color = "var(--amber)";
-          st.textContent = "提示：标准 Gemini API Key 通常以 AIza 开头，正在尝试连接测试...";
-        }
-      } else if (st) {
+      if (st) {
         st.style.color = "var(--ink-secondary)";
-        st.textContent = "⏳ 正在测试 Gemini API 连接并匹配可用 Flash 模型...";
+        st.textContent = "⏳ 正在测试 Gemini API 连接...";
       }
 
       if (btn) btn.disabled = true;
@@ -4574,9 +4594,11 @@
           : [chosenModel, ...DEFAULT_FLASH_MODELS.filter(m => m !== chosenModel)];
         const pingPayload = {
           contents: [{ parts: [{ text: "Reply with exactly: OK" }] }],
-          generationConfig: { maxOutputTokens: 16, temperature: 0 }
+          generationConfig: { maxOutputTokens: 32, temperature: 0 }
         };
-        const res = await probeGeminiEndpoint(key, pingPayload, candidates);
+        const res = await probeGeminiEndpoint(key, pingPayload, candidates, (m) => {
+          if (st) st.textContent = "⏳ 正在测试模型 " + m + " ...";
+        });
         if (res.ok) {
           localStorage.setItem(STORAGE_API_KEY, key);
           if (st) {
@@ -4744,7 +4766,7 @@
         contents: [{ parts: [{ text: promptText }] }],
         generationConfig: {
           temperature: 0.35,
-          maxOutputTokens: 700,
+          maxOutputTokens: 1200,
           responseMimeType: "application/json"
         }
       };
