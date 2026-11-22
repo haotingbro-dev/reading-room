@@ -5664,75 +5664,139 @@
 
     let activeRecognition = null;
     let activeMicDay = null;
+    let dictateBaseText = "";
+    let dictateFinalText = "";
+    let dictateInterimText = "";
+
+    function applyDictationText(dayIdx) {
+      const tb = document.getElementById("note-box-" + dayIdx);
+      if (!tb) return;
+      const parts = [dictateBaseText, dictateFinalText, dictateInterimText].map(s => (s || "").trim()).filter(Boolean);
+      tb.value = parts.join(" ");
+      onMissionNoteInput(dayIdx);
+    }
+
     function toggleMissionDictation(dayIdx) {
       const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
       const hint = document.getElementById("dictate-hint-" + dayIdx);
       const btn = document.getElementById("mic-btn-" + dayIdx);
+      const tb = document.getElementById("note-box-" + dayIdx);
 
       if (!SR) {
+        if (tb) tb.focus();
         if (hint) {
-          hint.textContent = "💡 Tip: Tap the text box and use the 🎤 microphone key on your iPad keyboard to speak your 60-second answer directly into English text!";
+          hint.textContent = "💡 Tap the 🎤 microphone key on your iPad keyboard (English keyboard) for instant offline dictation!";
           hint.classList.remove("hidden");
         }
         return;
       }
 
       if (activeRecognition && activeMicDay === dayIdx) {
-        activeRecognition.stop();
+        try { activeRecognition.stop(); } catch (e) {}
         return;
       }
       if (activeRecognition) {
-        try { activeRecognition.stop(); } catch (e) {}
+        try { activeRecognition.abort(); } catch (e) {}
+        activeRecognition = null;
+        activeMicDay = null;
       }
+
+      // Release iPadOS AVAudioSession from any active SpeechSynthesis before opening mic
+      stopNarration();
+
+      dictateBaseText = tb ? tb.value.trim() : "";
+      dictateFinalText = "";
+      dictateInterimText = "";
 
       try {
         const rec = new SR();
         rec.lang = "en-US";
-        rec.interimResults = false;
+        rec.interimResults = true;
         rec.continuous = false;
+        rec.maxAlternatives = 1;
         activeRecognition = rec;
         activeMicDay = dayIdx;
 
         if (btn) {
           btn.classList.add("is-listening");
-          btn.textContent = "⏹ Stop Mic";
+          btn.textContent = "⏳ Starting...";
         }
         if (hint) {
-          hint.textContent = "🎙 Listening in English... Speak clearly, then tap Stop Mic (or pause) when finished.";
+          hint.textContent = "⏳ Opening microphone — wait until it says Speak Now...";
           hint.classList.remove("hidden");
         }
 
-        rec.onresult = (evt) => {
-          const transcript = Array.from(evt.results || [])
-            .map(r => (r[0] ? r[0].transcript : ""))
-            .join(" ")
-            .trim();
-          const tb = document.getElementById("note-box-" + dayIdx);
-          if (tb && transcript) {
-            tb.value = tb.value.trim() ? (tb.value.trim() + " " + transcript) : transcript;
-            onMissionNoteInput(dayIdx);
-          }
-        };
-        rec.onerror = () => {
+        let gotAnyResult = false;
+        let lastErrCode = "";
+
+        rec.onstart = () => {
+          if (btn) btn.textContent = "⏹ Stop Mic";
           if (hint) {
-            hint.textContent = "💡 Voice recognition paused — you can also tap the 🎤 microphone key on your iPad keyboard anytime!";
-            hint.classList.remove("hidden");
+            hint.textContent = "🔴 Speak now in English! Words appear live. (Tip: iPad keyboard 🎤 is even faster and adds punctuation.)";
           }
         };
+
+        rec.onresult = (evt) => {
+          gotAnyResult = true;
+          let fin = "";
+          let inter = "";
+          for (let i = 0; i < evt.results.length; i++) {
+            const res = evt.results[i];
+            const t = (res && res[0] && res[0].transcript) ? res[0].transcript.trim() : "";
+            if (!t) continue;
+            if (res.isFinal) fin += (fin ? " " : "") + t;
+            else inter += (inter ? " " : "") + t;
+          }
+          dictateFinalText = fin;
+          dictateInterimText = inter;
+          applyDictationText(dayIdx);
+        };
+
+        rec.onerror = (evt) => {
+          lastErrCode = (evt && evt.error) ? String(evt.error) : "unknown";
+          if (!hint) return;
+          if (lastErrCode === "not-allowed" || lastErrCode === "service-not-allowed") {
+            hint.textContent = "⚠️ Mic permission blocked. Allow Microphone in iPad Settings → Safari, or tap the text box and use the iPad keyboard 🎤 key!";
+          } else if (lastErrCode === "no-speech") {
+            hint.textContent = "💡 No speech heard — wait for '🔴 Speak now' before talking, or use the iPad keyboard 🎤 key!";
+          } else if (lastErrCode === "network") {
+            hint.textContent = "⚠️ Web speech service unavailable on this network — tap the text box and use the iPad keyboard 🎤 key (works on-device!).";
+          } else if (lastErrCode !== "aborted") {
+            hint.textContent = "💡 Dictation stopped (" + lastErrCode + ") — for fastest results on iPad, tap the text box and use the iPad keyboard 🎤 key!";
+          }
+          hint.classList.remove("hidden");
+        };
+
         rec.onend = () => {
+          if (dictateInterimText) {
+            dictateFinalText = [dictateFinalText, dictateInterimText].filter(Boolean).join(" ");
+            dictateInterimText = "";
+            applyDictationText(dayIdx);
+          }
           if (btn) {
             btn.classList.remove("is-listening");
             btn.textContent = "🎤 Dictate";
+          }
+          if (!lastErrCode && gotAnyResult && hint) {
+            hint.textContent = "✅ Dictation added! Tap 🎤 Dictate again to add another sentence, or edit punctuation above.";
           }
           if (activeRecognition === rec) {
             activeRecognition = null;
             activeMicDay = null;
           }
         };
+
         rec.start();
       } catch (e) {
+        activeRecognition = null;
+        activeMicDay = null;
+        if (btn) {
+          btn.classList.remove("is-listening");
+          btn.textContent = "🎤 Dictate";
+        }
+        if (tb) tb.focus();
         if (hint) {
-          hint.textContent = "💡 Tip: Tap the 🎤 microphone key on your iPad keyboard to dictate your 60-second answer!";
+          hint.textContent = "💡 Tap the 🎤 microphone key on your iPad keyboard for fast, accurate English dictation!";
           hint.classList.remove("hidden");
         }
       }
