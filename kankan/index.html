@@ -1723,7 +1723,7 @@
     #mc-village-canvas {
       width: 100%;
       height: auto;
-      aspect-ratio: 320 / 88;
+      aspect-ratio: 320 / 96;
       display: block;
       image-rendering: -moz-crisp-edges;
       image-rendering: -webkit-crisp-edges;
@@ -4746,12 +4746,12 @@
         <!-- Live Pixel-Art Minecraft Overworld Village Stage -->
         <div id="mc-village-stage" class="mc-village-stage">
           <div class="mc-village-canvas-wrap">
-            <canvas id="mc-village-canvas" width="320" height="88" role="img" aria-label="Live pixel-art Minecraft Village with Villager, Bee, Sheep, Pig, Chicken, and unlockable Iron Golem and Tamed Wolf"></canvas>
+            <canvas id="mc-village-canvas" width="320" height="96" role="img" aria-label="Live pixel-art Minecraft Village with Villager, Trading Hut, Bee, Sheep, Pig, Chicken, and unlockable Iron Golem and Tamed Wolf"></canvas>
             <div id="mc-village-bubble" class="mc-village-bubble" aria-live="polite"></div>
           </div>
           <div class="mc-village-bar">
             <div id="mc-village-roster" class="mc-village-roster">
-              <button type="button" class="mc-mob-chip" onclick="pokeMcMob('villager')">🧑‍🌾 Villager</button>
+              <button type="button" id="mc-chip-villager" class="mc-mob-chip" onclick="pokeMcMob('villager')">🧑‍🌾 Villager</button>
               <button type="button" class="mc-mob-chip" onclick="pokeMcMob('bee')">🐝 Bee</button>
               <button type="button" class="mc-mob-chip" onclick="pokeMcMob('sheep')">🐑 Sheep</button>
               <button type="button" class="mc-mob-chip" onclick="pokeMcMob('pig')">🐷 Pig</button>
@@ -4759,7 +4759,7 @@
               <button type="button" id="mc-chip-golem" class="mc-mob-chip mc-mob-locked" onclick="pokeMcMob('golem')">🔒 Iron Golem (5-Day)</button>
               <button type="button" id="mc-chip-wolf" class="mc-mob-chip mc-mob-locked" onclick="pokeMcMob('wolf')">🔒 Wolf (90 Emeralds)</button>
             </div>
-            <span id="mc-village-hint" class="mc-village-hint">✨ Tap any mob or Ender Chest!</span>
+            <span id="mc-village-hint" class="mc-village-hint">✨ Tap mobs, the Hut, or Ender Chest!</span>
           </div>
         </div>
 
@@ -4999,10 +4999,12 @@
             <div id="custom-rew-list" style="margin-top:0.5rem; display:flex; flex-wrap:wrap; gap:0.4rem;"></div>
           </div>
 
-          <!-- Progress Backup & Transfer Code -->
+          <!-- Progress Backup, Transfer & Emerald Recovery -->
           <div style="margin-top:0.75rem; padding:0.75rem 0.9rem; background:var(--paper-sub); border-radius:12px; border:1.5px solid var(--rule);">
-            <div class="kicker" style="margin-bottom:0.35rem;">💾 5. Backup &amp; Restore Progress Code (For New iPad or Transfer — Excludes API Key)</div>
+            <div class="kicker" style="margin-bottom:0.35rem;">💾 5. Backup, Restore &amp; Storage Recovery (Safari ↔ Home Screen App Transfer)</div>
+            <div id="storage-diag-box" style="font-size:0.79rem; color:var(--ink-secondary); background:var(--paper-card); border:1px solid var(--rule); border-radius:10px; padding:0.5rem 0.7rem; margin-bottom:0.55rem; line-height:1.5;"></div>
             <div style="display:flex; flex-wrap:wrap; gap:0.5rem; align-items:center;">
+              <button type="button" class="btn-outline btn-sm" onclick="scanAndRecoverEmeralds()">🔍 Scan &amp; Recover Past Emeralds</button>
               <button type="button" class="btn-outline btn-sm" onclick="exportBackupCode()">📋 Generate &amp; Copy Backup Code</button>
               <input type="password" id="backup-pin" class="coach-key-input" inputmode="numeric" maxlength="4" placeholder="Parent PIN to restore" style="max-width:170px;" />
               <button type="button" class="btn-outline btn-sm" onclick="restoreBackupCode()">♻️ Restore Backup</button>
@@ -6962,6 +6964,113 @@
       renderEmeraldUI();
     }
 
+    function renderStorageDiag(bank) {
+      const box = document.getElementById("storage-diag-box");
+      if (!box) return;
+      const isStandalone = !!(window.navigator && window.navigator.standalone)
+        || !!(window.matchMedia && window.matchMedia("(display-mode: standalone)").matches);
+      const modeText = isStandalone
+        ? "📱 Home Screen Full-Screen App (Standalone)"
+        : "🌐 Safari Browser Tab";
+      let vaultCount = 0;
+      const foundWeeks = new Set(Object.keys((bank && bank.issueLedger) || {}));
+      try {
+        const v = JSON.parse(localStorage.getItem(STORAGE_LEX) || "[]");
+        if (Array.isArray(v)) vaultCount = v.length;
+        for (let i = 0; i < localStorage.length; i++) {
+          const k = localStorage.key(i) || "";
+          if (k.startsWith("kankan_inquiry_progress_")) foundWeeks.add(k.slice("kankan_inquiry_progress_".length));
+          if (k.startsWith("kankan_inquiry_coach_")) foundWeeks.add(k.slice("kankan_inquiry_coach_".length));
+        }
+      } catch (e) {}
+      const wkStr = foundWeeks.size ? Array.from(foundWeeks).sort().join(", ") : "none yet";
+      const otherMode = isStandalone ? "Safari browser" : "Home Screen App icon";
+      box.innerHTML = `<strong>Active Storage:</strong> ${modeText} · <strong>Saved Here:</strong> ${bank.balance} Emeralds (${bank.lifetimeEarned} lifetime), ${vaultCount} Word Vault words, weeks [${escHtml(wkStr)}].<br /><span style="color:var(--ink-muted);">Note: iPadOS keeps Safari and Home Screen App storage separate. If your Emeralds are in ${otherMode}, open it there → Generate Backup Code → paste &amp; Restore here.</span>`;
+    }
+
+    function scanAndRecoverEmeralds() {
+      const bank = loadEmeraldBank();
+      const slugs = new Set([ISSUE_SLUG]);
+      try {
+        for (let i = 0; i < localStorage.length; i++) {
+          const k = localStorage.key(i) || "";
+          if (k.startsWith("kankan_inquiry_progress_")) slugs.add(k.slice("kankan_inquiry_progress_".length));
+          if (k.startsWith("kankan_inquiry_coach_")) slugs.add(k.slice("kankan_inquiry_coach_".length));
+        }
+      } catch (e) {}
+
+      let recovered = 0;
+      const details = [];
+      Array.from(slugs).sort().forEach(slug => {
+        let prog = {};
+        let coach = {};
+        try { prog = JSON.parse(localStorage.getItem("kankan_inquiry_progress_" + slug) || "{}"); } catch (e) {}
+        try { coach = JSON.parse(localStorage.getItem("kankan_inquiry_coach_" + slug) || "{}"); } catch (e) {}
+
+        const hasData = Object.values(prog).some(Boolean) || Object.keys(coach).length > 0;
+        if (!hasData) return;
+
+        if (!bank.issueLedger[slug]) {
+          bank.issueLedger[slug] = { days: {}, streak5Awarded: false, streak7Awarded: false };
+        }
+        const iss = bank.issueLedger[slug];
+        if (!iss.days || typeof iss.days !== "object") iss.days = {};
+
+        for (let d = 0; d < 7; d++) {
+          const dk = String(d);
+          if (!iss.days[dk]) iss.days[dk] = { quiz: { sf: false, sa: false, iq: false }, baseAwarded: 0, missionAwarded: 0 };
+          const dRec = iss.days[dk];
+          if (prog[dk] && (Number(dRec.baseAwarded) || 0) < 15) {
+            const delta = 15 - (Number(dRec.baseAwarded) || 0);
+            dRec.baseAwarded = 15;
+            dRec.quiz = { sf: true, sa: true, iq: true };
+            creditEmeralds(bank, delta, `Recovered ${slug} Day ${d + 1} Complete`, false);
+            recovered += delta;
+            details.push(`${slug} Day ${d + 1} (+${delta})`);
+          }
+          const cRes = coach[dk];
+          if (cRes && typeof cRes === "object") {
+            const stars = (cRes.science_stars || 1) + (cRes.vocab_stars || 1) + (cRes.craft_stars || 1) + (cRes.clarity_stars || 1);
+            const target = stars >= 11 ? 10 : (stars >= 8 ? 6 : 3);
+            const prev = Number(dRec.missionAwarded) || 0;
+            if (target > prev) {
+              const delta = target - prev;
+              dRec.missionAwarded = target;
+              creditEmeralds(bank, delta, `Recovered ${slug} Day ${d + 1} Q4 (${stars}/12★)`, false);
+              recovered += delta;
+              details.push(`${slug} Day ${d + 1} Q4 (+${delta})`);
+            }
+          }
+        }
+
+        const cleared = Object.values(iss.days).filter(x => (x.baseAwarded || 0) >= 15).length;
+        if (cleared >= 5 && !iss.streak5Awarded) {
+          iss.streak5Awarded = true;
+          creditEmeralds(bank, 15, `Recovered ${slug} 5-Day Iron Golem Chest`, false);
+          recovered += 15;
+          details.push(`${slug} 5-Day Chest (+15)`);
+        }
+        if (cleared >= 7 && !iss.streak7Awarded) {
+          iss.streak7Awarded = true;
+          creditEmeralds(bank, 20, `Recovered ${slug} 7-Day Diamond Chest`, false);
+          recovered += 20;
+          details.push(`${slug} 7-Day Chest (+20)`);
+        }
+      });
+
+      if (recovered > 0) {
+        saveEmeraldBank(bank);
+        renderEmeraldUI();
+        playEmeraldChime("earn");
+        setParentEmeraldMsg(`✅ Recovered +${recovered} uncredited Emeralds from local history (${details.join(", ")})! New balance: ${bank.balance}.`, false);
+      } else {
+        const isStandalone = !!(window.navigator && window.navigator.standalone)
+          || !!(window.matchMedia && window.matchMedia("(display-mode: standalone)").matches);
+        const other = isStandalone ? "Safari browser" : "Home Screen App icon";
+        setParentEmeraldMsg(`ℹ️ No uncredited past records found in this container. Check ${other} (and transfer via Backup Code) or use Section 3 Manual Adjustment above to credit Emeralds directly.`, false);
+      }
+    }
+
     function exportBackupCode() {
       try {
         const bundle = {
@@ -7221,6 +7330,9 @@
         `).join("");
       }
 
+      if (typeof renderStorageDiag === "function") {
+        renderStorageDiag(bank);
+      }
       if (typeof syncMcVillageUnlocks === "function") {
         syncMcVillageUnlocks(bank, iss, coopCost, clearedDays);
       }
@@ -7228,13 +7340,16 @@
 
     /* ==================== LIVE PIXEL-ART MINECRAFT VILLAGE ENGINE ==================== */
     const MC_W = 320;
-    const MC_H = 88;
-    const MC_GROUND_Y = 72;
+    const MC_H = 96;
+    const MC_GROUND_Y = 80;
+    const MC_DOOR_X = 35;
     let mcVillageRaf = null;
     let mcVillageLastTs = 0;
     let mcVillageTime = 0;
     let mcBubbleTimer = null;
     let mcFireworkCd = 2.8;
+    let mcDoorTimer = 0;
+    let mcChimneyCd = 0.6;
     let mcVillageState = {
       golemUnlocked: false,
       wolfUnlocked: false,
@@ -7270,7 +7385,7 @@
         "Hrmmm! Save 90 Emeralds for Weekend Co-op!",
         "Hrmmm! Story + 3 Quizzes + Day Complete = +15 Emeralds!",
         "Hrmmm! Ask Mom or Dad for the 4-digit PIN to trade!",
-        "Hrmmm! Save 3 days in a row for a +5 Ender Chest bonus!"
+        "Hrmmm! Tap my Trading Post hut anytime if I'm resting inside!"
       ],
       bee: [
         "Bzzzt! Pollinating poppies and collecting science facts!",
@@ -7303,12 +7418,12 @@
     };
 
     const mcMobs = [
-      { id: "villager", x: 96, y: MC_GROUND_Y, vy: 0, dir: 1, minX: 28, maxX: 192, speed: 12.5, state: "walk", timer: 2.8, phase: 0, quoteIdx: 0, active: true, air: false, w: 12, h: 20, showEm: 0 },
-      { id: "bee", x: 168, y: 44, vy: 0, dir: 1, minX: 94, maxX: 244, speed: 19.5, state: "fly", timer: 3.1, phase: 0, quoteIdx: 0, active: true, air: true, w: 11, h: 8, targetX: 207, targetY: 56, pollenCd: 0.4 },
+      { id: "villager", x: 106, y: MC_GROUND_Y, vy: 0, dir: 1, minX: 26, maxX: 196, speed: 13.0, state: "walk", timer: 3.0, houseCd: 11.5, blinkCd: 2.8, blinkT: 0, phase: 0, quoteIdx: 0, active: true, air: false, w: 14, h: 28, showEm: 0 },
+      { id: "bee", x: 168, y: 48, vy: 0, dir: 1, minX: 94, maxX: 244, speed: 19.5, state: "fly", timer: 3.1, phase: 0, quoteIdx: 0, active: true, air: true, w: 11, h: 8, targetX: 207, targetY: 64, pollenCd: 0.4 },
       { id: "sheep", x: 192, y: MC_GROUND_Y, vy: 0, dir: -1, minX: 94, maxX: 288, speed: 10.5, state: "walk", timer: 3.4, phase: 1.2, quoteIdx: 0, active: true, air: false, w: 15, h: 12 },
-      { id: "pig", x: 146, y: MC_GROUND_Y, vy: 0, dir: 1, minX: 44, maxX: 266, speed: 14.0, state: "walk", timer: 2.2, phase: 2.4, quoteIdx: 0, active: true, air: false, w: 14, h: 10 },
+      { id: "pig", x: 146, y: MC_GROUND_Y, vy: 0, dir: 1, minX: 46, maxX: 266, speed: 14.0, state: "walk", timer: 2.2, phase: 2.4, quoteIdx: 0, active: true, air: false, w: 14, h: 10 },
       { id: "chicken", x: 230, y: MC_GROUND_Y, vy: 0, dir: -1, minX: 66, maxX: 296, speed: 16.5, state: "walk", timer: 1.8, phase: 0.7, quoteIdx: 0, active: true, air: false, w: 9, h: 9 },
-      { id: "golem", x: 120, y: MC_GROUND_Y, vy: 0, dir: 1, minX: 72, maxX: 236, speed: 8.5, state: "walk", timer: 4.0, phase: 0.3, quoteIdx: 0, active: false, air: false, w: 16, h: 24 },
+      { id: "golem", x: 120, y: MC_GROUND_Y, vy: 0, dir: 1, minX: 74, maxX: 236, speed: 8.5, state: "walk", timer: 4.0, phase: 0.3, quoteIdx: 0, active: false, air: false, w: 16, h: 26 },
       { id: "wolf", x: 206, y: MC_GROUND_Y, vy: 0, dir: -1, minX: 112, maxX: 290, speed: 17.0, state: "walk", timer: 2.6, phase: 1.8, quoteIdx: 0, active: false, air: false, w: 14, h: 11 }
     ];
 
@@ -7329,6 +7444,20 @@
         else if (kind === "emerald") { col = i % 2 === 0 ? "#10B981" : "#6EE7B7"; sz = 2; grav = 22; life = 0.95; }
         else if (kind === "grass") { col = "#4ADE80"; sz = 1; grav = 45; life = 0.55; }
         else if (kind === "poppy") { col = i % 2 === 0 ? "#EF4444" : "#22C55E"; sz = 2; grav = 16; life = 0.9; }
+        else if (kind === "smoke") {
+          mcParticles.push({
+            x: x + (Math.random() - 0.5) * 3,
+            y,
+            vx: 2.5 + Math.random() * 3,
+            vy: -7 - Math.random() * 4,
+            col: i % 2 === 0 ? "#E2E8F0" : "#CBD5E1",
+            sz: 2,
+            grav: -2,
+            life: 1.25 + Math.random() * 0.4,
+            maxLife: 1.6
+          });
+          continue;
+        }
         else if (kind === "firework") {
           const fwCols = ["#34D399", "#FACC15", "#38BDF8", "#F472B6", "#C084FC"];
           col = fwCols[Math.floor(Math.random() * fwCols.length)];
@@ -7348,7 +7477,7 @@
           col, sz, grav, life, maxLife: life
         });
       }
-      if (mcParticles.length > 90) mcParticles.splice(0, mcParticles.length - 90);
+      if (mcParticles.length > 96) mcParticles.splice(0, mcParticles.length - 96);
     }
 
     function showMcVillageBubble(msg) {
@@ -7359,7 +7488,45 @@
       if (mcBubbleTimer) clearTimeout(mcBubbleTimer);
       mcBubbleTimer = setTimeout(() => {
         el.classList.remove("show");
-      }, 3300);
+      }, 3400);
+    }
+
+    function syncVillagerChip() {
+      const vMob = mcMobs.find(m => m.id === "villager");
+      const vChip = document.getElementById("mc-chip-villager");
+      if (!vMob || !vChip) return;
+      if (vMob.state === "indoors") {
+        vChip.textContent = "🏠 Villager (Inside)";
+      } else {
+        vChip.textContent = "🧑‍🌾 Villager";
+      }
+    }
+
+    function summonVillagerFromHouse(fromKnock) {
+      const v = mcMobs.find(m => m.id === "villager");
+      if (!v) return;
+      mcDoorTimer = 1.15;
+      v.x = MC_DOOR_X + 2;
+      v.y = MC_GROUND_Y;
+      v.dir = 1;
+      v.state = "walk";
+      v.timer = 4.2;
+      v.houseCd = 15 + Math.random() * 10;
+      if (fromKnock) {
+        v.vy = -34;
+        v.showEm = 3.2;
+        spawnMcParticles(MC_DOOR_X + 4, MC_GROUND_Y - 14, "emerald", 8);
+        spawnMcParticles(MC_DOOR_X + 4, MC_GROUND_Y - 18, "heart", 4);
+        const knockLines = [
+          "*Knock knock!* Hrmmm! Coming right out for a stroll!",
+          "*Knock knock!* Hrmmm! Open for business — let's trade!",
+          "*Knock knock!* Hrmmm! Fresh Emeralds waiting in the shop!"
+        ];
+        showMcVillageBubble(knockLines[v.quoteIdx % knockLines.length]);
+        v.quoteIdx = (v.quoteIdx + 1) % knockLines.length;
+      }
+      syncVillagerChip();
+      if (!mcVillageRaf) drawMcVillageFrame();
     }
 
     function syncMcVillageUnlocks(bank, iss, coopCost, clearedDays) {
@@ -7388,18 +7555,22 @@
         wChip.classList.toggle("mc-mob-special", wolfOn);
         wChip.textContent = wolfOn ? "🐺 Tamed Wolf ✓" : `🔒 Wolf (${coopCost} Emeralds)`;
       }
+      syncVillagerChip();
       drawMcVillageFrame();
     }
 
     function triggerVillageCelebration(kind) {
-      spawnMcParticles(257, 60, "emerald", 10);
-      spawnMcParticles(257, 58, "ender", 8);
+      const v = mcMobs.find(m => m.id === "villager");
+      if (v && v.state === "indoors") summonVillagerFromHouse(false);
+      if (v) v.showEm = 3.5;
+      spawnMcParticles(257, 68, "emerald", 10);
+      spawnMcParticles(257, 65, "ender", 8);
       if (kind === "trade") {
-        spawnMcParticles(160, 22, "firework", 14);
+        spawnMcParticles(160, 24, "firework", 14);
         showMcVillageBubble("✨ Trade complete! Villager & friends cheer for your build!");
       }
       mcMobs.forEach(m => {
-        if (m.active && !m.air && m.y >= MC_GROUND_Y - 1) m.vy = -34;
+        if (m.active && !m.air && m.state !== "indoors" && m.y >= MC_GROUND_Y - 1) m.vy = -34;
       });
     }
 
@@ -7414,24 +7585,30 @@
         }
         return;
       }
+      if (mobId === "villager" && m.state === "indoors") {
+        summonVillagerFromHouse(true);
+        return;
+      }
       const quotes = MC_MOB_QUOTES[mobId] || ["Hello, Explorer!"];
       const line = quotes[m.quoteIdx % quotes.length];
       m.quoteIdx = (m.quoteIdx + 1) % quotes.length;
       if (m.air) {
         m.vy = -22;
         m.targetX = 104 + Math.random() * 124;
-        m.targetY = 34 + Math.random() * 20;
+        m.targetY = 38 + Math.random() * 22;
         spawnMcParticles(m.x, m.y, "pollen", 8);
         spawnMcParticles(m.x, m.y - 4, "heart", 4);
       } else {
-        m.vy = -44;
-        m.state = "walk";
-        m.timer = 2.4;
+        m.vy = -42;
+        if (m.state !== "to_house") {
+          m.state = "walk";
+          m.timer = 2.6;
+        }
         if (mobId === "villager") {
-          m.showEm = 2.6;
-          spawnMcParticles(m.x, m.y - 16, "emerald", 7);
+          m.showEm = 3.0;
+          spawnMcParticles(m.x + m.dir * 8, m.y - 20, "emerald", 7);
         } else if (mobId === "golem") {
-          spawnMcParticles(m.x, m.y - 18, "poppy", 7);
+          spawnMcParticles(m.x, m.y - 20, "poppy", 7);
         } else if (mobId === "wolf") {
           spawnMcParticles(m.x, m.y - 10, "heart", 6);
           spawnMcParticles(m.x, 22, "firework", 12);
@@ -7451,26 +7628,11 @@
       const cx = ((evt.clientX - rect.left) / rect.width) * MC_W;
       const cy = ((evt.clientY - rect.top) / rect.height) * MC_H;
 
-      // Check Ender Chest first
-      if (cx >= 245 && cx <= 270 && cy >= 53 && cy <= 76) {
-        spawnMcParticles(257, 60, "ender", 10);
-        spawnMcParticles(257, 58, "emerald", 7);
-        showMcVillageBubble(`🟣 Ender Chest: ${mcVillageState.balance} Emeralds banked (${mcVillageState.balance}/${mcVillageState.coopCost} toward Weekend Co-op)!`);
-        return;
-      }
-
-      // Check Bee Nest
-      if (cx >= 139 && cx <= 152 && cy >= 44 && cy <= 56) {
-        spawnMcParticles(145, 50, "pollen", 9);
-        pokeMcMob("bee");
-        return;
-      }
-
-      // Find closest active mob within generous iPad tap radius
+      // 1. Check active visible mobs first (so tapping Villager in front of the hut pokes him directly)
       let best = null;
-      let bestDist = 22;
+      let bestDist = 20;
       for (const m of mcMobs) {
-        if (!m.active) continue;
+        if (!m.active || m.state === "indoors") continue;
         const my = m.air ? m.y : (m.y - m.h * 0.5);
         const dist = Math.hypot(cx - m.x, cy - my);
         if (dist < bestDist) {
@@ -7480,14 +7642,54 @@
       }
       if (best) {
         pokeMcMob(best.id);
-      } else {
-        spawnMcParticles(cx, cy, "emerald", 5);
-        const groundMobs = mcMobs.filter(m => m.active && !m.air);
-        if (groundMobs.length) {
-          const nearest = groundMobs.reduce((a, b) => Math.abs(a.x - cx) < Math.abs(b.x - cx) ? a : b);
-          nearest.dir = cx >= nearest.x ? 1 : -1;
-          nearest.vy = -26;
+        return;
+      }
+
+      // 2. Check Villager Trading Post Hut (knock on house to summon Villager out!)
+      if (cx >= 16 && cx <= 85 && cy >= 30 && cy <= 81) {
+        const v = mcMobs.find(m => m.id === "villager");
+        if (v && v.state === "indoors") {
+          summonVillagerFromHouse(true);
+        } else {
+          mcDoorTimer = 0.85;
+          spawnMcParticles(MC_DOOR_X + 2, 64, "emerald", 6);
+          if (v) {
+            v.showEm = 2.6;
+            v.vy = -28;
+            v.dir = v.x > 55 ? -1 : 1;
+            if (v.state === "to_house") {
+              v.state = "walk";
+              v.timer = 3.0;
+              v.houseCd = 14;
+            }
+          }
+          showMcVillageBubble("*Knock knock!* Hrmmm! I'm right outside — ready to trade Emeralds!");
         }
+        return;
+      }
+
+      // 3. Check Ender Chest
+      if (cx >= 245 && cx <= 270 && cy >= 61 && cy <= 84) {
+        spawnMcParticles(257, 68, "ender", 10);
+        spawnMcParticles(257, 66, "emerald", 7);
+        showMcVillageBubble(`🟣 Ender Chest: ${mcVillageState.balance} Emeralds banked (${mcVillageState.balance}/${mcVillageState.coopCost} toward Weekend Co-op)!`);
+        return;
+      }
+
+      // 4. Check Bee Nest
+      if (cx >= 139 && cx <= 153 && cy >= 50 && cy <= 64) {
+        spawnMcParticles(146, 57, "pollen", 9);
+        pokeMcMob("bee");
+        return;
+      }
+
+      // 5. Open meadow/sky sparkle + nudge nearest ground mob
+      spawnMcParticles(cx, cy, "emerald", 5);
+      const groundMobs = mcMobs.filter(m => m.active && !m.air && m.state !== "indoors");
+      if (groundMobs.length) {
+        const nearest = groundMobs.reduce((a, b) => Math.abs(a.x - cx) < Math.abs(b.x - cx) ? a : b);
+        nearest.dir = cx >= nearest.x ? 1 : -1;
+        nearest.vy = -26;
       }
     }
 
@@ -7503,6 +7705,10 @@
     }
 
     function drawMcScenery(ctx, dark, t) {
+      const vMob = mcMobs.find(m => m.id === "villager");
+      const villagerIndoors = !!(vMob && vMob.state === "indoors");
+      const doorOpen = mcDoorTimer > 0.08;
+
       // 1. Sky bands
       const skyCols = dark
         ? ["#0A1022", "#101A33", "#172646", "#1F3359"]
@@ -7520,17 +7726,14 @@
           const col = tw > 0.35 ? "#FEF9C3" : (tw > -0.2 ? "#CBD5E1" : "#64748B");
           px(ctx, st[0], st[1], st[2], st[2], col);
         }
-        // Pixel Moon
         px(ctx, 275, 7, 14, 14, "rgba(226, 232, 240, 0.14)");
         px(ctx, 277, 9, 10, 10, "#E2E8F0");
         px(ctx, 279, 11, 2, 2, "#CBD5E1");
         px(ctx, 283, 14, 2, 2, "#94A3B8");
       } else {
-        // Pixel Sun
         px(ctx, 274, 6, 16, 16, "rgba(254, 240, 138, 0.32)");
         px(ctx, 276, 8, 12, 12, "#FEF08A");
         px(ctx, 278, 10, 8, 8, "#FFFBEB");
-        // Drifting Pixel Clouds
         for (const c of MC_CLOUDS) {
           px(ctx, c.x, c.y, c.w, c.h, "#FFFFFF");
           px(ctx, c.x + 2, c.y + c.h - 2, c.w - 4, 2, "#DCEEFF");
@@ -7540,17 +7743,17 @@
       // 3. Distant Blocky Overworld Hills
       const hillBack = dark ? "#142726" : "#5AA84F";
       const hillFront = dark ? "#1A332D" : "#4A9440";
-      px(ctx, 0, 56, 48, 16, hillBack);
-      px(ctx, 48, 60, 44, 12, hillBack);
-      px(ctx, 152, 54, 56, 18, hillBack);
-      px(ctx, 208, 59, 44, 13, hillBack);
-      px(ctx, 264, 53, 56, 19, hillBack);
+      px(ctx, 0, 62, 48, 18, hillBack);
+      px(ctx, 48, 66, 44, 14, hillBack);
+      px(ctx, 152, 60, 56, 20, hillBack);
+      px(ctx, 208, 65, 44, 15, hillBack);
+      px(ctx, 264, 59, 56, 21, hillBack);
 
-      px(ctx, 90, 63, 66, 9, hillFront);
-      px(ctx, 188, 64, 56, 8, hillFront);
-      px(ctx, 286, 62, 34, 10, hillFront);
+      px(ctx, 90, 70, 66, 10, hillFront);
+      px(ctx, 188, 71, 56, 9, hillFront);
+      px(ctx, 286, 69, 34, 11, hillFront);
 
-      // 4. Villager Trading Post Hut (x: 18..82, ground y: 72)
+      // 4. Villager Trading Post Hut (x: 16..84, ground y: 80)
       const oakLog = dark ? "#3B2817" : "#5E3F23";
       const oakPlank = dark ? "#6E5434" : "#C49A62";
       const roofMain = dark ? "#573D22" : "#9E6D3B";
@@ -7558,109 +7761,140 @@
       const cobble = dark ? "#4A4F55" : "#80858A";
       const cobbleDark = dark ? "#363A3F" : "#64696E";
 
+      // Cobblestone Chimney (on right roof slope)
+      px(ctx, 64, 28, 6, 11, cobble);
+      px(ctx, 63, 27, 8, 2, cobbleDark);
+      px(ctx, 65, 30, 2, 2, cobbleDark);
+      px(ctx, 67, 33, 2, 2, cobbleDark);
+
       // Stepped gable roof
-      px(ctx, 28, 34, 44, 3, roofDark);
-      px(ctx, 24, 37, 52, 3, roofMain);
-      px(ctx, 20, 40, 60, 3, roofDark);
-      px(ctx, 17, 43, 66, 3, roofMain);
-      // Walls + corner pillars + cobble base
-      px(ctx, 21, 46, 58, 17, oakPlank);
-      px(ctx, 21, 63, 58, 9, cobble);
-      for (let cx = 23; cx < 77; cx += 6) {
-        px(ctx, cx, 65, 3, 2, cobbleDark);
-        px(ctx, cx + 2, 68, 3, 2, cobbleDark);
+      px(ctx, 28, 36, 44, 3, roofDark);
+      px(ctx, 24, 39, 52, 3, roofMain);
+      px(ctx, 20, 42, 60, 3, roofDark);
+      px(ctx, 16, 45, 68, 4, roofMain);
+
+      // Walls + corner pillars + cobble foundation
+      px(ctx, 20, 49, 60, 21, oakPlank);
+      px(ctx, 20, 70, 60, 10, cobble);
+      for (let cx = 22; cx < 78; cx += 6) {
+        px(ctx, cx, 72, 3, 2, cobbleDark);
+        px(ctx, cx + 2, 75, 3, 2, cobbleDark);
       }
-      px(ctx, 21, 46, 4, 26, oakLog);
-      px(ctx, 75, 46, 4, 26, oakLog);
-      // Wooden door
-      px(ctx, 29, 54, 10, 18, dark ? "#4A311B" : "#7D522D");
-      px(ctx, 31, 56, 6, 4, dark ? "#352110" : "#5A3A1E");
-      px(ctx, 37, 63, 1, 2, "#FBBF24");
-      // Trading window (warm lit at night!)
-      px(ctx, 45, 50, 22, 11, oakLog);
-      if (dark) {
-        px(ctx, 41, 46, 30, 19, "rgba(251, 191, 36, 0.14)");
-        px(ctx, 47, 52, 18, 7, "#FDE68A");
-        px(ctx, 49, 53, 6, 5, "#FEF9C3");
-        px(ctx, 57, 53, 6, 5, "#FBBF24");
+      px(ctx, 20, 49, 4, 31, oakLog);
+      px(ctx, 76, 49, 4, 31, oakLog);
+
+      // Wooden Door (x: 28..42, y: 55..80 — swings open when Villager enters/exits!)
+      px(ctx, 27, 54, 16, 26, oakLog);
+      if (doorOpen) {
+        // Warm cozy doorway interior + swung-open door leaf
+        px(ctx, 29, 56, 12, 24, "#24160D");
+        px(ctx, 31, 58, 8, 12, dark || villagerIndoors ? "rgba(251, 191, 36, 0.24)" : "rgba(251, 191, 36, 0.14)");
+        px(ctx, 29, 56, 3, 24, dark ? "#4A311B" : "#7D522D");
+        px(ctx, 31, 67, 1, 2, "#FBBF24");
       } else {
-        px(ctx, 47, 52, 18, 7, "#93D5FF");
-        px(ctx, 48, 53, 3, 2, "#E0F2FE");
-        px(ctx, 58, 53, 3, 2, "#E0F2FE");
+        px(ctx, 29, 56, 12, 24, dark ? "#4A311B" : "#7D522D");
+        px(ctx, 31, 58, 3, 5, dark ? "#352110" : "#5A3A1E");
+        px(ctx, 36, 58, 3, 5, dark ? "#352110" : "#5A3A1E");
+        px(ctx, 31, 66, 8, 11, dark ? "#3E2815" : "#6B4525");
+        px(ctx, 38, 68, 2, 2, "#FBBF24");
       }
-      px(ctx, 55, 52, 2, 7, oakLog);
+
+      // Trading Counter Window (x: 47..69, y: 53..65) — lights up warmly & shows Villager peeking inside!
+      px(ctx, 46, 52, 24, 14, oakLog);
+      if (dark || villagerIndoors) {
+        px(ctx, 43, 49, 30, 20, dark ? "rgba(251, 191, 36, 0.15)" : "rgba(251, 191, 36, 0.08)");
+        px(ctx, 48, 54, 20, 10, "#FDE68A");
+        px(ctx, 49, 55, 8, 8, "#FEF9C3");
+        px(ctx, 59, 55, 8, 8, "#FBBF24");
+      } else {
+        px(ctx, 48, 54, 20, 10, "#93D5FF");
+        px(ctx, 49, 55, 4, 2, "#E0F2FE");
+        px(ctx, 60, 55, 4, 2, "#E0F2FE");
+      }
+      // Cute Villager peeking out the trading window when resting inside!
+      if (villagerIndoors) {
+        const peekX = Math.sin(t * 1.4) > 0 ? 59 : 49;
+        px(ctx, peekX, 56, 8, 8, "#C7947A");
+        px(ctx, peekX + 1, 57, 6, 2, "#4B2F1D");
+        px(ctx, peekX + 1, 59, 2, 2, "#FFFFFF");
+        px(ctx, peekX + 2, 59, 1, 2, "#15803D");
+        px(ctx, peekX + 5, 59, 2, 2, "#FFFFFF");
+        px(ctx, peekX + 5, 59, 1, 2, "#15803D");
+        px(ctx, peekX + 3, 60, 2, 4, "#A67258");
+      }
+      px(ctx, 57, 54, 2, 10, oakLog);
+
       // Green & white striped trading awning
-      for (let ax = 43; ax < 70; ax += 4) {
-        px(ctx, ax, 46, 2, 4, "#16A34A");
-        px(ctx, ax + 2, 46, 2, 4, dark ? "#CBD5E1" : "#F8FAFC");
+      for (let ax = 44; ax < 72; ax += 4) {
+        px(ctx, ax, 49, 2, 4, "#16A34A");
+        px(ctx, ax + 2, 49, 2, 4, dark ? "#CBD5E1" : "#F8FAFC");
       }
       // Hanging Emerald Emblem Sign
-      px(ctx, 70, 51, 5, 7, "#065F46");
-      px(ctx, 71, 52, 3, 5, "#10B981");
-      px(ctx, 72, 53, 1, 2, "#A7F3D0");
+      px(ctx, 71, 54, 5, 7, "#065F46");
+      px(ctx, 72, 55, 3, 5, "#10B981");
+      px(ctx, 73, 56, 1, 2, "#A7F3D0");
 
-      // 5. Blocky Oak Tree + Hanging Bee Nest (x: 120..156)
-      px(ctx, 135, 45, 6, 27, oakLog);
-      px(ctx, 137, 47, 2, 25, dark ? "#4A341E" : "#734D2A");
+      // 5. Blocky Oak Tree + Hanging Bee Nest (x: 122..156)
+      px(ctx, 136, 52, 6, 28, oakLog);
+      px(ctx, 138, 54, 2, 26, dark ? "#4A341E" : "#734D2A");
       const lf1 = dark ? "#1E4D24" : "#3E8E2E";
       const lf2 = dark ? "#163B1B" : "#2D7121";
       const lf3 = dark ? "#27612D" : "#56AF42";
-      px(ctx, 126, 24, 24, 8, lf1);
-      px(ctx, 121, 31, 34, 14, lf1);
-      px(ctx, 123, 33, 6, 4, lf2);
-      px(ctx, 136, 26, 6, 4, lf3);
-      px(ctx, 144, 34, 8, 5, lf2);
-      px(ctx, 128, 39, 7, 4, lf3);
+      px(ctx, 127, 30, 24, 8, lf1);
+      px(ctx, 122, 37, 34, 15, lf1);
+      px(ctx, 124, 39, 6, 4, lf2);
+      px(ctx, 137, 32, 6, 4, lf3);
+      px(ctx, 145, 40, 8, 5, lf2);
+      px(ctx, 129, 45, 7, 4, lf3);
       // Bee Nest hanging under the oak canopy
-      px(ctx, 141, 45, 8, 8, dark ? "#926A27" : "#D9A441");
-      px(ctx, 141, 47, 8, 1, dark ? "#6E4E1B" : "#B58129");
-      px(ctx, 141, 50, 8, 1, dark ? "#6E4E1B" : "#B58129");
-      px(ctx, 144, 49, 2, 2, "#3B2410");
+      px(ctx, 142, 52, 8, 8, dark ? "#926A27" : "#D9A441");
+      px(ctx, 142, 54, 8, 1, dark ? "#6E4E1B" : "#B58129");
+      px(ctx, 142, 57, 8, 1, dark ? "#6E4E1B" : "#B58129");
+      px(ctx, 145, 56, 2, 2, "#3B2410");
 
-      // 6. Standing Village Torches (flickering warm glow!)
-      const torchXs = [89, 238];
+      // 6. Standing Village Torches
+      const torchXs = [90, 238];
       const flick = Math.sin(t * 14) > 0 ? 1 : 0;
       for (const tx of torchXs) {
-        px(ctx, tx, 61, 2, 11, oakLog);
+        px(ctx, tx, 69, 2, 11, oakLog);
         if (dark) {
-          px(ctx, tx - 5, 53, 12, 12, "rgba(251, 191, 36, 0.16)");
-          px(ctx, tx - 2, 56, 6, 6, "rgba(254, 240, 138, 0.28)");
+          px(ctx, tx - 5, 61, 12, 12, "rgba(251, 191, 36, 0.16)");
+          px(ctx, tx - 2, 64, 6, 6, "rgba(254, 240, 138, 0.28)");
         }
-        px(ctx, tx, 59 - flick, 2, 2, "#F97316");
-        px(ctx, tx, 58 - flick, 2, 1, "#FEF08A");
+        px(ctx, tx, 67 - flick, 2, 2, "#F97316");
+        px(ctx, tx, 66 - flick, 2, 1, "#FEF08A");
       }
 
       // 7. Poppies & Dandelions
       for (const fl of MC_FLOWERS) {
-        px(ctx, fl.x, 67, 1, 5, dark ? "#166534" : "#2E7D32");
+        px(ctx, fl.x, 75, 1, 5, dark ? "#166534" : "#2E7D32");
         if (fl.type === "poppy") {
-          px(ctx, fl.x - 1, 64, 3, 3, "#EF4444");
-          px(ctx, fl.x, 65, 1, 1, "#7F1D1D");
+          px(ctx, fl.x - 1, 72, 3, 3, "#EF4444");
+          px(ctx, fl.x, 73, 1, 1, "#7F1D1D");
         } else {
-          px(ctx, fl.x - 1, 65, 3, 2, "#FACC15");
-          px(ctx, fl.x, 64, 1, 1, "#FEF08A");
+          px(ctx, fl.x - 1, 73, 3, 2, "#FACC15");
+          px(ctx, fl.x, 72, 1, 1, "#FEF08A");
         }
       }
 
-      // 8. Obsidian Ender Chest (x: 250..264, y: 59..72)
-      px(ctx, 250, 59, 14, 13, "#0A1E22");
-      px(ctx, 251, 60, 12, 4, "#15363D");
-      px(ctx, 251, 65, 12, 6, "#102B31");
-      px(ctx, 250, 64, 14, 1, "#051013");
-      // Glowing emerald-cyan latch
-      px(ctx, 256, 63, 2, 3, "#34D399");
-      px(ctx, 256, 63, 1, 1, "#D1FAE5");
+      // 8. Obsidian Ender Chest (x: 250..264, y: 67..80)
+      px(ctx, 250, 67, 14, 13, "#0A1E22");
+      px(ctx, 251, 68, 12, 4, "#15363D");
+      px(ctx, 251, 73, 12, 6, "#102B31");
+      px(ctx, 250, 72, 14, 1, "#051013");
+      px(ctx, 256, 71, 2, 3, "#34D399");
+      px(ctx, 256, 71, 1, 1, "#D1FAE5");
 
       // 9. Far-Right Oak Fence
       const fenceCol = dark ? "#5E4326" : "#A67C46";
       const fenceDark = dark ? "#45301B" : "#876234";
       for (let fx = 278; fx <= 308; fx += 10) {
-        px(ctx, fx, 63, 2, 9, fenceDark);
+        px(ctx, fx, 71, 2, 9, fenceDark);
       }
-      px(ctx, 277, 65, 34, 2, fenceCol);
-      px(ctx, 277, 69, 34, 1, fenceCol);
+      px(ctx, 277, 73, 34, 2, fenceCol);
+      px(ctx, 277, 77, 34, 1, fenceCol);
 
-      // 10. Minecraft Grass & Dirt Ground (y: 72..88)
+      // 10. Minecraft Grass & Dirt Ground (y: 80..96)
       const gTop = dark ? "#2C5E35" : "#59A939";
       const gHi = dark ? "#356F3F" : "#6DC248";
       const gDark = dark ? "#204728" : "#448B2B";
@@ -7674,7 +7908,6 @@
         px(ctx, gx + 5, MC_GROUND_Y + 1, 2, 2, gDark);
         px(ctx, gx + 2, MC_GROUND_Y + 4, 2, 2, gTop);
         px(ctx, gx + 6, MC_GROUND_Y + 4, 1, 1, gDark);
-        // Dirt speckles & stone pebbles
         px(ctx, gx + 1, MC_GROUND_Y + 7, 2, 2, dirt2);
         px(ctx, gx + 5, MC_GROUND_Y + 9, 2, 1, dirt3);
         px(ctx, gx + 3, MC_GROUND_Y + 12, 2, 2, dirt2);
@@ -7685,11 +7918,11 @@
     }
 
     function drawMcMob(ctx, m, t) {
-      if (!m.active) return;
+      if (!m.active || m.state === "indoors") return;
       const ox = Math.round(m.x);
       const oy = Math.round(m.y);
       const dir = m.dir;
-      const walking = m.state === "walk";
+      const walking = m.state === "walk" || m.state === "to_house";
       const stride = walking ? Math.round(Math.sin(m.phase * 7) * 1.6) : 0;
 
       // Ground shadow
@@ -7702,74 +7935,129 @@
       }
 
       if (m.id === "villager") {
-        // Legs / boots
-        mpx(ctx, ox, oy, -3 + stride, -5, 3, 5, dir, "#4A321F");
-        mpx(ctx, ox, oy, 0 - stride, -5, 3, 5, dir, "#3B2717");
-        // Brown trader robe + emerald trim
-        mpx(ctx, ox, oy, -4, -14, 8, 9, dir, "#7C5230");
-        mpx(ctx, ox, oy, -4, -14, 8, 2, dir, "#10B981");
-        mpx(ctx, ox, oy, -3, -8, 6, 1, dir, "#10B981");
-        // Folded Villager arms
-        mpx(ctx, ox, oy, -2, -12, 6, 3, dir, "#634024");
-        // Tall Villager head
-        mpx(ctx, ox, oy, -3, -22, 7, 8, dir, "#C89572");
-        // Unibrow & green emerald eyes
-        mpx(ctx, ox, oy, 0, -19, 4, 1, dir, "#4A321F");
-        mpx(ctx, ox, oy, 2, -18, 2, 1, dir, "#10B981");
-        // Iconic Villager big nose!
-        mpx(ctx, ox, oy, 3, -17, 2, 3, dir, "#B07C5A");
-        // Floating Emerald indicator on tap or periodic wave
-        if (m.showEm > 0) {
-          const bob = Math.round(Math.sin(t * 8) * 1.5);
-          px(ctx, ox - 2, oy - 29 + bob, 4, 5, "#10B981");
-          px(ctx, ox - 1, oy - 28 + bob, 2, 2, "#A7F3D0");
+        // Authentic 28px Minecraft Plains Emerald Trader Villager
+        const armBob = walking ? Math.round(Math.sin(m.phase * 7) * 0.6) : 0;
+        const happy = m.showEm > 0;
+        const blinking = (m.blinkT || 0) > 0;
+
+        // 1. Boots / stepping legs
+        mpx(ctx, ox, oy, -4 + stride, -6, 4, 6, dir, "#3C2617");
+        mpx(ctx, ox, oy, 0 - stride, -6, 4, 6, dir, "#523520");
+        mpx(ctx, ox, oy, -4 + stride, -2, 4, 2, dir, "#2B1A0F");
+        mpx(ctx, ox, oy, 0 - stride, -2, 4, 2, dir, "#3A2416");
+
+        // 2. Plains Brown Trader Robe + Apron + Emerald Belt
+        mpx(ctx, ox, oy, -5, -17, 10, 11, dir, "#8B5E3C");
+        mpx(ctx, ox, oy, -5, -17, 3, 11, dir, "#734B2D");
+        mpx(ctx, ox, oy, 0, -17, 4, 10, dir, "#6B4426");
+        mpx(ctx, ox, oy, -5, -7, 10, 1, dir, "#4D2F1A");
+        // Emerald trader sash / belt & gem buckle
+        mpx(ctx, ox, oy, -5, -10, 10, 2, dir, "#059669");
+        mpx(ctx, ox, oy, 1, -10, 3, 2, dir, "#34D399");
+        mpx(ctx, ox, oy, 2, -10, 1, 1, dir, "#D1FAE5");
+
+        // 3. Clearly Visible Minecraft Villager Sleeves & Arms
+        if (happy) {
+          // Extended arm holding up a bright faceted Minecraft Emerald!
+          mpx(ctx, ox, oy, -2, -16, 4, 4, dir, "#B07C52");
+          mpx(ctx, ox, oy, 1, -15, 7, 4, dir, "#B07C52");
+          mpx(ctx, ox, oy, 1, -15, 7, 1, dir, "#C9966B");
+          mpx(ctx, ox, oy, 1, -12, 7, 1, dir, "#4D2F1A");
+          mpx(ctx, ox, oy, 6, -15, 2, 4, dir, "#10B981");
+          // Warm villager hand holding Emerald
+          mpx(ctx, ox, oy, 8, -15, 2, 3, dir, "#C7947A");
+          // Faceted Pixel Emerald right above his hand
+          const bob = Math.round(Math.sin(t * 9) * 1.2);
+          mpx(ctx, ox, oy, 8, -22 + bob, 4, 6, dir, "#047857");
+          mpx(ctx, ox, oy, 9, -21 + bob, 3, 4, dir, "#10B981");
+          mpx(ctx, ox, oy, 9, -21 + bob, 1, 2, dir, "#A7F3D0");
+        } else {
+          // Iconic Minecraft Villager slanted folded sleeves protruding clearly in front of torso!
+          // Dark separation outline behind/under sleeve so arms stand out sharply from robe
+          mpx(ctx, ox, oy, -3, -15 + armBob, 5, 5, dir, "#3B2313");
+          // Upper shoulder sleeve (lighter warm tan-brown so it pops over dark apron)
+          mpx(ctx, ox, oy, -3, -16 + armBob, 5, 4, dir, "#B58156");
+          mpx(ctx, ox, oy, -2, -16 + armBob, 4, 1, dir, "#CF9C72");
+          // Clasped forearm jutting clearly forward (+0 .. +8)
+          mpx(ctx, ox, oy, 0, -14 + armBob, 8, 5, dir, "#3B2313");
+          mpx(ctx, ox, oy, 0, -14 + armBob, 8, 4, dir, "#B58156");
+          mpx(ctx, ox, oy, 1, -14 + armBob, 6, 1, dir, "#CF9C72");
+          // Cream-linen + emerald trader cuff & tucked hands opening
+          mpx(ctx, ox, oy, 4, -14 + armBob, 2, 4, dir, "#10B981");
+          mpx(ctx, ox, oy, 6, -14 + armBob, 2, 4, dir, "#E5D3B3");
+          mpx(ctx, ox, oy, 7, -13 + armBob, 1, 2, dir, "#6B4426");
         }
+
+        // 4. Authentic Tall Rectangular Minecraft Villager Head (10 x 11)
+        mpx(ctx, ox, oy, -5, -28, 10, 11, dir, "#C7947A");
+        mpx(ctx, ox, oy, -5, -28, 3, 11, dir, "#AE7B62");
+        mpx(ctx, ox, oy, 0, -28, 4, 3, dir, "#D8A890");
+        // Subtle head jawline shadow
+        mpx(ctx, ox, oy, -4, -18, 9, 1, dir, "#9E6C54");
+
+        // 5. Signature Thick Dark-Brown Unibrow (2px tall, overhangs front eye)
+        mpx(ctx, ox, oy, 0, -24, 6, 2, dir, "#452918");
+        mpx(ctx, ox, oy, 1, -24, 4, 1, dir, "#5E3B25");
+
+        // 6. Clear Expressive Eyes (White Sclera + Vivid Emerald Pupil + Natural Blink!)
+        if (blinking) {
+          mpx(ctx, ox, oy, 1, -21, 3, 1, dir, "#7D4E3B");
+        } else if (happy) {
+          mpx(ctx, ox, oy, 1, -22, 2, 2, dir, "#FFFFFF");
+          mpx(ctx, ox, oy, 3, -22, 2, 2, dir, "#16A34A");
+          mpx(ctx, ox, oy, 3, -22, 1, 1, dir, "#86EFAC");
+        } else {
+          // Crisp classic Minecraft Villager eye (white sclera left, dark-green iris right)
+          mpx(ctx, ox, oy, 1, -22, 2, 2, dir, "#FFFFFF");
+          mpx(ctx, ox, oy, 3, -22, 2, 2, dir, "#15803D");
+          mpx(ctx, ox, oy, 3, -22, 2, 1, dir, "#14532D");
+          mpx(ctx, ox, oy, 4, -21, 1, 1, dir, "#4ADE80");
+        }
+
+        // 7. Clear Mouth Line (serious "Hrmmm" normally, warm smile when happy!)
+        mpx(ctx, ox, oy, 1, -19, 3, 1, dir, "#754634");
+        if (happy) {
+          mpx(ctx, ox, oy, 3, -20, 1, 1, dir, "#754634");
+        }
+
+        // 8. Iconic Big Hanging Minecraft Villager Nose (protrudes cleanly past face & chin!)
+        mpx(ctx, ox, oy, 5, -21, 3, 5, dir, "#B58066");
+        mpx(ctx, ox, oy, 6, -21, 2, 4, dir, "#D3A48B");
+        mpx(ctx, ox, oy, 5, -17, 3, 1, dir, "#8D5B43");
       } else if (m.id === "bee") {
         const wingUp = Math.sin(t * 42) > 0;
-        // Translucent flapping wings
         if (wingUp) {
           mpx(ctx, ox, oy, -3, -7, 4, 3, dir, "rgba(255, 255, 255, 0.88)");
           mpx(ctx, ox, oy, 0, -6, 3, 2, dir, "rgba(224, 242, 254, 0.78)");
         } else {
           mpx(ctx, ox, oy, -3, -4, 4, 2, dir, "rgba(255, 255, 255, 0.75)");
         }
-        // Chunky golden-yellow blocky Minecraft Bee body
         mpx(ctx, ox, oy, -5, -4, 10, 6, dir, "#FACC15");
-        // Crisp dark-brown stripes
         mpx(ctx, ox, oy, -4, -4, 2, 6, dir, "#451A03");
         mpx(ctx, ox, oy, -1, -4, 2, 6, dir, "#451A03");
-        // Back stinger nub & highlight
         mpx(ctx, ox, oy, -5, -3, 1, 2, dir, "#FEF08A");
-        // Cyan Minecraft Bee eye & antennae
         mpx(ctx, ox, oy, 3, -3, 2, 2, dir, "#0EA5E9");
         mpx(ctx, ox, oy, 4, -3, 1, 1, dir, "#BAE6FD");
         mpx(ctx, ox, oy, 5, -5, 1, 2, dir, "#451A03");
-        // Tiny dangling bee legs
         mpx(ctx, ox, oy, -2, 2, 1, 1, dir, "#451A03");
         mpx(ctx, ox, oy, 1, 2, 1, 1, dir, "#451A03");
       } else if (m.id === "sheep") {
         const grazing = m.state === "graze";
-        // Hooves
         mpx(ctx, ox, oy, -5 + stride, -4, 2, 4, dir, "#C89D84");
         mpx(ctx, ox, oy, 2 - stride, -4, 2, 4, dir, "#B0866E");
-        // Fluffy blocky wool body
         mpx(ctx, ox, oy, -7, -11, 12, 7, dir, "#F8FAFC");
         mpx(ctx, ox, oy, -6, -12, 10, 1, dir, "#FFFFFF");
         mpx(ctx, ox, oy, -6, -6, 10, 2, dir, "#E2E8F0");
-        // Head (dips down when grazing!)
         const hy = grazing ? -7 : -11;
         mpx(ctx, ox, oy, 3, hy, 5, 5, dir, "#E5B49A");
         mpx(ctx, ox, oy, 3, hy - 1, 4, 2, dir, "#F8FAFC");
         mpx(ctx, ox, oy, 6, hy + 1, 1, 1, dir, "#1E293B");
         mpx(ctx, ox, oy, 7, hy + 3, 1, 1, dir, "#F472B6");
       } else if (m.id === "pig") {
-        // Pink trotting legs
         mpx(ctx, ox, oy, -5 + stride, -3, 2, 3, dir, "#E27D95");
         mpx(ctx, ox, oy, 2 - stride, -3, 2, 3, dir, "#CC6981");
-        // Pink blocky body
         mpx(ctx, ox, oy, -6, -9, 11, 6, dir, "#F4A6B8");
         mpx(ctx, ox, oy, -5, -9, 9, 2, dir, "#FBCFE8");
-        // Head & snout
         mpx(ctx, ox, oy, 3, -10, 5, 5, dir, "#F4A6B8");
         mpx(ctx, ox, oy, 7, -8, 2, 2, dir, "#EC7D99");
         mpx(ctx, ox, oy, 8, -8, 1, 1, dir, "#9D174D");
@@ -7777,47 +8065,35 @@
         mpx(ctx, ox, oy, 5, -9, 1, 1, dir, "#FFFFFF");
       } else if (m.id === "chicken") {
         const hopping = m.y < MC_GROUND_Y - 1;
-        // Yellow feet
         mpx(ctx, ox, oy, -2 + stride, -3, 1, 3, dir, "#F59E0B");
         mpx(ctx, ox, oy, 0 - stride, -3, 1, 3, dir, "#D97706");
-        // Crisp white body + flapping wing
         mpx(ctx, ox, oy, -4, -7, 7, 4, dir, "#FFFFFF");
         mpx(ctx, ox, oy, -3, hopping ? -8 : -6, 4, 2, dir, "#E2E8F0");
-        // Head, beak & red wattle
         mpx(ctx, ox, oy, 1, -10, 3, 4, dir, "#FFFFFF");
         mpx(ctx, ox, oy, 3, -9, 1, 1, dir, "#0F172A");
         mpx(ctx, ox, oy, 4, -8, 2, 1, dir, "#F59E0B");
         mpx(ctx, ox, oy, 4, -7, 1, 2, dir, "#EF4444");
       } else if (m.id === "golem") {
-        // Tall blocky silver Iron Golem
         mpx(ctx, ox, oy, -4 + stride, -9, 3, 9, dir, "#94A3B8");
         mpx(ctx, ox, oy, 1 - stride, -9, 3, 9, dir, "#CBD5E1");
-        // Broad torso + green mossy vines
-        mpx(ctx, ox, oy, -6, -19, 12, 10, dir, "#E2E8F0");
-        mpx(ctx, ox, oy, -5, -18, 10, 8, dir, "#CBD5E1");
-        mpx(ctx, ox, oy, -4, -18, 2, 4, dir, "#22C55E");
-        mpx(ctx, ox, oy, -2, -16, 2, 2, dir, "#16A34A");
-        // Heavy arm holding a red Poppy!
-        mpx(ctx, ox, oy, 3, -18, 3, 11, dir, "#94A3B8");
-        mpx(ctx, ox, oy, 6, -11, 1, 3, dir, "#22C55E");
-        mpx(ctx, ox, oy, 5, -13, 3, 2, dir, "#EF4444");
-        // Golem Head + glowing amber eyes
-        mpx(ctx, ox, oy, -3, -25, 6, 6, dir, "#E2E8F0");
-        mpx(ctx, ox, oy, 1, -23, 2, 1, dir, "#F59E0B");
-        mpx(ctx, ox, oy, 2, -21, 2, 2, dir, "#94A3B8");
+        mpx(ctx, ox, oy, -6, -20, 12, 11, dir, "#E2E8F0");
+        mpx(ctx, ox, oy, -5, -19, 10, 9, dir, "#CBD5E1");
+        mpx(ctx, ox, oy, -4, -19, 2, 4, dir, "#22C55E");
+        mpx(ctx, ox, oy, -2, -17, 2, 2, dir, "#16A34A");
+        mpx(ctx, ox, oy, 3, -19, 3, 12, dir, "#94A3B8");
+        mpx(ctx, ox, oy, 6, -12, 1, 3, dir, "#22C55E");
+        mpx(ctx, ox, oy, 5, -14, 3, 2, dir, "#EF4444");
+        mpx(ctx, ox, oy, -3, -26, 6, 6, dir, "#E2E8F0");
+        mpx(ctx, ox, oy, 1, -24, 2, 1, dir, "#F59E0B");
+        mpx(ctx, ox, oy, 2, -22, 2, 2, dir, "#94A3B8");
       } else if (m.id === "wolf") {
-        // Wagging tail!
         const wag = Math.round(Math.sin(t * 14) * 1.4);
         mpx(ctx, ox, oy, -8, -8 + wag, 3, 2, dir, "#D1D5DB");
-        // Legs
         mpx(ctx, ox, oy, -5 + stride, -4, 2, 4, dir, "#9CA3AF");
         mpx(ctx, ox, oy, 2 - stride, -4, 2, 4, dir, "#CBD5E1");
-        // Gray wolf body
         mpx(ctx, ox, oy, -6, -9, 10, 5, dir, "#E5E7EB");
         mpx(ctx, ox, oy, -4, -9, 5, 2, dir, "#D1D5DB");
-        // Bright Red Tamed Collar!
         mpx(ctx, ox, oy, 2, -9, 2, 5, dir, "#EF4444");
-        // Head, ears, snout
         mpx(ctx, ox, oy, 4, -11, 4, 4, dir, "#E5E7EB");
         mpx(ctx, ox, oy, 4, -13, 1, 2, dir, "#9CA3AF");
         mpx(ctx, ox, oy, 6, -13, 1, 2, dir, "#9CA3AF");
@@ -7829,19 +8105,27 @@
 
     function stepMcVillage(dt) {
       mcVillageTime += dt;
+      if (mcDoorTimer > 0) mcDoorTimer = Math.max(0, mcDoorTimer - dt);
 
-      // Drift clouds
       for (const c of MC_CLOUDS) {
         c.x += c.speed * dt;
         if (c.x > MC_W + 10) c.x = -c.w - 8;
       }
 
-      // Ambient Ender Chest portal sparkles
       if (Math.random() < dt * 2.4) {
-        spawnMcParticles(257 + (Math.random() - 0.5) * 10, 61, "ender", 1);
+        spawnMcParticles(257 + (Math.random() - 0.5) * 10, 69, "ender", 1);
       }
 
-      // Celebratory fireworks when 90-Emerald Wolf goal is unlocked!
+      // Cozy chimney smoke when Villager is indoors or at Night
+      const vMob = mcMobs.find(m => m.id === "villager");
+      if ((vMob && vMob.state === "indoors") || isEffectiveDark()) {
+        mcChimneyCd -= dt;
+        if (mcChimneyCd <= 0) {
+          mcChimneyCd = 0.75 + Math.random() * 0.65;
+          spawnMcParticles(67, 25, "smoke", 1);
+        }
+      }
+
       if (mcVillageState.wolfUnlocked) {
         mcFireworkCd -= dt;
         if (mcFireworkCd <= 0) {
@@ -7850,21 +8134,62 @@
         }
       }
 
-      // Update mobs
       for (const m of mcMobs) {
         if (!m.active) continue;
         if (m.showEm && m.showEm > 0) m.showEm = Math.max(0, m.showEm - dt);
 
+        // Villager blinking + occasional house entry/exit lifecycle
+        if (m.id === "villager") {
+          m.blinkCd = (m.blinkCd || 3.0) - dt;
+          if (m.blinkT > 0) {
+            m.blinkT = Math.max(0, m.blinkT - dt);
+          } else if (m.blinkCd <= 0) {
+            m.blinkT = 0.14;
+            m.blinkCd = 2.6 + Math.random() * 2.8;
+          }
+
+          if (m.state === "indoors") {
+            m.timer -= dt;
+            if (m.timer <= 0) {
+              summonVillagerFromHouse(false);
+            }
+            continue;
+          }
+          if (m.state === "to_house") {
+            const dxDoor = MC_DOOR_X - m.x;
+            if (Math.abs(dxDoor) <= 2.2) {
+              mcDoorTimer = 0.95;
+              m.state = "indoors";
+              m.x = MC_DOOR_X;
+              m.y = MC_GROUND_Y;
+              m.vy = 0;
+              m.timer = 6.5 + Math.random() * 5.5;
+              syncVillagerChip();
+              continue;
+            }
+            m.dir = dxDoor >= 0 ? 1 : -1;
+            m.phase += dt;
+            m.x += m.dir * m.speed * dt;
+            if (Math.abs(dxDoor) < 16) mcDoorTimer = Math.max(mcDoorTimer, 0.35);
+            continue;
+          }
+          // Count down until Villager decides to visit the Trading Post hut
+          m.houseCd = (m.houseCd || 14) - dt;
+          if (m.houseCd <= 0 && m.showEm <= 0 && m.y >= MC_GROUND_Y) {
+            m.state = "to_house";
+            continue;
+          }
+        }
+
         if (m.air) {
-          // Bee flight AI: visits Poppies, Dandelions & Oak Tree Bee Nest!
           m.timer -= dt;
           if (m.timer <= 0) {
             const spots = [
-              { x: 145, y: 49 },
-              { x: 109, y: 58 },
-              { x: 207, y: 58 },
-              { x: 221, y: 57 },
-              { x: 174, y: 36 }
+              { x: 146, y: 56 },
+              { x: 109, y: 66 },
+              { x: 207, y: 66 },
+              { x: 221, y: 65 },
+              { x: 174, y: 40 }
             ];
             const pick = spots[Math.floor(Math.random() * spots.length)];
             m.targetX = pick.x + (Math.random() - 0.5) * 16;
@@ -7881,19 +8206,17 @@
             m.vy *= 0.88;
             if (Math.abs(m.vy) < 1) m.vy = 0;
           }
-          m.y = Math.max(20, Math.min(62, m.y));
+          m.y = Math.max(22, Math.min(69, m.y));
           m.x = Math.max(m.minX, Math.min(m.maxX, m.x));
 
-          // Drop golden pollen when hovering low near flowers
           m.pollenCd = (m.pollenCd || 0) - dt;
-          if (m.y > 50 && m.pollenCd <= 0) {
+          if (m.y > 56 && m.pollenCd <= 0) {
             m.pollenCd = 0.55 + Math.random() * 0.6;
             spawnMcParticles(m.x, m.y + 3, "pollen", 1);
           }
           continue;
         }
 
-        // Ground mob AI
         m.timer -= dt;
         if (m.timer <= 0) {
           const r = Math.random();
@@ -7916,13 +8239,11 @@
           m.x += m.dir * m.speed * dt;
           if (m.x <= m.minX) { m.x = m.minX; m.dir = 1; }
           if (m.x >= m.maxX) { m.x = m.maxX; m.dir = -1; }
-          // Occasional playful mini-hop for chicken or pig
           if ((m.id === "chicken" || m.id === "pig") && m.y >= MC_GROUND_Y && Math.random() < dt * 0.22) {
             m.vy = m.id === "chicken" ? -28 : -22;
           }
         }
 
-        // Gravity & hop landing
         if (m.y < MC_GROUND_Y || m.vy < 0) {
           m.vy += 145 * dt;
           m.y += m.vy * dt;
@@ -7933,7 +8254,6 @@
         }
       }
 
-      // Update particles
       for (let i = mcParticles.length - 1; i >= 0; i--) {
         const p = mcParticles[i];
         p.life -= dt;
@@ -7957,14 +8277,12 @@
 
       drawMcScenery(ctx, dark, mcVillageTime);
 
-      // Draw ground mobs first (back to front by height/id), then Bee in the air
       const drawOrder = ["golem", "villager", "sheep", "wolf", "pig", "chicken", "bee"];
       for (const id of drawOrder) {
         const mob = mcMobs.find(m => m.id === id);
         if (mob) drawMcMob(ctx, mob, mcVillageTime);
       }
 
-      // Draw pixel particles on top
       for (const p of mcParticles) {
         ctx.globalAlpha = Math.max(0.2, Math.min(1, p.life / (p.maxLife || 1)));
         px(ctx, p.x, p.y, p.sz, p.sz, p.col);
@@ -8003,6 +8321,7 @@
         canvas.dataset.bound = "1";
         canvas.addEventListener("click", handleMcVillageTap);
       }
+      syncVillagerChip();
       drawMcVillageFrame();
       syncMcVillageLoop();
     }
