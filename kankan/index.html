@@ -1685,6 +1685,232 @@
       opacity: 1;
       transform: translateX(-50%) translateY(0);
     }
+
+    /* ==================== LIVE PIXEL MINECRAFT VILLAGE (SCOPED TO #panel-trade) ==================== */
+    .mc-village-stage {
+      margin-top: 1rem;
+      border-radius: 14px;
+      border: 3px solid #3B5E2B;
+      background: linear-gradient(180deg, #6EB5FF 0%, #B8E2FF 76%, #59A939 76%, #7C583C 100%);
+      box-shadow: inset 2px 2px 0 rgba(255, 255, 255, 0.35), inset -2px -2px 0 rgba(0, 0, 0, 0.25), 0 6px 0 rgba(30, 41, 59, 0.16);
+      overflow: hidden;
+      position: relative;
+    }
+    [data-theme="dark"] .mc-village-stage {
+      border-color: #2D5A3D;
+      background: linear-gradient(180deg, #0B1224 0%, #1F3152 76%, #244B2C 76%, #38271C 100%);
+      box-shadow: inset 2px 2px 0 rgba(255, 255, 255, 0.08), inset -2px -2px 0 rgba(0, 0, 0, 0.45), 0 6px 0 rgba(0, 0, 0, 0.38);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) .mc-village-stage {
+        border-color: #2D5A3D;
+        background: linear-gradient(180deg, #0B1224 0%, #1F3152 76%, #244B2C 76%, #38271C 100%);
+        box-shadow: inset 2px 2px 0 rgba(255, 255, 255, 0.08), inset -2px -2px 0 rgba(0, 0, 0, 0.45), 0 6px 0 rgba(0, 0, 0, 0.38);
+      }
+      :root:not([data-theme="light"]) #panel-trade .trade-card.coop-grand {
+        border-color: #C084FC;
+        background: linear-gradient(135deg, rgba(168, 85, 247, 0.22), var(--paper-card) 45%, rgba(245, 158, 11, 0.14));
+        box-shadow: inset 2px 2px 0 rgba(216, 180, 254, 0.2), inset -2px -2px 0 rgba(0, 0, 0, 0.4), 0 4px 0 rgba(168, 85, 247, 0.28);
+      }
+    }
+    .mc-village-canvas-wrap {
+      position: relative;
+      width: 100%;
+      line-height: 0;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    #mc-village-canvas {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 320 / 88;
+      display: block;
+      image-rendering: -moz-crisp-edges;
+      image-rendering: -webkit-crisp-edges;
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+    .mc-village-bubble {
+      position: absolute;
+      top: 8px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-4px);
+      max-width: min(92%, 440px);
+      padding: 0.34rem 0.78rem;
+      border-radius: 8px;
+      background: rgba(15, 23, 42, 0.88);
+      border: 2px solid #34D399;
+      box-shadow: 0 4px 0 rgba(0, 0, 0, 0.35);
+      color: #F8FAFC;
+      font-family: "Quicksand", "Baloo 2", ui-rounded, sans-serif;
+      font-size: 0.8rem;
+      font-weight: 800;
+      line-height: 1.3;
+      text-align: center;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.18s ease, transform 0.18s ease;
+      z-index: 4;
+    }
+    .mc-village-bubble.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+    .mc-village-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.5rem 0.75rem;
+      background: var(--paper-card);
+      border-top: 2px solid var(--rule);
+    }
+    .mc-village-roster {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .mc-mob-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.2rem 0.56rem;
+      border-radius: 8px;
+      border: 1.5px solid var(--rule);
+      background: var(--paper-sub);
+      color: var(--ink);
+      font-family: "Quicksand", "Baloo 2", ui-rounded, sans-serif;
+      font-size: 0.74rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.45), inset -1px -1px 0 rgba(0, 0, 0, 0.12);
+      transition: transform 0.12s ease, border-color 0.12s ease;
+    }
+    .mc-mob-chip:hover {
+      border-color: var(--green);
+      transform: translateY(-1px);
+    }
+    .mc-mob-chip:active {
+      transform: translateY(1px);
+    }
+    .mc-mob-chip.mc-mob-special {
+      border-color: var(--green);
+      background: var(--green-soft);
+      color: var(--green);
+    }
+    .mc-mob-chip.mc-mob-locked {
+      opacity: 0.62;
+      border-style: dashed;
+      color: var(--ink-muted);
+    }
+    .mc-village-hint {
+      font-size: 0.73rem;
+      font-weight: 700;
+      color: var(--ink-muted);
+    }
+
+    /* Balanced Minecraft Beveled UI — strictly scoped to #panel-trade */
+    #panel-trade .panel-card {
+      border-radius: 16px;
+      border-top: 6px solid #16A34A;
+      box-shadow: inset 2px 2px 0 rgba(255, 255, 255, 0.35), inset -2px -2px 0 rgba(0, 0, 0, 0.12), var(--card-shadow);
+    }
+    #panel-trade .emerald-hero-card {
+      border-radius: 14px;
+      border: 2.5px solid #16A34A;
+      box-shadow: inset 2px 2px 0 rgba(255, 255, 255, 0.42), inset -2px -2px 0 rgba(0, 0, 0, 0.14), 0 4px 0 rgba(22, 163, 74, 0.18);
+    }
+    #panel-trade .emerald-goal-box {
+      border-radius: 12px;
+      border: 2px solid var(--rule);
+      box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.35), inset -1px -1px 0 rgba(0, 0, 0, 0.1);
+    }
+    /* Authentic Minecraft Segmented XP Bar */
+    .mc-xp-track {
+      position: relative;
+      width: 100%;
+      height: 18px;
+      border-radius: 5px;
+      background: #1B2620;
+      border: 2px solid #0E1511;
+      box-shadow: inset 0 2px 0 rgba(0, 0, 0, 0.55), 0 1px 0 rgba(255, 255, 255, 0.25);
+      overflow: hidden;
+      margin-top: 0.5rem;
+    }
+    .mc-xp-fill {
+      height: 100%;
+      background: linear-gradient(180deg, #A3FF3D 0%, #64E61E 48%, #2EA81B 100%);
+      box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.45);
+      transition: width 0.38s ease;
+    }
+    .mc-xp-notches {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image: repeating-linear-gradient(
+        90deg,
+        transparent 0,
+        transparent calc(10% - 1.5px),
+        rgba(9, 14, 11, 0.72) calc(10% - 1.5px),
+        rgba(9, 14, 11, 0.72) 10%
+      );
+    }
+    #panel-trade .chest-chip {
+      border-radius: 12px;
+      border-width: 2px;
+      box-shadow: inset 2px 2px 0 rgba(255, 255, 255, 0.35), inset -2px -2px 0 rgba(0, 0, 0, 0.12);
+    }
+    #panel-trade .trade-card {
+      border-radius: 14px;
+      border-width: 2px;
+      box-shadow: inset 2px 2px 0 rgba(255, 255, 255, 0.38), inset -2px -2px 0 rgba(0, 0, 0, 0.13), 0 4px 0 rgba(0, 0, 0, 0.08);
+      transition: transform 0.14s ease, border-color 0.14s ease;
+    }
+    #panel-trade .trade-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--green);
+    }
+    @keyframes mcEnchantShimmer {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    #panel-trade .trade-card.coop-grand {
+      border-color: #A855F7;
+      border-width: 2.5px;
+      background: linear-gradient(135deg, rgba(168, 85, 247, 0.11), var(--paper-card) 42%, rgba(245, 158, 11, 0.11));
+      background-size: 200% 200%;
+      animation: mcEnchantShimmer 7s ease-in-out infinite;
+      box-shadow: inset 2px 2px 0 rgba(233, 213, 255, 0.45), inset -2px -2px 0 rgba(88, 28, 135, 0.18), 0 4px 0 rgba(168, 85, 247, 0.22);
+    }
+    [data-theme="dark"] #panel-trade .trade-card.coop-grand {
+      border-color: #C084FC;
+      background: linear-gradient(135deg, rgba(168, 85, 247, 0.22), var(--paper-card) 45%, rgba(245, 158, 11, 0.14));
+      box-shadow: inset 2px 2px 0 rgba(216, 180, 254, 0.2), inset -2px -2px 0 rgba(0, 0, 0, 0.4), 0 4px 0 rgba(168, 85, 247, 0.28);
+    }
+    #panel-trade .btn-coach-primary {
+      border-radius: 10px;
+      background: linear-gradient(180deg, #22C55E 0%, #16A34A 100%);
+      border: 2px solid #14532D;
+      color: #FFFFFF;
+      box-shadow: inset 2px 2px 0 rgba(255, 255, 255, 0.34), inset -2px -2px 0 rgba(0, 0, 0, 0.22), 0 3px 0 #14532D;
+    }
+    #panel-trade .btn-coach-primary:active {
+      transform: translateY(2px);
+      box-shadow: inset 2px 2px 0 rgba(0, 0, 0, 0.18), 0 1px 0 #14532D;
+    }
+    #panel-trade .btn-outline {
+      border-radius: 10px;
+      box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.32), inset -1px -1px 0 rgba(0, 0, 0, 0.1);
+    }
+    #panel-trade .emerald-log-row {
+      border-radius: 9px;
+      border: 1px solid var(--rule);
+    }
     .pin-modal-backdrop {
       position: fixed;
       inset: 0;
@@ -4517,6 +4743,26 @@
           <label for="sec-rad-ipad" class="btn-outline btn-sm" style="cursor:pointer;">⚙️ Parent PIN &amp; Rules</label>
         </div>
 
+        <!-- Live Pixel-Art Minecraft Overworld Village Stage -->
+        <div id="mc-village-stage" class="mc-village-stage">
+          <div class="mc-village-canvas-wrap">
+            <canvas id="mc-village-canvas" width="320" height="88" role="img" aria-label="Live pixel-art Minecraft Village with Villager, Bee, Sheep, Pig, Chicken, and unlockable Iron Golem and Tamed Wolf"></canvas>
+            <div id="mc-village-bubble" class="mc-village-bubble" aria-live="polite"></div>
+          </div>
+          <div class="mc-village-bar">
+            <div id="mc-village-roster" class="mc-village-roster">
+              <button type="button" class="mc-mob-chip" onclick="pokeMcMob('villager')">🧑‍🌾 Villager</button>
+              <button type="button" class="mc-mob-chip" onclick="pokeMcMob('bee')">🐝 Bee</button>
+              <button type="button" class="mc-mob-chip" onclick="pokeMcMob('sheep')">🐑 Sheep</button>
+              <button type="button" class="mc-mob-chip" onclick="pokeMcMob('pig')">🐷 Pig</button>
+              <button type="button" class="mc-mob-chip" onclick="pokeMcMob('chicken')">🐔 Chicken</button>
+              <button type="button" id="mc-chip-golem" class="mc-mob-chip mc-mob-locked" onclick="pokeMcMob('golem')">🔒 Iron Golem (5-Day)</button>
+              <button type="button" id="mc-chip-wolf" class="mc-mob-chip mc-mob-locked" onclick="pokeMcMob('wolf')">🔒 Wolf (90 Emeralds)</button>
+            </div>
+            <span id="mc-village-hint" class="mc-village-hint">✨ Tap any mob or Ender Chest!</span>
+          </div>
+        </div>
+
         <div class="emerald-hero-card">
           <div class="emerald-hero-top">
             <div>
@@ -4535,8 +4781,9 @@
               <strong style="font-size:0.9rem; color:var(--ink);">🏆 Grand Goal: Weekend Minecraft Co-op with Friends (Up to 1.5 Hours / 90 min)</strong>
               <span id="coop-goal-ratio" class="kicker" style="color:var(--green); font-size:0.82rem;">0 / 90 Emeralds</span>
             </div>
-            <div class="emerald-bar-track">
-              <div id="coop-goal-bar" class="emerald-bar-fill" style="width:0%;"></div>
+            <div class="mc-xp-track" aria-label="Weekend Co-op Emerald XP Progress">
+              <div id="coop-goal-bar" class="mc-xp-fill" style="width:0%;"></div>
+              <div class="mc-xp-notches"></div>
             </div>
             <div id="coop-goal-hint" style="font-size:0.8rem; color:var(--ink-secondary); margin-top:0.38rem;">
               Earn 18–25 Emeralds a day from reading — save up 90 Emeralds to unlock up to 1.5 hours of weekend co-op with classmates!
@@ -4872,6 +5119,7 @@
       const hex = dark ? "#161514" : "#EEF7FF";
       if (mLight) mLight.setAttribute("content", hex);
       if (mDark) mDark.setAttribute("content", hex);
+      if (typeof drawMcVillageFrame === "function") drawMcVillageFrame();
     }
 
     function toggleDayNightMode() {
@@ -5165,6 +5413,7 @@
       if (readRad) readRad.checked = true;
       if (dayRad) dayRad.checked = true;
       stopNarration();
+      if (typeof syncMcVillageLoop === "function") syncMcVillageLoop();
     }
     function renderProgress() {
       const prog = loadProgress();
@@ -6346,6 +6595,7 @@
 
       closeTradeModal();
       renderEmeraldUI();
+      if (typeof triggerVillageCelebration === "function") triggerVillageCelebration("trade");
       playEmeraldChime("done");
       showEmeraldToast(`✅ Trade approved! Spent ${item.cost} ${EM_ICO} Emeralds — have fun building!`);
       if (item.minutes > 0) {
@@ -6970,6 +7220,791 @@
           </span>
         `).join("");
       }
+
+      if (typeof syncMcVillageUnlocks === "function") {
+        syncMcVillageUnlocks(bank, iss, coopCost, clearedDays);
+      }
+    }
+
+    /* ==================== LIVE PIXEL-ART MINECRAFT VILLAGE ENGINE ==================== */
+    const MC_W = 320;
+    const MC_H = 88;
+    const MC_GROUND_Y = 72;
+    let mcVillageRaf = null;
+    let mcVillageLastTs = 0;
+    let mcVillageTime = 0;
+    let mcBubbleTimer = null;
+    let mcFireworkCd = 2.8;
+    let mcVillageState = {
+      golemUnlocked: false,
+      wolfUnlocked: false,
+      balance: 0,
+      coopCost: 90,
+      clearedDays: 0
+    };
+
+    const MC_CLOUDS = [
+      { x: 24, y: 12, w: 34, h: 6, speed: 3.1 },
+      { x: 138, y: 8, w: 46, h: 7, speed: 2.3 },
+      { x: 236, y: 17, w: 28, h: 5, speed: 3.6 }
+    ];
+
+    const MC_STARS = [
+      [14, 9, 1], [38, 18, 2], [58, 7, 1], [86, 15, 1], [112, 8, 2],
+      [142, 16, 1], [166, 9, 1], [188, 21, 1], [204, 7, 2], [228, 14, 1],
+      [252, 8, 1], [264, 22, 1], [298, 16, 1], [310, 8, 2], [96, 26, 1], [176, 12, 1]
+    ];
+
+    const MC_FLOWERS = [
+      { x: 103, type: "poppy" },
+      { x: 110, type: "dandelion" },
+      { x: 117, type: "poppy" },
+      { x: 198, type: "dandelion" },
+      { x: 207, type: "poppy" },
+      { x: 215, type: "dandelion" },
+      { x: 223, type: "poppy" }
+    ];
+
+    const MC_MOB_QUOTES = {
+      villager: [
+        "Hrmmm! Save 90 Emeralds for Weekend Co-op!",
+        "Hrmmm! Story + 3 Quizzes + Day Complete = +15 Emeralds!",
+        "Hrmmm! Ask Mom or Dad for the 4-digit PIN to trade!",
+        "Hrmmm! Save 3 days in a row for a +5 Ender Chest bonus!"
+      ],
+      bee: [
+        "Bzzzt! Pollinating poppies and collecting science facts!",
+        "Bzzzt! Bees love Power Words almost as much as flowers!",
+        "Bzzzt! Buzzing back to the oak tree bee nest!"
+      ],
+      sheep: [
+        "Baa! Great job growing your Word Vault!",
+        "Baa! Fresh grass and fresh science stories!",
+        "Baa! Remember to take 10-minute eye breaks!"
+      ],
+      pig: [
+        "Oink! Ready to trade Emeralds for build time?",
+        "Oink! Upgrading Question 4 pays extra Emeralds!",
+        "Oink! Tap the Ender Chest to count your treasure!"
+      ],
+      chicken: [
+        "Cluck! Check your 7-Day Stamp Card!",
+        "Cluck! Clear 5 days this week to summon the Iron Golem!",
+        "Cluck! Flap-flap! Keep your reading streak alive!"
+      ],
+      golem: [
+        "*Clank!* Village protected! 5-Day Iron Golem Chest unlocked!",
+        "*Clank!* Here is a red poppy for your awesome 5-day streak!"
+      ],
+      wolf: [
+        "Woof! 90 Emeralds banked — Weekend Co-op is READY!",
+        "Arf! Best young scientist in the Overworld!"
+      ]
+    };
+
+    const mcMobs = [
+      { id: "villager", x: 96, y: MC_GROUND_Y, vy: 0, dir: 1, minX: 28, maxX: 192, speed: 12.5, state: "walk", timer: 2.8, phase: 0, quoteIdx: 0, active: true, air: false, w: 12, h: 20, showEm: 0 },
+      { id: "bee", x: 168, y: 44, vy: 0, dir: 1, minX: 94, maxX: 244, speed: 19.5, state: "fly", timer: 3.1, phase: 0, quoteIdx: 0, active: true, air: true, w: 11, h: 8, targetX: 207, targetY: 56, pollenCd: 0.4 },
+      { id: "sheep", x: 192, y: MC_GROUND_Y, vy: 0, dir: -1, minX: 94, maxX: 288, speed: 10.5, state: "walk", timer: 3.4, phase: 1.2, quoteIdx: 0, active: true, air: false, w: 15, h: 12 },
+      { id: "pig", x: 146, y: MC_GROUND_Y, vy: 0, dir: 1, minX: 44, maxX: 266, speed: 14.0, state: "walk", timer: 2.2, phase: 2.4, quoteIdx: 0, active: true, air: false, w: 14, h: 10 },
+      { id: "chicken", x: 230, y: MC_GROUND_Y, vy: 0, dir: -1, minX: 66, maxX: 296, speed: 16.5, state: "walk", timer: 1.8, phase: 0.7, quoteIdx: 0, active: true, air: false, w: 9, h: 9 },
+      { id: "golem", x: 120, y: MC_GROUND_Y, vy: 0, dir: 1, minX: 72, maxX: 236, speed: 8.5, state: "walk", timer: 4.0, phase: 0.3, quoteIdx: 0, active: false, air: false, w: 16, h: 24 },
+      { id: "wolf", x: 206, y: MC_GROUND_Y, vy: 0, dir: -1, minX: 112, maxX: 290, speed: 17.0, state: "walk", timer: 2.6, phase: 1.8, quoteIdx: 0, active: false, air: false, w: 14, h: 11 }
+    ];
+
+    const mcParticles = [];
+
+    function spawnMcParticles(x, y, kind, count) {
+      const n = count || 6;
+      for (let i = 0; i < n; i++) {
+        const ang = -Math.PI * (0.15 + Math.random() * 0.7);
+        const spd = 12 + Math.random() * 26;
+        let col = "#34D399";
+        let sz = 2;
+        let grav = 28;
+        let life = 0.7 + Math.random() * 0.5;
+        if (kind === "heart") { col = i % 2 === 0 ? "#F43F5E" : "#FB7185"; sz = 2; grav = -10; life = 0.9; }
+        else if (kind === "pollen") { col = i % 2 === 0 ? "#FDE047" : "#FACC15"; sz = 1; grav = 14; life = 0.8; }
+        else if (kind === "ender") { col = i % 2 === 0 ? "#C084FC" : "#A855F7"; sz = 1; grav = -12; life = 1.0; }
+        else if (kind === "emerald") { col = i % 2 === 0 ? "#10B981" : "#6EE7B7"; sz = 2; grav = 22; life = 0.95; }
+        else if (kind === "grass") { col = "#4ADE80"; sz = 1; grav = 45; life = 0.55; }
+        else if (kind === "poppy") { col = i % 2 === 0 ? "#EF4444" : "#22C55E"; sz = 2; grav = 16; life = 0.9; }
+        else if (kind === "firework") {
+          const fwCols = ["#34D399", "#FACC15", "#38BDF8", "#F472B6", "#C084FC"];
+          col = fwCols[Math.floor(Math.random() * fwCols.length)];
+          const fullAng = Math.random() * Math.PI * 2;
+          const fwSpd = 10 + Math.random() * 24;
+          mcParticles.push({
+            x, y, vx: Math.cos(fullAng) * fwSpd, vy: Math.sin(fullAng) * fwSpd,
+            col, sz: 2, grav: 16, life: 0.75 + Math.random() * 0.45, maxLife: 1.2
+          });
+          continue;
+        }
+        mcParticles.push({
+          x: x + (Math.random() - 0.5) * 6,
+          y: y + (Math.random() - 0.5) * 3,
+          vx: Math.cos(ang) * spd * (Math.random() < 0.5 ? 1 : -1) * 0.6,
+          vy: kind === "ender" ? (-8 - Math.random() * 10) : (Math.sin(ang) * spd),
+          col, sz, grav, life, maxLife: life
+        });
+      }
+      if (mcParticles.length > 90) mcParticles.splice(0, mcParticles.length - 90);
+    }
+
+    function showMcVillageBubble(msg) {
+      const el = document.getElementById("mc-village-bubble");
+      if (!el || !msg) return;
+      el.textContent = msg;
+      el.classList.add("show");
+      if (mcBubbleTimer) clearTimeout(mcBubbleTimer);
+      mcBubbleTimer = setTimeout(() => {
+        el.classList.remove("show");
+      }, 3300);
+    }
+
+    function syncMcVillageUnlocks(bank, iss, coopCost, clearedDays) {
+      const golemOn = !!(iss && iss.streak5Awarded) || clearedDays >= 5;
+      const wolfOn = (bank && bank.balance >= coopCost);
+      mcVillageState.golemUnlocked = golemOn;
+      mcVillageState.wolfUnlocked = wolfOn;
+      mcVillageState.balance = bank ? bank.balance : 0;
+      mcVillageState.coopCost = coopCost || 90;
+      mcVillageState.clearedDays = clearedDays || 0;
+
+      const gMob = mcMobs.find(m => m.id === "golem");
+      if (gMob) gMob.active = golemOn;
+      const wMob = mcMobs.find(m => m.id === "wolf");
+      if (wMob) wMob.active = wolfOn;
+
+      const gChip = document.getElementById("mc-chip-golem");
+      if (gChip) {
+        gChip.classList.toggle("mc-mob-locked", !golemOn);
+        gChip.classList.toggle("mc-mob-special", golemOn);
+        gChip.textContent = golemOn ? "🛡 Iron Golem ✓" : `🔒 Iron Golem (${clearedDays}/5d)`;
+      }
+      const wChip = document.getElementById("mc-chip-wolf");
+      if (wChip) {
+        wChip.classList.toggle("mc-mob-locked", !wolfOn);
+        wChip.classList.toggle("mc-mob-special", wolfOn);
+        wChip.textContent = wolfOn ? "🐺 Tamed Wolf ✓" : `🔒 Wolf (${coopCost} Emeralds)`;
+      }
+      drawMcVillageFrame();
+    }
+
+    function triggerVillageCelebration(kind) {
+      spawnMcParticles(257, 60, "emerald", 10);
+      spawnMcParticles(257, 58, "ender", 8);
+      if (kind === "trade") {
+        spawnMcParticles(160, 22, "firework", 14);
+        showMcVillageBubble("✨ Trade complete! Villager & friends cheer for your build!");
+      }
+      mcMobs.forEach(m => {
+        if (m.active && !m.air && m.y >= MC_GROUND_Y - 1) m.vy = -34;
+      });
+    }
+
+    function pokeMcMob(mobId) {
+      const m = mcMobs.find(item => item.id === mobId);
+      if (!m) return;
+      if (!m.active) {
+        if (mobId === "golem") {
+          showMcVillageBubble(`🔒 Clear 5 days this week (${mcVillageState.clearedDays}/5) to summon the Iron Golem!`);
+        } else if (mobId === "wolf") {
+          showMcVillageBubble(`🔒 Bank ${mcVillageState.coopCost} Emeralds (${mcVillageState.balance}/${mcVillageState.coopCost}) to summon the Tamed Wolf & fireworks!`);
+        }
+        return;
+      }
+      const quotes = MC_MOB_QUOTES[mobId] || ["Hello, Explorer!"];
+      const line = quotes[m.quoteIdx % quotes.length];
+      m.quoteIdx = (m.quoteIdx + 1) % quotes.length;
+      if (m.air) {
+        m.vy = -22;
+        m.targetX = 104 + Math.random() * 124;
+        m.targetY = 34 + Math.random() * 20;
+        spawnMcParticles(m.x, m.y, "pollen", 8);
+        spawnMcParticles(m.x, m.y - 4, "heart", 4);
+      } else {
+        m.vy = -44;
+        m.state = "walk";
+        m.timer = 2.4;
+        if (mobId === "villager") {
+          m.showEm = 2.6;
+          spawnMcParticles(m.x, m.y - 16, "emerald", 7);
+        } else if (mobId === "golem") {
+          spawnMcParticles(m.x, m.y - 18, "poppy", 7);
+        } else if (mobId === "wolf") {
+          spawnMcParticles(m.x, m.y - 10, "heart", 6);
+          spawnMcParticles(m.x, 22, "firework", 12);
+        } else {
+          spawnMcParticles(m.x, m.y - 10, "heart", 6);
+        }
+      }
+      showMcVillageBubble(line);
+      if (!mcVillageRaf) drawMcVillageFrame();
+    }
+
+    function handleMcVillageTap(evt) {
+      const canvas = document.getElementById("mc-village-canvas");
+      if (!canvas) return;
+      const rect = canvas.getBoundingClientRect();
+      if (!rect.width || !rect.height) return;
+      const cx = ((evt.clientX - rect.left) / rect.width) * MC_W;
+      const cy = ((evt.clientY - rect.top) / rect.height) * MC_H;
+
+      // Check Ender Chest first
+      if (cx >= 245 && cx <= 270 && cy >= 53 && cy <= 76) {
+        spawnMcParticles(257, 60, "ender", 10);
+        spawnMcParticles(257, 58, "emerald", 7);
+        showMcVillageBubble(`🟣 Ender Chest: ${mcVillageState.balance} Emeralds banked (${mcVillageState.balance}/${mcVillageState.coopCost} toward Weekend Co-op)!`);
+        return;
+      }
+
+      // Check Bee Nest
+      if (cx >= 139 && cx <= 152 && cy >= 44 && cy <= 56) {
+        spawnMcParticles(145, 50, "pollen", 9);
+        pokeMcMob("bee");
+        return;
+      }
+
+      // Find closest active mob within generous iPad tap radius
+      let best = null;
+      let bestDist = 22;
+      for (const m of mcMobs) {
+        if (!m.active) continue;
+        const my = m.air ? m.y : (m.y - m.h * 0.5);
+        const dist = Math.hypot(cx - m.x, cy - my);
+        if (dist < bestDist) {
+          bestDist = dist;
+          best = m;
+        }
+      }
+      if (best) {
+        pokeMcMob(best.id);
+      } else {
+        spawnMcParticles(cx, cy, "emerald", 5);
+        const groundMobs = mcMobs.filter(m => m.active && !m.air);
+        if (groundMobs.length) {
+          const nearest = groundMobs.reduce((a, b) => Math.abs(a.x - cx) < Math.abs(b.x - cx) ? a : b);
+          nearest.dir = cx >= nearest.x ? 1 : -1;
+          nearest.vy = -26;
+        }
+      }
+    }
+
+    function px(ctx, x, y, w, h, col) {
+      ctx.fillStyle = col;
+      ctx.fillRect(Math.round(x), Math.round(y), Math.round(w), Math.round(h));
+    }
+
+    function mpx(ctx, ox, oy, dx, dy, w, h, dir, col) {
+      ctx.fillStyle = col;
+      const rx = dir >= 0 ? (ox + dx) : (ox - dx - w);
+      ctx.fillRect(Math.round(rx), Math.round(oy + dy), Math.round(w), Math.round(h));
+    }
+
+    function drawMcScenery(ctx, dark, t) {
+      // 1. Sky bands
+      const skyCols = dark
+        ? ["#0A1022", "#101A33", "#172646", "#1F3359"]
+        : ["#64AEFF", "#7EC0FF", "#9AD2FF", "#BDE4FF"];
+      const bandH = Math.ceil(MC_GROUND_Y / skyCols.length);
+      for (let i = 0; i < skyCols.length; i++) {
+        px(ctx, 0, i * bandH, MC_W, bandH + 1, skyCols[i]);
+      }
+
+      // 2. Sun or Moon + Stars
+      if (dark) {
+        for (let i = 0; i < MC_STARS.length; i++) {
+          const st = MC_STARS[i];
+          const tw = Math.sin(t * 2.2 + i * 1.7);
+          const col = tw > 0.35 ? "#FEF9C3" : (tw > -0.2 ? "#CBD5E1" : "#64748B");
+          px(ctx, st[0], st[1], st[2], st[2], col);
+        }
+        // Pixel Moon
+        px(ctx, 275, 7, 14, 14, "rgba(226, 232, 240, 0.14)");
+        px(ctx, 277, 9, 10, 10, "#E2E8F0");
+        px(ctx, 279, 11, 2, 2, "#CBD5E1");
+        px(ctx, 283, 14, 2, 2, "#94A3B8");
+      } else {
+        // Pixel Sun
+        px(ctx, 274, 6, 16, 16, "rgba(254, 240, 138, 0.32)");
+        px(ctx, 276, 8, 12, 12, "#FEF08A");
+        px(ctx, 278, 10, 8, 8, "#FFFBEB");
+        // Drifting Pixel Clouds
+        for (const c of MC_CLOUDS) {
+          px(ctx, c.x, c.y, c.w, c.h, "#FFFFFF");
+          px(ctx, c.x + 2, c.y + c.h - 2, c.w - 4, 2, "#DCEEFF");
+        }
+      }
+
+      // 3. Distant Blocky Overworld Hills
+      const hillBack = dark ? "#142726" : "#5AA84F";
+      const hillFront = dark ? "#1A332D" : "#4A9440";
+      px(ctx, 0, 56, 48, 16, hillBack);
+      px(ctx, 48, 60, 44, 12, hillBack);
+      px(ctx, 152, 54, 56, 18, hillBack);
+      px(ctx, 208, 59, 44, 13, hillBack);
+      px(ctx, 264, 53, 56, 19, hillBack);
+
+      px(ctx, 90, 63, 66, 9, hillFront);
+      px(ctx, 188, 64, 56, 8, hillFront);
+      px(ctx, 286, 62, 34, 10, hillFront);
+
+      // 4. Villager Trading Post Hut (x: 18..82, ground y: 72)
+      const oakLog = dark ? "#3B2817" : "#5E3F23";
+      const oakPlank = dark ? "#6E5434" : "#C49A62";
+      const roofMain = dark ? "#573D22" : "#9E6D3B";
+      const roofDark = dark ? "#442E19" : "#7F552A";
+      const cobble = dark ? "#4A4F55" : "#80858A";
+      const cobbleDark = dark ? "#363A3F" : "#64696E";
+
+      // Stepped gable roof
+      px(ctx, 28, 34, 44, 3, roofDark);
+      px(ctx, 24, 37, 52, 3, roofMain);
+      px(ctx, 20, 40, 60, 3, roofDark);
+      px(ctx, 17, 43, 66, 3, roofMain);
+      // Walls + corner pillars + cobble base
+      px(ctx, 21, 46, 58, 17, oakPlank);
+      px(ctx, 21, 63, 58, 9, cobble);
+      for (let cx = 23; cx < 77; cx += 6) {
+        px(ctx, cx, 65, 3, 2, cobbleDark);
+        px(ctx, cx + 2, 68, 3, 2, cobbleDark);
+      }
+      px(ctx, 21, 46, 4, 26, oakLog);
+      px(ctx, 75, 46, 4, 26, oakLog);
+      // Wooden door
+      px(ctx, 29, 54, 10, 18, dark ? "#4A311B" : "#7D522D");
+      px(ctx, 31, 56, 6, 4, dark ? "#352110" : "#5A3A1E");
+      px(ctx, 37, 63, 1, 2, "#FBBF24");
+      // Trading window (warm lit at night!)
+      px(ctx, 45, 50, 22, 11, oakLog);
+      if (dark) {
+        px(ctx, 41, 46, 30, 19, "rgba(251, 191, 36, 0.14)");
+        px(ctx, 47, 52, 18, 7, "#FDE68A");
+        px(ctx, 49, 53, 6, 5, "#FEF9C3");
+        px(ctx, 57, 53, 6, 5, "#FBBF24");
+      } else {
+        px(ctx, 47, 52, 18, 7, "#93D5FF");
+        px(ctx, 48, 53, 3, 2, "#E0F2FE");
+        px(ctx, 58, 53, 3, 2, "#E0F2FE");
+      }
+      px(ctx, 55, 52, 2, 7, oakLog);
+      // Green & white striped trading awning
+      for (let ax = 43; ax < 70; ax += 4) {
+        px(ctx, ax, 46, 2, 4, "#16A34A");
+        px(ctx, ax + 2, 46, 2, 4, dark ? "#CBD5E1" : "#F8FAFC");
+      }
+      // Hanging Emerald Emblem Sign
+      px(ctx, 70, 51, 5, 7, "#065F46");
+      px(ctx, 71, 52, 3, 5, "#10B981");
+      px(ctx, 72, 53, 1, 2, "#A7F3D0");
+
+      // 5. Blocky Oak Tree + Hanging Bee Nest (x: 120..156)
+      px(ctx, 135, 45, 6, 27, oakLog);
+      px(ctx, 137, 47, 2, 25, dark ? "#4A341E" : "#734D2A");
+      const lf1 = dark ? "#1E4D24" : "#3E8E2E";
+      const lf2 = dark ? "#163B1B" : "#2D7121";
+      const lf3 = dark ? "#27612D" : "#56AF42";
+      px(ctx, 126, 24, 24, 8, lf1);
+      px(ctx, 121, 31, 34, 14, lf1);
+      px(ctx, 123, 33, 6, 4, lf2);
+      px(ctx, 136, 26, 6, 4, lf3);
+      px(ctx, 144, 34, 8, 5, lf2);
+      px(ctx, 128, 39, 7, 4, lf3);
+      // Bee Nest hanging under the oak canopy
+      px(ctx, 141, 45, 8, 8, dark ? "#926A27" : "#D9A441");
+      px(ctx, 141, 47, 8, 1, dark ? "#6E4E1B" : "#B58129");
+      px(ctx, 141, 50, 8, 1, dark ? "#6E4E1B" : "#B58129");
+      px(ctx, 144, 49, 2, 2, "#3B2410");
+
+      // 6. Standing Village Torches (flickering warm glow!)
+      const torchXs = [89, 238];
+      const flick = Math.sin(t * 14) > 0 ? 1 : 0;
+      for (const tx of torchXs) {
+        px(ctx, tx, 61, 2, 11, oakLog);
+        if (dark) {
+          px(ctx, tx - 5, 53, 12, 12, "rgba(251, 191, 36, 0.16)");
+          px(ctx, tx - 2, 56, 6, 6, "rgba(254, 240, 138, 0.28)");
+        }
+        px(ctx, tx, 59 - flick, 2, 2, "#F97316");
+        px(ctx, tx, 58 - flick, 2, 1, "#FEF08A");
+      }
+
+      // 7. Poppies & Dandelions
+      for (const fl of MC_FLOWERS) {
+        px(ctx, fl.x, 67, 1, 5, dark ? "#166534" : "#2E7D32");
+        if (fl.type === "poppy") {
+          px(ctx, fl.x - 1, 64, 3, 3, "#EF4444");
+          px(ctx, fl.x, 65, 1, 1, "#7F1D1D");
+        } else {
+          px(ctx, fl.x - 1, 65, 3, 2, "#FACC15");
+          px(ctx, fl.x, 64, 1, 1, "#FEF08A");
+        }
+      }
+
+      // 8. Obsidian Ender Chest (x: 250..264, y: 59..72)
+      px(ctx, 250, 59, 14, 13, "#0A1E22");
+      px(ctx, 251, 60, 12, 4, "#15363D");
+      px(ctx, 251, 65, 12, 6, "#102B31");
+      px(ctx, 250, 64, 14, 1, "#051013");
+      // Glowing emerald-cyan latch
+      px(ctx, 256, 63, 2, 3, "#34D399");
+      px(ctx, 256, 63, 1, 1, "#D1FAE5");
+
+      // 9. Far-Right Oak Fence
+      const fenceCol = dark ? "#5E4326" : "#A67C46";
+      const fenceDark = dark ? "#45301B" : "#876234";
+      for (let fx = 278; fx <= 308; fx += 10) {
+        px(ctx, fx, 63, 2, 9, fenceDark);
+      }
+      px(ctx, 277, 65, 34, 2, fenceCol);
+      px(ctx, 277, 69, 34, 1, fenceCol);
+
+      // 10. Minecraft Grass & Dirt Ground (y: 72..88)
+      const gTop = dark ? "#2C5E35" : "#59A939";
+      const gHi = dark ? "#356F3F" : "#6DC248";
+      const gDark = dark ? "#204728" : "#448B2B";
+      const dirt1 = dark ? "#422E21" : "#866043";
+      const dirt2 = dark ? "#34241A" : "#6F4E35";
+      const dirt3 = dark ? "#4F3828" : "#9C7250";
+      px(ctx, 0, MC_GROUND_Y, MC_W, 4, gTop);
+      px(ctx, 0, MC_GROUND_Y + 4, MC_W, MC_H - MC_GROUND_Y - 4, dirt1);
+      for (let gx = 0; gx < MC_W; gx += 8) {
+        px(ctx, gx + 1, MC_GROUND_Y, 3, 1, gHi);
+        px(ctx, gx + 5, MC_GROUND_Y + 1, 2, 2, gDark);
+        px(ctx, gx + 2, MC_GROUND_Y + 4, 2, 2, gTop);
+        px(ctx, gx + 6, MC_GROUND_Y + 4, 1, 1, gDark);
+        // Dirt speckles & stone pebbles
+        px(ctx, gx + 1, MC_GROUND_Y + 7, 2, 2, dirt2);
+        px(ctx, gx + 5, MC_GROUND_Y + 9, 2, 1, dirt3);
+        px(ctx, gx + 3, MC_GROUND_Y + 12, 2, 2, dirt2);
+        if ((gx / 8) % 3 === 0) {
+          px(ctx, gx + 6, MC_GROUND_Y + 11, 2, 2, dark ? "#475569" : "#78716C");
+        }
+      }
+    }
+
+    function drawMcMob(ctx, m, t) {
+      if (!m.active) return;
+      const ox = Math.round(m.x);
+      const oy = Math.round(m.y);
+      const dir = m.dir;
+      const walking = m.state === "walk";
+      const stride = walking ? Math.round(Math.sin(m.phase * 7) * 1.6) : 0;
+
+      // Ground shadow
+      if (!m.air) {
+        const airLift = Math.max(0, MC_GROUND_Y - m.y);
+        const sw = Math.max(4, Math.round(m.w - airLift * 0.25));
+        px(ctx, ox - sw / 2, MC_GROUND_Y - 1, sw, 2, "rgba(0, 0, 0, 0.22)");
+      } else {
+        px(ctx, ox - 4, MC_GROUND_Y - 1, 8, 2, "rgba(0, 0, 0, 0.14)");
+      }
+
+      if (m.id === "villager") {
+        // Legs / boots
+        mpx(ctx, ox, oy, -3 + stride, -5, 3, 5, dir, "#4A321F");
+        mpx(ctx, ox, oy, 0 - stride, -5, 3, 5, dir, "#3B2717");
+        // Brown trader robe + emerald trim
+        mpx(ctx, ox, oy, -4, -14, 8, 9, dir, "#7C5230");
+        mpx(ctx, ox, oy, -4, -14, 8, 2, dir, "#10B981");
+        mpx(ctx, ox, oy, -3, -8, 6, 1, dir, "#10B981");
+        // Folded Villager arms
+        mpx(ctx, ox, oy, -2, -12, 6, 3, dir, "#634024");
+        // Tall Villager head
+        mpx(ctx, ox, oy, -3, -22, 7, 8, dir, "#C89572");
+        // Unibrow & green emerald eyes
+        mpx(ctx, ox, oy, 0, -19, 4, 1, dir, "#4A321F");
+        mpx(ctx, ox, oy, 2, -18, 2, 1, dir, "#10B981");
+        // Iconic Villager big nose!
+        mpx(ctx, ox, oy, 3, -17, 2, 3, dir, "#B07C5A");
+        // Floating Emerald indicator on tap or periodic wave
+        if (m.showEm > 0) {
+          const bob = Math.round(Math.sin(t * 8) * 1.5);
+          px(ctx, ox - 2, oy - 29 + bob, 4, 5, "#10B981");
+          px(ctx, ox - 1, oy - 28 + bob, 2, 2, "#A7F3D0");
+        }
+      } else if (m.id === "bee") {
+        const wingUp = Math.sin(t * 42) > 0;
+        // Translucent flapping wings
+        if (wingUp) {
+          mpx(ctx, ox, oy, -3, -7, 4, 3, dir, "rgba(255, 255, 255, 0.88)");
+          mpx(ctx, ox, oy, 0, -6, 3, 2, dir, "rgba(224, 242, 254, 0.78)");
+        } else {
+          mpx(ctx, ox, oy, -3, -4, 4, 2, dir, "rgba(255, 255, 255, 0.75)");
+        }
+        // Chunky golden-yellow blocky Minecraft Bee body
+        mpx(ctx, ox, oy, -5, -4, 10, 6, dir, "#FACC15");
+        // Crisp dark-brown stripes
+        mpx(ctx, ox, oy, -4, -4, 2, 6, dir, "#451A03");
+        mpx(ctx, ox, oy, -1, -4, 2, 6, dir, "#451A03");
+        // Back stinger nub & highlight
+        mpx(ctx, ox, oy, -5, -3, 1, 2, dir, "#FEF08A");
+        // Cyan Minecraft Bee eye & antennae
+        mpx(ctx, ox, oy, 3, -3, 2, 2, dir, "#0EA5E9");
+        mpx(ctx, ox, oy, 4, -3, 1, 1, dir, "#BAE6FD");
+        mpx(ctx, ox, oy, 5, -5, 1, 2, dir, "#451A03");
+        // Tiny dangling bee legs
+        mpx(ctx, ox, oy, -2, 2, 1, 1, dir, "#451A03");
+        mpx(ctx, ox, oy, 1, 2, 1, 1, dir, "#451A03");
+      } else if (m.id === "sheep") {
+        const grazing = m.state === "graze";
+        // Hooves
+        mpx(ctx, ox, oy, -5 + stride, -4, 2, 4, dir, "#C89D84");
+        mpx(ctx, ox, oy, 2 - stride, -4, 2, 4, dir, "#B0866E");
+        // Fluffy blocky wool body
+        mpx(ctx, ox, oy, -7, -11, 12, 7, dir, "#F8FAFC");
+        mpx(ctx, ox, oy, -6, -12, 10, 1, dir, "#FFFFFF");
+        mpx(ctx, ox, oy, -6, -6, 10, 2, dir, "#E2E8F0");
+        // Head (dips down when grazing!)
+        const hy = grazing ? -7 : -11;
+        mpx(ctx, ox, oy, 3, hy, 5, 5, dir, "#E5B49A");
+        mpx(ctx, ox, oy, 3, hy - 1, 4, 2, dir, "#F8FAFC");
+        mpx(ctx, ox, oy, 6, hy + 1, 1, 1, dir, "#1E293B");
+        mpx(ctx, ox, oy, 7, hy + 3, 1, 1, dir, "#F472B6");
+      } else if (m.id === "pig") {
+        // Pink trotting legs
+        mpx(ctx, ox, oy, -5 + stride, -3, 2, 3, dir, "#E27D95");
+        mpx(ctx, ox, oy, 2 - stride, -3, 2, 3, dir, "#CC6981");
+        // Pink blocky body
+        mpx(ctx, ox, oy, -6, -9, 11, 6, dir, "#F4A6B8");
+        mpx(ctx, ox, oy, -5, -9, 9, 2, dir, "#FBCFE8");
+        // Head & snout
+        mpx(ctx, ox, oy, 3, -10, 5, 5, dir, "#F4A6B8");
+        mpx(ctx, ox, oy, 7, -8, 2, 2, dir, "#EC7D99");
+        mpx(ctx, ox, oy, 8, -8, 1, 1, dir, "#9D174D");
+        mpx(ctx, ox, oy, 6, -9, 1, 1, dir, "#1E293B");
+        mpx(ctx, ox, oy, 5, -9, 1, 1, dir, "#FFFFFF");
+      } else if (m.id === "chicken") {
+        const hopping = m.y < MC_GROUND_Y - 1;
+        // Yellow feet
+        mpx(ctx, ox, oy, -2 + stride, -3, 1, 3, dir, "#F59E0B");
+        mpx(ctx, ox, oy, 0 - stride, -3, 1, 3, dir, "#D97706");
+        // Crisp white body + flapping wing
+        mpx(ctx, ox, oy, -4, -7, 7, 4, dir, "#FFFFFF");
+        mpx(ctx, ox, oy, -3, hopping ? -8 : -6, 4, 2, dir, "#E2E8F0");
+        // Head, beak & red wattle
+        mpx(ctx, ox, oy, 1, -10, 3, 4, dir, "#FFFFFF");
+        mpx(ctx, ox, oy, 3, -9, 1, 1, dir, "#0F172A");
+        mpx(ctx, ox, oy, 4, -8, 2, 1, dir, "#F59E0B");
+        mpx(ctx, ox, oy, 4, -7, 1, 2, dir, "#EF4444");
+      } else if (m.id === "golem") {
+        // Tall blocky silver Iron Golem
+        mpx(ctx, ox, oy, -4 + stride, -9, 3, 9, dir, "#94A3B8");
+        mpx(ctx, ox, oy, 1 - stride, -9, 3, 9, dir, "#CBD5E1");
+        // Broad torso + green mossy vines
+        mpx(ctx, ox, oy, -6, -19, 12, 10, dir, "#E2E8F0");
+        mpx(ctx, ox, oy, -5, -18, 10, 8, dir, "#CBD5E1");
+        mpx(ctx, ox, oy, -4, -18, 2, 4, dir, "#22C55E");
+        mpx(ctx, ox, oy, -2, -16, 2, 2, dir, "#16A34A");
+        // Heavy arm holding a red Poppy!
+        mpx(ctx, ox, oy, 3, -18, 3, 11, dir, "#94A3B8");
+        mpx(ctx, ox, oy, 6, -11, 1, 3, dir, "#22C55E");
+        mpx(ctx, ox, oy, 5, -13, 3, 2, dir, "#EF4444");
+        // Golem Head + glowing amber eyes
+        mpx(ctx, ox, oy, -3, -25, 6, 6, dir, "#E2E8F0");
+        mpx(ctx, ox, oy, 1, -23, 2, 1, dir, "#F59E0B");
+        mpx(ctx, ox, oy, 2, -21, 2, 2, dir, "#94A3B8");
+      } else if (m.id === "wolf") {
+        // Wagging tail!
+        const wag = Math.round(Math.sin(t * 14) * 1.4);
+        mpx(ctx, ox, oy, -8, -8 + wag, 3, 2, dir, "#D1D5DB");
+        // Legs
+        mpx(ctx, ox, oy, -5 + stride, -4, 2, 4, dir, "#9CA3AF");
+        mpx(ctx, ox, oy, 2 - stride, -4, 2, 4, dir, "#CBD5E1");
+        // Gray wolf body
+        mpx(ctx, ox, oy, -6, -9, 10, 5, dir, "#E5E7EB");
+        mpx(ctx, ox, oy, -4, -9, 5, 2, dir, "#D1D5DB");
+        // Bright Red Tamed Collar!
+        mpx(ctx, ox, oy, 2, -9, 2, 5, dir, "#EF4444");
+        // Head, ears, snout
+        mpx(ctx, ox, oy, 4, -11, 4, 4, dir, "#E5E7EB");
+        mpx(ctx, ox, oy, 4, -13, 1, 2, dir, "#9CA3AF");
+        mpx(ctx, ox, oy, 6, -13, 1, 2, dir, "#9CA3AF");
+        mpx(ctx, ox, oy, 8, -9, 2, 2, dir, "#9CA3AF");
+        mpx(ctx, ox, oy, 9, -9, 1, 1, dir, "#1E293B");
+        mpx(ctx, ox, oy, 6, -10, 1, 1, dir, "#0F172A");
+      }
+    }
+
+    function stepMcVillage(dt) {
+      mcVillageTime += dt;
+
+      // Drift clouds
+      for (const c of MC_CLOUDS) {
+        c.x += c.speed * dt;
+        if (c.x > MC_W + 10) c.x = -c.w - 8;
+      }
+
+      // Ambient Ender Chest portal sparkles
+      if (Math.random() < dt * 2.4) {
+        spawnMcParticles(257 + (Math.random() - 0.5) * 10, 61, "ender", 1);
+      }
+
+      // Celebratory fireworks when 90-Emerald Wolf goal is unlocked!
+      if (mcVillageState.wolfUnlocked) {
+        mcFireworkCd -= dt;
+        if (mcFireworkCd <= 0) {
+          mcFireworkCd = 3.4 + Math.random() * 2.6;
+          spawnMcParticles(54 + Math.random() * 210, 12 + Math.random() * 20, "firework", 12);
+        }
+      }
+
+      // Update mobs
+      for (const m of mcMobs) {
+        if (!m.active) continue;
+        if (m.showEm && m.showEm > 0) m.showEm = Math.max(0, m.showEm - dt);
+
+        if (m.air) {
+          // Bee flight AI: visits Poppies, Dandelions & Oak Tree Bee Nest!
+          m.timer -= dt;
+          if (m.timer <= 0) {
+            const spots = [
+              { x: 145, y: 49 },
+              { x: 109, y: 58 },
+              { x: 207, y: 58 },
+              { x: 221, y: 57 },
+              { x: 174, y: 36 }
+            ];
+            const pick = spots[Math.floor(Math.random() * spots.length)];
+            m.targetX = pick.x + (Math.random() - 0.5) * 16;
+            m.targetY = pick.y + (Math.random() - 0.5) * 8;
+            m.timer = 2.4 + Math.random() * 2.4;
+          }
+          const dx = m.targetX - m.x;
+          const dy = m.targetY - m.y;
+          if (Math.abs(dx) > 1.5) m.dir = dx >= 0 ? 1 : -1;
+          m.x += Math.max(-m.speed, Math.min(m.speed, dx * 1.4)) * dt;
+          m.y += Math.max(-18, Math.min(18, dy * 1.5)) * dt + Math.sin(mcVillageTime * 5.2) * 0.14;
+          if (m.vy !== 0) {
+            m.y += m.vy * dt;
+            m.vy *= 0.88;
+            if (Math.abs(m.vy) < 1) m.vy = 0;
+          }
+          m.y = Math.max(20, Math.min(62, m.y));
+          m.x = Math.max(m.minX, Math.min(m.maxX, m.x));
+
+          // Drop golden pollen when hovering low near flowers
+          m.pollenCd = (m.pollenCd || 0) - dt;
+          if (m.y > 50 && m.pollenCd <= 0) {
+            m.pollenCd = 0.55 + Math.random() * 0.6;
+            spawnMcParticles(m.x, m.y + 3, "pollen", 1);
+          }
+          continue;
+        }
+
+        // Ground mob AI
+        m.timer -= dt;
+        if (m.timer <= 0) {
+          const r = Math.random();
+          if (m.id === "sheep" && r < 0.28) {
+            m.state = "graze";
+            m.timer = 1.8 + Math.random() * 1.6;
+            spawnMcParticles(m.x + m.dir * 6, MC_GROUND_Y - 1, "grass", 3);
+          } else if (r < 0.32) {
+            m.state = "idle";
+            m.timer = 1.2 + Math.random() * 2.0;
+          } else {
+            m.state = "walk";
+            m.timer = 2.0 + Math.random() * 3.0;
+            if (Math.random() < 0.45) m.dir = -m.dir;
+          }
+        }
+
+        if (m.state === "walk") {
+          m.phase += dt;
+          m.x += m.dir * m.speed * dt;
+          if (m.x <= m.minX) { m.x = m.minX; m.dir = 1; }
+          if (m.x >= m.maxX) { m.x = m.maxX; m.dir = -1; }
+          // Occasional playful mini-hop for chicken or pig
+          if ((m.id === "chicken" || m.id === "pig") && m.y >= MC_GROUND_Y && Math.random() < dt * 0.22) {
+            m.vy = m.id === "chicken" ? -28 : -22;
+          }
+        }
+
+        // Gravity & hop landing
+        if (m.y < MC_GROUND_Y || m.vy < 0) {
+          m.vy += 145 * dt;
+          m.y += m.vy * dt;
+          if (m.y >= MC_GROUND_Y) {
+            m.y = MC_GROUND_Y;
+            m.vy = 0;
+          }
+        }
+      }
+
+      // Update particles
+      for (let i = mcParticles.length - 1; i >= 0; i--) {
+        const p = mcParticles[i];
+        p.life -= dt;
+        if (p.life <= 0) {
+          mcParticles.splice(i, 1);
+          continue;
+        }
+        p.vy += p.grav * dt;
+        p.x += p.vx * dt;
+        p.y += p.vy * dt;
+      }
+    }
+
+    function drawMcVillageFrame() {
+      const canvas = document.getElementById("mc-village-canvas");
+      if (!canvas) return;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return;
+      ctx.imageSmoothingEnabled = false;
+      const dark = isEffectiveDark();
+
+      drawMcScenery(ctx, dark, mcVillageTime);
+
+      // Draw ground mobs first (back to front by height/id), then Bee in the air
+      const drawOrder = ["golem", "villager", "sheep", "wolf", "pig", "chicken", "bee"];
+      for (const id of drawOrder) {
+        const mob = mcMobs.find(m => m.id === id);
+        if (mob) drawMcMob(ctx, mob, mcVillageTime);
+      }
+
+      // Draw pixel particles on top
+      for (const p of mcParticles) {
+        ctx.globalAlpha = Math.max(0.2, Math.min(1, p.life / (p.maxLife || 1)));
+        px(ctx, p.x, p.y, p.sz, p.sz, p.col);
+      }
+      ctx.globalAlpha = 1;
+    }
+
+    function mcVillageTick(ts) {
+      if (!mcVillageLastTs) mcVillageLastTs = ts;
+      const dt = Math.min(0.05, Math.max(0.004, (ts - mcVillageLastTs) / 1000));
+      mcVillageLastTs = ts;
+      stepMcVillage(dt);
+      drawMcVillageFrame();
+      mcVillageRaf = window.requestAnimationFrame(mcVillageTick);
+    }
+
+    function syncMcVillageLoop() {
+      const tradeRad = document.getElementById("sec-rad-trade");
+      const visible = !!(tradeRad && tradeRad.checked) && !document.hidden;
+      if (visible) {
+        if (!mcVillageRaf && typeof window.requestAnimationFrame === "function") {
+          mcVillageLastTs = 0;
+          mcVillageRaf = window.requestAnimationFrame(mcVillageTick);
+        }
+      } else {
+        if (mcVillageRaf && typeof window.cancelAnimationFrame === "function") {
+          window.cancelAnimationFrame(mcVillageRaf);
+        }
+        mcVillageRaf = null;
+      }
+    }
+
+    function initMcVillage() {
+      const canvas = document.getElementById("mc-village-canvas");
+      if (canvas && !canvas.dataset.bound) {
+        canvas.dataset.bound = "1";
+        canvas.addEventListener("click", handleMcVillageTap);
+      }
+      drawMcVillageFrame();
+      syncMcVillageLoop();
     }
 
     /* ==================== WORD LOOKUP, ROOTS & VAULT ==================== */
@@ -7452,6 +8487,7 @@
       updateCoachStatusUI();
       renderEmeraldUI();
       restoreMcTimer();
+      initMcVillage();
 
       const pinInp = document.getElementById("pin-modal-input");
       if (pinInp) {
@@ -7467,8 +8503,12 @@
       }
 
       document.querySelectorAll('input[name="day-nav"], input[name="track-nav"], input[name="sec-nav"]').forEach(inp => {
-        inp.addEventListener("change", () => stopNarration());
+        inp.addEventListener("change", () => {
+          stopNarration();
+          syncMcVillageLoop();
+        });
       });
+      document.addEventListener("visibilitychange", () => syncMcVillageLoop());
 
       document.addEventListener("click", (e) => {
         const tok = e.target.closest ? e.target.closest(".wt") : null;
